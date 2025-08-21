@@ -306,6 +306,14 @@
             z-index: 1000;
             border: 1px solid;
             backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .connection-status.connected {
+            background: rgba(0, 255, 65, 0.2);
+            color: #00FF41;
+            border-color: #00FF41;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
         }
 
         .connection-status.demo {
@@ -315,11 +323,11 @@
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
 
-        .connection-status.connected {
-            background: rgba(0, 255, 65, 0.2);
-            color: #00FF41;
-            border-color: #00FF41;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        .connection-status.connecting {
+            background: rgba(255, 255, 0, 0.2);
+            color: #FFFF44;
+            border-color: #FFFF44;
+            box-shadow: 0 0 20px rgba(255, 255, 0, 0.3);
         }
 
         /* Messages */
@@ -371,6 +379,7 @@
             color: #00FF41;
             font-size: 1.2rem;
             padding: 3rem;
+            grid-column: 1 / -1;
         }
 
         /* Responsive */
@@ -414,8 +423,8 @@
 <body>
     <div class="bg-pattern"></div>
     
-    <div class="connection-status demo" id="connectionStatus">
-        💎 Demo Mode
+    <div class="connection-status" id="connectionStatus" onclick="checkConnection()">
+        🔄 Connecting...
     </div>
 
     <div class="header">
@@ -436,9 +445,9 @@
         </div>
 
         <div class="stats">
-            <div class="stat">Network: <span id="totalMembers">4</span> signatures</div>
-            <div class="stat">Verified: <span id="verifiedCount">1</span></div>
-            <div class="stat"><span id="lastUpdate">11:42:16 PM</span></div>
+            <div class="stat">Network: <span id="totalMembers">0</span> signatures</div>
+            <div class="stat">Verified: <span id="verifiedCount">0</span></div>
+            <div class="stat"><span id="lastUpdate">Ready</span></div>
         </div>
     </div>
 
@@ -454,101 +463,28 @@
     </div>
 
     <script>
-        // Twitter API simulation (since we can't access real Twitter API from frontend)
-        const twitterDatabase = {
-            'elonmusk': {
-                username: '@elonmusk',
-                displayName: 'Elon Musk',
-                verified: true,
-                followers: 224556387,
-                profileImage: 'https://pbs.twimg.com/profile_images/1683325380441128960/yRsRRjGO_400x400.jpg',
-                description: 'Tesla, SpaceX, Neuralink'
-            },
-            'noxxw3': {
-                username: '@NoxxW3',
-                displayName: 'NoxxW3',
-                verified: false,
-                followers: 12450,
-                profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face',
-                description: 'Web3 Developer'
-            },
-            'lyronctk': {
-                username: '@lyronctk',
-                displayName: 'Lyron CTK',
-                verified: false,
-                followers: 8932,
-                profileImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
-                description: 'Crypto Trader'
-            },
-            'xealistt': {
-                username: '@xealistt',
-                displayName: 'Xealist',
-                verified: false,
-                followers: 15670,
-                profileImage: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop&crop=face',
-                description: 'DeFi Expert'
-            }
-        };
-
-        // Initial members from your backend
-        let members = [
-            {
-                id: 1,
-                username: '@elonmusk',
-                displayName: 'Elon Musk',
-                role: 'guest',
-                verified: true,
-                followers: 224556387,
-                profileImage: 'https://pbs.twimg.com/profile_images/1683325380441128960/yRsRRjGO_400x400.jpg',
-                description: 'Tesla, SpaceX, Neuralink',
-                createdAt: '2025-08-21 14:14:20'
-            },
-            {
-                id: 2,
-                username: '@NoxxW3',
-                displayName: 'NoxxW3',
-                role: 'member',
-                verified: false,
-                followers: 12450,
-                profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face',
-                description: 'Web3 Developer',
-                createdAt: '2025-08-21 17:46:53'
-            },
-            {
-                id: 3,
-                username: '@lyronctk',
-                displayName: 'Lyron CTK',
-                role: 'member',
-                verified: false,
-                followers: 8932,
-                profileImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
-                description: 'Crypto Trader',
-                createdAt: '2025-08-21 17:46:53'
-            },
-            {
-                id: 4,
-                username: '@xealistt',
-                displayName: 'Xealist',
-                role: 'member',
-                verified: false,
-                followers: 15670,
-                profileImage: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop&crop=face',
-                description: 'DeFi Expert',
-                createdAt: '2025-08-21 17:46:53'
-            }
+        // Backend configuration
+        const API_ENDPOINTS = [
+            'http://162.250.191.81/api',
+            'https://162.250.191.81/api'
         ];
+        let currentAPIIndex = 0;
+        let backendConnected = false;
+
+        // Global state
+        let members = [];
 
         // DOM elements
         const wall = document.getElementById('wall');
         const handleInput = document.getElementById('handleInput');
         const submitBtn = document.getElementById('submitBtn');
         const messageContainer = document.getElementById('messageContainer');
+        const connectionStatus = document.getElementById('connectionStatus');
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🌊 Seismic Chads Wall - Twitter Search Version');
-            renderMembers();
-            updateStats();
+            console.log('🌊 Seismic Chads Wall - Real Backend Connection');
+            checkConnection();
             
             // Enter key support
             handleInput.addEventListener('keypress', function(e) {
@@ -557,6 +493,147 @@
                 }
             });
         });
+
+        // Connection Management
+        async function checkConnection() {
+            updateConnectionStatus('connecting');
+            
+            for (let i = 0; i < API_ENDPOINTS.length; i++) {
+                const endpoint = API_ENDPOINTS[i];
+                try {
+                    console.log('🔍 Trying endpoint:', endpoint);
+                    
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 5000);
+                    
+                    const response = await fetch(endpoint + '/health', {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' },
+                        mode: 'cors',
+                        signal: controller.signal
+                    });
+
+                    clearTimeout(timeoutId);
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('✅ Backend connected:', data);
+                        
+                        backendConnected = true;
+                        currentAPIIndex = i;
+                        updateConnectionStatus('connected');
+                        
+                        // Load real data from backend
+                        await loadMembers();
+                        return;
+                    }
+                } catch (error) {
+                    console.log(`❌ Failed to connect to ${endpoint}:`, error.message);
+                }
+            }
+
+            // All endpoints failed
+            console.log('❌ All backend endpoints failed, using demo mode');
+            backendConnected = false;
+            updateConnectionStatus('demo');
+            loadDemoData();
+        }
+
+        async function loadMembers() {
+            if (!backendConnected) return;
+
+            try {
+                const endpoint = API_ENDPOINTS[currentAPIIndex];
+                console.log('📡 Loading members from:', endpoint);
+                
+                const response = await fetch(endpoint + '/members', {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                    mode: 'cors'
+                });
+
+                if (response.ok) {
+                    const backendMembers = await response.json();
+                    console.log('👥 Backend members loaded:', backendMembers);
+                    
+                    members = backendMembers;
+                    renderMembers();
+                    updateStats();
+                    showMessage(`✅ Loaded ${members.length} members from backend`, 'success');
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+            } catch (error) {
+                console.error('Failed to load members:', error);
+                showMessage('❌ Failed to load members from backend', 'error');
+                loadDemoData();
+            }
+        }
+
+        function loadDemoData() {
+            // Fallback demo data
+            members = [
+                {
+                    id: 1,
+                    username: '@elonmusk',
+                    displayName: 'Elon Musk',
+                    role: 'guest',
+                    verified: true,
+                    followers: 224556387,
+                    profileImage: 'https://pbs.twimg.com/profile_images/1683325380441128960/yRsRRjGO_400x400.jpg',
+                    description: 'Tesla, SpaceX, Neuralink'
+                },
+                {
+                    id: 2,
+                    username: '@NoxxW3',
+                    displayName: 'NoxxW3',
+                    role: 'member',
+                    verified: false,
+                    followers: 0,
+                    profileImage: null,
+                    description: 'Web3 Developer'
+                },
+                {
+                    id: 3,
+                    username: '@lyronctk',
+                    displayName: 'Lyron CTK',
+                    role: 'member',
+                    verified: false,
+                    followers: 0,
+                    profileImage: null,
+                    description: 'Crypto Trader'
+                },
+                {
+                    id: 4,
+                    username: '@xealistt',
+                    displayName: 'Xealist',
+                    role: 'member',
+                    verified: false,
+                    followers: 0,
+                    profileImage: null,
+                    description: 'DeFi Expert'
+                }
+            ];
+            
+            renderMembers();
+            updateStats();
+        }
+
+        function updateConnectionStatus(status) {
+            connectionStatus.className = `connection-status ${status}`;
+            
+            switch (status) {
+                case 'connected':
+                    connectionStatus.textContent = '🟢 Backend Connected';
+                    break;
+                case 'demo':
+                    connectionStatus.textContent = '💎 Demo Mode';
+                    break;
+                case 'connecting':
+                    connectionStatus.textContent = '🔄 Connecting...';
+                    break;
+            }
+        }
 
         // Add member function
         async function addMember() {
@@ -569,9 +646,10 @@
 
             // Clean handle
             const cleanHandle = handle.replace('@', '').toLowerCase();
+            const cleanUsername = '@' + cleanHandle;
             
             // Check if already exists
-            if (members.find(m => m.username.toLowerCase() === '@' + cleanHandle)) {
+            if (members.find(m => m.username.toLowerCase() === cleanUsername)) {
                 showMessage('This handle is already on the wall!', 'error');
                 return;
             }
@@ -580,62 +658,67 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span class="loading-spinner"></span>Searching...';
 
-            // Simulate API delay
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            if (backendConnected) {
+                // Try to add via backend
+                try {
+                    const endpoint = API_ENDPOINTS[currentAPIIndex];
+                    
+                    const response = await fetch(endpoint + '/submit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            username: cleanUsername,
+                            displayName: capitalizeWords(cleanHandle),
+                            role: 'guest'
+                        }),
+                        mode: 'cors'
+                    });
 
-            // Try to get from Twitter database
-            let userData = twitterDatabase[cleanHandle];
-            
-            if (!userData) {
-                // Generate fake data for new handles
-                userData = {
-                    username: '@' + cleanHandle,
-                    displayName: capitalizeWords(cleanHandle),
-                    verified: Math.random() < 0.1, // 10% chance of verification
-                    followers: Math.floor(Math.random() * 50000) + 100,
-                    profileImage: getRandomProfileImage(),
-                    description: 'Crypto enthusiast'
-                };
+                    if (response.ok) {
+                        const result = await response.json();
+                        console.log('✅ Added to backend:', result);
+                        showMessage(`✅ ${capitalizeWords(cleanHandle)} added to the wall!`, 'success');
+                        handleInput.value = '';
+                        
+                        // Reload members from backend
+                        await loadMembers();
+                        
+                        // Reset button
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = 'Submit';
+                        return;
+                    } else {
+                        const errorData = await response.json().catch(() => ({}));
+                        throw new Error(errorData.error || 'Backend submission failed');
+                    }
+                } catch (error) {
+                    console.error('Backend submission failed:', error);
+                    showMessage(`❌ Backend failed: ${error.message}`, 'error');
+                }
             }
 
-            // Add to members
+            // Fallback: Add to demo data
             const newMember = {
                 id: members.length + 1,
-                username: userData.username,
-                displayName: userData.displayName,
+                username: cleanUsername,
+                displayName: capitalizeWords(cleanHandle),
                 role: 'guest',
-                verified: userData.verified,
-                followers: userData.followers,
-                profileImage: userData.profileImage,
-                description: userData.description,
+                verified: false,
+                followers: Math.floor(Math.random() * 10000),
+                profileImage: null,
+                description: 'Crypto enthusiast',
                 createdAt: new Date().toISOString()
             };
 
             members.push(newMember);
             renderMembers();
             updateStats();
-            
-            showMessage(`✅ ${userData.displayName} added to the wall!`, 'success');
+            showMessage(`✅ ${newMember.displayName} added locally!`, 'success');
             handleInput.value = '';
             
             // Reset button
             submitBtn.disabled = false;
             submitBtn.innerHTML = 'Submit';
-        }
-
-        function getRandomProfileImage() {
-            const photoIds = [
-                '1507003211169-0a1dd7228f2d',
-                '1472099645785-5658abf4ff4e', 
-                '1535713875002-d1d0cf377fde',
-                '1566492404-eaa1a8fa8b5b',
-                '1527980965255-f888f03af5d7',
-                '1519244703995-f4e0f30006d5',
-                '1506794778202-61be64b2f195',
-                '1438761687440-6bfd7c9b0951'
-            ];
-            const randomId = photoIds[Math.floor(Math.random() * photoIds.length)];
-            return `https://images.unsplash.com/photo-${randomId}?w=200&h=200&fit=crop&crop=face`;
         }
 
         function capitalizeWords(str) {
@@ -646,6 +729,11 @@
 
         function renderMembers() {
             wall.innerHTML = '';
+
+            if (members.length === 0) {
+                wall.innerHTML = '<div class="loading-message">No members yet. Be the first to join!</div>';
+                return;
+            }
 
             members.forEach((member, index) => {
                 const memberEl = createMemberElement(member, index);
@@ -658,9 +746,13 @@
             memberEl.className = `member-card ${member.role}`;
             memberEl.style.animationDelay = (index * 0.2) + 's';
 
+            // Use real profile image or fallback
+            const profileImage = member.profileImage || 
+                `https://ui-avatars.com/api/?name=${encodeURIComponent(member.displayName)}&size=200&background=00ff41&color=000000&bold=true`;
+
             memberEl.innerHTML = `
                 <img 
-                    src="${member.profileImage}" 
+                    src="${profileImage}" 
                     alt="${member.displayName}"
                     class="profile-image ${member.verified ? 'verified' : ''}"
                     onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(member.displayName)}&size=200&background=00ff41&color=000000&bold=true';"
@@ -695,12 +787,12 @@
         }
 
         console.log(`
-🌊 SEISMIC CHADS WALL - TWITTER SEARCH VERSION
+🌊 SEISMIC CHADS WALL - REAL BACKEND VERSION
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🚀 Frontend: Online
-🐦 Twitter Search: Simulated
-💎 Members: ${members.length}
-🎯 Version: Twitter Search v1.0
+🔗 Backend: Testing connection...
+🐦 Twitter API: Via Backend
+🎯 Version: Real Backend v1.0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         `);
     </script>
