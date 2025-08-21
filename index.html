@@ -128,16 +128,34 @@
             border-radius: 8px;
             font-size: 12px;
             font-weight: 600;
+            transition: all 0.3s ease;
         }
 
         .connected {
             background: rgba(34, 197, 94, 0.2);
             color: #22c55e;
+            animation: pulse 2s infinite;
         }
 
         .disconnected {
             background: rgba(239, 68, 68, 0.2);
             color: #ef4444;
+        }
+
+        .connecting {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.5; }
         }
 
         .wall-container {
@@ -229,6 +247,18 @@
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
+            transition: opacity 0.3s ease;
+        }
+
+        .avatar .initial {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            z-index: 1;
         }
 
         .avatar.founder { background: linear-gradient(45deg, #fbbf24, #f59e0b); }
@@ -441,7 +471,7 @@
             <div class="controls">
                 <div class="stats">
                     <div>Members: <span id="memberCount">0</span></div>
-                    <div class="connection-status" id="connectionStatus">Connecting...</div>
+                    <div class="connection-status connecting" id="connectionStatus">Connecting...</div>
                 </div>
                 
                 <button class="submit-btn" onclick="showSubmitForm()">
@@ -491,40 +521,80 @@
     </div>
 
     <script>
-        // Your backend API URL
-        const API_BASE = 'http://162.250.191.81/api';
+        // Multiple API endpoints to try
+        const API_ENDPOINTS = [
+            'http://162.250.191.81/api',
+            'http://162.250.191.81:3001/api'
+        ];
         
-        // Global state
+        let API_BASE = API_ENDPOINTS[0];
         let members = [];
         let isBackendConnected = false;
 
         // Initialize the wall
         document.addEventListener('DOMContentLoaded', function() {
-            loadMembers();
-            setupAutoRefresh();
+            testConnection();
         });
+
+        // Test connection to backend
+        async function testConnection() {
+            updateConnectionStatus('connecting');
+            
+            for (let endpoint of API_ENDPOINTS) {
+                try {
+                    console.log(`Testing connection to: ${endpoint}`);
+                    const response = await fetch(`${endpoint}/health`, {
+                        method: 'GET',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('Connection successful:', data);
+                        API_BASE = endpoint;
+                        isBackendConnected = true;
+                        updateConnectionStatus('connected');
+                        await loadMembers();
+                        return;
+                    }
+                } catch (error) {
+                    console.error(`Failed to connect to ${endpoint}:`, error);
+                }
+            }
+            
+            // If all endpoints fail, use demo data
+            console.log('All endpoints failed, using demo data');
+            updateConnectionStatus('disconnected');
+            loadDemoData();
+            generateWall();
+            updateMemberCount();
+        }
 
         // Load members from backend
         async function loadMembers() {
+            if (!isBackendConnected) return;
+            
             try {
                 const response = await fetch(`${API_BASE}/members`);
                 if (response.ok) {
                     members = await response.json();
-                    isBackendConnected = true;
-                    updateConnectionStatus('connected');
                     console.log('Loaded members from backend:', members.length);
+                    generateWall();
+                    updateMemberCount();
+                    setupAutoRefresh();
                 } else {
-                    throw new Error('Backend not responding');
+                    throw new Error('Failed to load members');
                 }
             } catch (error) {
                 console.error('Error loading members:', error);
-                // Load demo data if backend is not available
                 loadDemoData();
-                updateConnectionStatus('disconnected');
+                generateWall();
+                updateMemberCount();
             }
-            
-            generateWall();
-            updateMemberCount();
         }
 
         // Load demo data for testing
@@ -535,7 +605,7 @@
                     username: '@elonmusk',
                     displayName: 'Elon Musk',
                     role: 'guest',
-                    verified: true,
+                    verified: 1,
                     followers: 224556387,
                     profileImage: 'https://pbs.twimg.com/profile_images/1936002956333080576/kqqe2iWO_400x400.jpg'
                 },
@@ -544,7 +614,7 @@
                     username: '@aabis_seismic',
                     displayName: 'Aabis Chad',
                     role: 'founder',
-                    verified: true,
+                    verified: 1,
                     followers: 1500,
                     profileImage: null
                 },
@@ -553,7 +623,7 @@
                     username: '@sarah_earthquake',
                     displayName: 'Dr. Sarah',
                     role: 'moderator',
-                    verified: true,
+                    verified: 1,
                     followers: 5200,
                     profileImage: null
                 },
@@ -562,7 +632,7 @@
                     username: '@marcus_tremor',
                     displayName: 'Marcus Geo',
                     role: 'member',
-                    verified: false,
+                    verified: 0,
                     followers: 890,
                     profileImage: null
                 }
@@ -592,7 +662,7 @@
                 username: `@chad${index + 1}`,
                 displayName: `Seismic Chad ${index + 1}`,
                 role: 'guest',
-                verified: false,
+                verified: 0,
                 followers: Math.floor(Math.random() * 1000),
                 profileImage: null
             };
@@ -606,11 +676,17 @@
             const roleClass = `avatar ${member.role}`;
             const verifiedBadge = member.verified ? '<div class="badge verified">✓</div>' : '';
             
-            // Use profile image if available, otherwise show initial
-            const avatarContent = member.profileImage ? 
-                `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                 <div style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-size:24px; font-weight:bold;">${member.displayName.charAt(0)}</div>` :
-                member.displayName.charAt(0).toUpperCase();
+            // Create avatar with better image handling
+            const initial = member.displayName.charAt(0).toUpperCase();
+            let avatarContent = `<div class="initial">${initial}</div>`;
+            
+            if (member.profileImage) {
+                avatarContent += `<img src="${member.profileImage}" 
+                    alt="${member.displayName}" 
+                    onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';" 
+                    onerror="this.style.display='none';" 
+                    style="opacity:0;">`;
+            }
             
             const followersText = member.followers > 0 ? 
                 `<div class="followers">${formatNumber(member.followers)} followers</div>` : '';
@@ -647,12 +723,13 @@
         // Show member details
         function showMemberDetails(member) {
             const details = `
-                ${member.displayName}
-                ${member.username}
-                Role: ${member.role}
-                ${member.verified ? '✓ Verified' : ''}
-                ${member.followers > 0 ? `${formatNumber(member.followers)} followers` : ''}
-            `;
+${member.displayName}
+${member.username}
+Role: ${member.role}
+${member.verified ? '✓ Verified' : ''}
+${member.followers > 0 ? `${formatNumber(member.followers)} followers` : ''}
+${isBackendConnected ? '\n🟢 Live from backend' : '\n🔴 Demo data'}
+            `.trim();
             alert(details);
         }
 
@@ -669,6 +746,11 @@
         document.getElementById('submitForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            if (!isBackendConnected) {
+                alert('Backend not connected. Please try again later or contact the administrator.');
+                return;
+            }
+            
             const submitBtn = document.getElementById('submitBtn');
             const originalText = submitBtn.textContent;
             
@@ -682,6 +764,7 @@
             try {
                 const response = await fetch(`${API_BASE}/submit`, {
                     method: 'POST',
+                    mode: 'cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         username: username,
@@ -701,14 +784,14 @@
                     document.getElementById('submitForm').reset();
                     hideSubmitForm();
                     
-                    alert(`Welcome to the Seismic Chads Wall, ${displayName}! 🌊`);
+                    alert(`Welcome to the Seismic Chads Wall, ${displayName}! 🌊\n\nYour profile has been added with Twitter data!`);
                 } else {
                     const error = await response.json();
                     throw new Error(error.error || 'Failed to add member');
                 }
             } catch (error) {
                 console.error('Error submitting member:', error);
-                alert('Error: ' + error.message);
+                alert('Error: ' + error.message + '\n\nPlease make sure your Twitter handle is valid.');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
@@ -721,6 +804,9 @@
             if (status === 'connected') {
                 statusElement.textContent = '🟢 Connected';
                 statusElement.className = 'connection-status connected';
+            } else if (status === 'connecting') {
+                statusElement.textContent = '🟡 Connecting...';
+                statusElement.className = 'connection-status connecting';
             } else {
                 statusElement.textContent = '🔴 Demo Mode';
                 statusElement.className = 'connection-status disconnected';
@@ -744,37 +830,4 @@
                                 members = newMembers;
                                 generateWall();
                                 updateMemberCount();
-                                console.log('Wall updated with new members');
-                            }
-                        }
-                    } catch (error) {
-                        console.error('Auto-refresh failed:', error);
-                    }
-                }
-            }, 30000);
-        }
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            generateWall();
-        });
-
-        // Add some dynamic effects
-        setInterval(() => {
-            const cards = document.querySelectorAll('.profile-card');
-            const randomCard = cards[Math.floor(Math.random() * cards.length)];
-            if (randomCard) {
-                randomCard.style.transform = 'scale(1.1) translateY(-15px)';
-                setTimeout(() => {
-                    randomCard.style.transform = '';
-                }, 1000);
-            }
-        }, 5000);
-
-        // Console message for developers
-        console.log('🌊 Seismic Chads Wall loaded!');
-        console.log('Backend API:', API_BASE);
-        console.log('Source: https://github.com/yourusername/seismic-chads-wall');
-    </script>
-</body>
-</html>
+                                console.
