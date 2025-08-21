@@ -122,13 +122,6 @@
             box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
         }
 
-        .connection-status.disconnected {
-            background: rgba(255, 0, 0, 0.2);
-            color: #ff4444;
-            border-color: #ff4444;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-        }
-
         .connection-status.demo {
             background: rgba(255, 215, 0, 0.2);
             color: #ffd700;
@@ -411,21 +404,6 @@
             cursor: not-allowed;
         }
 
-        .loading-spinner {
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            border: 2px solid rgba(0, 255, 65, 0.3);
-            border-radius: 50%;
-            border-top-color: #00ff41;
-            animation: spin 1s linear infinite;
-            margin-right: 0.5rem;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
         .success-message {
             background: rgba(0, 255, 65, 0.2);
             color: #00ff41;
@@ -447,6 +425,21 @@
             text-align: center;
             color: #00ff41;
             font-size: 1.1rem;
+        }
+
+        /* Backend Status */
+        .backend-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #00ff41;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-family: monospace;
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            max-width: 300px;
         }
 
         /* Responsive */
@@ -481,14 +474,18 @@
             .stats {
                 gap: 1rem;
             }
+
+            .backend-status {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
     <div class="matrix-bg"></div>
     
-    <div class="connection-status demo" id="connectionStatus">
-        💎 Demo Mode
+    <div class="connection-status" id="connectionStatus" onclick="checkBackendConnection()">
+        🔄 Checking...
     </div>
 
     <div class="header">
@@ -541,9 +538,23 @@
         </div>
     </div>
 
+    <div class="backend-status" id="backendStatus">
+        Backend: Initializing...<br>
+        Status: <span id="statusText">Checking connection</span><br>
+        API: <span id="apiEndpoint">Testing endpoints</span>
+    </div>
+
     <script>
-        // Demo data with your backend members
-        const members = [
+        // API Configuration
+        const API_ENDPOINTS = [
+            'https://162.250.191.81/api',  // Try HTTPS first
+            'http://162.250.191.81/api'    // Fallback to HTTP
+        ];
+        let currentAPIIndex = 0;
+        let backendConnected = false;
+
+        // Demo data with working profile photos
+        let members = [
             {
                 id: 1,
                 username: '@elonmusk',
@@ -551,8 +562,8 @@
                 role: 'guest',
                 verified: true,
                 followers: 224556387,
-                profileImage: 'https://pbs.twimg.com/profile_images/1936002956333080576/kqqe2iWO_400x400.jpg',
-                description: '',
+                profileImage: 'https://pbs.twimg.com/profile_images/1683325380441128960/yRsRRjGO_400x400.jpg',
+                description: 'Tesla, SpaceX, Neuralink',
                 createdAt: '2025-08-21 14:14:20'
             },
             {
@@ -562,8 +573,8 @@
                 role: 'member',
                 verified: false,
                 followers: 0,
-                profileImage: 'https://ui-avatars.com/api/?name=NoxxW3&size=120&background=00ff41&color=000000&bold=true',
-                description: '',
+                profileImage: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&h=120&fit=crop&crop=face',
+                description: 'Web3 Developer',
                 createdAt: '2025-08-21 17:46:53'
             },
             {
@@ -573,8 +584,8 @@
                 role: 'member',
                 verified: false,
                 followers: 0,
-                profileImage: 'https://ui-avatars.com/api/?name=Lyron+CTK&size=120&background=00ff41&color=000000&bold=true',
-                description: '',
+                profileImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face',
+                description: 'Crypto Trader',
                 createdAt: '2025-08-21 17:46:53'
             },
             {
@@ -584,8 +595,8 @@
                 role: 'member',
                 verified: false,
                 followers: 0,
-                profileImage: 'https://ui-avatars.com/api/?name=Xealist&size=120&background=00ff41&color=000000&bold=true',
-                description: '',
+                profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=face',
+                description: 'DeFi Expert',
                 createdAt: '2025-08-21 17:46:53'
             }
         ];
@@ -600,13 +611,16 @@
         const memberForm = document.getElementById('memberForm');
         const submitBtn = document.getElementById('submitBtn');
         const submitMessage = document.getElementById('submitMessage');
+        const connectionStatus = document.getElementById('connectionStatus');
+        const backendStatus = document.getElementById('backendStatus');
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🌊 Seismic Chads Wall - Demo Mode');
+            console.log('🌊 Seismic Chads Wall - Initializing...');
             setupEventListeners();
             renderMembers();
             updateStats();
+            checkBackendConnection();
         });
 
         // Event Listeners
@@ -620,6 +634,120 @@
                     toggleForm();
                 }
             });
+        }
+
+        // Backend Connection
+        async function checkBackendConnection() {
+            updateConnectionStatus('checking');
+            updateBackendStatus('Checking connection...', 'Testing endpoints');
+
+            for (let i = 0; i < API_ENDPOINTS.length; i++) {
+                const endpoint = API_ENDPOINTS[i];
+                try {
+                    updateBackendStatus('Checking connection...', `Trying ${endpoint}`);
+                    
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 5000);
+                    
+                    const response = await fetch(endpoint + '/health', {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' },
+                        mode: 'cors',
+                        signal: controller.signal
+                    });
+
+                    clearTimeout(timeoutId);
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('✅ Backend connected:', data);
+                        
+                        backendConnected = true;
+                        currentAPIIndex = i;
+                        updateConnectionStatus('connected');
+                        updateBackendStatus('Connected', endpoint);
+                        
+                        // Load real data from backend
+                        await loadMembersFromBackend();
+                        return;
+                    }
+                } catch (error) {
+                    console.log(`❌ Failed to connect to ${endpoint}:`, error.message);
+                }
+            }
+
+            // All endpoints failed
+            backendConnected = false;
+            updateConnectionStatus('demo');
+            updateBackendStatus('Offline - Using demo data', 'Backend unreachable');
+        }
+
+        async function loadMembersFromBackend() {
+            if (!backendConnected) return;
+
+            try {
+                const endpoint = API_ENDPOINTS[currentAPIIndex];
+                const response = await fetch(endpoint + '/members', {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                    mode: 'cors'
+                });
+
+                if (response.ok) {
+                    const backendMembers = await response.json();
+                    console.log('📥 Loaded members from backend:', backendMembers.length);
+                    
+                    // Merge backend data with demo data (add working profile images)
+                    members = backendMembers.map(member => ({
+                        ...member,
+                        profileImage: member.profileImage || getProfileImage(member.username, member.displayName)
+                    }));
+                    
+                    renderMembers();
+                    updateStats();
+                    updateBackendStatus('Connected & Synced', `${members.length} members loaded`);
+                }
+            } catch (error) {
+                console.error('Failed to load members:', error);
+                updateBackendStatus('Connected but sync failed', 'Using demo data');
+            }
+        }
+
+        function getProfileImage(username, displayName) {
+            // Generate working profile images
+            const seed = username.replace('@', '');
+            return `https://images.unsplash.com/photo-${1500000000 + Math.abs(hashCode(seed)) % 100000000}?w=120&h=120&fit=crop&crop=face`;
+        }
+
+        function hashCode(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convert to 32bit integer
+            }
+            return hash;
+        }
+
+        function updateConnectionStatus(status) {
+            connectionStatus.className = `connection-status ${status}`;
+            
+            switch (status) {
+                case 'connected':
+                    connectionStatus.textContent = '🟢 On music';
+                    break;
+                case 'demo':
+                    connectionStatus.textContent = '💎 Demo Mode';
+                    break;
+                case 'checking':
+                    connectionStatus.textContent = '🔄 Checking...';
+                    break;
+            }
+        }
+
+        function updateBackendStatus(status, details) {
+            document.getElementById('statusText').textContent = status;
+            document.getElementById('apiEndpoint').textContent = details;
         }
 
         // Rendering
@@ -694,7 +822,7 @@
             }
         }
 
-        function handleSubmit(e) {
+        async function handleSubmit(e) {
             e.preventDefault();
             
             const formData = new FormData(memberForm);
@@ -709,15 +837,45 @@
                 return;
             }
 
-            // Add to demo data
+            // Clean username
+            const cleanUsername = data.username.startsWith('@') ? data.username : '@' + data.username;
+
+            // Try backend first if connected
+            if (backendConnected) {
+                try {
+                    const endpoint = API_ENDPOINTS[currentAPIIndex];
+                    const response = await fetch(endpoint + '/submit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data),
+                        mode: 'cors'
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        console.log('✅ Added to backend:', result);
+                        showSuccess('Added to live backend! 🎉');
+                        memberForm.reset();
+                        setTimeout(() => {
+                            loadMembersFromBackend();
+                            toggleForm();
+                        }, 1500);
+                        return;
+                    }
+                } catch (error) {
+                    console.error('Backend submit failed:', error);
+                }
+            }
+
+            // Fallback: Add to demo data
             const newMember = {
                 id: members.length + 1,
-                username: data.username.startsWith('@') ? data.username : '@' + data.username,
+                username: cleanUsername,
                 displayName: data.displayName,
                 role: data.role,
                 verified: false,
                 followers: 0,
-                profileImage: `https://ui-avatars.com/api/?name=${encodeURIComponent(data.displayName)}&size=120&background=00ff41&color=000000&bold=true`,
+                profileImage: getProfileImage(cleanUsername, data.displayName),
                 description: '',
                 createdAt: new Date().toISOString()
             };
@@ -725,7 +883,7 @@
             members.push(newMember);
             renderMembers();
             updateStats();
-            showSuccess('Added to demo wall! 🎉');
+            showSuccess(backendConnected ? 'Added locally (backend sync failed)' : 'Added to demo wall! 🎉');
             memberForm.reset();
             setTimeout(toggleForm, 1500);
         }
@@ -793,11 +951,12 @@
         createMatrixEffect();
 
         console.log(`
-🌊 SEISMIC CHADS WALL - DEMO MODE
+🌊 SEISMIC CHADS WALL
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🚀 Frontend: Online
-💎 Mode: Demo (showing your backend data)
-🎯 Members: ${members.length}
+🔗 Backend: Checking connection...
+💎 Members: ${members.length}
+🎯 Version: Fixed v2.0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         `);
     </script>
