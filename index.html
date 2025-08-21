@@ -13,61 +13,74 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #0a0a0a;
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden;
             position: relative;
         }
 
-        /* Animated Background */
-        body::before {
-            content: '';
+        /* Animated Matrix-like Background */
+        .matrix-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
-            animation: backgroundShift 20s ease-in-out infinite;
-            z-index: -1;
+            background: radial-gradient(circle at center, #001122 0%, #000000 70%);
+            z-index: -2;
         }
 
-        @keyframes backgroundShift {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.1) rotate(180deg); }
+        .matrix-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #00ff41, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(0, 255, 65, 0.3), transparent),
+                radial-gradient(1px 1px at 90px 40px, #00ff41, transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(0, 255, 65, 0.3), transparent);
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            animation: matrixMove 20s linear infinite;
+            opacity: 0.1;
+        }
+
+        @keyframes matrixMove {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-200px); }
         }
 
         /* Header */
         .header {
-            text-align: center;
-            padding: 2rem 1rem;
             position: relative;
             z-index: 10;
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
         }
 
         .title {
-            font-size: 3.5rem;
+            font-size: 2rem;
             font-weight: 800;
-            background: linear-gradient(45deg, #fff, #f0f9ff, #e0e7ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #00ff41;
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-            animation: titleGlow 3s ease-in-out infinite alternate;
+            text-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
         }
 
-        @keyframes titleGlow {
-            0% { filter: brightness(1) drop-shadow(0 0 20px rgba(255, 255, 255, 0.3)); }
-            100% { filter: brightness(1.2) drop-shadow(0 0 40px rgba(255, 255, 255, 0.6)); }
+        @keyframes glow {
+            0% { text-shadow: 0 0 20px rgba(0, 255, 65, 0.5); }
+            100% { text-shadow: 0 0 30px rgba(0, 255, 65, 0.8), 0 0 40px rgba(0, 255, 65, 0.3); }
         }
 
         .subtitle {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(0, 255, 65, 0.7);
+            font-size: 0.9rem;
             margin-bottom: 1rem;
         }
 
@@ -75,18 +88,17 @@
             display: flex;
             justify-content: center;
             gap: 2rem;
-            margin-top: 1rem;
             flex-wrap: wrap;
         }
 
         .stat {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 0.75rem 1.5rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            color: #00ff41;
             font-weight: 600;
+            font-size: 0.85rem;
         }
 
         .connection-status {
@@ -99,235 +111,232 @@
             font-weight: 600;
             z-index: 1000;
             transition: all 0.3s ease;
+            border: 1px solid;
         }
 
         .connection-status.connected {
-            background: rgba(34, 197, 94, 0.9);
-            color: white;
-            box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+            background: rgba(0, 255, 65, 0.2);
+            color: #00ff41;
+            border-color: #00ff41;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
         }
 
         .connection-status.disconnected {
-            background: rgba(239, 68, 68, 0.9);
-            color: white;
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff4444;
+            border-color: #ff4444;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
         }
 
         .connection-status.connecting {
-            background: rgba(251, 191, 36, 0.9);
-            color: white;
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+            background: rgba(255, 255, 0, 0.2);
+            color: #ffff44;
+            border-color: #ffff44;
+            box-shadow: 0 0 20px rgba(255, 255, 0, 0.3);
         }
 
         /* Wall Container */
         .wall {
             position: relative;
-            min-height: 80vh;
-            padding: 2rem;
+            width: 100vw;
+            height: calc(100vh - 120px);
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        /* Neural Network Entities (Profile Cards) */
+        .neural-entity {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: rgba(0, 255, 65, 0.1);
+            border: 2px solid rgba(0, 255, 65, 0.3);
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
             overflow: hidden;
         }
 
-        /* Member Cards */
-        .member {
-            position: absolute;
-            width: 280px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 1.5rem;
+        .neural-entity:hover {
+            transform: scale(1.2) rotateY(10deg);
+            border-color: #00ff41;
+            background: rgba(0, 255, 65, 0.2);
             box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.1),
-                0 0 0 1px rgba(255, 255, 255, 0.2);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            border: 2px solid transparent;
+                0 0 30px rgba(0, 255, 65, 0.4),
+                inset 0 0 20px rgba(0, 255, 65, 0.1);
+            z-index: 100;
         }
 
-        .member:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 
-                0 30px 60px rgba(0, 0, 0, 0.15),
-                0 0 0 1px rgba(255, 255, 255, 0.3);
-            border-color: rgba(118, 75, 162, 0.3);
+        .neural-entity.founder {
+            border-color: rgba(255, 215, 0, 0.5);
+            background: rgba(255, 215, 0, 0.1);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
         }
 
-        .member.founder {
+        .neural-entity.founder:hover {
             border-color: #ffd700;
-            box-shadow: 
-                0 20px 40px rgba(255, 215, 0, 0.2),
-                0 0 30px rgba(255, 215, 0, 0.1);
+            background: rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
         }
 
-        .member.moderator {
-            border-color: #10b981;
-            box-shadow: 
-                0 20px 40px rgba(16, 185, 129, 0.2),
-                0 0 30px rgba(16, 185, 129, 0.1);
+        .neural-entity.moderator {
+            border-color: rgba(0, 191, 255, 0.5);
+            background: rgba(0, 191, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.2);
         }
 
-        .member.member {
-            border-color: #3b82f6;
-            box-shadow: 
-                0 20px 40px rgba(59, 130, 246, 0.2),
-                0 0 30px rgba(59, 130, 246, 0.1);
-        }
-
-        .member-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+        .neural-entity.moderator:hover {
+            border-color: #00bfff;
+            background: rgba(0, 191, 255, 0.2);
+            box-shadow: 0 0 40px rgba(0, 191, 255, 0.4);
         }
 
         .profile-image {
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            border: 3px solid #e5e7eb;
+            border: 2px solid rgba(0, 255, 65, 0.5);
             object-fit: cover;
             transition: all 0.3s ease;
-            background: linear-gradient(45deg, #f3f4f6, #e5e7eb);
+            background: linear-gradient(45deg, rgba(0, 255, 65, 0.2), rgba(0, 255, 65, 0.1));
+            margin-bottom: 6px;
         }
 
         .profile-image:hover {
-            transform: scale(1.1);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: #00ff41;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
         }
 
         .profile-image.verified {
-            border-color: #1d4ed8;
-            box-shadow: 0 0 20px rgba(29, 78, 216, 0.3);
+            border-color: #00bfff;
+            box-shadow: 0 0 15px rgba(0, 191, 255, 0.4);
         }
 
-        .profile-image.loading {
-            background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
+        .entity-info {
+            text-align: center;
+            color: #00ff41;
         }
 
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+        .entity-name {
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
         }
 
-        .member-info h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 0.25rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .entity-username {
+            font-size: 0.6rem;
+            color: rgba(0, 255, 65, 0.7);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
         }
 
         .verified-badge {
-            color: #1d4ed8;
-            font-size: 1rem;
+            color: #00bfff;
+            margin-left: 2px;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.7);
         }
 
-        .member-info .username {
-            color: #6b7280;
-            font-size: 0.9rem;
-            font-weight: 500;
+        /* Floating Animation */
+        @keyframes float {
+            0% { 
+                transform: translateY(0px) translateX(0px) rotate(0deg); 
+            }
+            25% { 
+                transform: translateY(-20px) translateX(10px) rotate(2deg); 
+            }
+            50% { 
+                transform: translateY(-10px) translateX(-5px) rotate(-1deg); 
+            }
+            75% { 
+                transform: translateY(-15px) translateX(8px) rotate(1deg); 
+            }
+            100% { 
+                transform: translateY(0px) translateX(0px) rotate(0deg); 
+            }
         }
 
-        .member-details {
-            margin-top: 1rem;
+        @keyframes drift {
+            0% { transform: translateX(0px); }
+            50% { transform: translateX(30px); }
+            100% { transform: translateX(0px); }
         }
 
-        .role-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.75rem;
+        .neural-entity {
+            animation: float 8s ease-in-out infinite;
         }
 
-        .role-badge.founder {
-            background: linear-gradient(45deg, #ffd700, #ffed4e);
-            color: #92400e;
+        .neural-entity:nth-child(2n) {
+            animation: float 10s ease-in-out infinite reverse;
+            animation-delay: -2s;
         }
 
-        .role-badge.moderator {
-            background: linear-gradient(45deg, #10b981, #34d399);
-            color: white;
+        .neural-entity:nth-child(3n) {
+            animation: drift 12s ease-in-out infinite;
+            animation-delay: -4s;
         }
 
-        .role-badge.member {
-            background: linear-gradient(45deg, #3b82f6, #60a5fa);
-            color: white;
-        }
-
-        .role-badge.guest {
-            background: linear-gradient(45deg, #6b7280, #9ca3af);
-            color: white;
-        }
-
-        .followers {
-            color: #6b7280;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .description {
-            color: #4b5563;
-            font-size: 0.85rem;
-            line-height: 1.4;
-            margin-top: 0.5rem;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
+        .neural-entity:nth-child(4n) {
+            animation: float 6s ease-in-out infinite, drift 15s ease-in-out infinite;
+            animation-delay: -1s, -3s;
         }
 
         /* Submit Form */
         .submit-section {
             position: fixed;
             bottom: 30px;
-            right: 30px;
+            left: 30px;
             z-index: 1000;
         }
 
         .submit-toggle {
             width: 60px;
             height: 60px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            border: none;
-            border-radius: 50%;
-            color: white;
+            background: rgba(0, 255, 65, 0.2);
+            border: 2px solid #00ff41;
+            border-radius: 8px;
+            color: #00ff41;
             font-size: 1.5rem;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(118, 75, 162, 0.4);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(10px);
         }
 
         .submit-toggle:hover {
+            background: rgba(0, 255, 65, 0.3);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
             transform: scale(1.1);
-            box-shadow: 0 15px 40px rgba(118, 75, 162, 0.6);
         }
 
         .submit-form {
             position: absolute;
             bottom: 80px;
-            right: 0;
-            width: 320px;
-            background: rgba(255, 255, 255, 0.95);
+            left: 0;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.1),
-                0 0 0 1px rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
             transform: translateY(20px) scale(0.9);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
         }
 
         .submit-form.active {
@@ -337,11 +346,12 @@
         }
 
         .submit-form h3 {
-            color: #1f2937;
-            font-size: 1.3rem;
+            color: #00ff41;
+            font-size: 1.1rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             text-align: center;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
         }
 
         .form-group {
@@ -350,8 +360,8 @@
 
         .form-group label {
             display: block;
-            color: #374151;
-            font-size: 0.9rem;
+            color: rgba(0, 255, 65, 0.8);
+            font-size: 0.8rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
         }
@@ -359,54 +369,55 @@
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 0.75rem 1rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            font-size: 0.95rem;
+            padding: 0.7rem;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.5);
+            color: #00ff41;
             transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.8);
         }
 
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            background: white;
+            border-color: #00ff41;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+            background: rgba(0, 0, 0, 0.8);
         }
 
         .submit-btn {
             width: 100%;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 0.875rem 1.5rem;
-            border-radius: 12px;
-            font-size: 1rem;
+            background: rgba(0, 255, 65, 0.2);
+            color: #00ff41;
+            border: 1px solid #00ff41;
+            padding: 0.8rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 0.5rem;
         }
 
         .submit-btn:hover:not(:disabled) {
+            background: rgba(0, 255, 65, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(118, 75, 162, 0.4);
         }
 
         .submit-btn:disabled {
-            opacity: 0.6;
+            opacity: 0.5;
             cursor: not-allowed;
         }
 
         .loading-spinner {
             display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(0, 255, 65, 0.3);
             border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
+            border-top-color: #00ff41;
+            animation: spin 1s linear infinite;
             margin-right: 0.5rem;
         }
 
@@ -415,107 +426,35 @@
         }
 
         .error-message {
-            background: rgba(239, 68, 68, 0.1);
-            color: #dc2626;
-            padding: 0.75rem;
-            border-radius: 8px;
-            font-size: 0.85rem;
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff4444;
+            padding: 0.7rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
             margin-top: 0.5rem;
-            border: 1px solid rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.3);
         }
 
         .success-message {
-            background: rgba(34, 197, 94, 0.1);
-            color: #16a34a;
-            padding: 0.75rem;
-            border-radius: 8px;
-            font-size: 0.85rem;
+            background: rgba(0, 255, 65, 0.2);
+            color: #00ff41;
+            padding: 0.7rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
             margin-top: 0.5rem;
-            border: 1px solid rgba(34, 197, 94, 0.2);
+            border: 1px solid rgba(0, 255, 65, 0.3);
         }
 
-        /* Floating Animation */
-        @keyframes float {
-            0%, 100% { 
-                transform: translateY(0px) rotate(0deg); 
-            }
-            25% { 
-                transform: translateY(-20px) rotate(1deg); 
-            }
-            50% { 
-                transform: translateY(-10px) rotate(0deg); 
-            }
-            75% { 
-                transform: translateY(-15px) rotate(-1deg); 
-            }
-        }
-
-        .member {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .member:nth-child(even) {
-            animation-delay: -3s;
-            animation-duration: 8s;
-        }
-
-        .member:nth-child(3n) {
-            animation-delay: -1.5s;
-            animation-duration: 7s;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .title {
-                font-size: 2.5rem;
-            }
-
-            .member {
-                width: calc(100vw - 4rem);
-                position: relative;
-                margin-bottom: 1rem;
-                animation: none;
-            }
-
-            .wall {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 1rem;
-            }
-
-            .submit-section {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-            }
-
-            .submit-form {
-                width: calc(100vw - 40px);
-                right: -120px;
-            }
-
-            .stats {
-                gap: 1rem;
-            }
-
-            .stat {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Loading States */
+        /* Loading State */
         .wall.loading {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 60vh;
         }
 
         .loading-message {
             text-align: center;
-            color: rgba(255, 255, 255, 0.9);
+            color: #00ff41;
             font-size: 1.1rem;
         }
 
@@ -523,47 +462,67 @@
             display: inline-block;
             width: 20px;
             height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(0, 255, 65, 0.3);
             border-radius: 50%;
-            border-top-color: white;
+            border-top-color: #00ff41;
             animation: spin 1s linear infinite;
             margin-right: 0.5rem;
         }
 
-        /* Preview Card */
-        .preview-card {
-            background: rgba(59, 130, 246, 0.1);
-            border: 2px dashed rgba(59, 130, 246, 0.3);
-            color: #3b82f6;
-            margin-top: 1rem;
-            padding: 1rem;
-            border-radius: 12px;
-            font-size: 0.85rem;
-        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .neural-entity {
+                width: 100px;
+                height: 100px;
+                animation: none;
+                position: relative;
+                margin: 10px;
+            }
 
-        .preview-card h4 {
-            margin-bottom: 0.5rem;
-            font-weight: 600;
+            .wall {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 20px;
+                height: auto;
+                min-height: calc(100vh - 120px);
+            }
+
+            .submit-form {
+                width: calc(100vw - 40px);
+                left: -120px;
+            }
+
+            .title {
+                font-size: 1.5rem;
+            }
+
+            .stats {
+                gap: 1rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="matrix-bg"></div>
+    
     <div class="connection-status" id="connectionStatus">
         🔄 Connecting...
     </div>
 
     <div class="header">
         <h1 class="title">🌊 Seismic Chads Wall</h1>
-        <p class="subtitle">The epicenter of digital influence and innovation</p>
+        <p class="subtitle">Submit your X/Discord handle. Join the stable supercycle💎</p>
         <div class="stats">
             <div class="stat">
-                <span id="totalMembers">0</span> Members
+                Network: <span id="totalMembers">0</span> signatures
             </div>
             <div class="stat">
-                <span id="verifiedCount">0</span> Verified
+                Verified: <span id="verifiedCount">0</span>
             </div>
             <div class="stat">
-                <span id="lastUpdate">Never</span>
+                <span id="lastUpdate">Ready</span>
             </div>
         </div>
     </div>
@@ -571,7 +530,7 @@
     <div class="wall" id="wall">
         <div class="loading-message">
             <span class="spinner"></span>
-            Loading the seismic network...
+            Initializing neural entities...
         </div>
     </div>
 
@@ -580,10 +539,10 @@
             ➕
         </button>
         <div class="submit-form" id="submitForm">
-            <h3>Join the Wall</h3>
+            <h3>INJECT</h3>
             <form id="memberForm">
                 <div class="form-group">
-                    <label>Twitter Username</label>
+                    <label>Enter X handle or Discord ID...</label>
                     <input type="text" id="username" placeholder="@yourusername" required>
                 </div>
                 <div class="form-group">
@@ -600,13 +559,9 @@
                     </select>
                 </div>
                 <button type="submit" class="submit-btn" id="submitBtn">
-                    Add to Wall
+                    INJECT
                 </button>
                 <div id="submitMessage"></div>
-                <div class="preview-card" id="previewCard" style="display: none;">
-                    <h4>Preview:</h4>
-                    <div id="previewContent"></div>
-                </div>
             </form>
         </div>
     </div>
@@ -629,8 +584,6 @@
         const memberForm = document.getElementById('memberForm');
         const submitBtn = document.getElementById('submitBtn');
         const submitMessage = document.getElementById('submitMessage');
-        const previewCard = document.getElementById('previewCard');
-        const previewContent = document.getElementById('previewContent');
 
         // Stats elements
         const totalMembersEl = document.getElementById('totalMembers');
@@ -639,7 +592,7 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🌊 Seismic Chads Wall initializing...');
+            console.log('🌊 Neural Network initializing...');
             setupEventListeners();
             checkConnection();
             loadMembers();
@@ -652,11 +605,6 @@
         function setupEventListeners() {
             submitToggle.addEventListener('click', toggleForm);
             memberForm.addEventListener('submit', handleSubmit);
-            
-            // Form inputs for preview
-            document.getElementById('username').addEventListener('input', updatePreview);
-            document.getElementById('displayName').addEventListener('input', updatePreview);
-            document.getElementById('role').addEventListener('change', updatePreview);
 
             // Click outside to close form
             document.addEventListener('click', function(e) {
@@ -669,26 +617,33 @@
         // Connection Management
         async function checkConnection() {
             try {
-                console.log('🔍 Checking connection to:', API_BASE + '/health');
+                console.log('🔍 Checking neural link to:', API_BASE + '/health');
+                
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 10000);
                 
                 const response = await fetch(API_BASE + '/health', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    mode: 'cors'
+                    mode: 'cors',
+                    signal: controller.signal
                 });
+
+                clearTimeout(timeoutId);
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log('✅ Connection successful:', data);
+                    console.log('✅ Neural link established:', data);
                     updateConnectionStatus('connected');
                 } else {
                     throw new Error(`HTTP ${response.status}`);
                 }
             } catch (error) {
-                console.error('❌ Connection failed:', error);
+                console.error('❌ Neural link failed:', error);
                 updateConnectionStatus('disconnected');
+                setTimeout(checkConnection, 5000); // Retry in 5 seconds
             }
         }
 
@@ -698,10 +653,10 @@
             
             switch (status) {
                 case 'connected':
-                    connectionStatusEl.textContent = '🟢 Connected';
+                    connectionStatusEl.textContent = '🟢 On music';
                     break;
                 case 'disconnected':
-                    connectionStatusEl.textContent = '🔴 Disconnected';
+                    connectionStatusEl.textContent = '🔴 Force Sync';
                     break;
                 case 'connecting':
                     connectionStatusEl.textContent = '🔄 Connecting...';
@@ -712,22 +667,28 @@
         // Data Loading
         async function loadMembers() {
             try {
-                console.log('📡 Loading members...');
+                console.log('📡 Loading neural entities...');
+                
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 10000);
                 
                 const response = await fetch(API_BASE + '/members', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    mode: 'cors'
+                    mode: 'cors',
+                    signal: controller.signal
                 });
+
+                clearTimeout(timeoutId);
 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
 
                 const data = await response.json();
-                console.log('👥 Members loaded:', data.length);
+                console.log('👥 Neural entities loaded:', data.length);
                 
                 members = data;
                 renderMembers();
@@ -735,9 +696,11 @@
                 updateConnectionStatus('connected');
                 
             } catch (error) {
-                console.error('❌ Failed to load members:', error);
+                console.error('❌ Failed to load neural entities:', error);
                 updateConnectionStatus('disconnected');
-                showError('Failed to load members. Please check connection.');
+                if (members.length === 0) {
+                    showError('Neural network offline. Attempting reconnection...');
+                }
             }
         }
 
@@ -746,10 +709,10 @@
             if (members.length === 0) {
                 wall.innerHTML = `
                     <div class="loading-message">
-                        <div style="text-align: center; color: rgba(255, 255, 255, 0.8);">
-                            <h3 style="margin-bottom: 1rem;">🏗️ Building the Foundation</h3>
-                            <p>Be the first to join the Seismic Chads Wall!</p>
-                            <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">Click the ➕ button to add yourself</p>
+                        <div style="text-align: center; color: #00ff41;">
+                            <h3 style="margin-bottom: 1rem;">🏗️ Neural Network Empty</h3>
+                            <p>Be the first entity to join the network!</p>
+                            <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">Click INJECT to add yourself</p>
                         </div>
                     </div>
                 `;
@@ -760,67 +723,58 @@
             wall.classList.remove('loading');
 
             members.forEach((member, index) => {
-                const memberEl = createMemberElement(member, index);
-                wall.appendChild(memberEl);
+                const entityEl = createEntityElement(member, index);
+                wall.appendChild(entityEl);
             });
         }
 
-        function createMemberElement(member, index) {
-            const memberEl = document.createElement('div');
-            memberEl.className = `member ${member.role}`;
+        function createEntityElement(member, index) {
+            const entityEl = document.createElement('div');
+            entityEl.className = `neural-entity ${member.role}`;
             
-            // Position members in a grid-like pattern with some randomness
+            // Position entities in a dynamic grid
             const positions = generatePosition(index);
-            memberEl.style.left = positions.x + 'px';
-            memberEl.style.top = positions.y + 'px';
-            memberEl.style.animationDelay = (index * 0.5) + 's';
+            entityEl.style.left = positions.x + 'px';
+            entityEl.style.top = positions.y + 'px';
+            entityEl.style.animationDelay = (index * 0.3) + 's';
 
-            const profileImageUrl = member.profileImage || `https://ui-avatars.com/api/?name=${encodeURIComponent(member.displayName)}&size=400&background=667eea&color=ffffff&bold=true`;
+            const profileImageUrl = member.profileImage || `https://ui-avatars.com/api/?name=${encodeURIComponent(member.displayName)}&size=120&background=00ff41&color=000000&bold=true`;
             
-            memberEl.innerHTML = `
-                <div class="member-header">
-                    <img 
-                        src="${profileImageUrl}" 
-                        alt="${member.displayName}"
-                        class="profile-image ${member.verified ? 'verified' : ''} loading"
-                        onload="this.classList.remove('loading')"
-                        onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(member.displayName)}&size=400&background=667eea&color=ffffff&bold=true'; this.classList.remove('loading');"
-                    >
-                    <div class="member-info">
-                        <h3>
-                            ${member.displayName}
-                            ${member.verified ? '<span class="verified-badge">✓</span>' : ''}
-                        </h3>
-                        <div class="username">${member.username}</div>
+            entityEl.innerHTML = `
+                <img 
+                    src="${profileImageUrl}" 
+                    alt="${member.displayName}"
+                    class="profile-image ${member.verified ? 'verified' : ''}"
+                    onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(member.displayName)}&size=120&background=00ff41&color=000000&bold=true';"
+                >
+                <div class="entity-info">
+                    <div class="entity-name">
+                        ${member.displayName}${member.verified ? '<span class="verified-badge">✓</span>' : ''}
                     </div>
-                </div>
-                <div class="member-details">
-                    <div class="role-badge ${member.role}">${member.role}</div>
-                    ${member.followers > 0 ? `<div class="followers">👥 ${formatNumber(member.followers)} followers</div>` : ''}
-                    ${member.description ? `<div class="description">${member.description}</div>` : ''}
+                    <div class="entity-username">${member.username}</div>
                 </div>
             `;
 
-            return memberEl;
+            return entityEl;
         }
 
         function generatePosition(index) {
-            const wallWidth = wall.clientWidth - 300; // Account for member card width
-            const wallHeight = Math.max(600, wall.clientHeight - 100);
+            const wallWidth = wall.clientWidth - 140;
+            const wallHeight = wall.clientHeight - 140;
             
-            // Create a grid-based layout with randomness
-            const cols = Math.floor(wallWidth / 320);
+            // Create a grid with randomness for organic feel
+            const cols = Math.floor(wallWidth / 150);
             const rows = Math.ceil(members.length / cols);
             
             const col = index % cols;
             const row = Math.floor(index / cols);
             
-            const baseX = (col * 320) + Math.random() * 40 - 20;
-            const baseY = (row * 200) + Math.random() * 40 - 20 + 100;
+            const baseX = (col * 150) + Math.random() * 60 - 30;
+            const baseY = (row * 150) + Math.random() * 60 - 30 + 50;
             
             return {
-                x: Math.max(0, Math.min(baseX, wallWidth)),
-                y: Math.max(0, Math.min(baseY, wallHeight))
+                x: Math.max(20, Math.min(baseX, wallWidth)),
+                y: Math.max(20, Math.min(baseY, wallHeight))
             };
         }
 
@@ -834,24 +788,6 @@
                 document.getElementById('username').focus();
             } else {
                 clearMessages();
-                previewCard.style.display = 'none';
-            }
-        }
-
-        function updatePreview() {
-            const username = document.getElementById('username').value.trim();
-            const displayName = document.getElementById('displayName').value.trim();
-            const role = document.getElementById('role').value;
-
-            if (username && displayName) {
-                const cleanUsername = username.startsWith('@') ? username : '@' + username;
-                previewContent.innerHTML = `
-                    <strong>${displayName}</strong> ${cleanUsername}<br>
-                    <span style="color: #6b7280; font-size: 0.8rem;">Role: ${role}</span>
-                `;
-                previewCard.style.display = 'block';
-            } else {
-                previewCard.style.display = 'none';
             }
         }
 
@@ -876,9 +812,12 @@
             try {
                 isSubmitting = true;
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="loading-spinner"></span>Adding...';
+                submitBtn.innerHTML = '<span class="loading-spinner"></span>INJECTING...';
                 
-                console.log('📤 Submitting member:', data);
+                console.log('📤 Injecting entity:', data);
+                
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 15000);
                 
                 const response = await fetch(API_BASE + '/submit', {
                     method: 'POST',
@@ -886,8 +825,11 @@
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(data),
-                    mode: 'cors'
+                    mode: 'cors',
+                    signal: controller.signal
                 });
+
+                clearTimeout(timeoutId);
 
                 if (!response.ok) {
                     const errorData = await response.json().catch(() => ({}));
@@ -895,11 +837,10 @@
                 }
 
                 const result = await response.json();
-                console.log('✅ Member added successfully:', result);
+                console.log('✅ Entity injected successfully:', result);
                 
-                showSuccess('Successfully added to the wall! 🎉');
+                showSuccess('Entity injected successfully! 🎉');
                 memberForm.reset();
-                previewCard.style.display = 'none';
                 
                 // Reload members after a short delay
                 setTimeout(() => {
@@ -908,12 +849,12 @@
                 }, 1500);
                 
             } catch (error) {
-                console.error('❌ Failed to add member:', error);
-                showError(error.message || 'Failed to add member. Please try again.');
+                console.error('❌ Failed to inject entity:', error);
+                showError(error.message || 'Failed to inject entity. Check neural link.');
             } finally {
                 isSubmitting = false;
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Add to Wall';
+                submitBtn.innerHTML = 'INJECT';
             }
         }
 
@@ -949,27 +890,68 @@
 
             totalMembersEl.textContent = total;
             verifiedCountEl.textContent = verified;
-            lastUpdateEl.textContent = now;
+            lastUpdateEl.textContent = `[${now}]`;
         }
 
         // Error Handling
         window.addEventListener('error', function(e) {
-            console.error('💥 Global error:', e.error);
+            console.error('💥 System error:', e.error);
         });
 
         window.addEventListener('unhandledrejection', function(e) {
-            console.error('💥 Unhandled promise rejection:', e.reason);
+            console.error('💥 Promise rejection:', e.reason);
         });
 
         // Console welcome message
         console.log(`
-🌊 Seismic Chads Wall
+🌊 SEISMIC CHADS WALL - NEURAL NETWORK ACTIVE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🚀 Frontend: Ready
-🔗 API: ${API_BASE}
-🎯 Version: 1.0.0
+🚀 Frontend: Online
+🔗 Neural Link: ${API_BASE}
+🎯 Version: Plasma v1.0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         `);
+
+        // Add some matrix effects
+        function createMatrixEffect() {
+            const chars = '0123456789ABCDEF';
+            const container = document.querySelector('.matrix-bg');
+            
+            for (let i = 0; i < 50; i++) {
+                const span = document.createElement('span');
+                span.textContent = chars[Math.floor(Math.random() * chars.length)];
+                span.style.position = 'absolute';
+                span.style.left = Math.random() * 100 + '%';
+                span.style.top = Math.random() * 100 + '%';
+                span.style.color = 'rgba(0, 255, 65, 0.1)';
+                span.style.fontSize = '12px';
+                span.style.fontFamily = 'monospace';
+                span.style.animation = `matrixFade ${2 + Math.random() * 3}s linear infinite`;
+                span.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(span);
+                
+                setTimeout(() => {
+                    if (container.contains(span)) {
+                        container.removeChild(span);
+                    }
+                }, 5000);
+            }
+        }
+
+        // Add matrix fade animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes matrixFade {
+                0% { opacity: 0; transform: translateY(-10px); }
+                50% { opacity: 1; }
+                100% { opacity: 0; transform: translateY(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Start matrix effect
+        setInterval(createMatrixEffect, 3000);
+        createMatrixEffect();
     </script>
 </body>
 </html>
