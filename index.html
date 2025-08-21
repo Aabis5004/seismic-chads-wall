@@ -129,11 +129,11 @@
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
         }
 
-        .connection-status.connecting {
-            background: rgba(255, 255, 0, 0.2);
-            color: #ffff44;
-            border-color: #ffff44;
-            box-shadow: 0 0 20px rgba(255, 255, 0, 0.3);
+        .connection-status.demo {
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
 
         /* Wall Container */
@@ -426,16 +426,6 @@
             to { transform: rotate(360deg); }
         }
 
-        .error-message {
-            background: rgba(255, 0, 0, 0.2);
-            color: #ff4444;
-            padding: 0.7rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-            border: 1px solid rgba(255, 0, 0, 0.3);
-        }
-
         .success-message {
             background: rgba(0, 255, 65, 0.2);
             color: #00ff41;
@@ -457,32 +447,6 @@
             text-align: center;
             color: #00ff41;
             font-size: 1.1rem;
-        }
-
-        .loading-message .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(0, 255, 65, 0.3);
-            border-radius: 50%;
-            border-top-color: #00ff41;
-            animation: spin 1s linear infinite;
-            margin-right: 0.5rem;
-        }
-
-        /* Debug Info */
-        .debug-info {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.8);
-            color: #00ff41;
-            padding: 0.5rem;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-family: monospace;
-            border: 1px solid rgba(0, 255, 65, 0.2);
-            max-width: 300px;
         }
 
         /* Responsive */
@@ -517,18 +481,14 @@
             .stats {
                 gap: 1rem;
             }
-
-            .debug-info {
-                display: none;
-            }
         }
     </style>
 </head>
 <body>
     <div class="matrix-bg"></div>
     
-    <div class="connection-status" id="connectionStatus" onclick="retryConnection()">
-        🔄 Connecting...
+    <div class="connection-status demo" id="connectionStatus">
+        💎 Demo Mode
     </div>
 
     <div class="header">
@@ -536,10 +496,10 @@
         <p class="subtitle">Submit your X/Discord handle. Join the stable supercycle💎</p>
         <div class="stats">
             <div class="stat">
-                Network: <span id="totalMembers">0</span> signatures
+                Network: <span id="totalMembers">4</span> signatures
             </div>
             <div class="stat">
-                Verified: <span id="verifiedCount">0</span>
+                Verified: <span id="verifiedCount">1</span>
             </div>
             <div class="stat">
                 <span id="lastUpdate">Ready</span>
@@ -547,12 +507,7 @@
         </div>
     </div>
 
-    <div class="wall" id="wall">
-        <div class="loading-message">
-            <span class="spinner"></span>
-            Initializing neural entities...
-        </div>
-    </div>
+    <div class="wall" id="wall"></div>
 
     <div class="submit-section">
         <button class="submit-toggle" id="submitToggle">
@@ -586,46 +541,22 @@
         </div>
     </div>
 
-    <div class="debug-info" id="debugInfo">
-        Backend: Checking connection...<br>
-        Last attempt: <span id="lastAttempt">-</span><br>
-        Status: <span id="debugStatus">-</span>
-    </div>
-
     <script>
-        // Configuration - Try multiple endpoints
-        const API_ENDPOINTS = [
-            'http://162.250.191.81/api',
-            'http://162.250.191.81:3001/api'
-        ];
-        let currentAPI = 0;
-        
-        // Global state
-        let members = [];
-        let connectionStatus = 'connecting';
-        let isFormOpen = false;
-        let isSubmitting = false;
-        let retryCount = 0;
-
-        // DOM elements
-        const wall = document.getElementById('wall');
-        const connectionStatusEl = document.getElementById('connectionStatus');
-        const submitToggle = document.getElementById('submitToggle');
-        const submitForm = document.getElementById('submitForm');
-        const memberForm = document.getElementById('memberForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const submitMessage = document.getElementById('submitMessage');
-        const debugInfo = document.getElementById('debugInfo');
-
-        // Stats elements
-        const totalMembersEl = document.getElementById('totalMembers');
-        const verifiedCountEl = document.getElementById('verifiedCount');
-        const lastUpdateEl = document.getElementById('lastUpdate');
-
-        // Demo users fallback
-        const demoUsers = [
+        // Demo data with your backend members
+        const members = [
             {
                 id: 1,
+                username: '@elonmusk',
+                displayName: 'Elon Musk',
+                role: 'guest',
+                verified: true,
+                followers: 224556387,
+                profileImage: 'https://pbs.twimg.com/profile_images/1936002956333080576/kqqe2iWO_400x400.jpg',
+                description: '',
+                createdAt: '2025-08-21 14:14:20'
+            },
+            {
+                id: 2,
                 username: '@NoxxW3',
                 displayName: 'NoxxW3',
                 role: 'member',
@@ -633,10 +564,10 @@
                 followers: 0,
                 profileImage: 'https://ui-avatars.com/api/?name=NoxxW3&size=120&background=00ff41&color=000000&bold=true',
                 description: '',
-                createdAt: new Date().toISOString()
+                createdAt: '2025-08-21 17:46:53'
             },
             {
-                id: 2,
+                id: 3,
                 username: '@lyronctk',
                 displayName: 'Lyron CTK',
                 role: 'member',
@@ -644,10 +575,10 @@
                 followers: 0,
                 profileImage: 'https://ui-avatars.com/api/?name=Lyron+CTK&size=120&background=00ff41&color=000000&bold=true',
                 description: '',
-                createdAt: new Date().toISOString()
+                createdAt: '2025-08-21 17:46:53'
             },
             {
-                id: 3,
+                id: 4,
                 username: '@xealistt',
                 displayName: 'Xealist',
                 role: 'member',
@@ -655,29 +586,27 @@
                 followers: 0,
                 profileImage: 'https://ui-avatars.com/api/?name=Xealist&size=120&background=00ff41&color=000000&bold=true',
                 description: '',
-                createdAt: new Date().toISOString()
+                createdAt: '2025-08-21 17:46:53'
             }
         ];
 
+        // Global state
+        let isFormOpen = false;
+
+        // DOM elements
+        const wall = document.getElementById('wall');
+        const submitToggle = document.getElementById('submitToggle');
+        const submitForm = document.getElementById('submitForm');
+        const memberForm = document.getElementById('memberForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitMessage = document.getElementById('submitMessage');
+
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🌊 Neural Network initializing...');
+            console.log('🌊 Seismic Chads Wall - Demo Mode');
             setupEventListeners();
-            checkConnection();
-            
-            // Auto-refresh every 30 seconds
-            setInterval(loadMembers, 30000);
-            
-            // Fallback: Show demo users after 5 seconds if no connection
-            setTimeout(() => {
-                if (connectionStatus === 'disconnected' && members.length === 0) {
-                    console.log('📦 Loading demo users...');
-                    members = demoUsers;
-                    renderMembers();
-                    updateStats();
-                    updateDebugInfo('Using demo data (backend offline)');
-                }
-            }, 5000);
+            renderMembers();
+            updateStats();
         });
 
         // Event Listeners
@@ -693,66 +622,8 @@
             });
         }
 
-        // Connection Management
-        async function checkConnection() {
-            const currentEndpoint = API_ENDPOINTS[currentAPI];
-            try {
-                console.log('🔍 Checking neural link to:', currentEndpoint + '/health');
-                updateDebugInfo(`Trying: ${currentEndpoint}`);
-                
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 5000);
-                
-                const response = await fetch(currentEndpoint + '/health', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    mode: 'cors',
-                    signal: controller.signal
-                });
-
-                clearTimeout(timeoutId);
-
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log('✅ Neural link established:', data);
-                    updateConnectionStatus('connected');
-                    updateDebugInfo(`Connected to: ${currentEndpoint}`);
-                    retryCount = 0;
-                    loadMembers(); // Load data immediately on connection
-                } else {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-            } catch (error) {
-                console.error('❌ Failed to load neural entities:', error);
-                updateDebugInfo(`Load failed: ${error.message}`);
-                updateConnectionStatus('disconnected');
-                
-                // Use demo data if no members loaded
-                if (members.length === 0) {
-                    members = demoUsers;
-                    renderMembers();
-                    updateStats();
-                }
-            }
-        }
-
         // Rendering
         function renderMembers() {
-            if (members.length === 0) {
-                wall.innerHTML = `
-                    <div class="loading-message">
-                        <div style="text-align: center; color: #00ff41;">
-                            <h3 style="margin-bottom: 1rem;">🏗️ Neural Network Empty</h3>
-                            <p>Be the first entity to join the network!</p>
-                            <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">Click INJECT to add yourself</p>
-                        </div>
-                    </div>
-                `;
-                return;
-            }
-
             wall.innerHTML = '';
             wall.classList.remove('loading');
 
@@ -772,12 +643,9 @@
             entityEl.style.top = positions.y + 'px';
             entityEl.style.animationDelay = (index * 0.3) + 's';
 
-            // Use provided image or generate avatar
-            const profileImageUrl = member.profileImage || `https://ui-avatars.com/api/?name=${encodeURIComponent(member.displayName)}&size=120&background=00ff41&color=000000&bold=true`;
-            
             entityEl.innerHTML = `
                 <img 
-                    src="${profileImageUrl}" 
+                    src="${member.profileImage}" 
                     alt="${member.displayName}"
                     class="profile-image ${member.verified ? 'verified' : ''}"
                     onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(member.displayName)}&size=120&background=00ff41&color=000000&bold=true';"
@@ -826,10 +694,8 @@
             }
         }
 
-        async function handleSubmit(e) {
+        function handleSubmit(e) {
             e.preventDefault();
-            
-            if (isSubmitting) return;
             
             const formData = new FormData(memberForm);
             const data = {
@@ -840,142 +706,51 @@
 
             // Validation
             if (!data.username || !data.displayName) {
-                showError('Please fill in all required fields.');
                 return;
             }
 
-            // If backend is offline, add to demo data
-            if (connectionStatus === 'disconnected') {
-                const newMember = {
-                    id: members.length + 1,
-                    username: data.username.startsWith('@') ? data.username : '@' + data.username,
-                    displayName: data.displayName,
-                    role: data.role,
-                    verified: false,
-                    followers: 0,
-                    profileImage: `https://ui-avatars.com/api/?name=${encodeURIComponent(data.displayName)}&size=120&background=00ff41&color=000000&bold=true`,
-                    description: '',
-                    createdAt: new Date().toISOString()
-                };
-                
-                members.push(newMember);
-                renderMembers();
-                updateStats();
-                showSuccess('Added locally! (Backend offline)');
-                memberForm.reset();
-                setTimeout(toggleForm, 1500);
-                return;
-            }
-
-            const currentEndpoint = API_ENDPOINTS[currentAPI];
-            try {
-                isSubmitting = true;
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="loading-spinner"></span>INJECTING...';
-                
-                console.log('📤 Injecting entity:', data);
-                
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 15000);
-                
-                const response = await fetch(currentEndpoint + '/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                    mode: 'cors',
-                    signal: controller.signal
-                });
-
-                clearTimeout(timeoutId);
-
-                if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({}));
-                    throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`);
-                }
-
-                const result = await response.json();
-                console.log('✅ Entity injected successfully:', result);
-                
-                showSuccess('Entity injected successfully! 🎉');
-                memberForm.reset();
-                updateDebugInfo('Member added successfully');
-                
-                // Reload members after a short delay
-                setTimeout(() => {
-                    loadMembers();
-                    toggleForm();
-                }, 1500);
-                
-            } catch (error) {
-                console.error('❌ Failed to inject entity:', error);
-                showError(error.message || 'Failed to inject entity. Check neural link.');
-                updateDebugInfo(`Submit failed: ${error.message}`);
-            } finally {
-                isSubmitting = false;
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = 'INJECT';
-            }
-        }
-
-        // Message Management
-        function showError(message) {
-            submitMessage.innerHTML = `<div class="error-message">${message}</div>`;
-            setTimeout(clearMessages, 5000);
+            // Add to demo data
+            const newMember = {
+                id: members.length + 1,
+                username: data.username.startsWith('@') ? data.username : '@' + data.username,
+                displayName: data.displayName,
+                role: data.role,
+                verified: false,
+                followers: 0,
+                profileImage: `https://ui-avatars.com/api/?name=${encodeURIComponent(data.displayName)}&size=120&background=00ff41&color=000000&bold=true`,
+                description: '',
+                createdAt: new Date().toISOString()
+            };
+            
+            members.push(newMember);
+            renderMembers();
+            updateStats();
+            showSuccess('Added to demo wall! 🎉');
+            memberForm.reset();
+            setTimeout(toggleForm, 1500);
         }
 
         function showSuccess(message) {
             submitMessage.innerHTML = `<div class="success-message">${message}</div>`;
-            setTimeout(clearMessages, 5000);
+            setTimeout(() => {
+                submitMessage.innerHTML = '';
+            }, 3000);
         }
 
         function clearMessages() {
             submitMessage.innerHTML = '';
         }
 
-        // Utility Functions
-        function formatNumber(num) {
-            if (num >= 1000000) {
-                return (num / 1000000).toFixed(1) + 'M';
-            } else if (num >= 1000) {
-                return (num / 1000).toFixed(1) + 'K';
-            }
-            return num.toString();
-        }
-
         function updateStats() {
             const total = members.length;
             const verified = members.filter(m => m.verified).length;
-            const now = new Date().toLocaleTimeString();
-
-            totalMembersEl.textContent = total;
-            verifiedCountEl.textContent = verified;
-            lastUpdateEl.textContent = `[${now}]`;
+            
+            document.getElementById('totalMembers').textContent = total;
+            document.getElementById('verifiedCount').textContent = verified;
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
         }
 
-        // Error Handling
-        window.addEventListener('error', function(e) {
-            console.error('💥 System error:', e.error);
-            updateDebugInfo(`JS Error: ${e.error?.message || 'Unknown'}`);
-        });
-
-        window.addEventListener('unhandledrejection', function(e) {
-            console.error('💥 Promise rejection:', e.reason);
-            updateDebugInfo(`Promise Error: ${e.reason?.message || 'Unknown'}`);
-        });
-
-        // Console welcome message
-        console.log(`
-🌊 SEISMIC CHADS WALL - NEURAL NETWORK ACTIVE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🚀 Frontend: Online
-🔗 Neural Link: Attempting connection...
-🎯 Version: Fixed v1.1
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        `);
-
-        // Add matrix effects
+        // Matrix effects
         function createMatrixEffect() {
             const chars = '0123456789ABCDEF';
             const container = document.querySelector('.matrix-bg');
@@ -1016,93 +791,15 @@
         // Start matrix effect
         setInterval(createMatrixEffect, 3000);
         createMatrixEffect();
+
+        console.log(`
+🌊 SEISMIC CHADS WALL - DEMO MODE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 Frontend: Online
+💎 Mode: Demo (showing your backend data)
+🎯 Members: ${members.length}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        `);
     </script>
 </body>
 </html>
-                console.error('❌ Neural link failed:', error);
-                updateDebugInfo(`Failed: ${error.message}`);
-                
-                // Try next endpoint
-                if (currentAPI < API_ENDPOINTS.length - 1) {
-                    currentAPI++;
-                    setTimeout(checkConnection, 1000);
-                } else {
-                    // Reset and try again
-                    currentAPI = 0;
-                    retryCount++;
-                    updateConnectionStatus('disconnected');
-                    
-                    // Retry with exponential backoff
-                    const retryDelay = Math.min(5000 * Math.pow(2, retryCount), 30000);
-                    setTimeout(checkConnection, retryDelay);
-                }
-            }
-        }
-
-        function retryConnection() {
-            if (connectionStatus === 'disconnected') {
-                updateConnectionStatus('connecting');
-                retryCount = 0;
-                currentAPI = 0;
-                checkConnection();
-            }
-        }
-
-        function updateConnectionStatus(status) {
-            connectionStatus = status;
-            connectionStatusEl.className = `connection-status ${status}`;
-            
-            switch (status) {
-                case 'connected':
-                    connectionStatusEl.textContent = '🟢 On music';
-                    break;
-                case 'disconnected':
-                    connectionStatusEl.textContent = '🔴 Force Sync';
-                    break;
-                case 'connecting':
-                    connectionStatusEl.textContent = '🔄 Connecting...';
-                    break;
-            }
-        }
-
-        function updateDebugInfo(message) {
-            const now = new Date().toLocaleTimeString();
-            document.getElementById('lastAttempt').textContent = now;
-            document.getElementById('debugStatus').textContent = message;
-        }
-
-        // Data Loading
-        async function loadMembers() {
-            if (connectionStatus !== 'connected') return;
-            
-            const currentEndpoint = API_ENDPOINTS[currentAPI];
-            try {
-                console.log('📡 Loading neural entities...');
-                
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 10000);
-                
-                const response = await fetch(currentEndpoint + '/members', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    mode: 'cors',
-                    signal: controller.signal
-                });
-
-                clearTimeout(timeoutId);
-
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-
-                const data = await response.json();
-                console.log('👥 Neural entities loaded:', data.length);
-                
-                members = data.length > 0 ? data : demoUsers;
-                renderMembers();
-                updateStats();
-                updateDebugInfo(`Loaded ${data.length} members`);
-                
-            } catch (error) {
