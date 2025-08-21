@@ -21,7 +21,6 @@
             position: relative;
         }
 
-        /* Background gradient animation */
         .bg-overlay {
             position: fixed;
             top: 0;
@@ -40,7 +39,6 @@
             50% { transform: scale(1.1) rotate(5deg); }
         }
 
-        /* Header */
         .header {
             position: fixed;
             top: 0;
@@ -59,6 +57,8 @@
             align-items: center;
             max-width: 1400px;
             margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .logo {
@@ -97,6 +97,7 @@
             display: flex;
             gap: 15px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .submit-btn {
@@ -115,30 +116,33 @@
             transform: scale(1.05);
         }
 
-        .music-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 12px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .music-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
         .stats {
             color: white;
             font-size: 14px;
             opacity: 0.8;
+            text-align: center;
         }
 
-        /* Wall Container */
+        .connection-status {
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .connected {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .disconnected {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
         .wall-container {
             position: fixed;
-            top: 100px;
+            top: 120px;
             left: 0;
             right: 0;
             bottom: 0;
@@ -164,7 +168,6 @@
             75% { transform: translateY(10px) rotateX(-2deg); }
         }
 
-        /* Profile Cards */
         .profile-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
@@ -218,6 +221,14 @@
             font-weight: bold;
             margin-bottom: 12px;
             position: relative;
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .avatar.founder { background: linear-gradient(45deg, #fbbf24, #f59e0b); }
@@ -230,10 +241,25 @@
             font-weight: 600;
             margin-bottom: 4px;
             color: #e5e7eb;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+
+        .displayName {
+            font-size: 12px;
+            opacity: 0.8;
+            color: #9ca3af;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
         }
 
         .role {
-            font-size: 12px;
+            font-size: 10px;
             opacity: 0.7;
             color: #9ca3af;
         }
@@ -251,10 +277,18 @@
             font-size: 12px;
         }
 
-        .badge.verified { background: #3b82f6; }
-        .badge.premium { background: #fbbf24; }
+        .badge.verified { 
+            background: #3b82f6; 
+            color: white;
+        }
 
-        /* Animation classes */
+        .followers {
+            font-size: 9px;
+            opacity: 0.6;
+            color: #9ca3af;
+            margin-top: 2px;
+        }
+
         .float-1 { animation: float1 8s ease-in-out infinite; }
         .float-2 { animation: float2 10s ease-in-out infinite; }
         .float-3 { animation: float3 12s ease-in-out infinite; }
@@ -276,7 +310,6 @@
             50% { transform: translateY(-25px) rotate(1deg); }
         }
 
-        /* Submit Form Modal */
         .modal {
             position: fixed;
             top: 0;
@@ -365,32 +398,12 @@
             transform: scale(1.05);
         }
 
-        /* Audio visualization */
-        .audio-bars {
-            display: flex;
-            gap: 3px;
-            align-items: end;
-            height: 20px;
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
         }
 
-        .audio-bar {
-            width: 3px;
-            background: linear-gradient(to top, #3b82f6, #8b5cf6);
-            border-radius: 2px;
-            animation: audioBar 1.5s ease-in-out infinite;
-        }
-
-        .audio-bar:nth-child(2) { animation-delay: 0.1s; }
-        .audio-bar:nth-child(3) { animation-delay: 0.2s; }
-        .audio-bar:nth-child(4) { animation-delay: 0.3s; }
-        .audio-bar:nth-child(5) { animation-delay: 0.4s; }
-
-        @keyframes audioBar {
-            0%, 100% { height: 5px; }
-            50% { height: 20px; }
-        }
-
-        /* Responsive */
         @media (max-width: 1200px) {
             .wall {
                 grid-template-columns: repeat(6, 1fr);
@@ -408,14 +421,16 @@
                 flex-direction: column;
                 gap: 15px;
             }
+
+            .logo-text {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Background -->
     <div class="bg-overlay"></div>
 
-    <!-- Header -->
     <header class="header">
         <div class="header-content">
             <div class="logo">
@@ -426,18 +441,8 @@
             <div class="controls">
                 <div class="stats">
                     <div>Members: <span id="memberCount">0</span></div>
+                    <div class="connection-status" id="connectionStatus">Connecting...</div>
                 </div>
-                
-                <button class="music-btn" onclick="toggleMusic()" id="musicBtn">
-                    <div class="audio-bars" id="audioBars" style="display: none;">
-                        <div class="audio-bar"></div>
-                        <div class="audio-bar"></div>
-                        <div class="audio-bar"></div>
-                        <div class="audio-bar"></div>
-                        <div class="audio-bar"></div>
-                    </div>
-                    <span id="musicIcon">🎵</span>
-                </button>
                 
                 <button class="submit-btn" onclick="showSubmitForm()">
                     Submit Your Handle
@@ -446,7 +451,6 @@
         </div>
     </header>
 
-    <!-- Wall Container -->
     <div class="wall-container">
         <div class="wall" id="wall">
             <!-- Profile cards will be generated here -->
@@ -460,7 +464,7 @@
             <form id="submitForm">
                 <div class="form-group">
                     <label for="username">Twitter/X Handle</label>
-                    <input type="text" id="username" placeholder="@yourhandle" required>
+                    <input type="text" id="username" placeholder="@yourhandle or yourhandle" required>
                 </div>
                 
                 <div class="form-group">
@@ -479,55 +483,90 @@
                 </div>
                 
                 <div class="form-buttons">
-                    <button type="submit" class="btn btn-primary">Join the Wall</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Join the Wall</button>
                     <button type="button" class="btn btn-secondary" onclick="hideSubmitForm()">Cancel</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Audio element for background music -->
-    <audio id="backgroundMusic" loop>
-        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
-        <!-- You can add your own music file here -->
-    </audio>
-
     <script>
+        // Your backend API URL
+        const API_BASE = 'http://162.250.191.81/api';
+        
         // Global state
         let members = [];
-        let musicPlaying = false;
-        const API_BASE = 'https://your-backend-domain.com/api'; // Change this to your backend
+        let isBackendConnected = false;
 
         // Initialize the wall
         document.addEventListener('DOMContentLoaded', function() {
-            loadInitialMembers();
-            generateWall();
+            loadMembers();
             setupAutoRefresh();
         });
 
-        // Load initial members (you can add your manual members here)
-        function loadInitialMembers() {
-            members = [
-                { username: '@aabis_seismic', displayName: 'Aabis Chad', role: 'founder', verified: true },
-                { username: '@sarah_earthquake', displayName: 'Dr. Sarah', role: 'moderator', verified: true },
-                { username: '@marcus_tremor', displayName: 'Marcus Geo', role: 'member', verified: false },
-                { username: '@alex_richter', displayName: 'Prof. Alex', role: 'member', verified: true },
-                { username: '@lisa_seismo', displayName: 'Lisa Wave', role: 'member', verified: false },
-                { username: '@john_magnitude', displayName: 'John Scale', role: 'guest', verified: false },
-                { username: '@emma_fault', displayName: 'Emma Line', role: 'guest', verified: false },
-                { username: '@mike_epicenter', displayName: 'Mike Center', role: 'member', verified: false },
-                { username: '@kate_tsunami', displayName: 'Kate Wave', role: 'guest', verified: false },
-                { username: '@david_plate', displayName: 'David Tectonic', role: 'member', verified: true },
-                { username: '@nina_shake', displayName: 'Nina Vibrate', role: 'guest', verified: false },
-                { username: '@tom_seismic', displayName: 'Tom Graph', role: 'member', verified: false },
-                { username: '@anna_geology', displayName: 'Anna Rock', role: 'guest', verified: false },
-                { username: '@paul_earth', displayName: 'Paul Quake', role: 'member', verified: false },
-                { username: '@jane_monitor', displayName: 'Jane Watch', role: 'guest', verified: false }
-            ];
+        // Load members from backend
+        async function loadMembers() {
+            try {
+                const response = await fetch(`${API_BASE}/members`);
+                if (response.ok) {
+                    members = await response.json();
+                    isBackendConnected = true;
+                    updateConnectionStatus('connected');
+                    console.log('Loaded members from backend:', members.length);
+                } else {
+                    throw new Error('Backend not responding');
+                }
+            } catch (error) {
+                console.error('Error loading members:', error);
+                // Load demo data if backend is not available
+                loadDemoData();
+                updateConnectionStatus('disconnected');
+            }
             
-            // Load from backend if available
-            loadFromBackend();
+            generateWall();
             updateMemberCount();
+        }
+
+        // Load demo data for testing
+        function loadDemoData() {
+            members = [
+                {
+                    id: 1,
+                    username: '@elonmusk',
+                    displayName: 'Elon Musk',
+                    role: 'guest',
+                    verified: true,
+                    followers: 224556387,
+                    profileImage: 'https://pbs.twimg.com/profile_images/1936002956333080576/kqqe2iWO_400x400.jpg'
+                },
+                {
+                    id: 2,
+                    username: '@aabis_seismic',
+                    displayName: 'Aabis Chad',
+                    role: 'founder',
+                    verified: true,
+                    followers: 1500,
+                    profileImage: null
+                },
+                {
+                    id: 3,
+                    username: '@sarah_earthquake',
+                    displayName: 'Dr. Sarah',
+                    role: 'moderator',
+                    verified: true,
+                    followers: 5200,
+                    profileImage: null
+                },
+                {
+                    id: 4,
+                    username: '@marcus_tremor',
+                    displayName: 'Marcus Geo',
+                    role: 'member',
+                    verified: false,
+                    followers: 890,
+                    profileImage: null
+                }
+            ];
         }
 
         // Generate the wall
@@ -535,21 +574,28 @@
             const wall = document.getElementById('wall');
             wall.innerHTML = '';
 
-            // Calculate how many cards we need to fill the grid
+            // Calculate grid size based on screen size
             const gridSize = window.innerWidth > 1200 ? 48 : window.innerWidth > 768 ? 30 : 24;
             
             // Fill the grid with members, repeating if necessary
             for (let i = 0; i < gridSize; i++) {
-                const member = members[i % members.length] || { 
-                    username: '@seismic_chad', 
-                    displayName: 'Chad ' + (i + 1), 
-                    role: 'guest', 
-                    verified: false 
-                };
-                
+                const member = members[i % members.length] || createPlaceholderMember(i);
                 const card = createProfileCard(member, i);
                 wall.appendChild(card);
             }
+        }
+
+        // Create placeholder member if not enough real members
+        function createPlaceholderMember(index) {
+            return {
+                id: `placeholder_${index}`,
+                username: `@chad${index + 1}`,
+                displayName: `Seismic Chad ${index + 1}`,
+                role: 'guest',
+                verified: false,
+                followers: Math.floor(Math.random() * 1000),
+                profileImage: null
+            };
         }
 
         // Create a profile card
@@ -557,15 +603,27 @@
             const card = document.createElement('div');
             card.className = `profile-card float-${(index % 3) + 1}`;
             
-            const avatarClass = `avatar ${member.role}`;
-            const initial = member.displayName.charAt(0).toUpperCase();
+            const roleClass = `avatar ${member.role}`;
             const verifiedBadge = member.verified ? '<div class="badge verified">✓</div>' : '';
+            
+            // Use profile image if available, otherwise show initial
+            const avatarContent = member.profileImage ? 
+                `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                 <div style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-size:24px; font-weight:bold;">${member.displayName.charAt(0)}</div>` :
+                member.displayName.charAt(0).toUpperCase();
+            
+            const followersText = member.followers > 0 ? 
+                `<div class="followers">${formatNumber(member.followers)} followers</div>` : '';
             
             card.innerHTML = `
                 ${verifiedBadge}
-                <div class="${avatarClass}">${initial}</div>
+                <div class="${roleClass}">
+                    ${avatarContent}
+                </div>
                 <div class="username">${member.username}</div>
+                <div class="displayName">${member.displayName}</div>
                 <div class="role">${member.role}</div>
+                ${followersText}
             `;
 
             // Add click interaction
@@ -576,9 +634,26 @@
             return card;
         }
 
-        // Show member details (optional)
+        // Format number for followers
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num.toString();
+        }
+
+        // Show member details
         function showMemberDetails(member) {
-            alert(`${member.displayName}\n${member.username}\nRole: ${member.role}`);
+            const details = `
+                ${member.displayName}
+                ${member.username}
+                Role: ${member.role}
+                ${member.verified ? '✓ Verified' : ''}
+                ${member.followers > 0 ? `${formatNumber(member.followers)} followers` : ''}
+            `;
+            alert(details);
         }
 
         // Submit form functions
@@ -594,87 +669,61 @@
         document.getElementById('submitForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const username = document.getElementById('username').value;
-            const displayName = document.getElementById('displayName').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Adding...';
+            
+            const username = document.getElementById('username').value.trim();
+            const displayName = document.getElementById('displayName').value.trim();
             const role = document.getElementById('role').value;
 
-            // Add @ if not present
-            const formattedUsername = username.startsWith('@') ? username : '@' + username;
-
-            const newMember = {
-                username: formattedUsername,
-                displayName: displayName,
-                role: role,
-                verified: false,
-                timestamp: new Date().toISOString()
-            };
-
             try {
-                // Try to submit to backend
                 const response = await fetch(`${API_BASE}/submit`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(newMember)
+                    body: JSON.stringify({
+                        username: username,
+                        displayName: displayName,
+                        role: role
+                    })
                 });
 
                 if (response.ok) {
-                    members.push(newMember);
+                    const result = await response.json();
+                    console.log('Member added successfully:', result);
+                    
+                    // Reload members to show the new addition
+                    await loadMembers();
+                    
+                    // Clear and hide form
+                    document.getElementById('submitForm').reset();
+                    hideSubmitForm();
+                    
+                    alert(`Welcome to the Seismic Chads Wall, ${displayName}! 🌊`);
                 } else {
-                    throw new Error('Backend not available');
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to add member');
                 }
             } catch (error) {
-                console.log('Backend not available, adding locally');
-                // Add locally for demo
-                members.push(newMember);
+                console.error('Error submitting member:', error);
+                alert('Error: ' + error.message);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
             }
-
-            // Regenerate wall
-            generateWall();
-            updateMemberCount();
-            hideSubmitForm();
-            
-            // Clear form
-            document.getElementById('submitForm').reset();
-            
-            // Show success message
-            alert('Welcome to the Seismic Chads Wall! 🌊');
         });
 
-        // Music functions
-        function toggleMusic() {
-            const audio = document.getElementById('backgroundMusic');
-            const musicIcon = document.getElementById('musicIcon');
-            const audioBars = document.getElementById('audioBars');
-
-            if (musicPlaying) {
-                audio.pause();
-                musicIcon.style.display = 'block';
-                audioBars.style.display = 'none';
-                musicPlaying = false;
+        // Update connection status
+        function updateConnectionStatus(status) {
+            const statusElement = document.getElementById('connectionStatus');
+            if (status === 'connected') {
+                statusElement.textContent = '🟢 Connected';
+                statusElement.className = 'connection-status connected';
             } else {
-                // Try to play music
-                audio.play().then(() => {
-                    musicIcon.style.display = 'none';
-                    audioBars.style.display = 'flex';
-                    musicPlaying = true;
-                }).catch(() => {
-                    alert('Music playback requires user interaction. Click again after interacting with the page.');
-                });
-            }
-        }
-
-        // Load from backend
-        async function loadFromBackend() {
-            try {
-                const response = await fetch(`${API_BASE}/members`);
-                if (response.ok) {
-                    const backendMembers = await response.json();
-                    if (backendMembers.length > 0) {
-                        members = [...members, ...backendMembers];
-                    }
-                }
-            } catch (error) {
-                console.log('Backend not available, using demo data');
+                statusElement.textContent = '🔴 Demo Mode';
+                statusElement.className = 'connection-status disconnected';
             }
         }
 
@@ -683,13 +732,25 @@
             document.getElementById('memberCount').textContent = members.length;
         }
 
-        // Auto-refresh wall every 30 seconds
+        // Auto-refresh members every 30 seconds
         function setupAutoRefresh() {
-            setInterval(() => {
-                loadFromBackend().then(() => {
-                    generateWall();
-                    updateMemberCount();
-                });
+            setInterval(async () => {
+                if (isBackendConnected) {
+                    try {
+                        const response = await fetch(`${API_BASE}/members`);
+                        if (response.ok) {
+                            const newMembers = await response.json();
+                            if (newMembers.length !== members.length) {
+                                members = newMembers;
+                                generateWall();
+                                updateMemberCount();
+                                console.log('Wall updated with new members');
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Auto-refresh failed:', error);
+                    }
+                }
             }, 30000);
         }
 
@@ -709,6 +770,11 @@
                 }, 1000);
             }
         }, 5000);
+
+        // Console message for developers
+        console.log('🌊 Seismic Chads Wall loaded!');
+        console.log('Backend API:', API_BASE);
+        console.log('Source: https://github.com/yourusername/seismic-chads-wall');
     </script>
 </body>
 </html>
