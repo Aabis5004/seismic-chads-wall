@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seismic Wall</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@300;400;700;900&display=swap');
         
         * {
             margin: 0;
@@ -15,144 +15,117 @@
 
         body {
             font-family: 'Orbitron', monospace;
-            background: #1a1611;
+            background: #0a0a0a;
             color: #d4af37;
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
         }
 
-        /* Interstellar Background Animation */
-        .space-background {
+        /* Epic Space Background */
+        .cosmic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(244, 228, 161, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+                linear-gradient(180deg, #0a0a0a 0%, #1a1611 50%, #0a0a0a 100%);
+        }
+
+        /* Floating Particles */
+        .particles {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -2;
-            background: radial-gradient(circle at 50% 50%, #2d2416 0%, #1a1611 50%, #0a0806 100%);
-        }
-
-        .space-background::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, #d4af37, transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(212, 175, 55, 0.5), transparent),
-                radial-gradient(1px 1px at 90px 40px, #d4af37, transparent),
-                radial-gradient(1px 1px at 130px 80px, rgba(212, 175, 55, 0.3), transparent),
-                radial-gradient(2px 2px at 160px 30px, #d4af37, transparent);
-            background-repeat: repeat;
-            background-size: 200px 100px;
-            animation: starField 50s linear infinite;
-            opacity: 0.6;
-        }
-
-        @keyframes starField {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-100px); }
-        }
-
-        /* Floating Geometric Shapes */
-        .geometric-shapes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
             pointer-events: none;
         }
 
-        .shape {
+        .particle {
             position: absolute;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            animation: float 20s infinite ease-in-out;
-        }
-
-        .shape:nth-child(1) {
-            width: 60px;
-            height: 60px;
-            top: 20%;
-            left: 10%;
+            width: 2px;
+            height: 2px;
+            background: #d4af37;
             border-radius: 50%;
-            animation-delay: 0s;
+            animation: floatParticle 15s linear infinite;
+            opacity: 0;
         }
 
-        .shape:nth-child(2) {
-            width: 40px;
-            height: 40px;
-            top: 60%;
-            right: 20%;
-            transform: rotate(45deg);
-            animation-delay: -5s;
-        }
-
-        .shape:nth-child(3) {
-            width: 80px;
-            height: 80px;
-            bottom: 20%;
-            left: 15%;
-            border-radius: 50%;
-            animation-delay: -10s;
-        }
-
-        .shape:nth-child(4) {
-            width: 50px;
-            height: 50px;
-            top: 30%;
-            right: 10%;
-            transform: rotate(30deg);
-            animation-delay: -15s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
-            25% { transform: translateY(-20px) rotate(90deg); opacity: 0.6; }
-            50% { transform: translateY(-40px) rotate(180deg); opacity: 0.3; }
-            75% { transform: translateY(-20px) rotate(270deg); opacity: 0.6; }
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
         }
 
         /* Header */
         .header {
-            text-align: center;
-            padding: 2rem 0;
-            position: relative;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 1rem 0;
         }
 
-        .logo-container {
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #d4af37, #f4e4a1);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: #000;
+            animation: logoSpin 20s linear infinite;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
         }
 
-        .seismic-logo {
-            width: 80px;
-            height: 80px;
-            position: relative;
-            animation: logoRotate 15s linear infinite;
-        }
-
-        .seismic-logo svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8));
-        }
-
-        @keyframes logoRotate {
+        @keyframes logoSpin {
             0% { transform: rotate(0deg) scale(1); }
             50% { transform: rotate(180deg) scale(1.1); }
             100% { transform: rotate(360deg) scale(1); }
         }
 
-        .title {
-            font-size: 3rem;
+        .title-section h1 {
+            font-size: 2rem;
             font-weight: 900;
             background: linear-gradient(45deg, #d4af37, #f4e4a1, #d4af37);
             background-size: 200% 200%;
@@ -160,8 +133,12 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: shimmer 3s ease-in-out infinite;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-            letter-spacing: 2px;
+        }
+
+        .title-section p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 0.25rem;
         }
 
         @keyframes shimmer {
@@ -169,35 +146,39 @@
             50% { background-position: 100% 50%; }
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            margin-top: 0.5rem;
-            letter-spacing: 1px;
+        /* Stats & Controls */
+        .stats-controls {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
         }
 
-        /* Controls */
+        .member-count {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+        }
+
         .controls {
-            position: fixed;
-            top: 20px;
-            right: 20px;
             display: flex;
-            gap: 10px;
-            z-index: 1000;
+            gap: 0.5rem;
         }
 
         .control-btn {
             background: rgba(212, 175, 55, 0.2);
             border: 1px solid #d4af37;
             color: #d4af37;
-            padding: 10px;
+            padding: 0.5rem;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
-            font-size: 1.2rem;
-            width: 50px;
-            height: 50px;
+            font-size: 1rem;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -209,47 +190,17 @@
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
         }
 
-        /* Music Controls */
-        .music-controls {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .volume-slider {
-            width: 100px;
-            -webkit-appearance: none;
-            height: 5px;
-            border-radius: 5px;
-            background: rgba(212, 175, 55, 0.3);
-            outline: none;
-        }
-
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background: #d4af37;
-            cursor: pointer;
-        }
-
         /* Connection Status */
         .connection-status {
             position: fixed;
-            top: 20px;
+            top: 80px;
             left: 20px;
-            padding: 10px 20px;
+            padding: 0.5rem 1rem;
             background: rgba(0, 0, 0, 0.8);
             border: 1px solid #d4af37;
-            border-radius: 25px;
+            border-radius: 20px;
             backdrop-filter: blur(10px);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             z-index: 1000;
         }
 
@@ -271,73 +222,99 @@
         }
 
         /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 1;
+        .main-container {
+            margin-top: 120px;
+            padding: 2rem;
+            max-width: 1600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* Members Grid */
-        .members-grid {
+        /* Mega Grid for 200+ Profiles */
+        .mega-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-            min-height: 400px;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+            padding: 2rem 0;
+            min-height: 80vh;
         }
 
-        .member-card {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 15px;
-            padding: 1.5rem;
+        /* Profile Cards with Floating Animation */
+        .profile-card {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
             backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
-            animation: cardEntry 0.6s ease-out forwards;
+            cursor: pointer;
+            animation: floatIn 0.8s ease-out forwards, continuousFloat 6s ease-in-out infinite;
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(50px);
         }
 
-        .member-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
-            transition: left 0.5s ease;
+        /* Staggered animation delays for organic feel */
+        .profile-card:nth-child(odd) {
+            animation-delay: 0.1s, 2s;
+        }
+        .profile-card:nth-child(even) {
+            animation-delay: 0.2s, 4s;
+        }
+        .profile-card:nth-child(3n) {
+            animation-delay: 0.3s, 1s;
+        }
+        .profile-card:nth-child(5n) {
+            animation-delay: 0.4s, 3s;
         }
 
-        .member-card:hover::before {
-            left: 100%;
-        }
-
-        .member-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
-            border-color: #d4af37;
-        }
-
-        @keyframes cardEntry {
+        @keyframes floatIn {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .member-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+        @keyframes continuousFloat {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg);
+            }
+            25% { 
+                transform: translateY(-8px) rotate(0.5deg);
+            }
+            50% { 
+                transform: translateY(-4px) rotate(0deg);
+            }
+            75% { 
+                transform: translateY(-12px) rotate(-0.5deg);
+            }
         }
 
-        .member-avatar {
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .profile-card:hover::before {
+            left: 100%;
+        }
+
+        /* Profile Avatar */
+        .profile-avatar {
             width: 60px;
             height: 60px;
             border-radius: 50%;
@@ -346,14 +323,15 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.2rem;
-            color: #1a1611;
+            font-size: 1.1rem;
+            color: #000;
             overflow: hidden;
             position: relative;
-            animation: avatarGlow 3s ease-in-out infinite;
+            margin: 0 auto 0.75rem auto;
+            animation: avatarGlow 4s ease-in-out infinite;
         }
 
-        .member-avatar img {
+        .profile-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -361,73 +339,88 @@
         }
 
         @keyframes avatarGlow {
-            0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
-            50% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.8); }
+            0%, 100% { 
+                box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            }
+            50% { 
+                box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+            }
         }
 
-        .member-info h3 {
-            margin: 0;
-            font-size: 1.2rem;
+        /* Profile Info */
+        .profile-info {
+            text-align: center;
+        }
+
+        .profile-username {
+            font-size: 0.85rem;
+            font-weight: bold;
             color: #d4af37;
+            margin-bottom: 0.25rem;
+            word-break: break-word;
         }
 
-        .member-info p {
-            margin: 0.25rem 0 0 0;
+        .profile-name {
+            font-size: 0.7rem;
             opacity: 0.7;
-            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            word-break: break-word;
         }
 
-        .member-stats {
+        /* Profile Stats */
+        .profile-stats {
             display: flex;
-            justify-content: space-between;
-            margin-top: 1rem;
-            padding-top: 1rem;
+            justify-content: space-around;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
             border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        .stat {
+        .stat-item {
             text-align: center;
+            font-size: 0.6rem;
         }
 
         .stat-number {
             display: block;
-            font-size: 1.1rem;
             font-weight: bold;
             color: #d4af37;
+            font-size: 0.7rem;
         }
 
         .stat-label {
-            font-size: 0.8rem;
             opacity: 0.6;
-            margin-top: 0.25rem;
+            margin-top: 0.1rem;
         }
 
-        /* Add Member Form */
+        /* Add Member Section */
         .add-member-section {
-            background: rgba(0, 0, 0, 0.6);
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 15px;
-            padding: 2rem;
-            margin: 3rem 0;
-            backdrop-filter: blur(15px);
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            min-width: 300px;
         }
 
-        .add-member-form {
+        .add-form {
             display: flex;
-            gap: 1rem;
-            max-width: 500px;
-            margin: 0 auto;
+            gap: 0.5rem;
         }
 
         .form-input {
             flex: 1;
-            padding: 12px 16px;
+            padding: 0.75rem;
             background: rgba(212, 175, 55, 0.1);
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 8px;
             color: #d4af37;
             font-family: 'Orbitron', monospace;
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
 
         .form-input::placeholder {
@@ -441,15 +434,16 @@
         }
 
         .form-button {
-            padding: 12px 24px;
+            padding: 0.75rem 1rem;
             background: linear-gradient(45deg, #d4af37, #f4e4a1);
             border: none;
             border-radius: 8px;
-            color: #1a1611;
+            color: #000;
             font-family: 'Orbitron', monospace;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
 
         .form-button:hover {
@@ -457,23 +451,11 @@
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
         }
 
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            opacity: 0.6;
-        }
-
-        .empty-state h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
         /* Loading Animation */
         .loading {
             display: inline-block;
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             border: 2px solid rgba(212, 175, 55, 0.3);
             border-radius: 50%;
             border-top-color: #d4af37;
@@ -484,88 +466,189 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Empty State */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 4rem 2rem;
+            opacity: 0.6;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #d4af37;
+        }
+
+        .empty-state p {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        /* Music Controls */
+        .music-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .volume-slider {
+            width: 80px;
+            -webkit-appearance: none;
+            height: 4px;
+            border-radius: 4px;
+            background: rgba(212, 175, 55, 0.3);
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d4af37;
+            cursor: pointer;
+        }
+
+        /* Search/Filter */
+        .search-section {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .search-input {
+            max-width: 400px;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 25px;
+            color: #d4af37;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .search-input::placeholder {
+            color: rgba(212, 175, 55, 0.5);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
-            .title {
-                font-size: 2rem;
+            .header-content {
+                padding: 0 1rem;
             }
 
-            .members-grid {
-                grid-template-columns: 1fr;
+            .title-section h1 {
+                font-size: 1.5rem;
+            }
+
+            .stats-controls {
                 gap: 1rem;
             }
 
-            .add-member-form {
-                flex-direction: column;
+            .mega-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 0.75rem;
+                padding: 1rem 0;
             }
 
-            .controls {
-                top: 10px;
+            .add-member-section {
+                bottom: 10px;
                 right: 10px;
+                left: 10px;
+                min-width: auto;
             }
 
             .music-controls {
                 bottom: 10px;
-                right: 10px;
+                left: 10px;
+            }
+
+            .main-container {
+                padding: 1rem;
             }
         }
 
-        /* Seismic Wave Animation */
-        .seismic-waves {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            z-index: -1;
-            overflow: hidden;
+        @media (max-width: 480px) {
+            .mega-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            
+            .profile-card {
+                padding: 0.75rem;
+            }
+            
+            .profile-avatar {
+                width: 45px;
+                height: 45px;
+            }
         }
 
-        .wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 200%;
-            height: 100px;
-            background: linear-gradient(0deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
-            border-radius: 100% 100% 0 0;
-            animation: waveAnimation 8s ease-in-out infinite;
+        /* Performance optimizations */
+        .profile-card {
+            will-change: transform;
         }
 
-        .wave:nth-child(2) {
-            animation-delay: -2s;
-            opacity: 0.5;
-        }
-
-        .wave:nth-child(3) {
-            animation-delay: -4s;
-            opacity: 0.3;
-        }
-
-        @keyframes waveAnimation {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-20px); }
+        .particle {
+            will-change: transform, opacity;
         }
     </style>
 </head>
 <body>
-    <!-- Space Background -->
-    <div class="space-background"></div>
+    <!-- Cosmic Background -->
+    <div class="cosmic-background"></div>
     
-    <!-- Geometric Shapes -->
-    <div class="geometric-shapes">
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-    </div>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
 
-    <!-- Seismic Waves -->
-    <div class="seismic-waves">
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-    </div>
+    <!-- Audio Element -->
+    <audio id="backgroundMusic" loop>
+        <source src="./seismic-music.mp3" type="audio/mpeg">
+        <source src="./interstellar.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo">S</div>
+                <div class="title-section">
+                    <h1>SEISMIC WALL</h1>
+                    <p>Encrypted Community Network</p>
+                </div>
+            </div>
+            
+            <div class="stats-controls">
+                <div class="member-count">
+                    <span id="memberCount">0</span> Members
+                </div>
+                
+                <div class="controls">
+                    <button class="control-btn" onclick="refreshMembers()" title="Refresh Members">
+                        🔄
+                    </button>
+                    <button class="control-btn" onclick="toggleView()" title="Toggle View">
+                        🎯
+                    </button>
+                    <button class="control-btn" onclick="exportData()" title="Export Data">
+                        📊
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
 
     <!-- Connection Status -->
     <div class="connection-status">
@@ -573,94 +656,58 @@
         <span id="statusText">💎 Demo Mode</span>
     </div>
 
-    <!-- Controls -->
-    <div class="controls">
-        <button class="control-btn" onclick="refreshMembers()" title="Refresh">
-            🔄
-        </button>
-    </div>
-
     <!-- Music Controls -->
     <div class="music-controls">
         <button class="control-btn" onclick="toggleMusic()" id="musicBtn" title="Toggle Music">
             🎵
         </button>
-        <input type="range" class="volume-slider" min="0" max="100" value="30" onchange="setVolume(this.value)" title="Volume">
+        <input type="range" class="volume-slider" min="0" max="100" value="20" onchange="setVolume(this.value)" title="Volume">
     </div>
 
-    <!-- Audio Element -->
-    <audio id="backgroundMusic" loop>
-        <source src="https://www.soundjay.com/misc/sounds/space-ambient.mp3" type="audio/mpeg">
-        <!-- Fallback: You can replace with your GitHub-hosted music file -->
-    </audio>
-
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="logo-container">
-                <div class="seismic-logo">
-                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#d4af37;stop-opacity:1" />
-                                <stop offset="50%" style="stop-color:#f4e4a1;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#d4af37;stop-opacity:1" />
-                            </linearGradient>
-                        </defs>
-                        
-                        <!-- Seismic Wave Pattern -->
-                        <path d="M10 50 Q25 30 40 50 T70 50 T100 50" stroke="url(#logoGradient)" stroke-width="6" fill="none" opacity="0.9"/>
-                        <path d="M10 40 Q25 25 40 40 T70 40 T100 40" stroke="url(#logoGradient)" stroke-width="4" fill="none" opacity="0.7"/>
-                        <path d="M10 60 Q25 75 40 60 T70 60 T100 60" stroke="url(#logoGradient)" stroke-width="4" fill="none" opacity="0.7"/>
-                        
-                        <!-- Central Circles -->
-                        <circle cx="50" cy="50" r="15" stroke="url(#logoGradient)" stroke-width="3" fill="none" opacity="0.8"/>
-                        <circle cx="50" cy="50" r="8" stroke="url(#logoGradient)" stroke-width="2" fill="none" opacity="0.6"/>
-                        <circle cx="50" cy="50" r="3" fill="url(#logoGradient)" opacity="1"/>
-                        
-                        <!-- Outer Ring -->
-                        <circle cx="50" cy="50" r="35" stroke="url(#logoGradient)" stroke-width="2" fill="none" opacity="0.4" stroke-dasharray="5,5">
-                            <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 50 50" to="360 50 50" dur="20s" repeatCount="indefinite"/>
-                        </circle>
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="title">SEISMIC</h1>
-                    <p class="subtitle">Encrypted Community Wall</p>
-                </div>
-            </div>
-        </header>
-
-        <!-- Members Grid -->
-        <div class="members-grid" id="membersGrid">
-            <div class="empty-state">
-                <h3>No Members Found</h3>
-                <p>Add the first member to get started</p>
-            </div>
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Search Section -->
+        <div class="search-section">
+            <input 
+                type="text" 
+                class="search-input" 
+                placeholder="🔍 Search members..." 
+                id="searchInput"
+                oninput="filterMembers(this.value)"
+            >
         </div>
 
-        <!-- Add Member Form -->
-        <section class="add-member-section">
-            <h2 style="text-align: center; margin-bottom: 1.5rem; color: #d4af37;">Add New Member</h2>
-            <form class="add-member-form" onsubmit="addMember(event)">
-                <input 
-                    type="text" 
-                    class="form-input" 
-                    placeholder="Enter Twitter handle (e.g., @username)" 
-                    id="usernameInput"
-                    required
-                >
-                <button type="submit" class="form-button">
-                    <span id="addButtonText">Add Member</span>
-                    <span id="addButtonLoading" class="loading" style="display: none;"></span>
-                </button>
-            </form>
-        </section>
+        <!-- Mega Grid for Profiles -->
+        <div class="mega-grid" id="megaGrid">
+            <div class="empty-state">
+                <h3>Welcome to Seismic Wall</h3>
+                <p>Start adding members to build your community</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Member Section -->
+    <div class="add-member-section">
+        <h3 style="margin-bottom: 1rem; color: #d4af37; text-align: center;">Add Member</h3>
+        <form class="add-form" onsubmit="addMember(event)">
+            <input 
+                type="text" 
+                class="form-input" 
+                placeholder="@username" 
+                id="usernameInput"
+                required
+            >
+            <button type="submit" class="form-button">
+                <span id="addButtonText">Add</span>
+                <span id="addButtonLoading" class="loading" style="display: none;"></span>
+            </button>
+        </form>
     </div>
 
     <script>
         // Global variables
         let members = [];
+        let filteredMembers = [];
         let isConnected = false;
         let music = document.getElementById('backgroundMusic');
         let isPlaying = false;
@@ -670,15 +717,31 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
             checkConnection();
             fetchMembers();
             setupKeyboardShortcuts();
             
-            // Try to play music (browsers may require user interaction)
+            // Auto-play music at low volume
             setTimeout(() => {
-                music.volume = 0.3;
+                music.volume = 0.2;
             }, 1000);
         });
+
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                container.appendChild(particle);
+            }
+        }
 
         // Check backend connection
         async function checkConnection() {
@@ -709,65 +772,113 @@
         async function fetchMembers() {
             try {
                 if (!isConnected) {
-                    throw new Error('Backend not connected');
+                    // Demo data for testing
+                    members = generateDemoData();
+                } else {
+                    const response = await fetch(`${API_BASE}/members`);
+                    if (!response.ok) throw new Error('Failed to fetch');
+                    members = await response.json();
                 }
                 
-                const response = await fetch(`${API_BASE}/members`);
-                if (!response.ok) throw new Error('Failed to fetch');
-                
-                members = await response.json();
+                filteredMembers = [...members];
                 renderMembers();
+                updateMemberCount();
             } catch (error) {
                 console.error('Error fetching members:', error);
-                members = [];
+                members = generateDemoData();
+                filteredMembers = [...members];
                 renderMembers();
+                updateMemberCount();
             }
         }
 
-        // Render members grid
-        function renderMembers() {
-            const grid = document.getElementById('membersGrid');
+        // Generate demo data for testing
+        function generateDemoData() {
+            const demoMembers = [];
+            const sampleNames = [
+                'alice_crypto', 'bob_defi', 'charlie_nft', 'diana_web3', 'eve_blockchain',
+                'frank_dao', 'grace_metaverse', 'henry_mining', 'iris_trader', 'jack_hodl'
+            ];
             
-            if (members.length === 0) {
+            for (let i = 0; i < 50; i++) {
+                const name = sampleNames[i % sampleNames.length] + (i > 9 ? i : '');
+                demoMembers.push({
+                    id: i + 1,
+                    username: `@${name}`,
+                    displayName: name,
+                    profileImage: Math.random() > 0.3 ? `https://picsum.photos/120/120?random=${i}` : null,
+                    followers: Math.floor(Math.random() * 100000),
+                    verified: Math.random() > 0.7,
+                    description: 'Seismic Community Member',
+                    createdAt: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString()
+                });
+            }
+            
+            return demoMembers;
+        }
+
+        // Render members in mega grid
+        function renderMembers() {
+            const grid = document.getElementById('megaGrid');
+            
+            if (filteredMembers.length === 0) {
                 grid.innerHTML = `
                     <div class="empty-state">
                         <h3>No Members Found</h3>
-                        <p>Add the first member to get started</p>
+                        <p>Try adjusting your search or add new members</p>
                     </div>
                 `;
                 return;
             }
 
-            grid.innerHTML = members.map((member, index) => `
-                <div class="member-card" style="animation-delay: ${index * 0.1}s">
-                    <div class="member-header">
-                        <div class="member-avatar">
-                            ${member.profileImage ? 
-                                `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
-                                getInitials(member.displayName)
-                            }
-                        </div>
-                        <div class="member-info">
-                            <h3>${member.username}</h3>
-                            <p>${member.description || 'Seismic Community Member'}</p>
-                        </div>
+            grid.innerHTML = filteredMembers.map((member, index) => `
+                <div class="profile-card" style="animation-delay: ${(index % 20) * 0.05}s">
+                    <div class="profile-avatar">
+                        ${member.profileImage ? 
+                            `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
+                            getInitials(member.displayName)
+                        }
                     </div>
-                    <div class="member-stats">
-                        <div class="stat">
+                    <div class="profile-info">
+                        <div class="profile-username">${member.username}</div>
+                        <div class="profile-name">${member.displayName}</div>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="stat-item">
                             <span class="stat-number">${formatNumber(member.followers || 0)}</span>
                             <span class="stat-label">Followers</span>
                         </div>
-                        <div class="stat">
+                        <div class="stat-item">
                             <span class="stat-number">${member.verified ? '✓' : '○'}</span>
                             <span class="stat-label">Verified</span>
                         </div>
-                        <div class="stat">
+                        <div class="stat-item">
                             <span class="stat-number">${timeAgo(member.createdAt)}</span>
                             <span class="stat-label">Joined</span>
                         </div>
                     </div>
                 </div>
             `).join('');
+        }
+
+        // Update member count
+        function updateMemberCount() {
+            document.getElementById('memberCount').textContent = members.length;
+        }
+
+        // Filter members
+        function filterMembers(query) {
+            if (!query.trim()) {
+                filteredMembers = [...members];
+            } else {
+                const searchTerm = query.toLowerCase();
+                filteredMembers = members.filter(member => 
+                    member.username.toLowerCase().includes(searchTerm) ||
+                    member.displayName.toLowerCase().includes(searchTerm) ||
+                    (member.description && member.description.toLowerCase().includes(searchTerm))
+                );
+            }
+            renderMembers();
         }
 
         // Add new member
@@ -787,7 +898,7 @@
             
             try {
                 if (!isConnected) {
-                    throw new Error('Backend not connected');
+                    throw new Error('Backend not connected - Demo mode');
                 }
                 
                 const response = await fetch(`${API_BASE}/members`, {
@@ -823,6 +934,41 @@
             await fetchMembers();
         }
 
+        // Toggle view modes
+        function toggleView() {
+            const grid = document.getElementById('megaGrid');
+            const currentColumns = getComputedStyle(grid).gridTemplateColumns;
+            
+            if (currentColumns.includes('180px')) {
+                // Switch to compact view
+                grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(120px, 1fr))';
+                grid.style.gap = '0.5rem';
+            } else {
+                // Switch back to normal view
+                grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
+                grid.style.gap = '1rem';
+            }
+        }
+
+        // Export data
+        function exportData() {
+            const data = {
+                members: members,
+                count: members.length,
+                exported: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `seismic-wall-export-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
         // Music controls
         function toggleMusic() {
             const btn = document.getElementById('musicBtn');
@@ -851,6 +997,12 @@
                 } else if (e.key === 'r' && !e.ctrlKey && e.target.tagName !== 'INPUT') {
                     e.preventDefault();
                     refreshMembers();
+                } else if (e.key === 'f' && e.ctrlKey) {
+                    e.preventDefault();
+                    document.getElementById('searchInput').focus();
+                } else if (e.key === 'v' && e.ctrlKey && e.shiftKey) {
+                    e.preventDefault();
+                    toggleView();
                 }
             });
         }
@@ -875,6 +1027,36 @@
             if (diffInSeconds < 3600) return Math.floor(diffInSeconds / 60) + 'm';
             if (diffInSeconds < 86400) return Math.floor(diffInSeconds / 3600) + 'h';
             return Math.floor(diffInSeconds / 86400) + 'd';
+        }
+
+        // Auto-refresh every 5 minutes when connected
+        setInterval(() => {
+            if (isConnected) {
+                refreshMembers();
+            }
+        }, 5 * 60 * 1000);
+
+        // Performance optimization - Intersection Observer for large lists
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    } else {
+                        entry.target.style.animationPlayState = 'paused';
+                    }
+                });
+            });
+
+            // Observe profile cards for performance
+            const observeCards = () => {
+                document.querySelectorAll('.profile-card').forEach(card => {
+                    observer.observe(card);
+                });
+            };
+
+            // Call after rendering
+            setTimeout(observeCards, 1000);
         }
     </script>
 </body>
