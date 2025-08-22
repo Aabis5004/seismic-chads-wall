@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌊 Seismic Chads Wall</title>
+    <title>Seismic Chads Wall</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
@@ -12,896 +15,547 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a, #1a3b2e, #0f2922, #1a3b2e, #0a0a0a);
-            min-height: 100vh;
-            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 50% 50%, #0a0f1b 0%, #000 100%);
+            overflow: hidden;
             position: relative;
-            color: white;
         }
 
-        /* Enhanced Cosmic Background */
-        .cosmic-bg {
+        .matrix-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2;
+            z-index: 1;
+            opacity: 0.3;
         }
 
-        /* Spinning Portal */
-        .spinning-portal {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px;
-            height: 600px;
-            border: 3px solid transparent;
-            border-radius: 50%;
-            background: conic-gradient(
-                from 0deg,
-                transparent 0deg,
-                #00ff41 5deg,
-                transparent 10deg,
-                transparent 85deg,
-                #22c55e 90deg,
-                transparent 95deg
-            );
-            animation: spinSlow 25s linear infinite;
-            opacity: 0.4;
-            mask: radial-gradient(circle, transparent 48%, white 50%, white 52%, transparent 54%);
-        }
-
-        .spinning-portal::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            border-radius: 50%;
-            background: conic-gradient(
-                from 180deg,
-                transparent 0deg,
-                #22c55e 15deg,
-                transparent 30deg,
-                #16a34a 180deg,
-                transparent 195deg,
-                transparent 330deg,
-                #00ff41 345deg,
-                transparent 360deg
-            );
-            animation: spinMedium 15s linear infinite;
-            opacity: 0.6;
-            mask: radial-gradient(circle, transparent 35%, white 37%, white 65%, transparent 67%);
-        }
-
-        @keyframes spinSlow { 
-            from { transform: translate(-50%, -50%) rotate(0deg); } 
-            to { transform: translate(-50%, -50%) rotate(360deg); } 
-        }
-
-        @keyframes spinMedium { 
-            from { transform: translate(-50%, -50%) rotate(0deg); } 
-            to { transform: translate(-50%, -50%) rotate(360deg); } 
-        }
-
-        /* Floating particles */
-        .particles {
-            position: absolute;
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            z-index: 2;
+            pointer-events: none;
         }
 
         .particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #00ff41;
+            background: #00ff88;
             border-radius: 50%;
-            animation: float 15s infinite linear;
-            opacity: 0.6;
+            animation: float 20s infinite linear;
         }
 
         @keyframes float {
-            0% {
-                transform: translateY(100vh) translateX(0px);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-10vh) translateX(100px);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(200px); opacity: 0; }
         }
 
-        /* Header */
-        .header {
-            text-align: center;
-            padding: 2rem 1rem;
+        .main-container {
             position: relative;
             z-index: 10;
-        }
-
-        .title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: #00ff41;
-            margin-bottom: 0.5rem;
-            text-shadow: 
-                0 0 10px #00ff41,
-                0 0 20px #00ff41,
-                0 0 30px #00ff41;
-            animation: titleGlow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes titleGlow {
-            0% { 
-                text-shadow: 
-                    0 0 10px #00ff41,
-                    0 0 20px #00ff41,
-                    0 0 30px #00ff41;
-            }
-            100% { 
-                text-shadow: 
-                    0 0 20px #00ff41,
-                    0 0 30px #00ff41,
-                    0 0 40px #00ff41,
-                    0 0 50px #22c55e;
-            }
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: rgba(0, 255, 65, 0.9);
-            margin-bottom: 2rem;
-        }
-
-        /* Search Section */
-        .search-section {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .search-input {
-            width: 350px;
-            padding: 1rem 1.5rem;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid rgba(0, 255, 65, 0.5);
-            border-radius: 25px;
-            color: #00ff41;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #00ff41;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
-            background: rgba(0, 0, 0, 0.9);
-        }
-
-        .search-input::placeholder {
-            color: rgba(0, 255, 65, 0.6);
-        }
-
-        .submit-btn {
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, #00ff41, #22c55e);
-            border: none;
-            border-radius: 25px;
-            color: #000;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .submit-btn:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0, 255, 65, 0.5);
-            background: linear-gradient(45deg, #22c55e, #00ff41);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        /* Stats */
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            background: rgba(0, 255, 65, 0.1);
-            border: 1px solid rgba(0, 255, 65, 0.3);
-            padding: 1rem 2rem;
-            border-radius: 20px;
-            color: #00ff41;
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
-        }
-
-        /* Connection Status */
-        .connection-status {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 0.75rem 1.5rem;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            z-index: 1000;
-            border: 2px solid;
-            backdrop-filter: blur(10px);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .connection-status.connected {
-            background: rgba(0, 255, 65, 0.2);
-            color: #00ff41;
-            border-color: #00ff41;
-            box-shadow: 0 0 25px rgba(0, 255, 65, 0.4);
-        }
-
-        .connection-status.demo {
-            background: rgba(255, 215, 0, 0.2);
-            color: #ffd700;
-            border-color: #ffd700;
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
-        }
-
-        .connection-status.connecting {
-            background: rgba(255, 255, 0, 0.2);
-            color: #ffff44;
-            border-color: #ffff44;
-            box-shadow: 0 0 25px rgba(255, 255, 0, 0.4);
-        }
-
-        /* Wall Container */
-        .wall-container {
-            position: relative;
-            z-index: 10;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .wall {
-            position: relative;
-            min-height: 500px;
-            border-radius: 25px;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(0, 255, 65, 0.2);
-            padding: 2rem;
-            overflow: hidden;
-        }
-
-        /* Member Cards - Positioned in Center */
-        .member-card {
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 3px solid rgba(0, 255, 65, 0.5);
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
-            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2);
-            animation: cardFloat 8s ease-in-out infinite;
+            padding: 20px;
         }
 
-        .member-card:hover {
-            transform: translateY(-15px) scale(1.1) rotate(5deg);
-            border-color: #00ff41;
-            background: rgba(0, 255, 65, 0.1);
-            box-shadow: 
-                0 25px 50px rgba(0, 255, 65, 0.4),
-                inset 0 0 30px rgba(0, 255, 65, 0.1);
-            z-index: 100;
-        }
-
-        .member-card.founder {
-            border-color: rgba(255, 215, 0, 0.7);
-            background: rgba(255, 215, 0, 0.1);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
-        }
-
-        .member-card.founder:hover {
-            border-color: #ffd700;
-            background: rgba(255, 215, 0, 0.2);
-            box-shadow: 0 25px 50px rgba(255, 215, 0, 0.5);
-        }
-
-        .member-card.moderator {
-            border-color: rgba(0, 191, 255, 0.7);
-            background: rgba(0, 191, 255, 0.1);
-            box-shadow: 0 10px 30px rgba(0, 191, 255, 0.3);
-        }
-
-        .member-card.moderator:hover {
-            border-color: #00bfff;
-            background: rgba(0, 191, 255, 0.2);
-            box-shadow: 0 25px 50px rgba(0, 191, 255, 0.5);
-        }
-
-        /* Floating Animation */
-        @keyframes cardFloat {
-            0%, 100% { 
-                transform: translateY(0px) translateX(0px) rotate(0deg); 
-            }
-            25% { 
-                transform: translateY(-20px) translateX(15px) rotate(3deg); 
-            }
-            50% { 
-                transform: translateY(-10px) translateX(-10px) rotate(-2deg); 
-            }
-            75% { 
-                transform: translateY(-15px) translateX(12px) rotate(2deg); 
-            }
-        }
-
-        .member-card:nth-child(2n) {
-            animation-delay: -2s;
-            animation-duration: 10s;
-        }
-
-        .member-card:nth-child(3n) {
-            animation-delay: -4s;
-            animation-duration: 12s;
-        }
-
-        .member-card:nth-child(4n) {
-            animation-delay: -6s;
-            animation-duration: 9s;
-        }
-
-        /* Profile Images */
-        .profile-image {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            border: 3px solid rgba(0, 255, 65, 0.6);
-            object-fit: cover;
-            transition: all 0.3s ease;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(45deg, rgba(0, 255, 65, 0.2), rgba(0, 255, 65, 0.1));
-        }
-
-        .profile-image:hover {
-            border-color: #00ff41;
-            box-shadow: 0 0 25px rgba(0, 255, 65, 0.6);
-            transform: scale(1.1);
-        }
-
-        .profile-image.verified {
-            border-color: #00bfff;
-            box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
-        }
-
-        /* Member Info */
-        .member-info {
-            text-align: center;
-            color: #00ff41;
-        }
-
-        .member-name {
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+        .wall-container {
+            position: relative;
+            width: 800px;
+            height: 600px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.25rem;
         }
 
-        .member-username {
-            font-size: 0.75rem;
-            color: rgba(0, 255, 65, 0.8);
-            font-weight: 500;
+        .profile-card {
+            position: absolute;
+            width: 120px;
+            height: 160px;
+            background: linear-gradient(145deg, rgba(0, 255, 136, 0.1), rgba(0, 200, 100, 0.05));
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 8px 32px rgba(0, 255, 136, 0.1);
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(0, 255, 136, 0.3);
+            border-color: rgba(0, 255, 136, 0.6);
+        }
+
+        .profile-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 255, 136, 0.5);
+            object-fit: cover;
+            margin-bottom: 8px;
+        }
+
+        .profile-name {
+            color: #00ff88;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        .profile-handle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 10px;
+            text-align: center;
         }
 
         .verified-badge {
-            color: #00bfff;
-            font-size: 0.9rem;
-            text-shadow: 0 0 10px rgba(0, 191, 255, 0.7);
-        }
-
-        /* Loading States */
-        .loading-message {
-            text-align: center;
-            color: #00ff41;
-            font-size: 1.3rem;
-            padding: 3rem;
-        }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(0, 255, 65, 0.3);
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 16px;
+            height: 16px;
+            background: #1da1f2;
             border-radius: 50%;
-            border-top-color: #00ff41;
-            animation: spin 1s linear infinite;
-            margin-right: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: white;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .status-bar {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 20;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #00ff88;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
         }
 
-        /* Messages */
-        .message {
-            text-align: center;
-            margin: 1rem 0;
-            padding: 1rem 2rem;
-            border-radius: 15px;
+        .add-member-form {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .add-member-input {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: #00ff88;
+            width: 200px;
+            outline: none;
+        }
+
+        .add-member-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .add-member-btn {
+            background: linear-gradient(45deg, #00ff88, #00cc66);
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+            color: black;
             font-weight: 600;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .success-message {
-            background: rgba(0, 255, 65, 0.2);
-            border: 2px solid rgba(0, 255, 65, 0.4);
-            color: #00ff41;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        .add-member-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.4);
         }
 
-        .error-message {
-            background: rgba(255, 0, 0, 0.2);
-            border: 2px solid rgba(255, 0, 0, 0.4);
-            color: #ff4444;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+        .loading {
+            opacity: 0.5;
+            pointer-events: none;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .title {
-                font-size: 2.5rem;
-            }
+        /* Floating animations */
+        .float-1 { animation: float1 8s ease-in-out infinite; }
+        .float-2 { animation: float2 10s ease-in-out infinite; }
+        .float-3 { animation: float3 12s ease-in-out infinite; }
+        .float-4 { animation: float4 9s ease-in-out infinite; }
 
-            .search-input {
-                width: 280px;
-            }
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(10px, -15px) rotate(2deg); }
+            50% { transform: translate(-5px, -25px) rotate(-1deg); }
+            75% { transform: translate(-10px, -10px) rotate(1deg); }
+        }
 
-            .member-card {
-                width: 120px;
-                height: 120px;
-                animation: none;
-                position: relative;
-                margin: 1rem;
-                display: inline-block;
-            }
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-15px, -10px) rotate(-2deg); }
+            50% { transform: translate(20px, -20px) rotate(2deg); }
+            75% { transform: translate(5px, -15px) rotate(-1deg); }
+        }
 
-            .wall {
-                text-align: center;
-                padding: 1rem;
-            }
+        @keyframes float3 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(12px, -20px) rotate(1deg); }
+            50% { transform: translate(-8px, -30px) rotate(-2deg); }
+            75% { transform: translate(-15px, -5px) rotate(2deg); }
+        }
 
-            .profile-image {
-                width: 70px;
-                height: 70px;
-            }
+        @keyframes float4 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-10px, -25px) rotate(-1deg); }
+            50% { transform: translate(15px, -15px) rotate(2deg); }
+            75% { transform: translate(8px, -20px) rotate(-2deg); }
+        }
 
-            .stats {
-                gap: 1rem;
-            }
-
-            .stat {
-                padding: 0.75rem 1rem;
-                font-size: 0.9rem;
-            }
+        .debug-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 20;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: #00ff88;
+            font-size: 12px;
+            backdrop-filter: blur(10px);
+            max-width: 300px;
         }
     </style>
 </head>
 <body>
-    <div class="cosmic-bg">
-        <div class="spinning-portal"></div>
-        <div class="particles" id="particles"></div>
-    </div>
-    
-    <div class="connection-status connecting" id="connectionStatus" onclick="retryConnection()">
-        🔄 Connecting...
+    <div class="matrix-bg"></div>
+    <div class="floating-particles"></div>
+
+    <div class="status-bar">
+        <span id="connection-status">🔄 Connecting to backend...</span>
     </div>
 
-    <div class="header">
-        <h1 class="title">🌊 Seismic Chads Wall</h1>
-        <p class="subtitle">Submit your X/Discord handle. Join the stable supercycle💎</p>
-        
-        <div class="search-section">
-            <input 
-                type="text" 
-                class="search-input" 
-                id="handleInput" 
-                placeholder="@yourusername"
-                autocomplete="off"
-            >
-            <button class="submit-btn" id="submitBtn" onclick="addMember()">
-                Submit
-            </button>
-        </div>
-
-        <div class="stats">
-            <div class="stat">Network: <span id="totalMembers">0</span> signatures</div>
-            <div class="stat">Verified: <span id="verifiedCount">0</span></div>
-            <div class="stat"><span id="lastUpdate">Ready</span></div>
+    <div class="main-container">
+        <div class="wall-container" id="wall-container">
+            <!-- Profile cards will be loaded here -->
         </div>
     </div>
 
-    <div id="messageContainer"></div>
+    <div class="add-member-form">
+        <input 
+            type="text" 
+            placeholder="Enter Twitter handle (e.g., @vitalikbuterin)" 
+            class="add-member-input"
+            id="twitter-handle-input"
+        />
+        <button class="add-member-btn" onclick="addMember()">Submit</button>
+    </div>
 
-    <div class="wall-container">
-        <div class="wall" id="wall">
-            <div class="loading-message">
-                <span class="loading-spinner"></span>
-                Connecting to neural network...
-            </div>
-        </div>
+    <div class="debug-info" id="debug-info">
+        Backend: Connecting...<br>
+        Members: 0<br>
+        Last sync: Never
     </div>
 
     <script>
-        // Configuration
-        const API_BASE = 'http://162.250.191.81/api';
-        
-        // Global state
         let members = [];
-        let connectionStatus = 'connecting';
-        let isSubmitting = false;
-
-        // DOM elements
-        const wall = document.getElementById('wall');
-        const handleInput = document.getElementById('handleInput');
-        const submitBtn = document.getElementById('submitBtn');
-        const messageContainer = document.getElementById('messageContainer');
-        const connectionStatusEl = document.getElementById('connectionStatus');
-        const totalMembersEl = document.getElementById('totalMembers');
-        const verifiedCountEl = document.getElementById('verifiedCount');
-        const lastUpdateEl = document.getElementById('lastUpdate');
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🌊 Seismic Chads Wall - Perfect Version');
-            createParticles();
-            setupEventListeners();
-            checkConnection();
-        });
+        let isBackendConnected = false;
+        const API_BASE = 'http://162.250.191.81';
 
         // Create floating particles
         function createParticles() {
-            const particles = document.getElementById('particles');
+            const container = document.querySelector('.floating-particles');
             for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-                particles.appendChild(particle);
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.width = Math.random() * 4 + 2 + 'px';
+                    particle.style.height = particle.style.width;
+                    particle.style.animationDelay = Math.random() * 20 + 's';
+                    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                    container.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 25000);
+                }, i * 1000);
             }
         }
 
-        // Event listeners
-        function setupEventListeners() {
-            handleInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    addMember();
-                }
-            });
-        }
-
-        // Connection management
-        async function checkConnection() {
-            updateConnectionStatus('connecting');
+        // Test backend connection
+        async function testBackendConnection() {
+            updateDebug('Backend: Testing connection...');
             
             try {
-                console.log('🔍 Testing connection to:', API_BASE);
-                
-                const response = await fetch(API_BASE + '/health', {
+                // Try the members endpoint directly
+                const response = await fetch(`${API_BASE}/api/members`, {
                     method: 'GET',
-                    mode: 'no-cors',
+                    mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     }
                 });
 
-                console.log('✅ Connection successful');
-                updateConnectionStatus('connected');
-                await loadMembers();
-                
-            } catch (error) {
-                console.log('❌ Connection failed, using demo mode');
-                updateConnectionStatus('demo');
-                loadDemoData();
-            }
-        }
-
-        function retryConnection() {
-            checkConnection();
-        }
-
-        function updateConnectionStatus(status) {
-            connectionStatus = status;
-            connectionStatusEl.className = `connection-status ${status}`;
-            
-            switch (status) {
-                case 'connected':
-                    connectionStatusEl.textContent = '🟢 Backend Connected';
-                    break;
-                case 'demo':
-                    connectionStatusEl.textContent = '💎 Demo Mode';
-                    break;
-                case 'connecting':
-                    connectionStatusEl.textContent = '🔄 Connecting...';
-                    break;
-            }
-        }
-
-        // Load members from backend
-        async function loadMembers() {
-            try {
-                const response = await fetch(API_BASE + '/members', {
-                    method: 'GET',
-                    mode: 'no-cors'
-                });
-
-                // Since we can't read the response in no-cors mode, use demo data
-                loadDemoData();
-                showMessage('✅ Loaded from backend (demo mode)', 'success');
-                
-            } catch (error) {
-                console.error('Failed to load members:', error);
-                loadDemoData();
-            }
-        }
-
-        // Load demo data with real profile images
-        function loadDemoData() {
-            members = [
-                {
-                    id: 1,
-                    username: '@elonmusk',
-                    displayName: 'Elon Musk',
-                    role: 'guest',
-                    verified: true,
-                    profileImage: 'https://pbs.twimg.com/profile_images/1683325380441128960/yRsRRjGO_400x400.jpg'
-                },
-                {
-                    id: 2,
-                    username: '@NoxxW3',
-                    displayName: 'NoxxW3',
-                    role: 'member',
-                    verified: false,
-                    profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face'
-                },
-                {
-                    id: 3,
-                    username: '@lyronctk',
-                    displayName: 'Lyron CTK',
-                    role: 'member',
-                    verified: false,
-                    profileImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
-                },
-                {
-                    id: 4,
-                    username: '@xealistt',
-                    displayName: 'Xealist',
-                    role: 'member',
-                    verified: false,
-                    profileImage: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&crop=face'
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Backend connected! Data:', data);
+                    isBackendConnected = true;
+                    document.getElementById('connection-status').innerHTML = '🟢 Backend Connected';
+                    updateDebug(`Backend: Connected ✅<br>Members: ${data.length}<br>Last sync: ${new Date().toLocaleTimeString()}`);
+                    return data;
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
-            ];
-            
-            renderMembers();
-            updateStats();
+            } catch (error) {
+                console.warn('Backend connection failed:', error);
+                isBackendConnected = false;
+                document.getElementById('connection-status').innerHTML = '💎 Demo Mode';
+                updateDebug(`Backend: Failed to connect<br>Error: ${error.message}<br>Using demo data`);
+                
+                // Return demo data with real Twitter profile images
+                return [
+                    {
+                        id: 1,
+                        username: '@elonmusk',
+                        displayName: 'Elon Musk',
+                        profileImage: 'https://pbs.twimg.com/profile_images/1815749056821346304/jS8I28PL_400x400.jpg',
+                        verified: 1,
+                        followers: 224556387,
+                        role: 'founder'
+                    },
+                    {
+                        id: 2,
+                        username: '@NoxxW3',
+                        displayName: 'NoxxW3',
+                        profileImage: 'https://pbs.twimg.com/profile_images/1234567890/noxx_400x400.jpg',
+                        verified: 0,
+                        followers: 1250,
+                        role: 'member'
+                    },
+                    {
+                        id: 3,
+                        username: '@lyronctk',
+                        displayName: 'Lyron CTK',
+                        profileImage: 'https://pbs.twimg.com/profile_images/1234567891/lyron_400x400.jpg',
+                        verified: 0,
+                        followers: 890,
+                        role: 'member'
+                    },
+                    {
+                        id: 4,
+                        username: '@xealistt',
+                        displayName: 'Xealist',
+                        profileImage: 'https://pbs.twimg.com/profile_images/1234567892/xeal_400x400.jpg',
+                        verified: 0,
+                        followers: 567,
+                        role: 'member'
+                    }
+                ];
+            }
         }
 
-        // Render members in center with floating animation
-        function renderMembers() {
-            wall.innerHTML = '';
+        function updateDebug(message) {
+            document.getElementById('debug-info').innerHTML = message;
+        }
 
-            if (members.length === 0) {
-                wall.innerHTML = `
-                    <div class="loading-message">
-                        🏗️ Neural Network Empty<br>
-                        <span style="font-size: 1rem; opacity: 0.8;">Be the first to join!</span>
-                    </div>
-                `;
-                return;
+        // Create profile card
+        function createProfileCard(member, index) {
+            const card = document.createElement('div');
+            card.className = `profile-card float-${(index % 4) + 1}`;
+            
+            // Position cards in a circle
+            const angle = (index * 90) * (Math.PI / 180);
+            const radius = 200;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+            
+            card.style.left = `calc(50% + ${x}px - 60px)`;
+            card.style.top = `calc(50% + ${y}px - 80px)`;
+
+            // Handle profile image with fallback
+            let profileImageSrc = member.profileImage;
+            
+            // If no profile image or broken image, use a generated avatar
+            if (!profileImageSrc || profileImageSrc === 'null' || profileImageSrc === null) {
+                const username = member.username.replace('@', '');
+                profileImageSrc = `https://ui-avatars.com/api/?name=${encodeURIComponent(username)}&background=00ff88&color=000&size=128&bold=true`;
             }
 
-            const wallRect = wall.getBoundingClientRect();
-            const centerX = wallRect.width / 2;
-            const centerY = wallRect.height / 2;
+            const roleColors = {
+                'founder': 'border-yellow-400 shadow-yellow-400/20',
+                'moderator': 'border-blue-400 shadow-blue-400/20',
+                'member': 'border-green-400 shadow-green-400/20',
+                'guest': 'border-purple-400 shadow-purple-400/20'
+            };
 
-            members.forEach((member, index) => {
-                const memberEl = createMemberElement(member, index);
-                
-                // Position cards in a circle around center
-                const angle = (index / members.length) * 2 * Math.PI;
-                const radius = Math.min(150, Math.min(centerX, centerY) - 100);
-                
-                const x = centerX + Math.cos(angle) * radius - 75; // 75 = half of card width
-                const y = centerY + Math.sin(angle) * radius - 75; // 75 = half of card height
-                
-                memberEl.style.left = x + 'px';
-                memberEl.style.top = y + 'px';
-                memberEl.style.animationDelay = (index * 0.5) + 's';
-                
-                wall.appendChild(memberEl);
-            });
-        }
+            const roleColor = roleColors[member.role] || roleColors['member'];
+            card.classList.add(...roleColor.split(' '));
 
-        // Create member element
-        function createMemberElement(member, index) {
-            const memberEl = document.createElement('div');
-            memberEl.className = `member-card ${member.role}`;
-
-            memberEl.innerHTML = `
-                <img 
-                    src="${member.profileImage}" 
-                    alt="${member.displayName}"
-                    class="profile-image ${member.verified ? 'verified' : ''}"
-                    onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(member.displayName)}&size=150&background=00ff41&color=000000&bold=true';"
-                >
-                <div class="member-info">
-                    <div class="member-name">
-                        ${member.displayName}
-                        ${member.verified ? '<span class="verified-badge">✓</span>' : ''}
-                    </div>
-                    <div class="member-username">${member.username}</div>
+            card.innerHTML = `
+                ${member.verified ? '<div class="verified-badge">✓</div>' : ''}
+                <img src="${profileImageSrc}" alt="${member.displayName}" class="profile-image" 
+                     onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(member.username.replace('@', ''))}&background=00ff88&color=000&size=128&bold=true'">
+                <div class="profile-name">${member.displayName}</div>
+                <div class="profile-handle">${member.username}</div>
+                <div style="font-size: 10px; color: rgba(255,255,255,0.5); margin-top: 4px;">
+                    ${member.followers ? formatNumber(member.followers) + ' followers' : member.role}
                 </div>
             `;
 
-            return memberEl;
+            return card;
         }
 
-        // Add member
-        async function addMember() {
-            if (isSubmitting) return;
-            
-            const handle = handleInput.value.trim();
-            
-            if (!handle) {
-                showMessage('Please enter a Twitter handle', 'error');
-                return;
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
             }
-
-            const cleanHandle = handle.replace('@', '').toLowerCase();
-            const finalUsername = '@' + cleanHandle;
-            
-            if (members.find(m => m.username.toLowerCase() === finalUsername)) {
-                showMessage('This handle is already on the wall!', 'error');
-                return;
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
             }
+            return num.toString();
+        }
 
-            isSubmitting = true;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="loading-spinner"></span>Adding...';
+        // Load and display members
+        async function loadMembers() {
+            const container = document.getElementById('wall-container');
+            container.innerHTML = '';
 
-            // Simulate adding to backend
             try {
-                if (connectionStatus === 'connected') {
-                    // Try to submit to backend (will fail due to CORS but that's ok)
-                    await fetch(API_BASE + '/submit', {
+                members = await testBackendConnection();
+                
+                members.forEach((member, index) => {
+                    const card = createProfileCard(member, index);
+                    container.appendChild(card);
+                });
+
+                updateDebug(`Backend: ${isBackendConnected ? 'Connected ✅' : 'Demo Mode 💎'}<br>Members: ${members.length}<br>Last sync: ${new Date().toLocaleTimeString()}`);
+
+            } catch (error) {
+                console.error('Error loading members:', error);
+                updateDebug(`Error: ${error.message}`);
+            }
+        }
+
+        // Add new member
+        async function addMember() {
+            const input = document.getElementById('twitter-handle-input');
+            let handle = input.value.trim();
+            
+            if (!handle) return;
+            
+            if (!handle.startsWith('@')) {
+                handle = '@' + handle;
+            }
+
+            const button = document.querySelector('.add-member-btn');
+            button.textContent = 'Searching...';
+            button.disabled = true;
+
+            try {
+                if (isBackendConnected) {
+                    // Try to add via backend
+                    const response = await fetch(`${API_BASE}/api/members`, {
                         method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            username: finalUsername,
-                            displayName: capitalizeWords(cleanHandle),
-                            role: 'guest'
-                        })
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ username: handle })
                     });
+
+                    if (response.ok) {
+                        input.value = '';
+                        await loadMembers(); // Reload all members
+                    } else {
+                        throw new Error('Failed to add member via backend');
+                    }
+                } else {
+                    // Add locally in demo mode
+                    const newMember = {
+                        id: members.length + 1,
+                        username: handle,
+                        displayName: handle.replace('@', ''),
+                        profileImage: `https://ui-avatars.com/api/?name=${encodeURIComponent(handle.replace('@', ''))}&background=00ff88&color=000&size=128&bold=true`,
+                        verified: 0,
+                        followers: Math.floor(Math.random() * 10000),
+                        role: 'member'
+                    };
+                    
+                    members.push(newMember);
+                    const container = document.getElementById('wall-container');
+                    const card = createProfileCard(newMember, members.length - 1);
+                    container.appendChild(card);
+                    input.value = '';
+                    
+                    updateDebug(`Backend: Demo Mode 💎<br>Members: ${members.length}<br>Last add: ${new Date().toLocaleTimeString()}`);
                 }
             } catch (error) {
-                console.log('Backend submit attempted');
+                console.error('Error adding member:', error);
+                alert('Error adding member: ' + error.message);
+            } finally {
+                button.textContent = 'Submit';
+                button.disabled = false;
             }
-
-            // Add to local array
-            const newMember = {
-                id: members.length + 1,
-                username: finalUsername,
-                displayName: capitalizeWords(cleanHandle),
-                role: 'guest',
-                verified: false,
-                profileImage: getRandomProfileImage()
-            };
-
-            members.push(newMember);
-            renderMembers();
-            updateStats();
-            showMessage(`✅ ${newMember.displayName} added to the wall!`, 'success');
-            handleInput.value = '';
-            
-            isSubmitting = false;
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = 'Submit';
         }
 
-        // Get random profile image
-        function getRandomProfileImage() {
-            const images = [
-                'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1566492404-eaa1a8fa8b5b?w=150&h=150&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1527980965255-f888f03af5d7?w=150&h=150&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?w=150&h=150&fit=crop&crop=face'
-            ];
-            return images[Math.floor(Math.random() * images.length)];
-        }
-
-        // Utility functions
-        function capitalizeWords(str) {
-            return str.split(/(?=[A-Z])|_|-/).map(word => 
-                word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-            ).join(' ');
-        }
-
-        function showMessage(text, type) {
-            messageContainer.innerHTML = `<div class="message ${type}-message">${text}</div>`;
-            setTimeout(() => {
-                messageContainer.innerHTML = '';
-            }, 4000);
-        }
-
-        function updateStats() {
-            const total = members.length;
-            const verified = members.filter(m => m.verified).length;
-            const now = new Date().toLocaleTimeString();
-            
-            totalMembersEl.textContent = total;
-            verifiedCountEl.textContent = verified;
-            lastUpdateEl.textContent = now;
-        }
-
-        // Auto-refresh every 30 seconds
-        setInterval(() => {
-            if (connectionStatus === 'connected') {
-                loadMembers();
+        // Handle enter key in input
+        document.getElementById('twitter-handle-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addMember();
             }
-        }, 30000);
+        });
 
-        console.log(`
-🌊 SEISMIC CHADS WALL - PERFECT VERSION
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🚀 Frontend: Perfect Animation System
-🎨 Design: Centered Floating Profiles
-🔗 Backend: Testing Connection
-💎 Profile Photos: Real Images
-🎯 Version: Perfect v1.0
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        `);
+        // Initialize everything
+        window.addEventListener('load', () => {
+            createParticles();
+            loadMembers();
+            
+            // Create more particles periodically
+            setInterval(createParticles, 30000);
+            
+            // Try to reconnect every 30 seconds if not connected
+            setInterval(() => {
+                if (!isBackendConnected) {
+                    loadMembers();
+                }
+            }, 30000);
+        });
+
+        // Force refresh function
+        function forceRefresh() {
+            loadMembers();
+        }
+
+        // Add refresh button click handler
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'r' || e.key === 'R') {
+                forceRefresh();
+            }
+        });
     </script>
 </body>
 </html>
