@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seismic Encrypted Community Wall</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Seismic Wall</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
         
         * {
             margin: 0;
@@ -15,565 +14,868 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at 50% 50%, #0a0f1b 0%, #000 100%);
-            overflow: hidden;
+            font-family: 'Orbitron', monospace;
+            background: #1a1611;
+            color: #d4af37;
+            overflow-x: hidden;
+            min-height: 100vh;
             position: relative;
         }
 
-        .matrix-bg {
+        /* Interstellar Background Animation */
+        .space-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
-            opacity: 0.3;
+            z-index: -2;
+            background: radial-gradient(circle at 50% 50%, #2d2416 0%, #1a1611 50%, #0a0806 100%);
         }
 
-        .floating-particles {
+        .space-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #d4af37, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(212, 175, 55, 0.5), transparent),
+                radial-gradient(1px 1px at 90px 40px, #d4af37, transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(212, 175, 55, 0.3), transparent),
+                radial-gradient(2px 2px at 160px 30px, #d4af37, transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: starField 50s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes starField {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100px); }
+        }
+
+        /* Floating Geometric Shapes */
+        .geometric-shapes {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 2;
+            z-index: -1;
             pointer-events: none;
         }
 
-        .particle {
+        .shape {
             position: absolute;
-            background: #00ff88;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            top: 20%;
+            left: 10%;
             border-radius: 50%;
-            animation: float 20s infinite linear;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 40px;
+            height: 40px;
+            top: 60%;
+            right: 20%;
+            transform: rotate(45deg);
+            animation-delay: -5s;
+        }
+
+        .shape:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 15%;
+            border-radius: 50%;
+            animation-delay: -10s;
+        }
+
+        .shape:nth-child(4) {
+            width: 50px;
+            height: 50px;
+            top: 30%;
+            right: 10%;
+            transform: rotate(30deg);
+            animation-delay: -15s;
         }
 
         @keyframes float {
-            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100px) translateX(200px); opacity: 0; }
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            25% { transform: translateY(-20px) rotate(90deg); opacity: 0.6; }
+            50% { transform: translateY(-40px) rotate(180deg); opacity: 0.3; }
+            75% { transform: translateY(-20px) rotate(270deg); opacity: 0.6; }
         }
 
-        .main-container {
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 2rem 0;
             position: relative;
-            z-index: 10;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
         }
 
-        .wall-container {
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .seismic-logo {
+            width: 80px;
+            height: 80px;
             position: relative;
-            width: 800px;
-            height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            animation: logoRotate 15s linear infinite;
         }
 
-        .profile-card {
-            position: absolute;
-            width: 130px;
-            height: 170px;
-            background: linear-gradient(145deg, rgba(0, 255, 136, 0.1), rgba(0, 200, 100, 0.05));
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            border-radius: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 16px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            box-shadow: 0 8px 32px rgba(0, 255, 136, 0.1);
+        .seismic-logo svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8));
         }
 
-        .profile-card:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 20px 60px rgba(0, 255, 136, 0.3);
-            border-color: rgba(0, 255, 136, 0.6);
+        @keyframes logoRotate {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
         }
 
-        .profile-image {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            border: 2px solid rgba(0, 255, 136, 0.5);
-            object-fit: cover;
-            margin-bottom: 8px;
+        .title {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #d4af37, #f4e4a1, #d4af37);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            letter-spacing: 2px;
         }
 
-        .profile-name {
-            color: #00ff88;
-            font-size: 13px;
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 4px;
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
-        .profile-handle {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 11px;
-            text-align: center;
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+            letter-spacing: 1px;
         }
 
-        .profile-stats {
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.5);
-            margin-top: 4px;
-            text-align: center;
-        }
-
-        .verified-badge {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            width: 18px;
-            height: 18px;
-            background: #1da1f2;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: white;
-        }
-
-        .founder-card {
-            border-color: rgba(255, 215, 0, 0.5);
-            background: linear-gradient(145deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
-            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.1);
-        }
-
-        .founder-card .profile-name {
-            color: #ffd700;
-        }
-
-        .status-bar {
+        /* Controls */
+        .controls {
             position: fixed;
             top: 20px;
-            left: 20px;
-            z-index: 20;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            border-radius: 8px;
-            padding: 12px 16px;
-            color: #00ff88;
-            font-size: 14px;
-            backdrop-filter: blur(10px);
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
         }
 
-        .add-member-form {
+        .control-btn {
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-size: 1.2rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            background: rgba(212, 175, 55, 0.4);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Music Controls */
+        .music-controls {
             position: fixed;
             bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 20;
-            background: rgba(0, 0, 0, 0.9);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            border-radius: 12px;
-            padding: 16px;
+            right: 20px;
             display: flex;
-            gap: 8px;
-            backdrop-filter: blur(10px);
+            gap: 10px;
+            align-items: center;
+            z-index: 1000;
         }
 
-        .add-member-input {
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            border-radius: 6px;
-            padding: 8px 12px;
-            color: #00ff88;
-            width: 250px;
+        .volume-slider {
+            width: 100px;
+            -webkit-appearance: none;
+            height: 5px;
+            border-radius: 5px;
+            background: rgba(212, 175, 55, 0.3);
             outline: none;
         }
 
-        .add-member-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .add-member-btn {
-            background: linear-gradient(45deg, #00ff88, #00cc66);
-            border: none;
-            border-radius: 6px;
-            padding: 8px 16px;
-            color: black;
-            font-weight: 600;
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #d4af37;
             cursor: pointer;
-            transition: all 0.2s ease;
         }
 
-        .add-member-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.4);
-        }
-
-        .add-member-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .refresh-btn {
+        /* Connection Status */
+        .connection-status {
             position: fixed;
             top: 20px;
-            right: 20px;
-            z-index: 20;
-            background: linear-gradient(45deg, #00ff88, #00cc66);
-            border: none;
+            left: 20px;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #d4af37;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            font-size: 0.9rem;
+            z-index: 1000;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            color: black;
-            font-size: 20px;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        .connected { background: #4ade80; }
+        .disconnected { background: #ef4444; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Members Grid */
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+            min-height: 400px;
+        }
+
+        .member-card {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: cardEntry 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .member-card:hover::before {
+            left: 100%;
+        }
+
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            border-color: #d4af37;
+        }
+
+        @keyframes cardEntry {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .member-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .member-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #d4af37, #f4e4a1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #1a1611;
+            overflow: hidden;
+            position: relative;
+            animation: avatarGlow 3s ease-in-out infinite;
+        }
+
+        .member-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        @keyframes avatarGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.8); }
+        }
+
+        .member-info h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #d4af37;
+        }
+
+        .member-info p {
+            margin: 0.25rem 0 0 0;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .member-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #d4af37;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            margin-top: 0.25rem;
+        }
+
+        /* Add Member Form */
+        .add-member-section {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+            backdrop-filter: blur(15px);
+        }
+
+        .add-member-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-input {
+            flex: 1;
+            padding: 12px 16px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: #d4af37;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+        }
+
+        .form-input::placeholder {
+            color: rgba(212, 175, 55, 0.5);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .form-button {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #d4af37, #f4e4a1);
+            border: none;
+            border-radius: 8px;
+            color: #1a1611;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
         }
 
-        .refresh-btn:hover {
-            transform: scale(1.1) rotate(180deg);
-            box-shadow: 0 6px 30px rgba(0, 255, 136, 0.5);
+        .form-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
         }
 
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            opacity: 0.6;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Loading Animation */
         .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            border-top-color: #d4af37;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+
+            .members-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .add-member-form {
+                flex-direction: column;
+            }
+
+            .controls {
+                top: 10px;
+                right: 10px;
+            }
+
+            .music-controls {
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+
+        /* Seismic Wave Animation */
+        .seismic-waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100px;
+            background: linear-gradient(0deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+            border-radius: 100% 100% 0 0;
+            animation: waveAnimation 8s ease-in-out infinite;
+        }
+
+        .wave:nth-child(2) {
+            animation-delay: -2s;
             opacity: 0.5;
-            pointer-events: none;
         }
 
-        /* Floating animations */
-        .float-1 { animation: float1 8s ease-in-out infinite; }
-        .float-2 { animation: float2 10s ease-in-out infinite; }
-        .float-3 { animation: float3 12s ease-in-out infinite; }
-        .float-4 { animation: float4 9s ease-in-out infinite; }
-
-        @keyframes float1 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(10px, -15px) rotate(2deg); }
-            50% { transform: translate(-5px, -25px) rotate(-1deg); }
-            75% { transform: translate(-10px, -10px) rotate(1deg); }
+        .wave:nth-child(3) {
+            animation-delay: -4s;
+            opacity: 0.3;
         }
 
-        @keyframes float2 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(-15px, -10px) rotate(-2deg); }
-            50% { transform: translate(20px, -20px) rotate(2deg); }
-            75% { transform: translate(5px, -15px) rotate(-1deg); }
-        }
-
-        @keyframes float3 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(12px, -20px) rotate(1deg); }
-            50% { transform: translate(-8px, -30px) rotate(-2deg); }
-            75% { transform: translate(-15px, -5px) rotate(2deg); }
-        }
-
-        @keyframes float4 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(-10px, -25px) rotate(-1deg); }
-            50% { transform: translate(15px, -15px) rotate(2deg); }
-            75% { transform: translate(8px, -20px) rotate(-2deg); }
-        }
-
-        .debug-info {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 20;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            border-radius: 8px;
-            padding: 8px 12px;
-            color: #00ff88;
-            font-size: 12px;
-            backdrop-filter: blur(10px);
-            max-width: 300px;
-        }
-
-        .stats-display {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            z-index: 20;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            border-radius: 8px;
-            padding: 12px 16px;
-            color: #00ff88;
-            font-size: 14px;
-            backdrop-filter: blur(10px);
+        @keyframes waveAnimation {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-20px); }
         }
     </style>
 </head>
 <body>
-    <div class="matrix-bg"></div>
-    <div class="floating-particles"></div>
-
-    <div class="status-bar">
-        <span id="connection-status">🔄 Connecting to backend...</span>
+    <!-- Space Background -->
+    <div class="space-background"></div>
+    
+    <!-- Geometric Shapes -->
+    <div class="geometric-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
     </div>
 
-    <div class="stats-display">
-        <div>Network: <span id="member-count">0</span> signatures</div>
-        <div>Verified: <span id="verified-count">0</span> accounts</div>
+    <!-- Seismic Waves -->
+    <div class="seismic-waves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
     </div>
 
-    <button class="refresh-btn" onclick="forceRefresh()" title="Refresh Photos">
-        🔄
-    </button>
+    <!-- Connection Status -->
+    <div class="connection-status">
+        <span class="status-dot disconnected" id="statusDot"></span>
+        <span id="statusText">💎 Demo Mode</span>
+    </div>
 
-    <div class="main-container">
-        <div class="wall-container" id="wall-container">
-            <!-- Profile cards will be loaded here -->
+    <!-- Controls -->
+    <div class="controls">
+        <button class="control-btn" onclick="refreshMembers()" title="Refresh">
+            🔄
+        </button>
+    </div>
+
+    <!-- Music Controls -->
+    <div class="music-controls">
+        <button class="control-btn" onclick="toggleMusic()" id="musicBtn" title="Toggle Music">
+            🎵
+        </button>
+        <input type="range" class="volume-slider" min="0" max="100" value="30" onchange="setVolume(this.value)" title="Volume">
+    </div>
+
+    <!-- Audio Element -->
+    <audio id="backgroundMusic" loop>
+        <source src="https://www.soundjay.com/misc/sounds/space-ambient.mp3" type="audio/mpeg">
+        <!-- Fallback: You can replace with your GitHub-hosted music file -->
+    </audio>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="seismic-logo">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#d4af37;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#f4e4a1;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#d4af37;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Seismic Wave Pattern -->
+                        <path d="M10 50 Q25 30 40 50 T70 50 T100 50" stroke="url(#logoGradient)" stroke-width="6" fill="none" opacity="0.9"/>
+                        <path d="M10 40 Q25 25 40 40 T70 40 T100 40" stroke="url(#logoGradient)" stroke-width="4" fill="none" opacity="0.7"/>
+                        <path d="M10 60 Q25 75 40 60 T70 60 T100 60" stroke="url(#logoGradient)" stroke-width="4" fill="none" opacity="0.7"/>
+                        
+                        <!-- Central Circles -->
+                        <circle cx="50" cy="50" r="15" stroke="url(#logoGradient)" stroke-width="3" fill="none" opacity="0.8"/>
+                        <circle cx="50" cy="50" r="8" stroke="url(#logoGradient)" stroke-width="2" fill="none" opacity="0.6"/>
+                        <circle cx="50" cy="50" r="3" fill="url(#logoGradient)" opacity="1"/>
+                        
+                        <!-- Outer Ring -->
+                        <circle cx="50" cy="50" r="35" stroke="url(#logoGradient)" stroke-width="2" fill="none" opacity="0.4" stroke-dasharray="5,5">
+                            <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 50 50" to="360 50 50" dur="20s" repeatCount="indefinite"/>
+                        </circle>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="title">SEISMIC</h1>
+                    <p class="subtitle">Encrypted Community Wall</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Members Grid -->
+        <div class="members-grid" id="membersGrid">
+            <div class="empty-state">
+                <h3>No Members Found</h3>
+                <p>Add the first member to get started</p>
+            </div>
         </div>
-    </div>
 
-    <div class="add-member-form">
-        <input 
-            type="text" 
-            placeholder="Enter Twitter handle (e.g., @vitalikbuterin)" 
-            class="add-member-input"
-            id="twitter-handle-input"
-        />
-        <button class="add-member-btn" onclick="addMember()" id="add-btn">Submit</button>
-    </div>
-
-    <div class="debug-info" id="debug-info">
-        Backend: Connecting...<br>
-        Endpoint: https://seismicwall.duckdns.org<br>
-        Last sync: Never
+        <!-- Add Member Form -->
+        <section class="add-member-section">
+            <h2 style="text-align: center; margin-bottom: 1.5rem; color: #d4af37;">Add New Member</h2>
+            <form class="add-member-form" onsubmit="addMember(event)">
+                <input 
+                    type="text" 
+                    class="form-input" 
+                    placeholder="Enter Twitter handle (e.g., @username)" 
+                    id="usernameInput"
+                    required
+                >
+                <button type="submit" class="form-button">
+                    <span id="addButtonText">Add Member</span>
+                    <span id="addButtonLoading" class="loading" style="display: none;"></span>
+                </button>
+            </form>
+        </section>
     </div>
 
     <script>
+        // Global variables
         let members = [];
-        let isBackendConnected = false;
-        const API_BASE = 'https://seismicwall.duckdns.org';
+        let isConnected = false;
+        let music = document.getElementById('backgroundMusic');
+        let isPlaying = false;
 
-        // Create floating particles
-        function createParticles() {
-            const container = document.querySelector('.floating-particles');
-            for (let i = 0; i < 30; i++) {
-                setTimeout(() => {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.width = Math.random() * 4 + 2 + 'px';
-                    particle.style.height = particle.style.width;
-                    particle.style.animationDelay = Math.random() * 20 + 's';
-                    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                    container.appendChild(particle);
-                    
-                    setTimeout(() => {
-                        particle.remove();
-                    }, 25000);
-                }, i * 1000);
+        // API Configuration
+        const API_BASE = 'https://seismicwall.duckdns.org/api';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkConnection();
+            fetchMembers();
+            setupKeyboardShortcuts();
+            
+            // Try to play music (browsers may require user interaction)
+            setTimeout(() => {
+                music.volume = 0.3;
+            }, 1000);
+        });
+
+        // Check backend connection
+        async function checkConnection() {
+            try {
+                const response = await fetch(`${API_BASE}/members`);
+                isConnected = response.ok;
+            } catch (error) {
+                isConnected = false;
+            }
+            
+            updateConnectionStatus();
+        }
+
+        function updateConnectionStatus() {
+            const statusDot = document.getElementById('statusDot');
+            const statusText = document.getElementById('statusText');
+            
+            if (isConnected) {
+                statusDot.className = 'status-dot connected';
+                statusText.textContent = '🟢 Backend Connected';
+            } else {
+                statusDot.className = 'status-dot disconnected';
+                statusText.textContent = '💎 Demo Mode';
             }
         }
 
-        // Test backend connection
-        async function testBackendConnection() {
-            updateDebug('Backend: Testing connection...');
-            
+        // Fetch members from API
+        async function fetchMembers() {
             try {
-                const response = await fetch(`${API_BASE}/api/members`, {
-                    method: 'GET',
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log('✅ Backend connected successfully!', data);
-                    isBackendConnected = true;
-                    document.getElementById('connection-status').innerHTML = '🟢 Backend Connected';
-                    updateDebug(`Backend: Connected ✅<br>Endpoint: ${API_BASE}<br>Members: ${data.length}<br>Last sync: ${new Date().toLocaleTimeString()}`);
-                    return data;
-                } else {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                if (!isConnected) {
+                    throw new Error('Backend not connected');
                 }
-            } catch (error) {
-                console.warn('❌ Backend connection failed:', error);
-                isBackendConnected = false;
-                document.getElementById('connection-status').innerHTML = '💎 Demo Mode';
-                updateDebug(`Backend: Connection failed<br>Error: ${error.message}<br>Using demo data`);
                 
-                return [];
+                const response = await fetch(`${API_BASE}/members`);
+                if (!response.ok) throw new Error('Failed to fetch');
+                
+                members = await response.json();
+                renderMembers();
+            } catch (error) {
+                console.error('Error fetching members:', error);
+                members = [];
+                renderMembers();
             }
         }
 
-        function updateDebug(message) {
-            document.getElementById('debug-info').innerHTML = message;
-        }
-
-        // Create profile card
-        function createProfileCard(member, index) {
-            const card = document.createElement('div');
-            card.className = `profile-card float-${(index % 4) + 1}`;
+        // Render members grid
+        function renderMembers() {
+            const grid = document.getElementById('membersGrid');
             
-            // Add special styling for founders
-            if (member.role === 'founder' || member.role === 'guest') {
-                card.classList.add('founder-card');
-            }
-            
-            // Position cards in a circle
-            const angle = (index * (360 / Math.max(members.length, 4))) * (Math.PI / 180);
-            const radius = 220;
-            const x = Math.cos(angle) * radius;
-            const y = Math.sin(angle) * radius;
-            
-            card.style.left = `calc(50% + ${x}px - 65px)`;
-            card.style.top = `calc(50% + ${y}px - 85px)`;
-
-            // Handle profile image with fallback
-            let profileImageSrc = member.profileImage;
-            
-            // If no profile image, use generated avatar
-            if (!profileImageSrc || profileImageSrc === 'null' || profileImageSrc === null) {
-                const username = member.username.replace('@', '');
-                profileImageSrc = `https://ui-avatars.com/api/?name=${encodeURIComponent(username)}&background=00ff88&color=000&size=200&bold=true`;
+            if (members.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No Members Found</h3>
+                        <p>Add the first member to get started</p>
+                    </div>
+                `;
+                return;
             }
 
-            card.innerHTML = `
-                ${member.verified ? '<div class="verified-badge">✓</div>' : ''}
-                <img src="${profileImageSrc}" alt="${member.displayName}" class="profile-image" 
-                     onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(member.username.replace('@', ''))}&background=00ff88&color=000&size=200&bold=true'">
-                <div class="profile-name">${member.displayName}</div>
-                <div class="profile-handle">${member.username}</div>
-                <div class="profile-stats">
-                    ${member.followers ? formatNumber(member.followers) + ' followers' : member.role}
+            grid.innerHTML = members.map((member, index) => `
+                <div class="member-card" style="animation-delay: ${index * 0.1}s">
+                    <div class="member-header">
+                        <div class="member-avatar">
+                            ${member.profileImage ? 
+                                `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
+                                getInitials(member.displayName)
+                            }
+                        </div>
+                        <div class="member-info">
+                            <h3>${member.username}</h3>
+                            <p>${member.description || 'Seismic Community Member'}</p>
+                        </div>
+                    </div>
+                    <div class="member-stats">
+                        <div class="stat">
+                            <span class="stat-number">${formatNumber(member.followers || 0)}</span>
+                            <span class="stat-label">Followers</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">${member.verified ? '✓' : '○'}</span>
+                            <span class="stat-label">Verified</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">${timeAgo(member.createdAt)}</span>
+                            <span class="stat-label">Joined</span>
+                        </div>
+                    </div>
                 </div>
-            `;
-
-            return card;
-        }
-
-        function formatNumber(num) {
-            if (num >= 1000000) {
-                return (num / 1000000).toFixed(1) + 'M';
-            }
-            if (num >= 1000) {
-                return (num / 1000).toFixed(1) + 'K';
-            }
-            return num.toString();
-        }
-
-        function updateStats() {
-            const memberCount = members.length;
-            const verifiedCount = members.filter(m => m.verified).length;
-            
-            document.getElementById('member-count').textContent = memberCount;
-            document.getElementById('verified-count').textContent = verifiedCount;
-        }
-
-        // Load and display members
-        async function loadMembers() {
-            const container = document.getElementById('wall-container');
-            container.innerHTML = '';
-
-            try {
-                members = await testBackendConnection();
-                
-                members.forEach((member, index) => {
-                    const card = createProfileCard(member, index);
-                    container.appendChild(card);
-                });
-
-                updateStats();
-
-            } catch (error) {
-                console.error('Error loading members:', error);
-                updateDebug(`Error: ${error.message}`);
-            }
+            `).join('');
         }
 
         // Add new member
-        async function addMember() {
-            const input = document.getElementById('twitter-handle-input');
-            const button = document.getElementById('add-btn');
-            let handle = input.value.trim();
+        async function addMember(event) {
+            event.preventDefault();
             
-            if (!handle) return;
+            const input = document.getElementById('usernameInput');
+            const username = input.value.trim();
             
-            if (!handle.startsWith('@')) {
-                handle = '@' + handle;
-            }
-
-            button.textContent = 'Searching...';
-            button.disabled = true;
-
+            if (!username) return;
+            
+            // Show loading state
+            const buttonText = document.getElementById('addButtonText');
+            const buttonLoading = document.getElementById('addButtonLoading');
+            buttonText.style.display = 'none';
+            buttonLoading.style.display = 'inline-block';
+            
             try {
-                if (isBackendConnected) {
-                    const response = await fetch(`${API_BASE}/api/members`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ username: handle })
-                    });
-
-                    if (response.ok) {
-                        console.log('✅ Member added successfully');
-                        input.value = '';
-                        await loadMembers();
-                    } else {
-                        const errorData = await response.json();
-                        throw new Error(errorData.error || 'Failed to add member');
-                    }
-                } else {
-                    alert('Backend not connected. Please check connection.');
+                if (!isConnected) {
+                    throw new Error('Backend not connected');
                 }
+                
+                const response = await fetch(`${API_BASE}/members`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username })
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to add member');
+                }
+                
+                // Clear input and refresh
+                input.value = '';
+                await fetchMembers();
+                
             } catch (error) {
                 console.error('Error adding member:', error);
-                alert('Error adding member: ' + error.message);
+                alert(error.message);
             } finally {
-                button.textContent = 'Submit';
-                button.disabled = false;
+                // Reset button state
+                buttonText.style.display = 'inline-block';
+                buttonLoading.style.display = 'none';
             }
         }
 
-        // Force refresh function
-        function forceRefresh() {
-            console.log('🔄 Force refreshing...');
-            loadMembers();
+        // Refresh members
+        async function refreshMembers() {
+            await checkConnection();
+            await fetchMembers();
         }
 
-        // Handle enter key in input
-        document.getElementById('twitter-handle-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                addMember();
+        // Music controls
+        function toggleMusic() {
+            const btn = document.getElementById('musicBtn');
+            
+            if (isPlaying) {
+                music.pause();
+                btn.textContent = '🎵';
+                isPlaying = false;
+            } else {
+                music.play().catch(e => console.log('Music play failed:', e));
+                btn.textContent = '🔊';
+                isPlaying = true;
             }
-        });
+        }
 
-        // Initialize everything
-        window.addEventListener('load', () => {
-            createParticles();
-            loadMembers();
-            
-            // Create more particles periodically
-            setInterval(createParticles, 30000);
-            
-            // Try to reconnect every 30 seconds if not connected
-            setInterval(() => {
-                if (!isBackendConnected) {
-                    console.log('🔄 Attempting to reconnect to backend...');
-                    loadMembers();
-                }
-            }, 30000);
-        });
+        function setVolume(value) {
+            music.volume = value / 100;
+        }
 
         // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'r' || e.key === 'R') {
-                forceRefresh();
-            }
-        });
+        function setupKeyboardShortcuts() {
+            document.addEventListener('keydown', function(e) {
+                if (e.key === ' ' && e.target.tagName !== 'INPUT') {
+                    e.preventDefault();
+                    toggleMusic();
+                } else if (e.key === 'r' && !e.ctrlKey && e.target.tagName !== 'INPUT') {
+                    e.preventDefault();
+                    refreshMembers();
+                }
+            });
+        }
+
+        // Utility functions
+        function getInitials(name) {
+            return name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2);
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num.toString();
+        }
+
+        function timeAgo(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - date) / 1000);
+            
+            if (diffInSeconds < 60) return 'Now';
+            if (diffInSeconds < 3600) return Math.floor(diffInSeconds / 60) + 'm';
+            if (diffInSeconds < 86400) return Math.floor(diffInSeconds / 3600) + 'h';
+            return Math.floor(diffInSeconds / 86400) + 'd';
+        }
     </script>
 </body>
 </html>
