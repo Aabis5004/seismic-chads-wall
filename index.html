@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plasma Wall</title>
+    <title>Seismic Encrypted Community Wall</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -22,8 +22,8 @@
             color: #00ff88;
         }
 
-        /* Plasma Background Effects */
-        .plasma-bg {
+        /* Matrix Background Effects */
+        .matrix-bg {
             position: fixed;
             top: 0;
             left: 0;
@@ -35,10 +35,10 @@
                         radial-gradient(circle at 40% 80%, rgba(0, 200, 120, 0.2) 0%, transparent 50%),
                         radial-gradient(circle at 0% 100%, rgba(0, 255, 150, 0.1) 0%, transparent 50%),
                         radial-gradient(circle at 100% 0%, rgba(0, 220, 110, 0.1) 0%, transparent 50%);
-            animation: plasmaMove 20s ease-in-out infinite;
+            animation: matrixMove 20s ease-in-out infinite;
         }
 
-        @keyframes plasmaMove {
+        @keyframes matrixMove {
             0%, 100% { 
                 background: radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.3) 0%, transparent 50%),
                             radial-gradient(circle at 80% 20%, rgba(0, 255, 100, 0.2) 0%, transparent 50%),
@@ -125,39 +125,17 @@
             animation: logoGlow 3s ease-in-out infinite;
             overflow: hidden;
             border: 3px solid #00ff88;
+            background: #00ff88;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        .logo-design {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 45px;
-            height: 45px;
-        }
-
-        .logo-design::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: conic-gradient(from 0deg, transparent 0deg, #0a0f0a 20deg, transparent 40deg, #0a0f0a 60deg, transparent 80deg, #0a0f0a 100deg, transparent 120deg, #0a0f0a 140deg, transparent 160deg, #0a0f0a 180deg, transparent 200deg, #0a0f0a 220deg, transparent 240deg, #0a0f0a 260deg, transparent 280deg, #0a0f0a 300deg, transparent 320deg, #0a0f0a 340deg, transparent 360deg);
-            border-radius: 50%;
-            animation: logoSpin 4s linear infinite;
-        }
-
-        @keyframes logoSpin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            filter: invert(1);
         }
 
         @keyframes logoGlow {
@@ -307,6 +285,36 @@
             box-shadow: 0 5px 25px rgba(0, 255, 136, 0.2);
         }
 
+        /* Refresh Button */
+        .refresh-btn {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 20;
+            background: linear-gradient(45deg, #00ff88, #00cc66);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            color: #000;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .refresh-btn:hover {
+            transform: scale(1.1) rotate(180deg);
+            box-shadow: 0 8px 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .refresh-btn:active {
+            transform: scale(0.95) rotate(360deg);
+        }
+
         /* Add Member Form */
         .add-member-form {
             position: fixed;
@@ -369,73 +377,33 @@
             transform: none;
         }
 
-        /* Music Control */
-        .music-control {
+        /* Clear All Button */
+        .clear-all-btn {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
+            bottom: 30px;
+            right: 20px;
             z-index: 20;
-            background: rgba(0, 15, 10, 0.9);
-            border: 2px solid rgba(0, 255, 136, 0.4);
-            border-radius: 50px;
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 5px 25px rgba(0, 255, 136, 0.3);
+            background: linear-gradient(45deg, #ff4444, #cc3333);
+            border: none;
+            border-radius: 10px;
+            padding: 12px 20px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
             transition: all 0.3s ease;
-            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 5px 20px rgba(255, 68, 68, 0.3);
         }
 
-        .music-control:hover {
+        .clear-all-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 35px rgba(0, 255, 136, 0.5);
+            box-shadow: 0 8px 30px rgba(255, 68, 68, 0.5);
         }
 
-        .music-icon {
-            width: 20px;
-            height: 20px;
-            color: #00ff88;
-            animation: musicPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes musicPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .music-text {
-            color: #00ff88;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .volume-control {
-            margin-left: 10px;
-        }
-
-        .volume-slider {
-            width: 60px;
-            height: 4px;
-            background: rgba(0, 255, 136, 0.3);
-            border-radius: 2px;
-            outline: none;
-            appearance: none;
-        }
-
-        .volume-slider::-webkit-slider-thumb {
-            appearance: none;
-            width: 12px;
-            height: 12px;
-            background: #00ff88;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 0 5px #00ff88;
-        }
+        /* Debug Info */
         .debug-info {
             position: fixed;
-            bottom: 20px;
+            bottom: 90px;
             right: 20px;
             z-index: 20;
             background: rgba(0, 15, 10, 0.9);
@@ -524,14 +492,14 @@
     </style>
 </head>
 <body>
-    <div class="plasma-bg"></div>
+    <div class="matrix-bg"></div>
     <div class="particles"></div>
 
     <div class="logo-container">
         <div class="logo">
-            <div class="logo-design"></div>
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0yMCAyMEM4IDE0IDggMjggMTQgNDBDMjAgNTIgMzQgNTIgNDAgNDBDNDYgMjggNjAgMjggNzIgMjJDODQgMTYgODQgMzAgNzggNDJDNzIgNTQgNTggNTQgNTIgNDJDNDYgMzAgMzIgMzAgMjAgMjBaIiBmaWxsPSIjMDAwMDAwIi8+Cjwvc3ZnPgo=" alt="Seismic Logo" />
         </div>
-        <div class="logo-text">PLASMA</div>
+        <div class="logo-text">SEISMIC</div>
     </div>
 
     <div class="status-bar">
@@ -542,6 +510,14 @@
         <div>Network: <span id="member-count">0</span> signatures</div>
         <div>Verified: <span id="verified-count">0</span> accounts</div>
     </div>
+
+    <button class="refresh-btn" onclick="refreshMembers()" id="refresh-btn" title="Refresh Photos">
+        🔄
+    </button>
+
+    <button class="clear-all-btn" onclick="clearAllMembers()" title="Clear All Members">
+        Clear All
+    </button>
 
     <div class="main-container">
         <div class="wall-container" id="wall-container">
@@ -621,7 +597,6 @@
                 document.getElementById('connection-status').innerHTML = '💎 Demo Mode';
                 updateDebug(`Backend: Connection failed<br>Error: ${error.message}<br>Using demo data`);
                 
-                // Return empty array since we cleared all members
                 return [];
             }
         }
@@ -711,6 +686,40 @@
             }
         }
 
+        // Refresh members
+        async function refreshMembers() {
+            const refreshBtn = document.getElementById('refresh-btn');
+            refreshBtn.style.animation = 'none';
+            refreshBtn.style.transform = 'scale(0.9) rotate(360deg)';
+            
+            setTimeout(() => {
+                refreshBtn.style.animation = '';
+                refreshBtn.style.transform = '';
+            }, 500);
+            
+            await loadMembers();
+        }
+
+        // Clear all members
+        async function clearAllMembers() {
+            if (!confirm('Are you sure you want to delete ALL members? This cannot be undone!')) {
+                return;
+            }
+
+            try {
+                if (isBackendConnected) {
+                    // You'll need to add a DELETE endpoint to your backend for this
+                    // For now, we'll alert the user to use the database method
+                    alert('To clear all members, run this command on your server:\n\nsqlite3 wall.db\nDELETE FROM members;\n.exit');
+                } else {
+                    alert('Backend not connected. Please connect to clear members.');
+                }
+            } catch (error) {
+                console.error('Error clearing members:', error);
+                alert('Error: ' + error.message);
+            }
+        }
+
         // Add new member
         async function addMember() {
             const input = document.getElementById('twitter-handle-input');
@@ -747,44 +756,3 @@
                 } else {
                     alert('Backend not connected. Please check connection.');
                 }
-            } catch (error) {
-                console.error('Error adding member:', error);
-                alert('Error adding member: ' + error.message);
-            } finally {
-                button.textContent = 'Submit';
-                button.disabled = false;
-            }
-        }
-
-        // Handle enter key
-        document.getElementById('twitter-handle-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                addMember();
-            }
-        });
-
-        // Initialize
-        window.addEventListener('load', () => {
-            createParticles();
-            loadMembers();
-            
-            // Create more particles periodically
-            setInterval(createParticles, 20000);
-            
-            // Auto-reconnect if disconnected
-            setInterval(() => {
-                if (!isBackendConnected) {
-                    loadMembers();
-                }
-            }, 30000);
-        });
-
-        // Force refresh with 'R' key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'r' || e.key === 'R') {
-                loadMembers();
-            }
-        });
-    </script>
-</body>
-</html>
