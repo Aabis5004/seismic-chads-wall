@@ -118,13 +118,20 @@
         }
 
         .logo {
-            width: 60px;
-            height: 60px;
-            background: #00ff88;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             position: relative;
             animation: logoGlow 3s ease-in-out infinite;
             overflow: hidden;
+            border: 3px solid #00ff88;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .logo-design {
@@ -362,7 +369,70 @@
             transform: none;
         }
 
-        /* Debug Info */
+        /* Music Control */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 20;
+            background: rgba(0, 15, 10, 0.9);
+            border: 2px solid rgba(0, 255, 136, 0.4);
+            border-radius: 50px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 5px 25px rgba(0, 255, 136, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .music-control:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 35px rgba(0, 255, 136, 0.5);
+        }
+
+        .music-icon {
+            width: 20px;
+            height: 20px;
+            color: #00ff88;
+            animation: musicPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .music-text {
+            color: #00ff88;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .volume-control {
+            margin-left: 10px;
+        }
+
+        .volume-slider {
+            width: 60px;
+            height: 4px;
+            background: rgba(0, 255, 136, 0.3);
+            border-radius: 2px;
+            outline: none;
+            appearance: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #00ff88;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 5px #00ff88;
+        }
         .debug-info {
             position: fixed;
             bottom: 20px;
