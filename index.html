@@ -1,11 +1,13 @@
-<!DOCTYPE html>
+// Render members floating in the centered frame (LYRON IN CENTER)
+        function renderMembers() {
+            const container =<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seismic Wall</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@300;400;700;900&family=Exo+2:wght@300;400;700;900&display=swap');
         
         * {
             margin: 0;
@@ -14,397 +16,556 @@
         }
 
         body {
-            font-family: 'Orbitron', monospace;
-            background: linear-gradient(135deg, #0a0f14 0%, #1a2332 50%, #0f1419 100%);
+            font-family: 'Exo 2', 'Orbitron', monospace;
+            background: #000000;
             color: #ffffff;
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
         }
 
-        /* Simple Space Background */
-        .space-bg {
+        /* ULTIMATE SPACE BACKGROUND */
+        .space-universe {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2;
+            z-index: -20;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(52, 211, 153, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 30%);
+                radial-gradient(ellipse at 30% 20%, rgba(16, 23, 42, 0.8) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(30, 41, 59, 0.6) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 70%, rgba(34, 197, 94, 0.1) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 30%, rgba(52, 211, 153, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 30%),
+                linear-gradient(135deg, #000000 0%, #0f0f23 20%, #1a1a2e 40%, #16213e 60%, #0f0f23 80%, #000000 100%);
         }
 
-        /* Simple Stars */
-        .stars {
+        /* MASSIVE NEBULA SYSTEM */
+        .nebula-system {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: -18;
+            pointer-events: none;
+        }
+
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: nebulaFlow 20s ease-in-out infinite;
+        }
+
+        .nebula:nth-child(1) {
+            width: 800px;
+            height: 400px;
+            background: radial-gradient(ellipse, rgba(34, 197, 94, 0.4) 0%, rgba(16, 185, 129, 0.2) 50%, transparent 100%);
+            top: 5%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .nebula:nth-child(2) {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(52, 211, 153, 0.3) 0%, rgba(34, 197, 94, 0.1) 50%, transparent 100%);
+            top: 40%;
+            right: 5%;
+            animation-delay: -7s;
+        }
+
+        .nebula:nth-child(3) {
+            width: 700px;
+            height: 350px;
+            background: radial-gradient(ellipse, rgba(16, 185, 129, 0.25) 0%, rgba(52, 211, 153, 0.1) 50%, transparent 100%);
+            bottom: 10%;
+            left: 20%;
+            animation-delay: -14s;
+        }
+
+        .nebula:nth-child(4) {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, rgba(16, 185, 129, 0.08) 50%, transparent 100%);
+            top: 60%;
+            left: 60%;
+            animation-delay: -3s;
+        }
+
+        @keyframes nebulaFlow {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg) translateX(0) translateY(0);
+                opacity: 0.3;
+            }
+            25% { 
+                transform: scale(1.3) rotate(90deg) translateX(50px) translateY(-30px);
+                opacity: 0.5;
+            }
+            50% { 
+                transform: scale(0.8) rotate(180deg) translateX(30px) translateY(50px);
+                opacity: 0.4;
+            }
+            75% { 
+                transform: scale(1.1) rotate(270deg) translateX(-40px) translateY(20px);
+                opacity: 0.6;
+            }
+        }
+
+        /* MASSIVE STAR FIELD */
+        .star-universe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -15;
             pointer-events: none;
         }
 
         .star {
             position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: starPulse 3s ease-in-out infinite;
+        }
+
+        .star.tiny {
+            width: 1px;
+            height: 1px;
+            opacity: 0.6;
+        }
+
+        .star.small {
             width: 2px;
             height: 2px;
             background: #34d399;
-            border-radius: 50%;
-            opacity: 0.6;
-            animation: twinkle 3s ease-in-out infinite;
+            box-shadow: 0 0 4px #34d399;
+            opacity: 0.8;
         }
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
+        .star.medium {
+            width: 3px;
+            height: 3px;
+            background: #10b981;
+            box-shadow: 0 0 8px #10b981;
+            opacity: 0.9;
         }
 
-        /* Header */
-        .header {
-            text-align: center;
-            padding: 2rem 0 1.5rem 0;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(15px);
-            border-bottom: 2px solid rgba(52, 211, 153, 0.4);
-            position: relative;
-            z-index: 100;
+        .star.large {
+            width: 4px;
+            height: 4px;
+            background: #ffffff;
+            box-shadow: 0 0 12px #ffffff;
+            opacity: 1;
         }
 
-        .logo-title {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        .seismic-logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(45deg, #34d399, #10b981);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: #000;
-            font-weight: 900;
-            animation: logoFloat 8s ease-in-out infinite;
-            box-shadow: 
-                0 0 40px rgba(52, 211, 153, 0.8),
-                0 0 80px rgba(34, 197, 94, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .seismic-logo::before {
-            content: '';
-            position: absolute;
-            top: -15px;
-            left: -15px;
-            right: -15px;
-            bottom: -15px;
-            border: 2px solid rgba(52, 211, 153, 0.4);
-            border-radius: 50%;
-            animation: logoRing 12s linear infinite;
-        }
-
-        .seismic-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 50%;
-        }
-
-        @keyframes logoFloat {
+        @keyframes starPulse {
             0%, 100% { 
-                transform: rotate(0deg) scale(1);
-                box-shadow: 0 0 40px rgba(52, 211, 153, 0.8), 0 0 80px rgba(34, 197, 94, 0.4);
+                opacity: 0.3; 
+                transform: scale(1);
             }
             50% { 
-                transform: rotate(180deg) scale(1.1);
-                box-shadow: 0 0 60px rgba(34, 197, 94, 1), 0 0 120px rgba(52, 211, 153, 0.6);
+                opacity: 1; 
+                transform: scale(1.8);
             }
         }
 
-        @keyframes logoRing {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* COSMIC ENERGY WAVES */
+        .cosmic-waves {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -12;
+            pointer-events: none;
         }
 
-        .title {
-            font-size: 3.5rem;
+        .energy-wave {
+            position: absolute;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            border-radius: 50%;
+            animation: energyPulse 8s ease-out infinite;
+        }
+
+        .energy-wave:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 20%;
+            left: 30%;
+            animation-delay: 0s;
+        }
+
+        .energy-wave:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            top: 60%;
+            right: 20%;
+            animation-delay: -3s;
+        }
+
+        .energy-wave:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            bottom: 20%;
+            left: 40%;
+            animation-delay: -6s;
+        }
+
+        @keyframes energyPulse {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+                border-color: rgba(52, 211, 153, 0);
+            }
+            50% {
+                transform: scale(2);
+                opacity: 0.6;
+                border-color: rgba(52, 211, 153, 0.8);
+            }
+            100% {
+                transform: scale(4);
+                opacity: 0;
+                border-color: rgba(52, 211, 153, 0);
+            }
+        }
+
+        /* LIGHTNING SEISMIC WALL TITLE */
+        .lightning-title {
+            position: fixed;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .seismic-title {
+            font-size: 4.5rem;
             font-weight: 900;
-            background: linear-gradient(45deg, #ffffff, #34d399, #10b981, #ffffff);
-            background-size: 300% 300%;
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(45deg, #ffffff, #34d399, #10b981, #ffffff, #34d399);
+            background-size: 400% 400%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: titleShimmer 4s ease-in-out infinite;
-            text-shadow: 0 0 40px rgba(52, 211, 153, 0.6);
-            letter-spacing: 4px;
+            animation: lightningShimmer 2s ease-in-out infinite;
+            text-shadow: 
+                0 0 20px rgba(52, 211, 153, 0.8),
+                0 0 40px rgba(34, 197, 94, 0.6),
+                0 0 60px rgba(16, 185, 129, 0.4);
+            letter-spacing: 6px;
             text-transform: uppercase;
+            position: relative;
         }
 
-        @keyframes titleShimmer {
+        .seismic-title::before {
+            content: 'SEISMIC WALL';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: lightningStrike 3s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes lightningShimmer {
             0%, 100% { 
                 background-position: 0% 50%;
                 filter: brightness(1);
             }
             50% { 
                 background-position: 100% 50%;
-                filter: brightness(1.5) drop-shadow(0 0 30px rgba(52, 211, 153, 0.8));
+                filter: brightness(1.5) drop-shadow(0 0 30px rgba(52, 211, 153, 1));
             }
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            color: #34d399;
-            margin-top: 0.75rem;
-            opacity: 0.9;
-            font-weight: 400;
-            letter-spacing: 2px;
-            animation: subtitleGlow 5s ease-in-out infinite;
-        }
-
-        @keyframes subtitleGlow {
-            0%, 100% { 
-                color: #34d399;
-                text-shadow: 0 0 20px rgba(52, 211, 153, 0.6);
-            }
-            50% { 
-                color: #ffffff;
-                text-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
-            }
-        }
-
-        /* Connection Status */
-        .status {
-            position: fixed;
-            top: 25px;
-            left: 25px;
-            padding: 0.75rem 1.5rem;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #34d399;
-            border-radius: 25px;
-            backdrop-filter: blur(15px);
-            font-size: 0.9rem;
-            z-index: 1000;
-            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
-        }
-
-        .status-dot {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-right: 10px;
-            animation: pulse 2s infinite;
-        }
-
-        .connected { background: #34d399; }
-        .disconnected { background: #ef4444; }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        /* Controls */
-        .controls {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            display: flex;
-            gap: 12px;
-            z-index: 1000;
-        }
-
-        .control-btn {
-            width: 55px;
-            height: 55px;
-            background: rgba(52, 211, 153, 0.2);
-            border: 2px solid rgba(52, 211, 153, 0.6);
-            border-radius: 50%;
-            color: #34d399;
-            font-size: 1.4rem;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(15px);
+        /* LOGO + TITLE CONTAINER */
+        .logo-title-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 25px rgba(52, 211, 153, 0.3);
+            gap: 2rem;
         }
 
-        .control-btn:hover {
-            background: rgba(52, 211, 153, 0.4);
-            transform: scale(1.1) translateY(-3px);
-            box-shadow: 0 15px 40px rgba(52, 211, 153, 0.5);
-        }
-
-        /* Main Container */
-        .main-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Wall Frame */
-        .wall-frame {
-            background: rgba(0, 0, 0, 0.2);
-            border: 2px solid rgba(52, 211, 153, 0.4);
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-            padding: 2rem;
-            box-shadow: 0 20px 60px rgba(52, 211, 153, 0.2);
-            animation: frameGlow 6s ease-in-out infinite;
-        }
-
-        @keyframes frameGlow {
-            0%, 100% { 
-                border-color: rgba(52, 211, 153, 0.4);
-                box-shadow: 0 20px 60px rgba(52, 211, 153, 0.2);
-            }
-            50% { 
-                border-color: rgba(34, 197, 94, 0.6);
-                box-shadow: 0 25px 80px rgba(34, 197, 94, 0.3);
-            }
-        }
-
-        /* Profile Grid */
-        .profile-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            position: relative;
-        }
-
-        /* Lyron Center Special */
-        .lyron-center {
-            grid-column: 1 / -1;
+        .seismic-logo-orb {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #34d399, #10b981, #059669);
+            border-radius: 50%;
             display: flex;
+            align-items: center;
             justify-content: center;
-            margin: 1.5rem 0;
-        }
-
-        /* Profile Cards */
-        .profile-card {
-            background: rgba(52, 211, 153, 0.08);
-            border: 2px solid rgba(52, 211, 153, 0.3);
-            border-radius: 15px;
-            padding: 1.5rem;
-            backdrop-filter: blur(20px);
-            transition: all 0.5s ease;
-            cursor: pointer;
-            animation: 
-                cardEntry 1s ease-out forwards,
-                gentleFloat 6s ease-in-out infinite;
-            opacity: 0;
-            transform: translateY(30px);
-            box-shadow: 0 15px 40px rgba(52, 211, 153, 0.2);
-            text-align: center;
+            font-weight: 900;
+            font-size: 2.5rem;
+            color: #000;
+            animation: logoOrbitExtreme 25s linear infinite;
+            box-shadow: 
+                0 0 60px rgba(52, 211, 153, 1),
+                0 0 120px rgba(34, 197, 94, 0.6),
+                inset 0 0 30px rgba(255, 255, 255, 0.3);
             position: relative;
             overflow: hidden;
         }
 
-        .profile-card::before {
+        .seismic-logo-orb::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border: 3px solid rgba(52, 211, 153, 0.4);
+            border-radius: 50%;
+            animation: logoRingExtreme 20s linear infinite reverse;
+        }
+
+        .seismic-logo-orb::after {
+            content: '';
+            position: absolute;
+            top: -25px;
+            left: -25px;
+            right: -25px;
+            bottom: -25px;
+            border: 2px solid rgba(34, 197, 94, 0.2);
+            border-radius: 50%;
+            animation: logoRingExtreme 30s linear infinite;
+        }
+
+        .seismic-logo-orb img {
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.15), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .profile-card:hover::before {
-            left: 100%;
-        }
-
-        .profile-card:nth-child(odd) {
-            animation-delay: 0s, 1s;
-        }
-
-        .profile-card:nth-child(even) {
-            animation-delay: 0.2s, 4s;
-        }
-
-        @keyframes cardEntry {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes gentleFloat {
-            0%, 100% { 
-                transform: translateY(0);
-            }
-            50% { 
-                transform: translateY(-12px);
-            }
-        }
-
-        .profile-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            border-color: #34d399;
-            box-shadow: 0 25px 60px rgba(52, 211, 153, 0.4);
-            background: rgba(52, 211, 153, 0.12);
-        }
-
-        /* Lyron Special Card */
-        .lyron-card {
-            width: 280px;
-            height: 350px;
-            background: rgba(255, 215, 0, 0.12);
-            border: 3px solid rgba(255, 215, 0, 0.7);
-            box-shadow: 
-                0 0 60px rgba(255, 215, 0, 0.4),
-                0 0 120px rgba(255, 215, 0, 0.2);
-            animation: lyronGlow 5s ease-in-out infinite;
-        }
-
-        @keyframes lyronGlow {
-            0%, 100% { 
-                transform: translateY(0) scale(1);
-                box-shadow: 0 0 60px rgba(255, 215, 0, 0.4), 0 0 120px rgba(255, 215, 0, 0.2);
-            }
-            50% { 
-                transform: translateY(-15px) scale(1.02);
-                box-shadow: 0 0 80px rgba(255, 215, 0, 0.6), 0 0 160px rgba(255, 215, 0, 0.3);
-            }
-        }
-
-        /* Profile Components */
-        .profile-avatar {
-            width: 80px;
-            height: 80px;
+            object-fit: contain;
             border-radius: 50%;
-            background: linear-gradient(45deg, #34d399, #10b981);
+        }
+
+        .logo-fallback {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #000;
+        }
+
+        @keyframes logoOrbitExtreme {
+            0% { 
+                transform: rotate(0deg) scale(1);
+                box-shadow: 0 0 60px rgba(52, 211, 153, 1), 0 0 120px rgba(34, 197, 94, 0.6);
+            }
+            25% { 
+                transform: rotate(90deg) scale(1.15);
+                box-shadow: 0 0 80px rgba(34, 197, 94, 1), 0 0 140px rgba(16, 185, 129, 0.8);
+            }
+            50% { 
+                transform: rotate(180deg) scale(1.3);
+                box-shadow: 0 0 100px rgba(16, 185, 129, 1), 0 0 160px rgba(52, 211, 153, 1);
+            }
+            75% { 
+                transform: rotate(270deg) scale(1.15);
+                box-shadow: 0 0 80px rgba(34, 197, 94, 1), 0 0 140px rgba(16, 185, 129, 0.8);
+            }
+            100% { 
+                transform: rotate(360deg) scale(1);
+                box-shadow: 0 0 60px rgba(52, 211, 153, 1), 0 0 120px rgba(34, 197, 94, 0.6);
+            }
+        }
+
+        @keyframes logoRingExtreme {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes lightningStrike {
+            0%, 90%, 100% { 
+                opacity: 0;
+                background-position: -200% 50%;
+            }
+            95% { 
+                opacity: 1;
+                background-position: 200% 50%;
+            }
+        }
+
+        /* MASSIVE SPACE FRAME FOR HUNDREDS OF MEMBERS */
+        .space-frame {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 95vw;
+            height: 80vh;
+            max-width: 2000px;
+            max-height: 1200px;
+            border: 4px solid rgba(52, 211, 153, 0.7);
+            border-radius: 40px;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(25px);
+            box-shadow: 
+                0 0 80px rgba(52, 211, 153, 0.4),
+                0 0 160px rgba(34, 197, 94, 0.3),
+                inset 0 0 150px rgba(52, 211, 153, 0.1);
+            z-index: 100;
+            overflow: hidden;
+            animation: megaFrameGlow 8s ease-in-out infinite;
+        }
+
+        @keyframes megaFrameGlow {
+            0%, 100% { 
+                border-color: rgba(52, 211, 153, 0.7);
+                box-shadow: 0 0 80px rgba(52, 211, 153, 0.4), 0 0 160px rgba(34, 197, 94, 0.3);
+            }
+            33% { 
+                border-color: rgba(34, 197, 94, 0.9);
+                box-shadow: 0 0 120px rgba(34, 197, 94, 0.6), 0 0 200px rgba(16, 185, 129, 0.4);
+            }
+            66% { 
+                border-color: rgba(16, 185, 129, 0.8);
+                box-shadow: 0 0 100px rgba(16, 185, 129, 0.5), 0 0 180px rgba(52, 211, 153, 0.3);
+            }
+        }
+
+        .space-frame::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, 
+                rgba(52, 211, 153, 0.8), 
+                rgba(34, 197, 94, 0.6), 
+                rgba(16, 185, 129, 0.4), 
+                rgba(52, 211, 153, 0.8));
+            background-size: 400% 400%;
+            border-radius: 40px;
+            z-index: -1;
+            animation: megaFrameBorder 12s linear infinite;
+        }
+
+        @keyframes megaFrameBorder {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 50% 0%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* FLOATING PROFILE CONTAINER */
+        .profile-cosmos {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 2rem;
+        }
+
+        /* PERFECT ZERO GRAVITY FLOATING PROFILES */
+        .cosmic-profile {
+            position: absolute;
+            width: 160px;
+            height: 200px;
+            background: rgba(52, 211, 153, 0.08);
+            border: 2px solid rgba(52, 211, 153, 0.4);
+            border-radius: 20px;
+            padding: 1.2rem;
+            backdrop-filter: blur(30px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            animation: 
+                perfectZeroGravity 18s ease-in-out infinite,
+                profileMaterialize 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+            transform: scale(0.3) rotateX(90deg) rotateY(45deg) translateZ(-300px);
+            box-shadow: 
+                0 30px 100px rgba(52, 211, 153, 0.25),
+                0 15px 50px rgba(34, 197, 94, 0.15),
+                inset 0 2px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        @keyframes profileMaterialize {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) rotateX(90deg) rotateY(45deg) translateZ(-300px);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.1) rotateX(10deg) rotateY(5deg) translateZ(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotateX(0deg) rotateY(0deg) translateZ(0px);
+            }
+        }
+
+        @keyframes perfectZeroGravity {
+            0%, 100% { 
+                transform: translateY(0) translateX(0) rotateZ(0deg) scale(1);
+            }
+            12% { 
+                transform: translateY(-50px) translateX(35px) rotateZ(4deg) scale(1.03);
+            }
+            25% { 
+                transform: translateY(-30px) translateX(-40px) rotateZ(-3deg) scale(0.97);
+            }
+            37% { 
+                transform: translateY(-70px) translateX(20px) rotateZ(2deg) scale(1.06);
+            }
+            50% { 
+                transform: translateY(-20px) translateX(-50px) rotateZ(-5deg) scale(0.94);
+            }
+            62% { 
+                transform: translateY(-60px) translateX(30px) rotateZ(3deg) scale(1.04);
+            }
+            75% { 
+                transform: translateY(-40px) translateX(-25px) rotateZ(-2deg) scale(0.98);
+            }
+            87% { 
+                transform: translateY(-80px) translateX(45px) rotateZ(4deg) scale(1.07);
+            }
+        }
+
+        .cosmic-profile:hover {
+            transform: scale(1.2) translateY(-30px) rotateZ(0deg);
+            box-shadow: 
+                0 50px 120px rgba(52, 211, 153, 0.5),
+                0 20px 60px rgba(34, 197, 94, 0.3),
+                0 0 100px rgba(16, 185, 129, 0.4);
+            border-color: rgba(52, 211, 153, 0.9);
+            background: rgba(52, 211, 153, 0.15);
+            z-index: 200;
+        }
+
+        .cosmic-profile:hover .profile-avatar {
+            transform: scale(1.1) rotateY(360deg);
+            box-shadow: 0 0 60px rgba(52, 211, 153, 1);
+        }
+
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #34d399, #10b981, #059669);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: #000;
             margin: 0 auto 1rem auto;
             overflow: hidden;
-            box-shadow: 0 0 25px rgba(52, 211, 153, 0.6);
-            animation: avatarSpin 10s linear infinite;
-        }
-
-        .lyron-card .profile-avatar {
-            width: 100px;
-            height: 100px;
-            font-size: 1.8rem;
-            background: linear-gradient(45deg, #FFD700, #FFA500);
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+            box-shadow: 
+                0 0 40px rgba(52, 211, 153, 0.7),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+            animation: avatarOrbit 12s linear infinite;
+            transition: all 0.6s ease;
         }
 
         .profile-avatar img {
@@ -414,287 +575,413 @@
             border-radius: 50%;
         }
 
-        @keyframes avatarSpin {
+        @keyframes avatarOrbit {
             0% { 
                 transform: rotateY(0deg);
-                box-shadow: 0 0 25px rgba(52, 211, 153, 0.6);
+                box-shadow: 0 0 40px rgba(52, 211, 153, 0.7);
             }
             50% { 
                 transform: rotateY(180deg);
-                box-shadow: 0 0 35px rgba(34, 197, 94, 0.8);
+                box-shadow: 0 0 60px rgba(34, 197, 94, 0.9);
             }
             100% { 
                 transform: rotateY(360deg);
-                box-shadow: 0 0 25px rgba(52, 211, 153, 0.6);
+                box-shadow: 0 0 40px rgba(52, 211, 153, 0.7);
             }
         }
 
         .profile-handle {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
             color: #34d399;
+            text-align: center;
             margin-bottom: 0.75rem;
             word-break: break-word;
-            animation: handleGlow 3s ease-in-out infinite;
-        }
-
-        .lyron-card .profile-handle {
-            font-size: 1.4rem;
-            color: #FFD700;
+            text-shadow: 0 0 15px rgba(52, 211, 153, 0.6);
+            animation: handleGlow 4s ease-in-out infinite;
         }
 
         @keyframes handleGlow {
             0%, 100% { 
+                color: #34d399;
                 text-shadow: 0 0 15px rgba(52, 211, 153, 0.6);
             }
             50% { 
-                text-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+                color: #10b981;
+                text-shadow: 0 0 25px rgba(16, 185, 129, 0.8);
             }
         }
 
-        .profile-role {
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-bottom: 0.75rem;
-            padding: 0.4rem 0.8rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-        }
-
-        .founder-role {
-            background: rgba(255, 215, 0, 0.2);
-            color: #FFD700;
-            border: 1px solid rgba(255, 215, 0, 0.6);
-        }
-
-        .member-role {
-            background: rgba(52, 211, 153, 0.15);
-            color: #34d399;
-            border: 1px solid rgba(52, 211, 153, 0.4);
-        }
-
         .profile-stats {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
+            text-align: center;
             opacity: 0.9;
-            line-height: 1.6;
+            line-height: 1.8;
         }
 
         .stat-line {
             margin-bottom: 0.4rem;
-            padding: 0.3rem 0.6rem;
+            padding: 0.3rem 0.5rem;
             background: rgba(52, 211, 153, 0.1);
-            border-radius: 8px;
-            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            transition: all 0.3s ease;
         }
 
-        .lyron-card .stat-line {
-            background: rgba(255, 215, 0, 0.15);
+        .stat-line:hover {
+            background: rgba(52, 211, 153, 0.2);
+            border-color: rgba(52, 211, 153, 0.4);
         }
 
-        /* Submit Form */
-        .submit-section {
+        /* SUBMIT FORM */
+        .submit-portal {
             position: fixed;
-            bottom: 30px;
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
+            text-align: center;
         }
 
-        .submit-form {
+        .portal-form {
             display: flex;
             align-items: center;
             gap: 1rem;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.6);
             padding: 1rem 2rem;
-            border-radius: 30px;
-            border: 2px solid rgba(52, 211, 153, 0.5);
+            border-radius: 50px;
+            border: 2px solid rgba(52, 211, 153, 0.4);
             backdrop-filter: blur(20px);
-            box-shadow: 0 15px 50px rgba(52, 211, 153, 0.3);
+            box-shadow: 0 20px 60px rgba(52, 211, 153, 0.3);
+            animation: portalPulse 4s ease-in-out infinite;
         }
 
-        .submit-input {
+        @keyframes portalPulse {
+            0%, 100% { 
+                box-shadow: 0 20px 60px rgba(52, 211, 153, 0.3);
+                border-color: rgba(52, 211, 153, 0.4);
+            }
+            50% { 
+                box-shadow: 0 30px 80px rgba(34, 197, 94, 0.4);
+                border-color: rgba(34, 197, 94, 0.6);
+            }
+        }
+
+        .portal-input {
             padding: 0.75rem 1.5rem;
             background: rgba(52, 211, 153, 0.1);
             border: 2px solid rgba(52, 211, 153, 0.3);
-            border-radius: 20px;
+            border-radius: 25px;
             color: #ffffff;
-            font-family: 'Orbitron', monospace;
+            font-family: 'Exo 2', monospace;
             font-size: 1rem;
             min-width: 200px;
             backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
         }
 
-        .submit-input::placeholder {
+        .portal-input::placeholder {
             color: rgba(52, 211, 153, 0.6);
         }
 
-        .submit-input:focus {
+        .portal-input:focus {
             outline: none;
             border-color: #34d399;
-            box-shadow: 0 0 20px rgba(52, 211, 153, 0.4);
+            box-shadow: 0 0 30px rgba(52, 211, 153, 0.5);
+            background: rgba(52, 211, 153, 0.15);
+            transform: scale(1.05);
         }
 
-        .submit-btn {
+        .portal-btn {
             padding: 0.75rem 1.5rem;
             background: linear-gradient(45deg, #34d399, #10b981);
             border: none;
-            border-radius: 20px;
+            border-radius: 25px;
             color: #000;
-            font-family: 'Orbitron', monospace;
+            font-family: 'Exo 2', monospace;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .submit-btn:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 8px 20px rgba(52, 211, 153, 0.4);
+        .portal-btn:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 15px 40px rgba(52, 211, 153, 0.5);
+            background: linear-gradient(45deg, #10b981, #059669);
         }
 
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            opacity: 0.7;
-            animation: emptyPulse 4s ease-in-out infinite;
+        /* CONTROL BUTTONS */
+        .space-controls {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
         }
 
-        .empty-state h3 {
-            font-size: 2rem;
+        .control-orb {
+            width: 60px;
+            height: 60px;
+            background: rgba(52, 211, 153, 0.2);
+            border: 2px solid rgba(52, 211, 153, 0.6);
+            border-radius: 50%;
             color: #34d399;
-            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
+            animation: orbFloat 6s ease-in-out infinite;
         }
 
-        .empty-state p {
-            font-size: 1.1rem;
-            opacity: 0.8;
+        .control-orb:hover {
+            background: rgba(52, 211, 153, 0.4);
+            transform: scale(1.2);
+            box-shadow: 0 20px 50px rgba(52, 211, 153, 0.5);
         }
 
-        @keyframes emptyPulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
+        @keyframes orbFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        /* Loading */
-        .loading {
+        /* CONNECTION STATUS */
+        .status-beacon {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #34d399;
+            border-radius: 30px;
+            backdrop-filter: blur(15px);
+            font-size: 0.9rem;
+            z-index: 1000;
+            box-shadow: 0 15px 40px rgba(52, 211, 153, 0.3);
+            animation: beaconPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes beaconPulse {
+            0%, 100% { 
+                box-shadow: 0 15px 40px rgba(52, 211, 153, 0.3);
+            }
+            50% { 
+                box-shadow: 0 25px 60px rgba(34, 197, 94, 0.5);
+            }
+        }
+
+        .beacon-dot {
             display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(52, 211, 153, 0.3);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 10px;
+            animation: beaconBlink 2s infinite;
+        }
+
+        .connected { background: #34d399; }
+        .disconnected { background: #ef4444; }
+
+        @keyframes beaconBlink {
+            0%, 100% { 
+                opacity: 1; 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.6; 
+                transform: scale(1.3);
+            }
+        }
+
+        /* EMPTY STATE */
+        .cosmic-void {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            opacity: 0.8;
+            z-index: 50;
+        }
+
+        .void-title {
+            font-size: 2.5rem;
+            color: #34d399;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            animation: voidPulse 5s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(52, 211, 153, 0.6);
+        }
+
+        .void-text {
+            font-size: 1.3rem;
+            color: #ffffff;
+            opacity: 0.9;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        @keyframes voidPulse {
+            0%, 100% { 
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.05);
+            }
+        }
+
+        /* LOADING ANIMATION */
+        .cosmic-loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(52, 211, 153, 0.3);
             border-radius: 50%;
             border-top-color: #34d399;
-            animation: spin 1s ease-in-out infinite;
+            animation: cosmicSpin 1s ease-in-out infinite;
         }
 
-        @keyframes spin {
+        @keyframes cosmicSpin {
             to { transform: rotate(360deg); }
         }
 
-        /* Responsive Design */
+        /* RESPONSIVE DESIGN */
         @media (max-width: 768px) {
-            .title {
+            .seismic-title {
                 font-size: 2.5rem;
+                letter-spacing: 3px;
             }
 
-            .main-container {
-                padding: 1.5rem 1rem;
+            .space-frame {
+                width: 95vw;
+                height: 60vh;
+                border-radius: 20px;
             }
 
-            .profile-grid {
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-                gap: 1rem;
-            }
-
-            .lyron-card {
-                width: 240px;
-                height: 320px;
-            }
-
-            .profile-card {
+            .cosmic-profile {
+                width: 140px;
+                height: 180px;
                 padding: 1rem;
             }
 
-            .submit-form {
+            .profile-avatar {
+                width: 70px;
+                height: 70px;
+            }
+
+            .portal-form {
                 flex-direction: column;
                 gap: 0.75rem;
                 padding: 1rem 1.5rem;
             }
 
-            .submit-input {
-                min-width: 180px;
+            .space-controls {
+                top: 15px;
+                right: 15px;
+                gap: 0.5rem;
+            }
+
+            .control-orb {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .status-beacon {
+                top: 15px;
+                left: 15px;
+                padding: 0.75rem 1rem;
+                font-size: 0.8rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Simple Space Background -->
-    <div class="space-bg"></div>
+    <!-- ULTIMATE SPACE BACKGROUND -->
+    <div class="space-universe"></div>
     
-    <!-- Simple Stars -->
-    <div class="stars" id="stars"></div>
+    <!-- MASSIVE NEBULA SYSTEM -->
+    <div class="nebula-system">
+        <div class="nebula"></div>
+        <div class="nebula"></div>
+        <div class="nebula"></div>
+        <div class="nebula"></div>
+    </div>
+    
+    <!-- MASSIVE STAR FIELD -->
+    <div class="star-universe" id="starUniverse"></div>
+    
+    <!-- COSMIC ENERGY WAVES -->
+    <div class="cosmic-waves">
+        <div class="energy-wave"></div>
+        <div class="energy-wave"></div>
+        <div class="energy-wave"></div>
+    </div>
 
-    <!-- Audio Element -->
+    <!-- AUDIO ELEMENT -->
     <audio id="backgroundMusic" loop>
         <source src="./seismic-music.mp3" type="audio/mpeg">
         <source src="./interstellar.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Connection Status -->
-    <div class="status">
-        <span class="status-dot disconnected" id="statusDot"></span>
+    <!-- LIGHTNING SEISMIC WALL TITLE WITH LOGO -->
+    <div class="lightning-title">
+        <div class="logo-title-container">
+            <div class="seismic-logo-orb">
+                <img src="./seismic-logo.png" alt="S" onerror="this.innerHTML='<div class=logo-fallback>S</div>'">
+            </div>
+            <h1 class="seismic-title">SEISMIC WALL</h1>
+        </div>
+    </div>
+
+    <!-- CONNECTION STATUS -->
+    <div class="status-beacon">
+        <span class="beacon-dot disconnected" id="statusDot"></span>
         <span id="statusText">💎 Demo Mode</span>
     </div>
 
-    <!-- Controls -->
-    <div class="controls">
-        <button class="control-btn" onclick="refreshMembers()" title="Refresh">
+    <!-- SPACE CONTROLS -->
+    <div class="space-controls">
+        <button class="control-orb" onclick="refreshMembers()" title="Refresh Cosmos">
             🔄
         </button>
-        <button class="control-btn" onclick="toggleMusic()" id="musicBtn" title="Music">
+        <button class="control-orb" onclick="toggleMusic()" id="musicOrb" title="Space Music">
             🎵
         </button>
     </div>
 
-    <!-- Header -->
-    <header class="header">
-        <div class="logo-title">
-            <div class="seismic-logo">
-                <img src="./seismic-logo.png" alt="S" onerror="this.innerHTML='S'">
-            </div>
-            <div>
-                <h1 class="title">SEISMIC WALL</h1>
-                <p class="subtitle">Encrypted Blockchain Community</p>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Wall Frame -->
-        <div class="wall-frame">
-            <div class="profile-grid" id="profileGrid">
-                <div class="empty-state" id="emptyState">
-                    <h3>Seismic Network</h3>
-                    <p>Add members to build the decentralized community</p>
-                </div>
+    <!-- CENTERED SPACE FRAME -->
+    <div class="space-frame">
+        <div class="profile-cosmos" id="profileCosmos">
+            <div class="cosmic-void" id="cosmicVoid">
+                <h3 class="void-title">Welcome to the Cosmic Void</h3>
+                <p class="void-text">Submit your handle to join the floating space community<br>Your profile will drift among the stars</p>
             </div>
         </div>
     </div>
 
-    <!-- Submit Form -->
-    <div class="submit-section">
-        <form class="submit-form" onsubmit="addMember(event)">
+    <!-- SUBMIT PORTAL -->
+    <div class="submit-portal">
+        <form class="portal-form" onsubmit="addMember(event)">
             <input 
                 type="text" 
-                class="submit-input" 
+                class="portal-input" 
                 placeholder="@handle" 
                 id="usernameInput"
                 required
             >
-            <button type="submit" class="submit-btn">
-                <span id="submitButtonText">Deploy</span>
-                <span id="submitButtonLoading" class="loading" style="display: none;"></span>
+            <button type="submit" class="portal-btn">
+                <span id="submitButtonText">Launch</span>
+                <span id="submitButtonLoading" class="cosmic-loading" style="display: none;"></span>
             </button>
         </form>
     </div>
@@ -709,38 +996,187 @@
         // API Configuration
         const API_BASE = 'https://seismicwall.duckdns.org/api';
 
-        // Blockchain terms
-        const roles = [
-            'Node Validator', 'Block Miner', 'DeFi Pioneer', 'Crypto Trader', 
-            'Blockchain Dev', 'DAO Member', 'Smart Contract', 'Token Holder',
-            'Chain Explorer', 'Web3 Builder', 'Alpha Hunter', 'Yield Farmer'
+        // Advanced cosmic positions for hundreds of members
+        const massiveCosmicPositions = [
+            // CENTER POSITION FOR LYRON
+            { top: '50%', left: '50%', rotation: 0, floatIntensity: 2.0, isCenter: true },
+            
+            // INNER CIRCLE (around center)
+            { top: '35%', left: '35%', rotation: 15, floatIntensity: 1.2 },
+            { top: '35%', left: '65%', rotation: -15, floatIntensity: 1.4 },
+            { top: '65%', left: '35%', rotation: -20, floatIntensity: 1.3 },
+            { top: '65%', left: '65%', rotation: 20, floatIntensity: 1.1 },
+            
+            // MIDDLE RING
+            { top: '20%', left: '20%', rotation: 25, floatIntensity: 1.0 },
+            { top: '20%', left: '50%', rotation: -10, floatIntensity: 1.5 },
+            { top: '20%', left: '80%', rotation: 30, floatIntensity: 0.9 },
+            { top: '50%', left: '20%', rotation: -25, floatIntensity: 1.6 },
+            { top: '50%', left: '80%', rotation: 15, floatIntensity: 1.2 },
+            { top: '80%', left: '20%', rotation: -30, floatIntensity: 1.4 },
+            { top: '80%', left: '50%', rotation: 10, floatIntensity: 0.8 },
+            { top: '80%', left: '80%', rotation: -15, floatIntensity: 1.3 },
+            
+            // OUTER RING
+            { top: '10%', left: '15%', rotation: 35, floatIntensity: 1.1 },
+            { top: '10%', left: '30%', rotation: -20, floatIntensity: 1.5 },
+            { top: '10%', left: '45%', rotation: 25, floatIntensity: 0.9 },
+            { top: '10%', left: '55%', rotation: -30, floatIntensity: 1.6 },
+            { top: '10%', left: '70%', rotation: 20, floatIntensity: 1.2 },
+            { top: '10%', left: '85%', rotation: -25, floatIntensity: 1.4 },
+            
+            { top: '25%', left: '10%', rotation: -35, floatIntensity: 1.3 },
+            { top: '25%', left: '25%', rotation: 15, floatIntensity: 0.7 },
+            { top: '25%', left: '75%', rotation: -15, floatIntensity: 1.7 },
+            { top: '25%', left: '90%', rotation: 35, floatIntensity: 1.0 },
+            
+            { top: '40%', left: '5%', rotation: 40, floatIntensity: 1.5 },
+            { top: '40%', left: '15%', rotation: -20, floatIntensity: 1.1 },
+            { top: '40%', left: '85%', rotation: 20, floatIntensity: 1.4 },
+            { top: '40%', left: '95%', rotation: -40, floatIntensity: 0.8 },
+            
+            { top: '60%', left: '5%', rotation: -40, floatIntensity: 1.6 },
+            { top: '60%', left: '15%', rotation: 25, floatIntensity: 1.2 },
+            { top: '60%', left: '85%', rotation: -25, floatIntensity: 1.3 },
+            { top: '60%', left: '95%', rotation: 40, floatIntensity: 0.9 },
+            
+            { top: '75%', left: '10%', rotation: 30, floatIntensity: 1.4 },
+            { top: '75%', left: '25%', rotation: -35, floatIntensity: 1.0 },
+            { top: '75%', left: '75%', rotation: 35, floatIntensity: 1.5 },
+            { top: '75%', left: '90%', rotation: -30, floatIntensity: 1.1 },
+            
+            { top: '90%', left: '15%', rotation: -35, floatIntensity: 1.3 },
+            { top: '90%', left: '30%', rotation: 20, floatIntensity: 1.6 },
+            { top: '90%', left: '45%', rotation: -25, floatIntensity: 0.8 },
+            { top: '90%', left: '55%', rotation: 30, floatIntensity: 1.7 },
+            { top: '90%', left: '70%', rotation: -20, floatIntensity: 1.2 },
+            { top: '90%', left: '85%', rotation: 25, floatIntensity: 1.4 },
+            
+            // ADDITIONAL POSITIONS FOR GROWTH (40 more positions)
+            { top: '15%', left: '40%', rotation: 12, floatIntensity: 1.3 },
+            { top: '15%', left: '60%', rotation: -18, floatIntensity: 1.1 },
+            { top: '30%', left: '12%', rotation: 22, floatIntensity: 1.5 },
+            { top: '30%', left: '88%', rotation: -22, floatIntensity: 1.0 },
+            { top: '45%', left: '25%', rotation: -28, floatIntensity: 1.6 },
+            { top: '45%', left: '75%', rotation: 28, floatIntensity: 0.9 },
+            { top: '55%', left: '25%', rotation: 32, floatIntensity: 1.2 },
+            { top: '55%', left: '75%', rotation: -32, floatIntensity: 1.4 },
+            { top: '70%', left: '12%', rotation: -26, floatIntensity: 1.3 },
+            { top: '70%', left: '88%', rotation: 26, floatIntensity: 1.1 },
+            { top: '85%', left: '40%', rotation: 18, floatIntensity: 1.5 },
+            { top: '85%', left: '60%', rotation: -12, floatIntensity: 0.8 },
+            
+            // SCATTERED POSITIONS FOR ORGANIC FEEL
+            { top: '17%', left: '52%', rotation: 8, floatIntensity: 1.4 },
+            { top: '23%', left: '33%', rotation: -14, floatIntensity: 1.2 },
+            { top: '28%', left: '67%', rotation: 16, floatIntensity: 1.6 },
+            { top: '33%', left: '48%', rotation: -24, floatIntensity: 0.9 },
+            { top: '38%', left: '72%', rotation: 20, floatIntensity: 1.3 },
+            { top: '42%', left: '38%', rotation: -12, floatIntensity: 1.5 },
+            { top: '47%', left: '62%', rotation: 24, floatIntensity: 1.0 },
+            { top: '52%', left: '28%', rotation: -20, floatIntensity: 1.7 },
+            { top: '58%', left: '52%', rotation: 14, floatIntensity: 1.1 },
+            { top: '63%', left: '72%', rotation: -16, floatIntensity: 1.4 },
+            { top: '67%', left: '33%', rotation: 26, floatIntensity: 1.2 },
+            { top: '72%', left: '58%', rotation: -18, floatIntensity: 1.3 },
+            { top: '77%', left: '42%', rotation: 22, floatIntensity: 0.9 },
+            { top: '82%', left: '67%', rotation: -28, floatIntensity: 1.6 },
+            
+            // EDGE POSITIONS FOR FUTURE EXPANSION
+            { top: '5%', left: '35%', rotation: 45, floatIntensity: 1.2 },
+            { top: '5%', left: '65%', rotation: -45, floatIntensity: 1.4 },
+            { top: '35%', left: '2%', rotation: 38, floatIntensity: 1.3 },
+            { top: '35%', left: '98%', rotation: -38, floatIntensity: 1.1 },
+            { top: '65%', left: '2%', rotation: -42, floatIntensity: 1.5 },
+            { top: '65%', left: '98%', rotation: 42, floatIntensity: 0.8 },
+            { top: '95%', left: '35%', rotation: -36, floatIntensity: 1.6 },
+            { top: '95%', left: '65%', rotation: 36, floatIntensity: 1.0 }
         ];
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            createStars();
+            createMassiveStarField();
             checkConnection();
             fetchMembers();
             setupKeyboardShortcuts();
+            startCosmicEffects();
             
+            // Auto-play music with space ambience
             setTimeout(() => {
-                music.volume = 0.2;
-            }, 1000);
+                music.volume = 0.3;
+                toggleMusic();
+            }, 3000);
         });
 
-        // Create simple star field (only 100 stars for performance)
-        function createStars() {
-            const container = document.getElementById('stars');
-            const starCount = 100;
+        // Create massive star field (500+ stars)
+        function createMassiveStarField() {
+            const container = document.getElementById('starUniverse');
+            const starCount = 500;
+            const starTypes = ['tiny', 'small', 'medium', 'large'];
             
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
-                star.className = 'star';
+                const starType = starTypes[Math.floor(Math.random() * starTypes.length)];
+                star.className = `star ${starType}`;
+                
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
                 star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 4 + 2) + 's';
+                
+                // Add random brightness variations
+                star.style.opacity = Math.random() * 0.8 + 0.2;
+                
                 container.appendChild(star);
             }
+        }
+
+        // Start advanced cosmic effects
+        function startCosmicEffects() {
+            // Create shooting stars periodically
+            setInterval(createShootingStar, 8000);
+            
+            // Create cosmic dust particles
+            setInterval(createCosmicDust, 2000);
+        }
+
+        // Create shooting stars
+        function createShootingStar() {
+            const star = document.createElement('div');
+            star.style.cssText = `
+                position: fixed;
+                width: 100px;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, #34d399, transparent);
+                top: ${Math.random() * 50}%;
+                left: -100px;
+                z-index: -10;
+                animation: shootingStar 3s linear forwards;
+            `;
+            
+            document.body.appendChild(star);
+            
+            setTimeout(() => star.remove(), 3000);
+        }
+
+        // Create cosmic dust
+        function createCosmicDust() {
+            const dust = document.createElement('div');
+            dust.style.cssText = `
+                position: fixed;
+                width: ${Math.random() * 3 + 1}px;
+                height: ${Math.random() * 3 + 1}px;
+                background: rgba(52, 211, 153, ${Math.random() * 0.5 + 0.3});
+                border-radius: 50%;
+                top: ${Math.random() * 100}%;
+                left: ${Math.random() * 100}%;
+                z-index: -12;
+                animation: dustFloat ${Math.random() * 20 + 10}s linear infinite;
+            `;
+            
+            document.body.appendChild(dust);
+            
+            setTimeout(() => dust.remove(), 30000);
         }
 
         // Check backend connection
@@ -760,109 +1196,599 @@
             const statusText = document.getElementById('statusText');
             
             if (isConnected) {
-                statusDot.className = 'status-dot connected';
-                statusText.textContent = '🟢 Backend Connected';
+                statusDot.className = 'beacon-dot connected';
+                statusText.textContent = '🟢 Cosmic Link Active';
             } else {
-                statusDot.className = 'status-dot disconnected';
-                statusText.textContent = '💎 Demo Mode';
+                statusDot.className = 'beacon-dot disconnected';
+                statusText.textContent = '💎 Demo Universe';
             }
         }
 
-        // Fetch members from API
+        // Fetch members from API (NO DEMO DATA)
         async function fetchMembers() {
             try {
                 if (!isConnected) {
-                    members = [];
+                    members = []; // Empty array - no demo users
                     renderMembers();
                     return;
                 }
                 
                 const response = await fetch(`${API_BASE}/members`);
-                if (!response.ok) throw new Error('Failed to fetch');
+                if (!response.ok) throw new Error('Failed to fetch cosmic data');
                 
                 members = await response.json();
                 renderMembers();
             } catch (error) {
-                console.error('Error fetching members:', error);
-                members = [];
+                console.error('Error fetching cosmic members:', error);
+                members = []; // Empty on error
                 renderMembers();
             }
         }
 
-        // Render members with Lyron special treatment
+        // Render members floating in the centered frame (LYRON IN CENTER)
         function renderMembers() {
-            const container = document.getElementById('profileGrid');
-            const emptyState = document.getElementById('emptyState');
+            const container = document.getElementById('profileCosmos');
+            const voidState = document.getElementById('cosmicVoid');
             
-            container.innerHTML = '';
+            // Clear existing cosmic profiles
+            const existingProfiles = container.querySelectorAll('.cosmic-profile');
+            existingProfiles.forEach(profile => profile.remove());
             
             if (members.length === 0) {
-                container.appendChild(emptyState);
+                voidState.style.display = 'block';
                 return;
             }
 
-            // Find Lyron
-            const lyron = members.find(m => 
-                m.username.toLowerCase().includes('lyronctk') || 
-                m.username.toLowerCase().includes('lyron')
-            );
-            
-            const others = members.filter(m => 
-                !m.username.toLowerCase().includes('lyronctk') && 
-                !m.username.toLowerCase().includes('lyron')
-            );
+            voidState.style.display = 'none';
 
-            // Render Lyron first (center)
-            if (lyron) {
-                const centerDiv = document.createElement('div');
-                centerDiv.className = 'lyron-center';
-                centerDiv.innerHTML = `
-                    <div class="profile-card lyron-card">
-                        <div class="profile-avatar">
-                            ${lyron.profileImage ? 
-                                `<img src="${lyron.profileImage}" alt="${lyron.displayName}" onerror="this.parentElement.innerHTML='${getInitials(lyron.displayName)}'">` :
-                                getInitials(lyron.displayName)
-                            }
-                        </div>
-                        <div class="profile-handle">${lyron.username}</div>
-                        <div class="profile-role founder-role">👑 FOUNDER</div>
-                        <div class="profile-stats">
-                            <div class="stat-line">🔗 ${formatNumber(lyron.followers || 0)} Followers</div>
-                            <div class="stat-line">${lyron.verified ? '✅ Verified' : '⭕ Pending'}</div>
-                            <div class="stat-line">⏰ Network Genesis</div>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(centerDiv);
-            }
+            // Sort members to put @lyronctk first (center position)
+            const sortedMembers = [...members].sort((a, b) => {
+                if (a.username.toLowerCase().includes('lyronctk')) return -1;
+                if (b.username.toLowerCase().includes('lyronctk')) return 1;
+                return 0;
+            });
 
-            // Render all other members
-            others.forEach((member, index) => {
-                const card = document.createElement('div');
-                card.className = 'profile-card';
-                card.style.animationDelay = `${index * 0.1}s`;
+            sortedMembers.forEach((member, index) => {
+                const profile = document.createElement('div');
+                profile.className = 'cosmic-profile';
                 
-                const randomRole = roles[Math.floor(Math.random() * roles.length)];
+                // Use massive position array with Lyron in center
+                const basePosition = massiveCosmicPositions[index % massiveCosmicPositions.length];
+                const randomOffsetX = (Math.random() - 0.5) * 25;
+                const randomOffsetY = (Math.random() - 0.5) * 25;
                 
-                card.innerHTML = `
-                    <div class="profile-avatar">
+                // Special handling for center position (Lyron)
+                if (index === 0 && member.username.toLowerCase().includes('lyronctk')) {
+                    profile.style.top = '50%';
+                    profile.style.left = '50%';
+                    profile.style.transform = 'translate(-50%, -50%) rotate(0deg)';
+                    profile.style.zIndex = '300'; // Higher z-index for center
+                    profile.classList.add('center-profile');
+                } else {
+                    profile.style.top = `calc(${basePosition.top} + ${randomOffsetY}px)`;
+                    profile.style.left = `calc(${basePosition.left} + ${randomOffsetX}px)`;
+                    profile.style.transform = `translate(-50%, -50%) rotate(${basePosition.rotation + (Math.random() - 0.5) * 10}deg)`;
+                }
+                
+                profile.style.animationDelay = (index * 0.5) + 's';
+                
+                // Add unique floating properties based on position
+                profile.style.setProperty('--float-intensity', basePosition.floatIntensity);
+                profile.style.setProperty('--float-duration', (Math.random() * 12 + 15) + 's');
+                profile.style.setProperty('--float-delay', (Math.random() * 8) + 's');
+                
+                // Add special effects for center profile
+                const centerClass = (index === 0 && member.username.toLowerCase().includes('lyronctk')) ? 'center-glow' : '';
+                
+                profile.innerHTML = `
+                    <div class="profile-avatar ${centerClass}">
                         ${member.profileImage ? 
                             `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
                             getInitials(member.displayName)
                         }
                     </div>
-                    <div class="profile-handle">${member.username}</div>
-                    <div class="profile-role member-role">🔗 ${randomRole}</div>
+                    <div class="profile-handle ${centerClass}">${member.username}</div>
                     <div class="profile-stats">
-                        <div class="stat-line">🔗 ${formatNumber(member.followers || 0)} Followers</div>
-                        <div class="stat-line">${member.verified ? '✅ Verified' : '⭕ Pending'}</div>
+                        <div class="stat-line">👥 ${formatNumber(member.followers || 0)}</div>
+                        <div class="stat-line">${member.verified ? '✅ Verified' : '⭕ Standard'}</div>
                         <div class="stat-line">⏰ ${timeAgo(member.createdAt)}</div>
                     </div>
                 `;
                 
-                container.appendChild(card);
+                // Enhanced hover effects with more particles
+                profile.addEventListener('mouseenter', function() {
+                    this.style.filter = 'brightness(1.5) drop-shadow(0 0 80px rgba(52, 211, 153, 1))';
+                    this.style.zIndex = '500';
+                    
+                    // Create enhanced particle burst
+                    createEnhancedParticleBurst(this);
+                });
+                
+                profile.addEventListener('mouseleave', function() {
+                    this.style.filter = 'none';
+                    this.style.zIndex = index === 0 && member.username.toLowerCase().includes('lyronctk') ? '300' : '100';
+                });
+                
+                container.appendChild(profile);
             });
         }
 
-        // Add new member
-        async function addM
+        // Enhanced particle burst with more particles
+        function createEnhancedParticleBurst(element) {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            // Create more particles for enhanced effect
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: fixed;
+                    width: ${Math.random() * 4 + 3}px;
+                    height: ${Math.random() * 4 + 3}px;
+                    background: ${['#34d399', '#10b981', '#ffffff', '#059669'][Math.floor(Math.random() * 4)]};
+                    border-radius: 50%;
+                    left: ${centerX}px;
+                    top: ${centerY}px;
+                    z-index: 1000;
+                    pointer-events: none;
+                    animation: enhancedParticleBurst 2s ease-out forwards;
+                    box-shadow: 0 0 10px currentColor;
+                `;
+                
+                const angle = (i / 20) * Math.PI * 2;
+                const distance = Math.random() * 150 + 80;
+                particle.style.setProperty('--burst-x', Math.cos(angle) * distance + 'px');
+                particle.style.setProperty('--burst-y', Math.sin(angle) * distance + 'px');
+                
+                document.body.appendChild(particle);
+                
+                setTimeout(() => particle.remove(), 2000);
+            }
+        }
+
+        // Add new member with cosmic effects
+        async function addMember(event) {
+            event.preventDefault();
+            
+            const input = document.getElementById('usernameInput');
+            const username = input.value.trim();
+            
+            if (!username) return;
+            
+            // Show cosmic loading state
+            const buttonText = document.getElementById('submitButtonText');
+            const buttonLoading = document.getElementById('submitButtonLoading');
+            buttonText.style.display = 'none';
+            buttonLoading.style.display = 'inline-block';
+            
+            try {
+                if (!isConnected) {
+                    throw new Error('Cosmic link disconnected - Please check connection to the universe');
+                }
+                
+                const response = await fetch(`${API_BASE}/members`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username })
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to launch into cosmos');
+                }
+                
+                // Clear input and refresh
+                input.value = '';
+                await fetchMembers();
+                
+                // Create epic success effect
+                showCosmicLaunchSuccess();
+                
+            } catch (error) {
+                console.error('Error launching member:', error);
+                showCosmicError(error.message);
+            } finally {
+                // Reset button state
+                buttonText.style.display = 'inline-block';
+                buttonLoading.style.display = 'none';
+            }
+        }
+
+        // Show cosmic launch success
+        function showCosmicLaunchSuccess() {
+            const successEffect = document.createElement('div');
+            successEffect.innerHTML = '🚀 Successfully Launched into Cosmos! ✨';
+            successEffect.style.cssText = `
+                position: fixed;
+                top: 30%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(45deg, rgba(52, 211, 153, 0.9), rgba(34, 197, 94, 0.9));
+                color: #000;
+                padding: 1.5rem 3rem;
+                border-radius: 50px;
+                font-weight: bold;
+                font-size: 1.4rem;
+                z-index: 10000;
+                animation: cosmicSuccess 4s ease-out forwards;
+                box-shadow: 0 0 80px rgba(52, 211, 153, 1);
+                text-align: center;
+                border: 2px solid rgba(255, 255, 255, 0.5);
+            `;
+            
+            document.body.appendChild(successEffect);
+            
+            // Create celebration particles
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => createCelebrationParticle(), i * 100);
+            }
+            
+            setTimeout(() => successEffect.remove(), 4000);
+        }
+
+        // Show cosmic error
+        function showCosmicError(message) {
+            const errorEffect = document.createElement('div');
+            errorEffect.innerHTML = `⚠️ ${message}`;
+            errorEffect.style.cssText = `
+                position: fixed;
+                top: 30%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(239, 68, 68, 0.9);
+                color: #fff;
+                padding: 1rem 2rem;
+                border-radius: 25px;
+                font-weight: bold;
+                font-size: 1.1rem;
+                z-index: 10000;
+                animation: errorPulse 3s ease-out forwards;
+                box-shadow: 0 0 40px rgba(239, 68, 68, 0.8);
+                text-align: center;
+                border: 2px solid rgba(255, 255, 255, 0.3);
+            `;
+            
+            document.body.appendChild(errorEffect);
+            
+            setTimeout(() => errorEffect.remove(), 3000);
+        }
+
+        // Create celebration particles
+        function createCelebrationParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 6px;
+                height: 6px;
+                background: ${['#34d399', '#10b981', '#ffffff'][Math.floor(Math.random() * 3)]};
+                border-radius: 50%;
+                top: 30%;
+                left: 50%;
+                z-index: 9999;
+                animation: celebrationBurst 3s ease-out forwards;
+            `;
+            
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 300 + 100;
+            particle.style.setProperty('--burst-x', Math.cos(angle) * distance + 'px');
+            particle.style.setProperty('--burst-y', Math.sin(angle) * distance + 'px');
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 3000);
+        }
+
+        // Refresh members
+        async function refreshMembers() {
+            // Add cosmic refresh effect
+            const refreshEffect = document.createElement('div');
+            refreshEffect.innerHTML = '🌌 Refreshing Cosmos...';
+            refreshEffect.style.cssText = `
+                position: fixed;
+                top: 20%;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(52, 211, 153, 0.8);
+                color: #000;
+                padding: 1rem 2rem;
+                border-radius: 25px;
+                font-weight: bold;
+                z-index: 10000;
+                animation: refreshPulse 2s ease-out forwards;
+            `;
+            
+            document.body.appendChild(refreshEffect);
+            
+            await checkConnection();
+            await fetchMembers();
+            
+            setTimeout(() => refreshEffect.remove(), 2000);
+        }
+
+        // Music controls
+        function toggleMusic() {
+            const btn = document.getElementById('musicOrb');
+            
+            if (isPlaying) {
+                music.pause();
+                btn.textContent = '🎵';
+                isPlaying = false;
+            } else {
+                music.play().catch(e => console.log('Cosmic music failed to play:', e));
+                btn.textContent = '🔊';
+                isPlaying = true;
+            }
+        }
+
+        // Keyboard shortcuts
+        function setupKeyboardShortcuts() {
+            document.addEventListener('keydown', function(e) {
+                if (e.key === ' ' && e.target.tagName !== 'INPUT') {
+                    e.preventDefault();
+                    toggleMusic();
+                } else if (e.key === 'r' && !e.ctrlKey && e.target.tagName !== 'INPUT') {
+                    e.preventDefault();
+                    refreshMembers();
+                } else if (e.key === 'Escape') {
+                    e.preventDefault();
+                    document.getElementById('usernameInput').blur();
+                }
+            });
+        }
+
+        // Utility functions
+        function getInitials(name) {
+            return name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2);
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num.toString();
+        }
+
+        function timeAgo(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - date) / 1000);
+            
+            if (diffInSeconds < 60) return 'Now';
+            if (diffInSeconds < 3600) return Math.floor(diffInSeconds / 60) + 'm';
+            if (diffInSeconds < 86400) return Math.floor(diffInSeconds / 3600) + 'h';
+            return Math.floor(diffInSeconds / 86400) + 'd';
+        }
+
+        // Add enhanced CSS animations and center profile effects
+        const enhancedStyles = document.createElement('style');
+        enhancedStyles.textContent = `
+            /* CENTER PROFILE SPECIAL EFFECTS */
+            .center-profile {
+                animation: centerProfileFloat 20s ease-in-out infinite, profileMaterialize 3s ease-out forwards;
+                border: 3px solid rgba(52, 211, 153, 0.8) !important;
+                box-shadow: 
+                    0 0 100px rgba(52, 211, 153, 0.6),
+                    0 0 200px rgba(34, 197, 94, 0.4),
+                    inset 0 0 50px rgba(52, 211, 153, 0.2) !important;
+            }
+
+            .center-glow {
+                animation: centerGlow 4s ease-in-out infinite;
+            }
+
+            @keyframes centerProfileFloat {
+                0%, 100% { 
+                    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                }
+                25% { 
+                    transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
+                }
+                50% { 
+                    transform: translate(-50%, -50%) scale(1.05) rotate(0deg);
+                }
+                75% { 
+                    transform: translate(-50%, -50%) scale(1.15) rotate(-5deg);
+                }
+            }
+
+            @keyframes centerGlow {
+                0%, 100% { 
+                    color: #34d399;
+                    text-shadow: 0 0 20px rgba(52, 211, 153, 0.8);
+                }
+                50% { 
+                    color: #ffffff;
+                    text-shadow: 0 0 40px rgba(255, 255, 255, 1);
+                }
+            }
+
+            @keyframes enhancedParticleBurst {
+                0% { 
+                    transform: translate(0, 0) scale(1) rotate(0deg);
+                    opacity: 1;
+                }
+                100% { 
+                    transform: translate(var(--burst-x), var(--burst-y)) scale(0) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes shootingStar {
+                0% { 
+                    left: -150px; 
+                    opacity: 0;
+                    transform: scale(1);
+                }
+                10% { 
+                    opacity: 1;
+                    transform: scale(1.2);
+                }
+                90% { 
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                100% { 
+                    left: 100vw; 
+                    opacity: 0;
+                    transform: scale(0.8);
+                }
+            }
+            
+            @keyframes dustFloat {
+                0% { 
+                    transform: translate(0, 0) rotate(0deg);
+                    opacity: 0;
+                }
+                10% { 
+                    opacity: 1;
+                }
+                90% { 
+                    opacity: 1;
+                }
+                100% { 
+                    transform: translate(150px, -80px) rotate(720deg);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes particleBurst {
+                0% { 
+                    transform: translate(0, 0) scale(1);
+                    opacity: 1;
+                }
+                100% { 
+                    transform: translate(var(--burst-x), var(--burst-y)) scale(0);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes celebrationBurst {
+                0% { 
+                    transform: translate(0, 0) scale(1) rotate(0deg);
+                    opacity: 1;
+                }
+                100% { 
+                    transform: translate(var(--burst-x), var(--burst-y)) scale(0) rotate(720deg);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes cosmicSuccess {
+                0% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.3) rotate(-180deg);
+                }
+                20% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1.3) rotate(0deg);
+                }
+                80% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1) rotate(180deg);
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.5) rotate(360deg);
+                }
+            }
+            
+            @keyframes errorPulse {
+                0% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.8);
+                }
+                20% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1.2);
+                }
+                80% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1);
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.7);
+                }
+            }
+            
+            @keyframes refreshPulse {
+                0% { 
+                    opacity: 0; 
+                    transform: translateX(-50%) scale(0.5) rotate(-90deg);
+                }
+                30% { 
+                    opacity: 1; 
+                    transform: translateX(-50%) scale(1.2) rotate(0deg);
+                }
+                70% { 
+                    opacity: 1; 
+                    transform: translateX(-50%) scale(1) rotate(90deg);
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: translateX(-50%) scale(0.8) rotate(180deg);
+                }
+            }
+
+            /* RESPONSIVE UPDATES FOR LARGER FRAME */
+            @media (max-width: 768px) {
+                .space-frame {
+                    width: 98vw;
+                    height: 75vh;
+                    border-radius: 25px;
+                    border-width: 3px;
+                }
+                
+                .cosmic-profile {
+                    width: 130px;
+                    height: 170px;
+                    padding: 1rem;
+                }
+                
+                .profile-avatar {
+                    width: 60px;
+                    height: 60px;
+                }
+                
+                .seismic-logo-orb {
+                    width: 70px;
+                    height: 70px;
+                }
+                
+                .seismic-title {
+                    font-size: 2.8rem;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .space-frame {
+                    width: 99vw;
+                    height: 70vh;
+                    border-radius: 20px;
+                }
+                
+                .cosmic-profile {
+                    width: 110px;
+                    height: 150px;
+                    padding: 0.8rem;
+                }
+                
+                .profile-avatar {
+                    width: 50px;
+                    height: 50px;
+                }
+            }
+        `;
+        document.head.appendChild(enhancedStyles);
+
+        // Auto-refresh every 4 minutes when connected
+        setInterval(() => {
+            if (isConnected) {
+                refreshMembers();
+            }
+        }, 4 * 60 * 1000);
+    </script>
+</body>
+</html>
