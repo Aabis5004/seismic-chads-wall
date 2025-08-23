@@ -22,77 +22,105 @@
             position: relative;
         }
 
-        /* PURE INTERSTELLAR SPACE BACKGROUND */
-        .space-container {
+        /* ULTIMATE SPACE BACKGROUND */
+        .space-universe {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -10;
+            z-index: -20;
             background: 
-                radial-gradient(ellipse at center, rgba(16, 23, 42, 0.8) 0%, rgba(0, 0, 0, 1) 70%),
-                radial-gradient(ellipse at 20% 30%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 70%, rgba(52, 211, 153, 0.15) 0%, transparent 60%),
-                radial-gradient(ellipse at 60% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
-                linear-gradient(135deg, #000000 0%, #0f172a 30%, #1e293b 60%, #000000 100%);
+                radial-gradient(ellipse at 30% 20%, rgba(16, 23, 42, 0.8) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(30, 41, 59, 0.6) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 70%, rgba(34, 197, 94, 0.1) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 30%, rgba(52, 211, 153, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 30%),
+                linear-gradient(135deg, #000000 0%, #0f0f23 20%, #1a1a2e 40%, #16213e 60%, #0f0f23 80%, #000000 100%);
         }
 
-        /* COSMIC NEBULA EFFECTS */
+        /* MASSIVE NEBULA SYSTEM */
+        .nebula-system {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -18;
+            pointer-events: none;
+        }
+
         .nebula {
             position: absolute;
             border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.3;
-            animation: nebulaPulse 12s ease-in-out infinite;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: nebulaFlow 20s ease-in-out infinite;
         }
 
         .nebula:nth-child(1) {
-            width: 400px;
+            width: 800px;
             height: 400px;
-            background: radial-gradient(circle, rgba(34, 197, 94, 0.3) 0%, transparent 70%);
-            top: 10%;
-            left: 20%;
+            background: radial-gradient(ellipse, rgba(34, 197, 94, 0.4) 0%, rgba(16, 185, 129, 0.2) 50%, transparent 100%);
+            top: 5%;
+            left: 10%;
             animation-delay: 0s;
         }
 
         .nebula:nth-child(2) {
             width: 600px;
-            height: 300px;
-            background: radial-gradient(ellipse, rgba(52, 211, 153, 0.25) 0%, transparent 70%);
-            top: 60%;
-            right: 10%;
-            animation-delay: -4s;
+            height: 600px;
+            background: radial-gradient(circle, rgba(52, 211, 153, 0.3) 0%, rgba(34, 197, 94, 0.1) 50%, transparent 100%);
+            top: 40%;
+            right: 5%;
+            animation-delay: -7s;
         }
 
         .nebula:nth-child(3) {
-            width: 350px;
+            width: 700px;
             height: 350px;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
-            bottom: 20%;
-            left: 10%;
-            animation-delay: -8s;
+            background: radial-gradient(ellipse, rgba(16, 185, 129, 0.25) 0%, rgba(52, 211, 153, 0.1) 50%, transparent 100%);
+            bottom: 10%;
+            left: 20%;
+            animation-delay: -14s;
         }
 
-        @keyframes nebulaPulse {
+        .nebula:nth-child(4) {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, rgba(16, 185, 129, 0.08) 50%, transparent 100%);
+            top: 60%;
+            left: 60%;
+            animation-delay: -3s;
+        }
+
+        @keyframes nebulaFlow {
             0%, 100% { 
-                transform: scale(1) rotate(0deg);
-                opacity: 0.2;
+                transform: scale(1) rotate(0deg) translateX(0) translateY(0);
+                opacity: 0.3;
+            }
+            25% { 
+                transform: scale(1.3) rotate(90deg) translateX(50px) translateY(-30px);
+                opacity: 0.5;
             }
             50% { 
-                transform: scale(1.2) rotate(180deg);
+                transform: scale(0.8) rotate(180deg) translateX(30px) translateY(50px);
                 opacity: 0.4;
+            }
+            75% { 
+                transform: scale(1.1) rotate(270deg) translateX(-40px) translateY(20px);
+                opacity: 0.6;
             }
         }
 
-        /* FLOATING STAR FIELD */
-        .star-field {
+        /* MASSIVE STAR FIELD */
+        .star-universe {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -8;
+            z-index: -15;
             pointer-events: none;
         }
 
@@ -100,301 +128,513 @@
             position: absolute;
             background: #ffffff;
             border-radius: 50%;
-            animation: starTwinkle 4s ease-in-out infinite;
+            animation: starPulse 3s ease-in-out infinite;
+        }
+
+        .star.tiny {
+            width: 1px;
+            height: 1px;
+            opacity: 0.6;
         }
 
         .star.small {
-            width: 1px;
-            height: 1px;
-        }
-
-        .star.medium {
             width: 2px;
             height: 2px;
             background: #34d399;
+            box-shadow: 0 0 4px #34d399;
+            opacity: 0.8;
         }
 
-        .star.large {
+        .star.medium {
             width: 3px;
             height: 3px;
             background: #10b981;
-            box-shadow: 0 0 6px #10b981;
+            box-shadow: 0 0 8px #10b981;
+            opacity: 0.9;
         }
 
-        @keyframes starTwinkle {
+        .star.large {
+            width: 4px;
+            height: 4px;
+            background: #ffffff;
+            box-shadow: 0 0 12px #ffffff;
+            opacity: 1;
+        }
+
+        @keyframes starPulse {
             0%, 100% { 
                 opacity: 0.3; 
                 transform: scale(1);
             }
             50% { 
                 opacity: 1; 
-                transform: scale(1.5);
+                transform: scale(1.8);
             }
         }
 
-        /* FLOATING COSMIC PARTICLES */
-        .cosmic-particles {
+        /* COSMIC ENERGY WAVES */
+        .cosmic-waves {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -6;
+            z-index: -12;
             pointer-events: none;
         }
 
-        .particle {
+        .energy-wave {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(52, 211, 153, 0.6);
+            border: 1px solid rgba(52, 211, 153, 0.3);
             border-radius: 50%;
-            animation: floatParticle 25s linear infinite;
+            animation: energyPulse 8s ease-out infinite;
         }
 
-        @keyframes floatParticle {
+        .energy-wave:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 20%;
+            left: 30%;
+            animation-delay: 0s;
+        }
+
+        .energy-wave:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            top: 60%;
+            right: 20%;
+            animation-delay: -3s;
+        }
+
+        .energy-wave:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            bottom: 20%;
+            left: 40%;
+            animation-delay: -6s;
+        }
+
+        @keyframes energyPulse {
             0% {
-                transform: translateY(100vh) translateX(0) rotate(0deg);
+                transform: scale(0.5);
                 opacity: 0;
+                border-color: rgba(52, 211, 153, 0);
             }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
+            50% {
+                transform: scale(2);
+                opacity: 0.6;
+                border-color: rgba(52, 211, 153, 0.8);
             }
             100% {
-                transform: translateY(-100px) translateX(200px) rotate(360deg);
+                transform: scale(4);
                 opacity: 0;
+                border-color: rgba(52, 211, 153, 0);
             }
         }
 
-        /* HEADER WITH INTERSTELLAR STYLE */
-        .header {
-            position: relative;
+        /* LIGHTNING SEISMIC WALL TITLE */
+        .lightning-title {
+            position: fixed;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
             text-align: center;
-            padding: 3rem 0 2rem 0;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(52, 211, 153, 0.3);
-            z-index: 100;
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .seismic-logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(45deg, #34d399, #10b981, #059669);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 2rem;
-            color: #000;
-            animation: logoOrbit 20s linear infinite;
-            box-shadow: 
-                0 0 40px rgba(52, 211, 153, 0.8),
-                inset 0 0 20px rgba(255, 255, 255, 0.2);
-            position: relative;
-        }
-
-        .seismic-logo::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            border: 2px solid rgba(52, 211, 153, 0.3);
-            border-radius: 50%;
-            animation: logoRing 15s linear infinite reverse;
-        }
-
-        .seismic-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 50%;
-        }
-
-        @keyframes logoOrbit {
-            0% { 
-                transform: rotate(0deg) scale(1);
-                box-shadow: 0 0 40px rgba(52, 211, 153, 0.8);
-            }
-            50% { 
-                transform: rotate(180deg) scale(1.1);
-                box-shadow: 0 0 60px rgba(34, 197, 94, 1);
-            }
-            100% { 
-                transform: rotate(360deg) scale(1);
-                box-shadow: 0 0 40px rgba(52, 211, 153, 0.8);
-            }
-        }
-
-        @keyframes logoRing {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .title {
-            font-size: 3.5rem;
+        .seismic-title {
+            font-size: 4.5rem;
             font-weight: 900;
             font-family: 'Orbitron', monospace;
-            background: linear-gradient(45deg, #ffffff, #34d399, #10b981, #ffffff);
-            background-size: 300% 300%;
+            background: linear-gradient(45deg, #ffffff, #34d399, #10b981, #ffffff, #34d399);
+            background-size: 400% 400%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: titleShimmer 6s ease-in-out infinite;
-            text-shadow: 0 0 50px rgba(52, 211, 153, 0.5);
-            letter-spacing: 4px;
+            animation: lightningShimmer 2s ease-in-out infinite;
+            text-shadow: 
+                0 0 20px rgba(52, 211, 153, 0.8),
+                0 0 40px rgba(34, 197, 94, 0.6),
+                0 0 60px rgba(16, 185, 129, 0.4);
+            letter-spacing: 6px;
             text-transform: uppercase;
-        }
-
-        @keyframes titleShimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .subtitle {
-            font-size: 1.3rem;
-            color: #34d399;
-            opacity: 0.9;
-            margin-top: 1rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            animation: subtitleGlow 4s ease-in-out infinite;
-        }
-
-        @keyframes subtitleGlow {
-            0%, 100% { text-shadow: 0 0 20px rgba(52, 211, 153, 0.5); }
-            50% { text-shadow: 0 0 40px rgba(34, 197, 94, 0.8); }
-        }
-
-        /* SUBMIT SECTION WITH SPACE VIBES */
-        .submit-section {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(15px);
-            margin-bottom: 3rem;
             position: relative;
-            z-index: 50;
         }
 
-        .submit-title {
-            font-size: 1.8rem;
-            color: #34d399;
-            margin-bottom: 2rem;
-            font-weight: 300;
-            letter-spacing: 1px;
-            animation: submitTitlePulse 3s ease-in-out infinite;
+        .seismic-title::before {
+            content: 'SEISMIC WALL';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: lightningStrike 3s ease-in-out infinite;
+            z-index: 1;
         }
 
-        @keyframes submitTitlePulse {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
+        @keyframes lightningShimmer {
+            0%, 100% { 
+                background-position: 0% 50%;
+                filter: brightness(1);
+            }
+            50% { 
+                background-position: 100% 50%;
+                filter: brightness(1.5) drop-shadow(0 0 30px rgba(52, 211, 153, 1));
+            }
         }
 
-        .submit-form {
+        @keyframes lightningStrike {
+            0%, 90%, 100% { 
+                opacity: 0;
+                background-position: -200% 50%;
+            }
+            95% { 
+                opacity: 1;
+                background-position: 200% 50%;
+            }
+        }
+
+        /* CENTERED SPACE FRAME */
+        .space-frame {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90vw;
+            height: 70vh;
+            max-width: 1400px;
+            border: 3px solid rgba(52, 211, 153, 0.6);
+            border-radius: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            box-shadow: 
+                0 0 50px rgba(52, 211, 153, 0.3),
+                inset 0 0 100px rgba(52, 211, 153, 0.1);
+            z-index: 100;
+            overflow: hidden;
+            animation: frameGlow 6s ease-in-out infinite;
+        }
+
+        @keyframes frameGlow {
+            0%, 100% { 
+                border-color: rgba(52, 211, 153, 0.6);
+                box-shadow: 0 0 50px rgba(52, 211, 153, 0.3);
+            }
+            50% { 
+                border-color: rgba(34, 197, 94, 0.8);
+                box-shadow: 0 0 80px rgba(34, 197, 94, 0.5);
+            }
+        }
+
+        .space-frame::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, rgba(52, 211, 153, 0.8), rgba(34, 197, 94, 0.6), rgba(16, 185, 129, 0.4), rgba(52, 211, 153, 0.8));
+            background-size: 300% 300%;
+            border-radius: 30px;
+            z-index: -1;
+            animation: frameBorder 8s linear infinite;
+        }
+
+        @keyframes frameBorder {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* FLOATING PROFILE CONTAINER */
+        .profile-cosmos {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 2rem;
+        }
+
+        /* EPIC FLOATING PROFILE CARDS */
+        .cosmic-profile {
+            position: absolute;
+            width: 180px;
+            height: 220px;
+            background: rgba(52, 211, 153, 0.08);
+            border: 2px solid rgba(52, 211, 153, 0.4);
+            border-radius: 25px;
+            padding: 1.5rem;
+            backdrop-filter: blur(25px);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            animation: 
+                cosmicFloat 15s ease-in-out infinite,
+                profileEntry 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+            transform: scale(0.5) rotateX(60deg) rotateY(30deg);
+            box-shadow: 
+                0 25px 80px rgba(52, 211, 153, 0.2),
+                0 10px 30px rgba(34, 197, 94, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes profileEntry {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) rotateX(60deg) rotateY(30deg) translateZ(-200px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotateX(0deg) rotateY(0deg) translateZ(0px);
+            }
+        }
+
+        @keyframes cosmicFloat {
+            0%, 100% { 
+                transform: translateY(0) translateX(0) rotateZ(0deg) scale(1);
+            }
+            16% { 
+                transform: translateY(-40px) translateX(30px) rotateZ(3deg) scale(1.02);
+            }
+            33% { 
+                transform: translateY(-20px) translateX(-25px) rotateZ(-2deg) scale(0.98);
+            }
+            50% { 
+                transform: translateY(-60px) translateX(15px) rotateZ(1deg) scale(1.05);
+            }
+            66% { 
+                transform: translateY(-10px) translateX(-40px) rotateZ(-4deg) scale(0.95);
+            }
+            83% { 
+                transform: translateY(-45px) translateX(25px) rotateZ(2deg) scale(1.03);
+            }
+        }
+
+        .cosmic-profile:hover {
+            transform: scale(1.2) translateY(-30px) rotateZ(0deg);
+            box-shadow: 
+                0 50px 120px rgba(52, 211, 153, 0.5),
+                0 20px 60px rgba(34, 197, 94, 0.3),
+                0 0 100px rgba(16, 185, 129, 0.4);
+            border-color: rgba(52, 211, 153, 0.9);
+            background: rgba(52, 211, 153, 0.15);
+            z-index: 200;
+        }
+
+        .cosmic-profile:hover .profile-avatar {
+            transform: scale(1.1) rotateY(360deg);
+            box-shadow: 0 0 60px rgba(52, 211, 153, 1);
+        }
+
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #34d399, #10b981, #059669);
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 1.5rem;
-            max-width: 700px;
-            margin: 0 auto;
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: #000;
+            margin: 0 auto 1rem auto;
+            overflow: hidden;
+            box-shadow: 
+                0 0 40px rgba(52, 211, 153, 0.7),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+            animation: avatarOrbit 12s linear infinite;
+            transition: all 0.6s ease;
         }
 
-        .handle-input {
-            flex: 1;
-            padding: 1.5rem 2rem;
-            background: rgba(52, 211, 153, 0.05);
-            border: 2px solid rgba(52, 211, 153, 0.3);
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        @keyframes avatarOrbit {
+            0% { 
+                transform: rotateY(0deg);
+                box-shadow: 0 0 40px rgba(52, 211, 153, 0.7);
+            }
+            50% { 
+                transform: rotateY(180deg);
+                box-shadow: 0 0 60px rgba(34, 197, 94, 0.9);
+            }
+            100% { 
+                transform: rotateY(360deg);
+                box-shadow: 0 0 40px rgba(52, 211, 153, 0.7);
+            }
+        }
+
+        .profile-handle {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #34d399;
+            text-align: center;
+            margin-bottom: 0.75rem;
+            word-break: break-word;
+            text-shadow: 0 0 15px rgba(52, 211, 153, 0.6);
+            animation: handleGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes handleGlow {
+            0%, 100% { 
+                color: #34d399;
+                text-shadow: 0 0 15px rgba(52, 211, 153, 0.6);
+            }
+            50% { 
+                color: #10b981;
+                text-shadow: 0 0 25px rgba(16, 185, 129, 0.8);
+            }
+        }
+
+        .profile-stats {
+            font-size: 0.75rem;
+            text-align: center;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .stat-line {
+            margin-bottom: 0.4rem;
+            padding: 0.3rem 0.5rem;
+            background: rgba(52, 211, 153, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-line:hover {
+            background: rgba(52, 211, 153, 0.2);
+            border-color: rgba(52, 211, 153, 0.4);
+        }
+
+        /* SUBMIT FORM */
+        .submit-portal {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .portal-form {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 1rem 2rem;
             border-radius: 50px;
+            border: 2px solid rgba(52, 211, 153, 0.4);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(52, 211, 153, 0.3);
+            animation: portalPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes portalPulse {
+            0%, 100% { 
+                box-shadow: 0 20px 60px rgba(52, 211, 153, 0.3);
+                border-color: rgba(52, 211, 153, 0.4);
+            }
+            50% { 
+                box-shadow: 0 30px 80px rgba(34, 197, 94, 0.4);
+                border-color: rgba(34, 197, 94, 0.6);
+            }
+        }
+
+        .portal-input {
+            padding: 0.75rem 1.5rem;
+            background: rgba(52, 211, 153, 0.1);
+            border: 2px solid rgba(52, 211, 153, 0.3);
+            border-radius: 25px;
             color: #ffffff;
             font-family: 'Exo 2', monospace;
-            font-size: 1.2rem;
-            text-align: center;
+            font-size: 1rem;
+            min-width: 200px;
             backdrop-filter: blur(10px);
             transition: all 0.4s ease;
         }
 
-        .handle-input::placeholder {
+        .portal-input::placeholder {
             color: rgba(52, 211, 153, 0.6);
-            font-weight: 300;
         }
 
-        .handle-input:focus {
+        .portal-input:focus {
             outline: none;
             border-color: #34d399;
-            box-shadow: 
-                0 0 30px rgba(52, 211, 153, 0.4),
-                inset 0 0 20px rgba(52, 211, 153, 0.1);
-            background: rgba(52, 211, 153, 0.1);
-            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(52, 211, 153, 0.5);
+            background: rgba(52, 211, 153, 0.15);
+            transform: scale(1.05);
         }
 
-        .submit-btn {
-            padding: 1.5rem 3rem;
+        .portal-btn {
+            padding: 0.75rem 1.5rem;
             background: linear-gradient(45deg, #34d399, #10b981);
             border: none;
-            border-radius: 50px;
+            border-radius: 25px;
             color: #000;
             font-family: 'Exo 2', monospace;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.4s ease;
-            font-size: 1.2rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
         }
 
-        .submit-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 50px rgba(52, 211, 153, 0.5);
+        .portal-btn:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 15px 40px rgba(52, 211, 153, 0.5);
             background: linear-gradient(45deg, #10b981, #059669);
         }
 
-        /* MUSIC CONTROLS */
-        .music-controls {
-            text-align: center;
-            margin-bottom: 3rem;
-            z-index: 50;
-            position: relative;
+        /* CONTROL BUTTONS */
+        .space-controls {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
         }
 
-        .music-btn {
-            padding: 1rem 3rem;
-            background: rgba(239, 68, 68, 0.8);
-            border: 2px solid rgba(239, 68, 68, 0.6);
-            border-radius: 50px;
-            color: #ffffff;
-            font-family: 'Exo 2', monospace;
-            font-weight: bold;
+        .control-orb {
+            width: 60px;
+            height: 60px;
+            background: rgba(52, 211, 153, 0.2);
+            border: 2px solid rgba(52, 211, 153, 0.6);
+            border-radius: 50%;
+            color: #34d399;
+            font-size: 1.5rem;
             cursor: pointer;
             transition: all 0.4s ease;
-            font-size: 1.1rem;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+            backdrop-filter: blur(15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
+            animation: orbFloat 6s ease-in-out infinite;
         }
 
-        .music-btn:hover {
-            background: rgba(239, 68, 68, 1);
-            transform: scale(1.1);
-            box-shadow: 0 15px 40px rgba(239, 68, 68, 0.5);
+        .control-orb:hover {
+            background: rgba(52, 211, 153, 0.4);
+            transform: scale(1.2);
+            box-shadow: 0 20px 50px rgba(52, 211, 153, 0.5);
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         /* CONNECTION STATUS */
-        .connection-status {
+        .status-beacon {
             position: fixed;
             top: 30px;
             left: 30px;
@@ -405,294 +645,168 @@
             backdrop-filter: blur(15px);
             font-size: 0.9rem;
             z-index: 1000;
-            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
+            box-shadow: 0 15px 40px rgba(52, 211, 153, 0.3);
+            animation: beaconPulse 3s ease-in-out infinite;
         }
 
-        .status-dot {
+        @keyframes beaconPulse {
+            0%, 100% { 
+                box-shadow: 0 15px 40px rgba(52, 211, 153, 0.3);
+            }
+            50% { 
+                box-shadow: 0 25px 60px rgba(34, 197, 94, 0.5);
+            }
+        }
+
+        .beacon-dot {
             display: inline-block;
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             margin-right: 10px;
-            animation: statusPulse 2s infinite;
+            animation: beaconBlink 2s infinite;
         }
 
         .connected { background: #34d399; }
         .disconnected { background: #ef4444; }
 
-        @keyframes statusPulse {
+        @keyframes beaconBlink {
             0%, 100% { 
                 opacity: 1; 
                 transform: scale(1);
             }
             50% { 
-                opacity: 0.7; 
-                transform: scale(1.2);
+                opacity: 0.6; 
+                transform: scale(1.3);
             }
-        }
-
-        /* REFRESH BUTTON */
-        .refresh-btn {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: rgba(52, 211, 153, 0.2);
-            border: 2px solid #34d399;
-            border-radius: 50%;
-            color: #34d399;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(15px);
-            z-index: 1000;
-            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
-        }
-
-        .refresh-btn:hover {
-            background: rgba(52, 211, 153, 0.4);
-            transform: scale(1.1) rotate(360deg);
-            box-shadow: 0 15px 40px rgba(52, 211, 153, 0.5);
-        }
-
-        /* INTERSTELLAR SPACE WALL */
-        .space-wall {
-            position: relative;
-            width: 100%;
-            min-height: 80vh;
-            padding: 3rem;
-            margin: 0 auto;
-            max-width: 1600px;
-            z-index: 10;
-        }
-
-        /* FLOATING PROFILE CARDS - ZERO GRAVITY STYLE */
-        .profile-card {
-            position: absolute;
-            width: 200px;
-            height: 250px;
-            background: rgba(52, 211, 153, 0.08);
-            border: 2px solid rgba(52, 211, 153, 0.3);
-            border-radius: 20px;
-            padding: 1.5rem;
-            backdrop-filter: blur(20px);
-            transition: all 0.5s ease;
-            cursor: pointer;
-            animation: 
-                floatInSpace 12s ease-in-out infinite,
-                cardEntry 1.2s ease-out forwards;
-            opacity: 0;
-            transform: scale(0.8) rotateX(45deg);
-            box-shadow: 
-                0 20px 60px rgba(52, 211, 153, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-
-        @keyframes cardEntry {
-            to {
-                opacity: 1;
-                transform: scale(1) rotateX(0deg);
-            }
-        }
-
-        @keyframes floatInSpace {
-            0%, 100% { 
-                transform: translateY(0) translateX(0) rotateZ(0deg);
-            }
-            25% { 
-                transform: translateY(-30px) translateX(20px) rotateZ(2deg);
-            }
-            50% { 
-                transform: translateY(-15px) translateX(-10px) rotateZ(0deg);
-            }
-            75% { 
-                transform: translateY(-40px) translateX(15px) rotateZ(-2deg);
-            }
-        }
-
-        .profile-card:hover {
-            transform: scale(1.15) translateY(-20px) rotateZ(0deg);
-            box-shadow: 
-                0 40px 80px rgba(52, 211, 153, 0.4),
-                0 0 100px rgba(34, 197, 94, 0.3);
-            border-color: #34d399;
-            background: rgba(52, 211, 153, 0.15);
-            z-index: 100;
-        }
-
-        .profile-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #34d399, #10b981);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.5rem;
-            color: #000;
-            margin: 0 auto 1rem auto;
-            overflow: hidden;
-            box-shadow: 
-                0 0 40px rgba(52, 211, 153, 0.6),
-                inset 0 0 20px rgba(255, 255, 255, 0.2);
-            animation: avatarFloat 8s ease-in-out infinite;
-        }
-
-        .profile-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        @keyframes avatarFloat {
-            0%, 100% { 
-                transform: translateY(0) scale(1);
-                box-shadow: 0 0 40px rgba(52, 211, 153, 0.6);
-            }
-            50% { 
-                transform: translateY(-10px) scale(1.05);
-                box-shadow: 0 0 60px rgba(34, 197, 94, 0.8);
-            }
-        }
-
-        .profile-username {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #34d399;
-            text-align: center;
-            margin-bottom: 0.75rem;
-            word-break: break-word;
-            text-shadow: 0 0 20px rgba(52, 211, 153, 0.5);
-        }
-
-        .profile-stats {
-            font-size: 0.8rem;
-            text-align: center;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        .stat-line {
-            margin-bottom: 0.5rem;
-            padding: 0.25rem;
-            background: rgba(52, 211, 153, 0.1);
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
         }
 
         /* EMPTY STATE */
-        .empty-state {
+        .cosmic-void {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            opacity: 0.7;
-            z-index: 20;
+            opacity: 0.8;
+            z-index: 50;
         }
 
-        .empty-state h3 {
-            font-size: 2rem;
+        .void-title {
+            font-size: 2.5rem;
             color: #34d399;
             margin-bottom: 1.5rem;
             font-weight: 300;
-            animation: emptyStatePulse 4s ease-in-out infinite;
+            animation: voidPulse 5s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(52, 211, 153, 0.6);
         }
 
-        .empty-state p {
-            font-size: 1.2rem;
+        .void-text {
+            font-size: 1.3rem;
             color: #ffffff;
-            opacity: 0.8;
+            opacity: 0.9;
             font-weight: 300;
+            line-height: 1.6;
         }
 
-        @keyframes emptyStatePulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
+        @keyframes voidPulse {
+            0%, 100% { 
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.05);
+            }
         }
 
         /* LOADING ANIMATION */
-        .loading {
+        .cosmic-loading {
             display: inline-block;
             width: 20px;
             height: 20px;
             border: 3px solid rgba(52, 211, 153, 0.3);
             border-radius: 50%;
             border-top-color: #34d399;
-            animation: loadingSpin 1s ease-in-out infinite;
+            animation: cosmicSpin 1s ease-in-out infinite;
         }
 
-        @keyframes loadingSpin {
+        @keyframes cosmicSpin {
             to { transform: rotate(360deg); }
         }
 
         /* RESPONSIVE DESIGN */
         @media (max-width: 768px) {
-            .title {
+            .seismic-title {
                 font-size: 2.5rem;
+                letter-spacing: 3px;
             }
 
-            .submit-form {
-                flex-direction: column;
-                gap: 1rem;
+            .space-frame {
+                width: 95vw;
+                height: 60vh;
+                border-radius: 20px;
             }
 
-            .space-wall {
-                padding: 1rem;
-                min-height: 60vh;
-            }
-
-            .profile-card {
-                width: 160px;
-                height: 200px;
+            .cosmic-profile {
+                width: 140px;
+                height: 180px;
                 padding: 1rem;
             }
 
             .profile-avatar {
-                width: 80px;
-                height: 80px;
+                width: 70px;
+                height: 70px;
             }
 
-            .connection-status {
-                top: 10px;
-                left: 10px;
-                padding: 0.75rem 1rem;
+            .portal-form {
+                flex-direction: column;
+                gap: 0.75rem;
+                padding: 1rem 1.5rem;
             }
 
-            .refresh-btn {
-                top: 10px;
-                right: 10px;
+            .space-controls {
+                top: 15px;
+                right: 15px;
+                gap: 0.5rem;
+            }
+
+            .control-orb {
                 width: 50px;
                 height: 50px;
+                font-size: 1.2rem;
             }
-        }
 
-        /* PERFORMANCE OPTIMIZATIONS */
-        .profile-card {
-            will-change: transform;
-        }
-
-        .particle, .star {
-            will-change: transform, opacity;
+            .status-beacon {
+                top: 15px;
+                left: 15px;
+                padding: 0.75rem 1rem;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- PURE INTERSTELLAR SPACE BACKGROUND -->
-    <div class="space-container">
+    <!-- ULTIMATE SPACE BACKGROUND -->
+    <div class="space-universe"></div>
+    
+    <!-- MASSIVE NEBULA SYSTEM -->
+    <div class="nebula-system">
+        <div class="nebula"></div>
         <div class="nebula"></div>
         <div class="nebula"></div>
         <div class="nebula"></div>
     </div>
     
-    <!-- FLOATING STAR FIELD -->
-    <div class="star-field" id="starField"></div>
+    <!-- MASSIVE STAR FIELD -->
+    <div class="star-universe" id="starUniverse"></div>
     
-    <!-- COSMIC PARTICLES -->
-    <div class="cosmic-particles" id="cosmicParticles"></div>
+    <!-- COSMIC ENERGY WAVES -->
+    <div class="cosmic-waves">
+        <div class="energy-wave"></div>
+        <div class="energy-wave"></div>
+        <div class="energy-wave"></div>
+    </div>
 
     <!-- AUDIO ELEMENT -->
     <audio id="backgroundMusic" loop>
@@ -700,61 +814,52 @@
         <source src="./interstellar.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- LIGHTNING SEISMIC WALL TITLE -->
+    <div class="lightning-title">
+        <h1 class="seismic-title">SEISMIC WALL</h1>
+    </div>
+
     <!-- CONNECTION STATUS -->
-    <div class="connection-status">
-        <span class="status-dot disconnected" id="statusDot"></span>
+    <div class="status-beacon">
+        <span class="beacon-dot disconnected" id="statusDot"></span>
         <span id="statusText">💎 Demo Mode</span>
     </div>
 
-    <!-- REFRESH BUTTON -->
-    <button class="refresh-btn" onclick="refreshMembers()" title="Refresh">
-        🔄
-    </button>
+    <!-- SPACE CONTROLS -->
+    <div class="space-controls">
+        <button class="control-orb" onclick="refreshMembers()" title="Refresh Cosmos">
+            🔄
+        </button>
+        <button class="control-orb" onclick="toggleMusic()" id="musicOrb" title="Space Music">
+            🎵
+        </button>
+    </div>
 
-    <!-- HEADER -->
-    <header class="header">
-        <div class="logo-container">
-            <div class="seismic-logo">
-                <img src="./seismic-logo.png" alt="S" onerror="this.parentElement.innerHTML='S'">
-            </div>
-            <div>
-                <h1 class="title">SEISMIC WALL</h1>
-                <p class="subtitle">Join the Encrypted Community</p>
+    <!-- CENTERED SPACE FRAME -->
+    <div class="space-frame">
+        <div class="profile-cosmos" id="profileCosmos">
+            <div class="cosmic-void" id="cosmicVoid">
+                <h3 class="void-title">Welcome to the Cosmic Void</h3>
+                <p class="void-text">Submit your handle to join the floating space community<br>Your profile will drift among the stars</p>
             </div>
         </div>
-    </header>
+    </div>
 
-    <!-- SUBMIT SECTION -->
-    <section class="submit-section">
-        <h2 class="submit-title">Submit your X handle. Join Seismic Family Wall</h2>
-        <form class="submit-form" onsubmit="addMember(event)">
+    <!-- SUBMIT PORTAL -->
+    <div class="submit-portal">
+        <form class="portal-form" onsubmit="addMember(event)">
             <input 
                 type="text" 
-                class="handle-input" 
+                class="portal-input" 
                 placeholder="@handle" 
                 id="usernameInput"
                 required
             >
-            <button type="submit" class="submit-btn">
-                <span id="submitButtonText">Submit</span>
-                <span id="submitButtonLoading" class="loading" style="display: none;"></span>
+            <button type="submit" class="portal-btn">
+                <span id="submitButtonText">Launch</span>
+                <span id="submitButtonLoading" class="cosmic-loading" style="display: none;"></span>
             </button>
         </form>
-    </section>
-
-    <!-- MUSIC CONTROLS -->
-    <section class="music-controls">
-        <button class="music-btn" onclick="toggleMusic()" id="musicBtn">
-            🎵 Pause Music
-        </button>
-    </section>
-
-    <!-- INTERSTELLAR SPACE WALL -->
-    <div class="space-wall" id="spaceWall">
-        <div class="empty-state" id="emptyState">
-            <h3>Welcome to the Cosmic Void</h3>
-            <p>Submit your handle to float among the stars</p>
-        </div>
     </div>
 
     <script>
@@ -767,74 +872,114 @@
         // API Configuration
         const API_BASE = 'https://seismicwall.duckdns.org/api';
 
-        // Cosmic positions for floating profiles
+        // Advanced cosmic positions for ultimate floating effect
         const cosmicPositions = [
-            { top: '15%', left: '20%', rotation: 15 },
-            { top: '35%', left: '75%', rotation: -20 },
-            { top: '60%', left: '15%', rotation: 10 },
-            { top: '25%', left: '60%', rotation: -15 },
-            { top: '70%', left: '65%', rotation: 25 },
-            { top: '45%', left: '30%', rotation: -10 },
-            { top: '80%', left: '40%', rotation: 20 },
-            { top: '20%', left: '85%', rotation: -25 },
-            { top: '55%', left: '80%', rotation: 15 },
-            { top: '85%', left: '20%', rotation: -20 },
-            { top: '40%', left: '10%', rotation: 30 },
-            { top: '10%', left: '50%', rotation: -30 },
-            { top: '65%', left: '45%', rotation: 10 },
-            { top: '30%', left: '90%', rotation: -15 },
-            { top: '75%', left: '75%', rotation: 25 },
-            { top: '50%', left: '5%', rotation: -20 },
-            { top: '90%', left: '60%', rotation: 15 },
-            { top: '5%', left: '25%', rotation: -10 },
-            { top: '95%', left: '85%', rotation: 20 },
-            { top: '25%', left: '40%', rotation: -25 }
+            { top: '15%', left: '20%', rotation: 15, floatIntensity: 1.2 },
+            { top: '35%', left: '75%', rotation: -20, floatIntensity: 0.8 },
+            { top: '60%', left: '15%', rotation: 10, floatIntensity: 1.5 },
+            { top: '25%', left: '60%', rotation: -15, floatIntensity: 1.0 },
+            { top: '70%', left: '65%', rotation: 25, floatIntensity: 1.3 },
+            { top: '45%', left: '30%', rotation: -10, floatIntensity: 0.9 },
+            { top: '80%', left: '40%', rotation: 20, floatIntensity: 1.4 },
+            { top: '20%', left: '85%', rotation: -25, floatIntensity: 1.1 },
+            { top: '55%', left: '80%', rotation: 15, floatIntensity: 0.7 },
+            { top: '85%', left: '20%', rotation: -20, floatIntensity: 1.6 },
+            { top: '40%', left: '10%', rotation: 30, floatIntensity: 1.2 },
+            { top: '10%', left: '50%', rotation: -30, floatIntensity: 0.9 },
+            { top: '65%', left: '45%', rotation: 10, floatIntensity: 1.3 },
+            { top: '30%', left: '90%', rotation: -15, floatIntensity: 1.0 },
+            { top: '75%', left: '75%', rotation: 25, floatIntensity: 1.4 },
+            { top: '50%', left: '5%', rotation: -20, floatIntensity: 0.8 },
+            { top: '90%', left: '60%', rotation: 15, floatIntensity: 1.5 },
+            { top: '5%', left: '25%', rotation: -10, floatIntensity: 1.1 },
+            { top: '95%', left: '85%', rotation: 20, floatIntensity: 0.9 },
+            { top: '25%', left: '40%', rotation: -25, floatIntensity: 1.2 }
         ];
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            createStarField();
-            createCosmicParticles();
+            createMassiveStarField();
             checkConnection();
             fetchMembers();
             setupKeyboardShortcuts();
+            startCosmicEffects();
             
-            // Auto-play music
+            // Auto-play music with space ambience
             setTimeout(() => {
-                music.volume = 0.25;
+                music.volume = 0.3;
                 toggleMusic();
-            }, 2000);
+            }, 3000);
         });
 
-        // Create massive star field
-        function createStarField() {
-            const container = document.getElementById('starField');
-            const starCount = 200;
+        // Create massive star field (500+ stars)
+        function createMassiveStarField() {
+            const container = document.getElementById('starUniverse');
+            const starCount = 500;
+            const starTypes = ['tiny', 'small', 'medium', 'large'];
             
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
-                star.className = `star ${['small', 'medium', 'large'][Math.floor(Math.random() * 3)]}`;
+                const starType = starTypes[Math.floor(Math.random() * starTypes.length)];
+                star.className = `star ${starType}`;
+                
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 4 + 's';
-                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 4 + 2) + 's';
+                
+                // Add random brightness variations
+                star.style.opacity = Math.random() * 0.8 + 0.2;
+                
                 container.appendChild(star);
             }
         }
 
-        // Create floating cosmic particles
-        function createCosmicParticles() {
-            const container = document.getElementById('cosmicParticles');
-            const particleCount = 30;
+        // Start advanced cosmic effects
+        function startCosmicEffects() {
+            // Create shooting stars periodically
+            setInterval(createShootingStar, 8000);
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 25 + 's';
-                particle.style.animationDuration = (Math.random() * 15 + 20) + 's';
-                container.appendChild(particle);
-            }
+            // Create cosmic dust particles
+            setInterval(createCosmicDust, 2000);
+        }
+
+        // Create shooting stars
+        function createShootingStar() {
+            const star = document.createElement('div');
+            star.style.cssText = `
+                position: fixed;
+                width: 100px;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, #34d399, transparent);
+                top: ${Math.random() * 50}%;
+                left: -100px;
+                z-index: -10;
+                animation: shootingStar 3s linear forwards;
+            `;
+            
+            document.body.appendChild(star);
+            
+            setTimeout(() => star.remove(), 3000);
+        }
+
+        // Create cosmic dust
+        function createCosmicDust() {
+            const dust = document.createElement('div');
+            dust.style.cssText = `
+                position: fixed;
+                width: ${Math.random() * 3 + 1}px;
+                height: ${Math.random() * 3 + 1}px;
+                background: rgba(52, 211, 153, ${Math.random() * 0.5 + 0.3});
+                border-radius: 50%;
+                top: ${Math.random() * 100}%;
+                left: ${Math.random() * 100}%;
+                z-index: -12;
+                animation: dustFloat ${Math.random() * 20 + 10}s linear infinite;
+            `;
+            
+            document.body.appendChild(dust);
+            
+            setTimeout(() => dust.remove(), 30000);
         }
 
         // Check backend connection
@@ -854,11 +999,11 @@
             const statusText = document.getElementById('statusText');
             
             if (isConnected) {
-                statusDot.className = 'status-dot connected';
-                statusText.textContent = '🟢 Backend Connected';
+                statusDot.className = 'beacon-dot connected';
+                statusText.textContent = '🟢 Cosmic Link Active';
             } else {
-                statusDot.className = 'status-dot disconnected';
-                statusText.textContent = '💎 Demo Mode';
+                statusDot.className = 'beacon-dot disconnected';
+                statusText.textContent = '💎 Demo Universe';
             }
         }
 
@@ -872,80 +1017,118 @@
                 }
                 
                 const response = await fetch(`${API_BASE}/members`);
-                if (!response.ok) throw new Error('Failed to fetch');
+                if (!response.ok) throw new Error('Failed to fetch cosmic data');
                 
                 members = await response.json();
                 renderMembers();
             } catch (error) {
-                console.error('Error fetching members:', error);
+                console.error('Error fetching cosmic members:', error);
                 members = []; // Empty on error
                 renderMembers();
             }
         }
 
-        // Render members floating in space
+        // Render members floating in the centered frame
         function renderMembers() {
-            const container = document.getElementById('spaceWall');
-            const emptyState = document.getElementById('emptyState');
+            const container = document.getElementById('profileCosmos');
+            const voidState = document.getElementById('cosmicVoid');
             
-            // Clear existing cards
-            const existingCards = container.querySelectorAll('.profile-card');
-            existingCards.forEach(card => card.remove());
+            // Clear existing cosmic profiles
+            const existingProfiles = container.querySelectorAll('.cosmic-profile');
+            existingProfiles.forEach(profile => profile.remove());
             
             if (members.length === 0) {
-                emptyState.style.display = 'block';
+                voidState.style.display = 'block';
                 return;
             }
 
-            emptyState.style.display = 'none';
+            voidState.style.display = 'none';
 
             members.forEach((member, index) => {
-                const card = document.createElement('div');
-                card.className = 'profile-card';
+                const profile = document.createElement('div');
+                profile.className = 'cosmic-profile';
                 
-                // Use cosmic positions with random variations
+                // Use advanced positioning with floating effects
                 const basePosition = cosmicPositions[index % cosmicPositions.length];
-                const randomOffsetX = (Math.random() - 0.5) * 20;
-                const randomOffsetY = (Math.random() - 0.5) * 20;
+                const randomOffsetX = (Math.random() - 0.5) * 30;
+                const randomOffsetY = (Math.random() - 0.5) * 30;
                 
-                card.style.top = `calc(${basePosition.top} + ${randomOffsetY}px)`;
-                card.style.left = `calc(${basePosition.left} + ${randomOffsetX}px)`;
-                card.style.transform = `rotate(${basePosition.rotation + (Math.random() - 0.5) * 10}deg)`;
-                card.style.animationDelay = (index * 0.3) + 's';
+                profile.style.top = `calc(${basePosition.top} + ${randomOffsetY}px)`;
+                profile.style.left = `calc(${basePosition.left} + ${randomOffsetX}px)`;
+                profile.style.transform = `rotate(${basePosition.rotation + (Math.random() - 0.5) * 15}deg)`;
+                profile.style.animationDelay = (index * 0.4) + 's';
                 
-                // Add unique floating animation timing
-                card.style.setProperty('--float-duration', (Math.random() * 8 + 10) + 's');
-                card.style.setProperty('--float-delay', (Math.random() * 5) + 's');
+                // Add unique floating properties
+                profile.style.setProperty('--float-intensity', basePosition.floatIntensity);
+                profile.style.setProperty('--float-duration', (Math.random() * 10 + 12) + 's');
+                profile.style.setProperty('--float-delay', (Math.random() * 6) + 's');
                 
-                card.innerHTML = `
+                profile.innerHTML = `
                     <div class="profile-avatar">
                         ${member.profileImage ? 
                             `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
                             getInitials(member.displayName)
                         }
                     </div>
-                    <div class="profile-username">${member.username}</div>
+                    <div class="profile-handle">${member.username}</div>
                     <div class="profile-stats">
-                        <div class="stat-line">👥 ${formatNumber(member.followers || 0)} Followers</div>
-                        <div class="stat-line">${member.verified ? '✅ Verified' : '⭕ Unverified'}</div>
+                        <div class="stat-line">👥 ${formatNumber(member.followers || 0)}</div>
+                        <div class="stat-line">${member.verified ? '✅ Verified' : '⭕ Standard'}</div>
                         <div class="stat-line">⏰ ${timeAgo(member.createdAt)}</div>
                     </div>
                 `;
                 
-                // Add hover effect with cosmic glow
-                card.addEventListener('mouseenter', function() {
-                    this.style.filter = 'brightness(1.3) drop-shadow(0 0 50px rgba(52, 211, 153, 0.8))';
+                // Add advanced hover effects
+                profile.addEventListener('mouseenter', function() {
+                    this.style.filter = 'brightness(1.4) drop-shadow(0 0 60px rgba(52, 211, 153, 1))';
+                    this.style.zIndex = '500';
+                    
+                    // Create particle burst on hover
+                    createParticleBurst(this);
                 });
                 
-                card.addEventListener('mouseleave', function() {
+                profile.addEventListener('mouseleave', function() {
                     this.style.filter = 'none';
+                    this.style.zIndex = '100';
                 });
                 
-                container.appendChild(card);
+                container.appendChild(profile);
             });
         }
 
-        // Add new member
+        // Create particle burst effect
+        function createParticleBurst(element) {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            for (let i = 0; i < 12; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: fixed;
+                    width: 4px;
+                    height: 4px;
+                    background: #34d399;
+                    border-radius: 50%;
+                    left: ${centerX}px;
+                    top: ${centerY}px;
+                    z-index: 1000;
+                    pointer-events: none;
+                    animation: particleBurst 1.5s ease-out forwards;
+                `;
+                
+                const angle = (i / 12) * Math.PI * 2;
+                const distance = Math.random() * 100 + 50;
+                particle.style.setProperty('--burst-x', Math.cos(angle) * distance + 'px');
+                particle.style.setProperty('--burst-y', Math.sin(angle) * distance + 'px');
+                
+                document.body.appendChild(particle);
+                
+                setTimeout(() => particle.remove(), 1500);
+            }
+        }
+
+        // Add new member with cosmic effects
         async function addMember(event) {
             event.preventDefault();
             
@@ -954,7 +1137,7 @@
             
             if (!username) return;
             
-            // Show loading state
+            // Show cosmic loading state
             const buttonText = document.getElementById('submitButtonText');
             const buttonLoading = document.getElementById('submitButtonLoading');
             buttonText.style.display = 'none';
@@ -962,7 +1145,7 @@
             
             try {
                 if (!isConnected) {
-                    throw new Error('Backend not connected - Please check connection');
+                    throw new Error('Cosmic link disconnected - Please check connection to the universe');
                 }
                 
                 const response = await fetch(`${API_BASE}/members`, {
@@ -975,19 +1158,19 @@
                 
                 if (!response.ok) {
                     const error = await response.json();
-                    throw new Error(error.error || 'Failed to add member');
+                    throw new Error(error.error || 'Failed to launch into cosmos');
                 }
                 
                 // Clear input and refresh
                 input.value = '';
                 await fetchMembers();
                 
-                // Add cosmic success effect
-                showCosmicSuccess();
+                // Create epic success effect
+                showCosmicLaunchSuccess();
                 
             } catch (error) {
-                console.error('Error adding member:', error);
-                alert(error.message);
+                console.error('Error launching member:', error);
+                showCosmicError(error.message);
             } finally {
                 // Reset button state
                 buttonText.style.display = 'inline-block';
@@ -995,50 +1178,128 @@
             }
         }
 
-        // Show cosmic success effect
-        function showCosmicSuccess() {
+        // Show cosmic launch success
+        function showCosmicLaunchSuccess() {
             const successEffect = document.createElement('div');
-            successEffect.innerHTML = '✨ Member Added to the Cosmos! ✨';
+            successEffect.innerHTML = '🚀 Successfully Launched into Cosmos! ✨';
             successEffect.style.cssText = `
                 position: fixed;
-                top: 50%;
+                top: 30%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                background: rgba(52, 211, 153, 0.9);
+                background: linear-gradient(45deg, rgba(52, 211, 153, 0.9), rgba(34, 197, 94, 0.9));
                 color: #000;
-                padding: 1rem 2rem;
+                padding: 1.5rem 3rem;
                 border-radius: 50px;
                 font-weight: bold;
-                font-size: 1.2rem;
+                font-size: 1.4rem;
                 z-index: 10000;
-                animation: successPulse 3s ease-out forwards;
-                box-shadow: 0 0 50px rgba(52, 211, 153, 0.8);
+                animation: cosmicSuccess 4s ease-out forwards;
+                box-shadow: 0 0 80px rgba(52, 211, 153, 1);
+                text-align: center;
+                border: 2px solid rgba(255, 255, 255, 0.5);
             `;
             
             document.body.appendChild(successEffect);
             
-            setTimeout(() => {
-                successEffect.remove();
-            }, 3000);
+            // Create celebration particles
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => createCelebrationParticle(), i * 100);
+            }
+            
+            setTimeout(() => successEffect.remove(), 4000);
+        }
+
+        // Show cosmic error
+        function showCosmicError(message) {
+            const errorEffect = document.createElement('div');
+            errorEffect.innerHTML = `⚠️ ${message}`;
+            errorEffect.style.cssText = `
+                position: fixed;
+                top: 30%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(239, 68, 68, 0.9);
+                color: #fff;
+                padding: 1rem 2rem;
+                border-radius: 25px;
+                font-weight: bold;
+                font-size: 1.1rem;
+                z-index: 10000;
+                animation: errorPulse 3s ease-out forwards;
+                box-shadow: 0 0 40px rgba(239, 68, 68, 0.8);
+                text-align: center;
+                border: 2px solid rgba(255, 255, 255, 0.3);
+            `;
+            
+            document.body.appendChild(errorEffect);
+            
+            setTimeout(() => errorEffect.remove(), 3000);
+        }
+
+        // Create celebration particles
+        function createCelebrationParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 6px;
+                height: 6px;
+                background: ${['#34d399', '#10b981', '#ffffff'][Math.floor(Math.random() * 3)]};
+                border-radius: 50%;
+                top: 30%;
+                left: 50%;
+                z-index: 9999;
+                animation: celebrationBurst 3s ease-out forwards;
+            `;
+            
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 300 + 100;
+            particle.style.setProperty('--burst-x', Math.cos(angle) * distance + 'px');
+            particle.style.setProperty('--burst-y', Math.sin(angle) * distance + 'px');
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 3000);
         }
 
         // Refresh members
         async function refreshMembers() {
+            // Add cosmic refresh effect
+            const refreshEffect = document.createElement('div');
+            refreshEffect.innerHTML = '🌌 Refreshing Cosmos...';
+            refreshEffect.style.cssText = `
+                position: fixed;
+                top: 20%;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(52, 211, 153, 0.8);
+                color: #000;
+                padding: 1rem 2rem;
+                border-radius: 25px;
+                font-weight: bold;
+                z-index: 10000;
+                animation: refreshPulse 2s ease-out forwards;
+            `;
+            
+            document.body.appendChild(refreshEffect);
+            
             await checkConnection();
             await fetchMembers();
+            
+            setTimeout(() => refreshEffect.remove(), 2000);
         }
 
         // Music controls
         function toggleMusic() {
-            const btn = document.getElementById('musicBtn');
+            const btn = document.getElementById('musicOrb');
             
             if (isPlaying) {
                 music.pause();
-                btn.textContent = '🎵 Play Music';
+                btn.textContent = '🎵';
                 isPlaying = false;
             } else {
-                music.play().catch(e => console.log('Music play failed:', e));
-                btn.textContent = '🎵 Pause Music';
+                music.play().catch(e => console.log('Cosmic music failed to play:', e));
+                btn.textContent = '🔊';
                 isPlaying = true;
             }
         }
@@ -1081,69 +1342,123 @@
             return Math.floor(diffInSeconds / 86400) + 'd';
         }
 
-        // Auto-refresh every 3 minutes when connected
+        // Add dynamic CSS animations
+        const dynamicStyles = document.createElement('style');
+        dynamicStyles.textContent = `
+            @keyframes shootingStar {
+                0% { 
+                    left: -100px; 
+                    opacity: 0;
+                }
+                20% { 
+                    opacity: 1;
+                }
+                100% { 
+                    left: 100vw; 
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes dustFloat {
+                0% { 
+                    transform: translate(0, 0) rotate(0deg);
+                    opacity: 0;
+                }
+                10% { 
+                    opacity: 1;
+                }
+                90% { 
+                    opacity: 1;
+                }
+                100% { 
+                    transform: translate(100px, -50px) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes particleBurst {
+                0% { 
+                    transform: translate(0, 0) scale(1);
+                    opacity: 1;
+                }
+                100% { 
+                    transform: translate(var(--burst-x), var(--burst-y)) scale(0);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes celebrationBurst {
+                0% { 
+                    transform: translate(0, 0) scale(1);
+                    opacity: 1;
+                }
+                100% { 
+                    transform: translate(var(--burst-x), var(--burst-y)) scale(0);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes cosmicSuccess {
+                0% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.5);
+                }
+                20% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1.2);
+                }
+                80% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1);
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.8);
+                }
+            }
+            
+            @keyframes errorPulse {
+                0% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.8);
+                }
+                20% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1.1);
+                }
+                80% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1);
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.9);
+                }
+            }
+            
+            @keyframes refreshPulse {
+                0% { 
+                    opacity: 0; 
+                    transform: translateX(-50%) scale(0.8);
+                }
+                50% { 
+                    opacity: 1; 
+                    transform: translateX(-50%) scale(1.1);
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: translateX(-50%) scale(1);
+                }
+            }
+        `;
+        document.head.appendChild(dynamicStyles);
+
+        // Auto-refresh every 4 minutes when connected
         setInterval(() => {
             if (isConnected) {
                 refreshMembers();
             }
-        }, 3 * 60 * 1000);
-
-        // Add cosmic cursor trail effect
-        document.addEventListener('mousemove', function(e) {
-            if (Math.random() > 0.95) { // Only occasionally
-                const trail = document.createElement('div');
-                trail.style.cssText = `
-                    position: fixed;
-                    left: ${e.clientX}px;
-                    top: ${e.clientY}px;
-                    width: 4px;
-                    height: 4px;
-                    background: rgba(52, 211, 153, 0.6);
-                    border-radius: 50%;
-                    pointer-events: none;
-                    z-index: 1000;
-                    animation: trailFade 2s ease-out forwards;
-                `;
-                document.body.appendChild(trail);
-                
-                setTimeout(() => trail.remove(), 2000);
-            }
-        });
-
-        // Add CSS for success and trail animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes successPulse {
-                0% { 
-                    opacity: 0; 
-                    transform: translate(-50%, -50%) scale(0.5); 
-                }
-                20% { 
-                    opacity: 1; 
-                    transform: translate(-50%, -50%) scale(1.2); 
-                }
-                80% { 
-                    opacity: 1; 
-                    transform: translate(-50%, -50%) scale(1); 
-                }
-                100% { 
-                    opacity: 0; 
-                    transform: translate(-50%, -50%) scale(0.8); 
-                }
-            }
-            
-            @keyframes trailFade {
-                0% { 
-                    opacity: 1; 
-                    transform: scale(1); 
-                }
-                100% { 
-                    opacity: 0; 
-                    transform: scale(0.1); 
-                }
-            }
-        `;
-        document.head.appendChild(style);
+        }, 4 * 60 * 1000);
     </script>
 </body>
 </html>
