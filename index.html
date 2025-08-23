@@ -456,22 +456,126 @@
             box-shadow: 0 15px 40px rgba(52, 211, 153, 0.5);
         }
 
-        /* INTERSTELLAR SPACE WALL */
+        /* IMPROVED SPACE WALL LAYOUT */
         .space-wall {
             position: relative;
             width: 100%;
-            min-height: 80vh;
+            min-height: 90vh;
             padding: 3rem;
             margin: 0 auto;
-            max-width: 1600px;
+            max-width: 1800px;
             z-index: 10;
         }
 
-        /* FLOATING PROFILE CARDS - ZERO GRAVITY STYLE */
-        .profile-card {
+        /* HIERARCHICAL LAYOUT SYSTEM */
+        .hierarchy-container {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* FOUNDER - CENTER POSITION */
+        .founder-card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 280px;
+            height: 340px;
+            z-index: 100;
+            animation: founderGlow 8s ease-in-out infinite;
+        }
+
+        @keyframes founderGlow {
+            0%, 100% { 
+                filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.8));
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% { 
+                filter: drop-shadow(0 0 60px rgba(255, 215, 0, 1));
+                transform: translate(-50%, -50%) scale(1.05);
+            }
+        }
+
+        /* MODERATORS - SURROUNDING FOUNDER */
+        .moderator-card {
+            position: absolute;
+            width: 240px;
+            height: 300px;
+            z-index: 80;
+            animation: moderatorOrbit 20s linear infinite;
+        }
+
+        .moderator-card:nth-child(2) { /* First moderator */
+            top: 30%;
+            left: 25%;
+            animation-delay: 0s;
+        }
+
+        .moderator-card:nth-child(3) { /* Second moderator */
+            top: 30%;
+            right: 25%;
+            animation-delay: -7s;
+        }
+
+        .moderator-card:nth-child(4) { /* Third moderator */
+            bottom: 30%;
+            left: 35%;
+            animation-delay: -14s;
+        }
+
+        @keyframes moderatorOrbit {
+            0%, 100% { 
+                transform: translateY(0) rotateZ(0deg);
+                filter: drop-shadow(0 0 30px rgba(147, 51, 234, 0.6));
+            }
+            25% { 
+                transform: translateY(-20px) rotateZ(1deg);
+                filter: drop-shadow(0 0 40px rgba(147, 51, 234, 0.8));
+            }
+            50% { 
+                transform: translateY(-10px) rotateZ(0deg);
+                filter: drop-shadow(0 0 35px rgba(147, 51, 234, 0.7));
+            }
+            75% { 
+                transform: translateY(-25px) rotateZ(-1deg);
+                filter: drop-shadow(0 0 40px rgba(147, 51, 234, 0.8));
+            }
+        }
+
+        /* REGULAR MEMBERS - ROTATING OUTER RING */
+        .member-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            animation: ringRotation 60s linear infinite;
+        }
+
+        @keyframes ringRotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .regular-member {
             position: absolute;
             width: 200px;
             height: 250px;
+            z-index: 60;
+            animation: counterRotation 60s linear infinite reverse;
+        }
+
+        @keyframes counterRotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        /* PROFILE CARD STYLES */
+        .profile-card {
             background: rgba(52, 211, 153, 0.08);
             border: 2px solid rgba(52, 211, 153, 0.3);
             border-radius: 20px;
@@ -479,46 +583,68 @@
             backdrop-filter: blur(20px);
             transition: all 0.5s ease;
             cursor: pointer;
-            animation: 
-                floatInSpace 12s ease-in-out infinite,
-                cardEntry 1.2s ease-out forwards;
             opacity: 0;
-            transform: scale(0.8) rotateX(45deg);
+            transform: scale(0.8);
+            animation: cardEntry 1.2s ease-out forwards;
             box-shadow: 
                 0 20px 60px rgba(52, 211, 153, 0.2),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
+        /* ROLE-SPECIFIC STYLING */
+        .profile-card.founder {
+            background: rgba(255, 215, 0, 0.15);
+            border: 3px solid rgba(255, 215, 0, 0.6);
+            box-shadow: 
+                0 30px 80px rgba(255, 215, 0, 0.4),
+                inset 0 2px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-card.moderator {
+            background: rgba(147, 51, 234, 0.15);
+            border: 2px solid rgba(147, 51, 234, 0.5);
+            box-shadow: 
+                0 25px 70px rgba(147, 51, 234, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
         @keyframes cardEntry {
-            to {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) rotateX(45deg);
+            }
+            100% {
                 opacity: 1;
                 transform: scale(1) rotateX(0deg);
             }
         }
 
-        @keyframes floatInSpace {
-            0%, 100% { 
-                transform: translateY(0) translateX(0) rotateZ(0deg);
-            }
-            25% { 
-                transform: translateY(-30px) translateX(20px) rotateZ(2deg);
-            }
-            50% { 
-                transform: translateY(-15px) translateX(-10px) rotateZ(0deg);
-            }
-            75% { 
-                transform: translateY(-40px) translateX(15px) rotateZ(-2deg);
-            }
+        .profile-card:hover {
+            transform: scale(1.15) translateY(-20px);
+            z-index: 200;
+            transition: all 0.3s ease;
         }
 
-        .profile-card:hover {
-            transform: scale(1.15) translateY(-20px) rotateZ(0deg);
+        .profile-card.founder:hover {
+            box-shadow: 
+                0 50px 100px rgba(255, 215, 0, 0.6),
+                0 0 120px rgba(255, 215, 0, 0.4);
+            border-color: #ffd700;
+        }
+
+        .profile-card.moderator:hover {
+            box-shadow: 
+                0 40px 80px rgba(147, 51, 234, 0.5),
+                0 0 100px rgba(147, 51, 234, 0.3);
+            border-color: #9333ea;
+        }
+
+        .profile-card:hover:not(.founder):not(.moderator) {
             box-shadow: 
                 0 40px 80px rgba(52, 211, 153, 0.4),
                 0 0 100px rgba(34, 197, 94, 0.3);
             border-color: #34d399;
             background: rgba(52, 211, 153, 0.15);
-            z-index: 100;
         }
 
         .profile-avatar {
@@ -540,6 +666,25 @@
             animation: avatarFloat 8s ease-in-out infinite;
         }
 
+        /* ROLE-SPECIFIC AVATAR STYLING */
+        .profile-card.founder .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            box-shadow: 
+                0 0 50px rgba(255, 215, 0, 0.8),
+                inset 0 0 25px rgba(255, 255, 255, 0.3);
+        }
+
+        .profile-card.moderator .profile-avatar {
+            width: 110px;
+            height: 110px;
+            background: linear-gradient(45deg, #9333ea, #c084fc);
+            box-shadow: 
+                0 0 45px rgba(147, 51, 234, 0.7),
+                inset 0 0 22px rgba(255, 255, 255, 0.25);
+        }
+
         .profile-avatar img {
             width: 100%;
             height: 100%;
@@ -550,11 +695,9 @@
         @keyframes avatarFloat {
             0%, 100% { 
                 transform: translateY(0) scale(1);
-                box-shadow: 0 0 40px rgba(52, 211, 153, 0.6);
             }
             50% { 
                 transform: translateY(-10px) scale(1.05);
-                box-shadow: 0 0 60px rgba(34, 197, 94, 0.8);
             }
         }
 
@@ -566,6 +709,29 @@
             margin-bottom: 0.75rem;
             word-break: break-word;
             text-shadow: 0 0 20px rgba(52, 211, 153, 0.5);
+        }
+
+        /* ROLE-SPECIFIC USERNAME STYLING */
+        .profile-card.founder .profile-username {
+            font-size: 1.3rem;
+            color: #ffd700;
+            text-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
+        }
+
+        .profile-card.founder .profile-username::after {
+            content: ' 👑';
+            font-size: 1.1rem;
+        }
+
+        .profile-card.moderator .profile-username {
+            font-size: 1.1rem;
+            color: #c084fc;
+            text-shadow: 0 0 22px rgba(147, 51, 234, 0.6);
+        }
+
+        .profile-card.moderator .profile-username::after {
+            content: ' ⚡';
+            font-size: 1rem;
         }
 
         .profile-stats {
@@ -581,6 +747,15 @@
             background: rgba(52, 211, 153, 0.1);
             border-radius: 10px;
             backdrop-filter: blur(5px);
+        }
+
+        /* ROLE-SPECIFIC STAT STYLING */
+        .profile-card.founder .stat-line {
+            background: rgba(255, 215, 0, 0.15);
+        }
+
+        .profile-card.moderator .stat-line {
+            background: rgba(147, 51, 234, 0.15);
         }
 
         /* EMPTY STATE */
@@ -630,6 +805,27 @@
         }
 
         /* RESPONSIVE DESIGN */
+        @media (max-width: 1200px) {
+            .hierarchy-container {
+                height: 70vh;
+            }
+            
+            .founder-card {
+                width: 240px;
+                height: 300px;
+            }
+            
+            .moderator-card {
+                width: 200px;
+                height: 250px;
+            }
+            
+            .regular-member {
+                width: 180px;
+                height: 220px;
+            }
+        }
+
         @media (max-width: 768px) {
             .title {
                 font-size: 2.5rem;
@@ -642,18 +838,25 @@
 
             .space-wall {
                 padding: 1rem;
-                min-height: 60vh;
+            }
+            
+            .hierarchy-container {
+                height: 60vh;
             }
 
-            .profile-card {
-                width: 160px;
-                height: 200px;
-                padding: 1rem;
+            .founder-card {
+                width: 200px;
+                height: 260px;
             }
-
-            .profile-avatar {
-                width: 80px;
-                height: 80px;
+            
+            .moderator-card {
+                width: 170px;
+                height: 220px;
+            }
+            
+            .regular-member {
+                width: 150px;
+                height: 190px;
             }
 
             .connection-status {
@@ -683,8 +886,6 @@
 <body>
     <!-- PURE INTERSTELLAR SPACE BACKGROUND -->
     <div class="space-container">
-        <div class="nebula"></div>
-        <div class="nebula"></div>
         <div class="nebula"></div>
     </div>
     
@@ -749,11 +950,15 @@
         </button>
     </section>
 
-    <!-- INTERSTELLAR SPACE WALL -->
+    <!-- IMPROVED HIERARCHICAL SPACE WALL -->
     <div class="space-wall" id="spaceWall">
-        <div class="empty-state" id="emptyState">
-            <h3>Welcome to the Cosmic Void</h3>
-            <p>Submit your handle to float among the stars</p>
+        <div class="hierarchy-container" id="hierarchyContainer">
+            <div class="member-ring" id="memberRing"></div>
+            
+            <div class="empty-state" id="emptyState">
+                <h3>Welcome to the Cosmic Void</h3>
+                <p>Submit your handle to float among the stars</p>
+            </div>
         </div>
     </div>
 
@@ -767,28 +972,34 @@
         // API Configuration
         const API_BASE = 'https://seismicwall.duckdns.org/api';
 
-        // Cosmic positions for floating profiles
-        const cosmicPositions = [
-            { top: '15%', left: '20%', rotation: 15 },
-            { top: '35%', left: '75%', rotation: -20 },
-            { top: '60%', left: '15%', rotation: 10 },
-            { top: '25%', left: '60%', rotation: -15 },
-            { top: '70%', left: '65%', rotation: 25 },
-            { top: '45%', left: '30%', rotation: -10 },
-            { top: '80%', left: '40%', rotation: 20 },
-            { top: '20%', left: '85%', rotation: -25 },
-            { top: '55%', left: '80%', rotation: 15 },
-            { top: '85%', left: '20%', rotation: -20 },
-            { top: '40%', left: '10%', rotation: 30 },
-            { top: '10%', left: '50%', rotation: -30 },
-            { top: '65%', left: '45%', rotation: 10 },
-            { top: '30%', left: '90%', rotation: -15 },
-            { top: '75%', left: '75%', rotation: 25 },
-            { top: '50%', left: '5%', rotation: -20 },
-            { top: '90%', left: '60%', rotation: 15 },
-            { top: '5%', left: '25%', rotation: -10 },
-            { top: '95%', left: '85%', rotation: 20 },
-            { top: '25%', left: '40%', rotation: -25 }
+        // Role definitions
+        const ROLES = {
+            FOUNDER: 'founder',
+            MODERATOR: 'moderator',
+            MEMBER: 'member'
+        };
+
+        // Special users configuration
+        const SPECIAL_USERS = {
+            'lyron': ROLES.FOUNDER,
+            'noxx': ROLES.MODERATOR,
+            'xealis': ROLES.MODERATOR,
+            'heathcliff_eth': ROLES.MODERATOR
+        };
+
+        // Positions for moderators around founder
+        const MODERATOR_POSITIONS = [
+            { top: '25%', left: '20%', delay: '0s' },
+            { top: '25%', right: '20%', delay: '-7s' },
+            { bottom: '25%', left: '30%', delay: '-14s' }
+        ];
+
+        // Ring positions for regular members
+        const MEMBER_RING_POSITIONS = [
+            { angle: 0 }, { angle: 45 }, { angle: 90 }, { angle: 135 },
+            { angle: 180 }, { angle: 225 }, { angle: 270 }, { angle: 315 },
+            { angle: 22.5 }, { angle: 67.5 }, { angle: 112.5 }, { angle: 157.5 },
+            { angle: 202.5 }, { angle: 247.5 }, { angle: 292.5 }, { angle: 337.5 }
         ];
 
         // Initialize
@@ -862,7 +1073,13 @@
             }
         }
 
-        // Fetch members from API (NO DEMO DATA)
+        // Determine user role
+        function getUserRole(username) {
+            const cleanUsername = username.toLowerCase().replace('@', '');
+            return SPECIAL_USERS[cleanUsername] || ROLES.MEMBER;
+        }
+
+        // Fetch members from API
         async function fetchMembers() {
             try {
                 if (!isConnected) {
@@ -883,14 +1100,16 @@
             }
         }
 
-        // Render members floating in space
+        // Render members in hierarchical layout
         function renderMembers() {
-            const container = document.getElementById('spaceWall');
+            const container = document.getElementById('hierarchyContainer');
             const emptyState = document.getElementById('emptyState');
+            const memberRing = document.getElementById('memberRing');
             
             // Clear existing cards
             const existingCards = container.querySelectorAll('.profile-card');
             existingCards.forEach(card => card.remove());
+            memberRing.innerHTML = '';
             
             if (members.length === 0) {
                 emptyState.style.display = 'block';
@@ -899,50 +1118,165 @@
 
             emptyState.style.display = 'none';
 
-            members.forEach((member, index) => {
-                const card = document.createElement('div');
-                card.className = 'profile-card';
-                
-                // Use cosmic positions with random variations
-                const basePosition = cosmicPositions[index % cosmicPositions.length];
-                const randomOffsetX = (Math.random() - 0.5) * 20;
-                const randomOffsetY = (Math.random() - 0.5) * 20;
-                
-                card.style.top = `calc(${basePosition.top} + ${randomOffsetY}px)`;
-                card.style.left = `calc(${basePosition.left} + ${randomOffsetX}px)`;
-                card.style.transform = `rotate(${basePosition.rotation + (Math.random() - 0.5) * 10}deg)`;
-                card.style.animationDelay = (index * 0.3) + 's';
-                
-                // Add unique floating animation timing
-                card.style.setProperty('--float-duration', (Math.random() * 8 + 10) + 's');
-                card.style.setProperty('--float-delay', (Math.random() * 5) + 's');
-                
-                card.innerHTML = `
-                    <div class="profile-avatar">
+            // Separate members by role
+            const founder = members.find(m => getUserRole(m.username) === ROLES.FOUNDER);
+            const moderators = members.filter(m => getUserRole(m.username) === ROLES.MODERATOR);
+            const regularMembers = members.filter(m => getUserRole(m.username) === ROLES.MEMBER);
+
+            // Render founder in center
+            if (founder) {
+                const founderCard = createProfileCard(founder, ROLES.FOUNDER, 0);
+                founderCard.classList.add('founder-card');
+                container.appendChild(founderCard);
+            }
+
+            // Render moderators around founder
+            moderators.forEach((mod, index) => {
+                if (index < MODERATOR_POSITIONS.length) {
+                    const modCard = createProfileCard(mod, ROLES.MODERATOR, index * 0.5);
+                    modCard.classList.add('moderator-card');
+                    
+                    const pos = MODERATOR_POSITIONS[index];
+                    modCard.style.top = pos.top || 'auto';
+                    modCard.style.bottom = pos.bottom || 'auto';
+                    modCard.style.left = pos.left || 'auto';
+                    modCard.style.right = pos.right || 'auto';
+                    modCard.style.animationDelay = pos.delay;
+                    
+                    container.appendChild(modCard);
+                }
+            });
+
+            // Render regular members in rotating ring
+            regularMembers.forEach((member, index) => {
+                if (index < MEMBER_RING_POSITIONS.length) {
+                    const memberCard = createProfileCard(member, ROLES.MEMBER, index * 0.2);
+                    memberCard.classList.add('regular-member');
+                    
+                    const pos = MEMBER_RING_POSITIONS[index];
+                    const radius = 300; // Distance from center
+                    const centerX = 50; // Center X percentage
+                    const centerY = 50; // Center Y percentage
+                    
+                    const angleRad = (pos.angle * Math.PI) / 180;
+                    const x = centerX + (radius * Math.cos(angleRad)) / window.innerWidth * 100;
+                    const y = centerY + (radius * Math.sin(angleRad)) / window.innerHeight * 100;
+                    
+                    memberCard.style.left = `${Math.max(5, Math.min(85, x))}%`;
+                    memberCard.style.top = `${Math.max(5, Math.min(85, y))}%`;
+                    
+                    memberRing.appendChild(memberCard);
+                }
+            });
+        }
+
+        // Create profile card
+        function createProfileCard(member, role, delay) {
+            const card = document.createElement('div');
+            card.className = `profile-card ${role}`;
+            card.style.animationDelay = delay + 's';
+            
+            card.innerHTML = `
+                <div class="profile-avatar">
+                    ${member.profileImage ? 
+                        `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
+                        getInitials(member.displayName)
+                    }
+                </div>
+                <div class="profile-username">${member.username}</div>
+                <div class="profile-stats">
+                    <div class="stat-line">👥 ${formatNumber(member.followers || 0)} Followers</div>
+                    <div class="stat-line">${member.verified ? '✅ Verified' : '⭕ Unverified'}</div>
+                    <div class="stat-line">⏰ ${timeAgo(member.createdAt)}</div>
+                </div>
+            `;
+            
+            // Add click effect
+            card.addEventListener('click', function() {
+                showMemberDetails(member);
+            });
+            
+            return card;
+        }
+
+        // Show member details
+        function showMemberDetails(member) {
+            const role = getUserRole(member.username);
+            const roleText = role === ROLES.FOUNDER ? 'Founder 👑' : 
+                           role === ROLES.MODERATOR ? 'Moderator ⚡' : 'Member ⭐';
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                backdrop-filter: blur(20px);
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background: rgba(52, 211, 153, 0.1);
+                    border: 2px solid rgba(52, 211, 153, 0.5);
+                    border-radius: 20px;
+                    padding: 2rem;
+                    max-width: 400px;
+                    text-align: center;
+                    backdrop-filter: blur(30px);
+                ">
+                    <div style="
+                        width: 120px;
+                        height: 120px;
+                        border-radius: 50%;
+                        background: linear-gradient(45deg, #34d399, #10b981);
+                        margin: 0 auto 1rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 2rem;
+                        font-weight: bold;
+                        color: #000;
+                        overflow: hidden;
+                        box-shadow: 0 0 40px rgba(52, 211, 153, 0.6);
+                    ">
                         ${member.profileImage ? 
-                            `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
+                            `<img src="${member.profileImage}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" alt="${member.displayName}">` :
                             getInitials(member.displayName)
                         }
                     </div>
-                    <div class="profile-username">${member.username}</div>
-                    <div class="profile-stats">
-                        <div class="stat-line">👥 ${formatNumber(member.followers || 0)} Followers</div>
-                        <div class="stat-line">${member.verified ? '✅ Verified' : '⭕ Unverified'}</div>
-                        <div class="stat-line">⏰ ${timeAgo(member.createdAt)}</div>
+                    <h2 style="color: #34d399; margin-bottom: 0.5rem;">${member.username}</h2>
+                    <p style="color: #c084fc; font-weight: bold; margin-bottom: 1rem;">${roleText}</p>
+                    <div style="margin-bottom: 1rem;">
+                        <p style="margin: 0.5rem 0;">👥 ${formatNumber(member.followers || 0)} Followers</p>
+                        <p style="margin: 0.5rem 0;">${member.verified ? '✅ Verified Account' : '⭕ Unverified Account'}</p>
+                        <p style="margin: 0.5rem 0;">⏰ Joined ${timeAgo(member.createdAt)} ago</p>
                     </div>
-                `;
-                
-                // Add hover effect with cosmic glow
-                card.addEventListener('mouseenter', function() {
-                    this.style.filter = 'brightness(1.3) drop-shadow(0 0 50px rgba(52, 211, 153, 0.8))';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.filter = 'none';
-                });
-                
-                container.appendChild(card);
+                    <button onclick="this.parentElement.parentElement.remove()" style="
+                        padding: 1rem 2rem;
+                        background: linear-gradient(45deg, #34d399, #10b981);
+                        border: none;
+                        border-radius: 50px;
+                        color: #000;
+                        font-weight: bold;
+                        cursor: pointer;
+                        font-size: 1.1rem;
+                    ">Close</button>
+                </div>
+            `;
+            
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.remove();
+                }
             });
+            
+            document.body.appendChild(modal);
         }
 
         // Add new member
@@ -998,7 +1332,7 @@
         // Show cosmic success effect
         function showCosmicSuccess() {
             const successEffect = document.createElement('div');
-            successEffect.innerHTML = '✨ Member Added to the Cosmos! ✨';
+            successEffect.innerHTML = '✨ Welcome to the Seismic Family! ✨';
             successEffect.style.cssText = `
                 position: fixed;
                 top: 50%;
@@ -1055,6 +1389,9 @@
                 } else if (e.key === 'Escape') {
                     e.preventDefault();
                     document.getElementById('usernameInput').blur();
+                    // Close any open modals
+                    const modals = document.querySelectorAll('[style*="position: fixed"][style*="z-index: 10000"]');
+                    modals.forEach(modal => modal.remove());
                 }
             });
         }
@@ -1146,4 +1483,6 @@
         document.head.appendChild(style);
     </script>
 </body>
-</html>
+</html>ula"></div>
+        <div class="nebula"></div>
+        <div class="neb
