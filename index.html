@@ -103,33 +103,13 @@
             animation: starTwinkle 4s ease-in-out infinite;
         }
 
-        .star.small {
-            width: 1px;
-            height: 1px;
-        }
-
-        .star.medium {
-            width: 2px;
-            height: 2px;
-            background: #34d399;
-        }
-
-        .star.large {
-            width: 3px;
-            height: 3px;
-            background: #10b981;
-            box-shadow: 0 0 6px #10b981;
-        }
+        .star.small { width: 1px; height: 1px; }
+        .star.medium { width: 2px; height: 2px; background: #34d399; }
+        .star.large { width: 3px; height: 3px; background: #10b981; box-shadow: 0 0 6px #10b981; }
 
         @keyframes starTwinkle {
-            0%, 100% { 
-                opacity: 0.3; 
-                transform: scale(1);
-            }
-            50% { 
-                opacity: 1; 
-                transform: scale(1.5);
-            }
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
         }
 
         /* FLOATING COSMIC PARTICLES */
@@ -153,27 +133,17 @@
         }
 
         @keyframes floatParticle {
-            0% {
-                transform: translateY(100vh) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) translateX(200px) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(200px) rotate(360deg); opacity: 0; }
         }
 
-        /* HEADER WITH INTERSTELLAR STYLE */
+        /* HEADER */
         .header {
             position: relative;
             text-align: center;
-            padding: 3rem 0 2rem 0;
+            padding: 2rem 0 1.5rem 0;
             background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(52, 211, 153, 0.3);
@@ -185,7 +155,7 @@
             align-items: center;
             justify-content: center;
             gap: 2rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .seismic-logo {
@@ -200,44 +170,25 @@
             font-size: 2rem;
             color: #000;
             animation: logoOrbit 20s linear infinite;
-            box-shadow: 
-                0 0 40px rgba(52, 211, 153, 0.8),
-                inset 0 0 20px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 40px rgba(52, 211, 153, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.2);
             position: relative;
         }
 
         .seismic-logo::before {
             content: '';
             position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
+            top: -10px; left: -10px; right: -10px; bottom: -10px;
             border: 2px solid rgba(52, 211, 153, 0.3);
             border-radius: 50%;
             animation: logoRing 15s linear infinite reverse;
         }
 
-        .seismic-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 50%;
-        }
+        .seismic-logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
 
         @keyframes logoOrbit {
-            0% { 
-                transform: rotate(0deg) scale(1);
-                box-shadow: 0 0 40px rgba(52, 211, 153, 0.8);
-            }
-            50% { 
-                transform: rotate(180deg) scale(1.1);
-                box-shadow: 0 0 60px rgba(34, 197, 94, 1);
-            }
-            100% { 
-                transform: rotate(360deg) scale(1);
-                box-shadow: 0 0 40px rgba(52, 211, 153, 0.8);
-            }
+            0% { transform: rotate(0deg) scale(1); box-shadow: 0 0 40px rgba(52, 211, 153, 0.8); }
+            50% { transform: rotate(180deg) scale(1.1); box-shadow: 0 0 60px rgba(34, 197, 94, 1); }
+            100% { transform: rotate(360deg) scale(1); box-shadow: 0 0 40px rgba(52, 211, 153, 0.8); }
         }
 
         @keyframes logoRing {
@@ -246,7 +197,7 @@
         }
 
         .title {
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 900;
             font-family: 'Orbitron', monospace;
             background: linear-gradient(45deg, #ffffff, #34d399, #10b981, #ffffff);
@@ -256,7 +207,7 @@
             background-clip: text;
             animation: titleShimmer 6s ease-in-out infinite;
             text-shadow: 0 0 50px rgba(52, 211, 153, 0.5);
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-transform: uppercase;
         }
 
@@ -266,10 +217,10 @@
         }
 
         .subtitle {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #34d399;
             opacity: 0.9;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
             font-weight: 300;
             letter-spacing: 2px;
             animation: subtitleGlow 4s ease-in-out infinite;
@@ -280,29 +231,40 @@
             50% { text-shadow: 0 0 40px rgba(34, 197, 94, 0.8); }
         }
 
-        /* SUBMIT SECTION WITH SPACE VIBES */
+        /* SUBMIT SECTION WITH RATE LIMITING */
         .submit-section {
             text-align: center;
             padding: 2rem;
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(15px);
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             position: relative;
             z-index: 50;
         }
 
         .submit-title {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: #34d399;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             font-weight: 300;
             letter-spacing: 1px;
-            animation: submitTitlePulse 3s ease-in-out infinite;
         }
 
-        @keyframes submitTitlePulse {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
+        .rate-limit-info {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 15px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #fca5a5;
+        }
+
+        .timer-display {
+            font-size: 1.2rem;
+            color: #ef4444;
+            font-weight: bold;
+            margin: 0.5rem 0;
         }
 
         .submit-form {
@@ -335,9 +297,7 @@
         .handle-input:focus {
             outline: none;
             border-color: #34d399;
-            box-shadow: 
-                0 0 30px rgba(52, 211, 153, 0.4),
-                inset 0 0 20px rgba(52, 211, 153, 0.1);
+            box-shadow: 0 0 30px rgba(52, 211, 153, 0.4), inset 0 0 20px rgba(52, 211, 153, 0.1);
             background: rgba(52, 211, 153, 0.1);
             transform: scale(1.02);
         }
@@ -358,62 +318,45 @@
             box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
         }
 
-        .submit-btn:hover {
+        .submit-btn:hover:not(:disabled) {
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 20px 50px rgba(52, 211, 153, 0.5);
             background: linear-gradient(45deg, #10b981, #059669);
         }
 
-        /* MUSIC CONTROLS */
-        .music-controls {
-            text-align: center;
-            margin-bottom: 3rem;
-            z-index: 50;
-            position: relative;
+        .submit-btn:disabled {
+            background: rgba(107, 114, 128, 0.5);
+            cursor: not-allowed;
+            opacity: 0.6;
         }
 
-        .music-btn {
-            padding: 1rem 3rem;
-            background: rgba(239, 68, 68, 0.8);
-            border: 2px solid rgba(239, 68, 68, 0.6);
-            border-radius: 50px;
-            color: #ffffff;
-            font-family: 'Exo 2', monospace;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            font-size: 1.1rem;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
-        }
-
-        .music-btn:hover {
-            background: rgba(239, 68, 68, 1);
-            transform: scale(1.1);
-            box-shadow: 0 15px 40px rgba(239, 68, 68, 0.5);
+        .submit-count {
+            font-size: 0.9rem;
+            color: #9ca3af;
+            margin-top: 0.5rem;
         }
 
         /* CONNECTION STATUS */
         .connection-status {
             position: fixed;
-            top: 30px;
-            left: 30px;
-            padding: 1rem 1.5rem;
+            top: 20px;
+            left: 20px;
+            padding: 0.75rem 1.25rem;
             background: rgba(0, 0, 0, 0.8);
             border: 2px solid #34d399;
-            border-radius: 30px;
+            border-radius: 25px;
             backdrop-filter: blur(15px);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             z-index: 1000;
             box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
         }
 
         .status-dot {
             display: inline-block;
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            margin-right: 10px;
+            margin-right: 8px;
             animation: statusPulse 2s infinite;
         }
 
@@ -421,28 +364,22 @@
         .disconnected { background: #ef4444; }
 
         @keyframes statusPulse {
-            0%, 100% { 
-                opacity: 1; 
-                transform: scale(1);
-            }
-            50% { 
-                opacity: 0.7; 
-                transform: scale(1.2);
-            }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.2); }
         }
 
         /* REFRESH BUTTON */
         .refresh-btn {
             position: fixed;
-            top: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
             background: rgba(52, 211, 153, 0.2);
             border: 2px solid #34d399;
             border-radius: 50%;
             color: #34d399;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             cursor: pointer;
             transition: all 0.4s ease;
             backdrop-filter: blur(15px);
@@ -453,22 +390,20 @@
         .refresh-btn:hover {
             background: rgba(52, 211, 153, 0.4);
             transform: scale(1.1) rotate(360deg);
-            box-shadow: 0 15px 40px rgba(52, 211, 153, 0.5);
         }
 
-        /* IMPROVED SPACE WALL LAYOUT */
+        /* REVOLUTIONARY ORBITAL SYSTEM */
         .space-wall {
             position: relative;
             width: 100%;
-            min-height: 90vh;
-            padding: 3rem;
+            min-height: 85vh;
+            padding: 2rem;
             margin: 0 auto;
-            max-width: 1800px;
+            max-width: 1600px;
             z-index: 10;
         }
 
-        /* HIERARCHICAL LAYOUT SYSTEM */
-        .hierarchy-container {
+        .orbital-system {
             position: relative;
             width: 100%;
             height: 80vh;
@@ -477,107 +412,84 @@
             justify-content: center;
         }
 
-        /* FOUNDER - CENTER POSITION */
-        .founder-card {
+        /* FOUNDER - FIXED CENTER */
+        .founder-center {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 280px;
-            height: 340px;
-            z-index: 100;
+            z-index: 200;
+        }
+
+        .founder-card {
+            width: 300px;
+            height: 360px;
+            background: rgba(255, 215, 0, 0.15);
+            border: 3px solid rgba(255, 215, 0, 0.7);
+            border-radius: 25px;
+            padding: 2rem;
+            backdrop-filter: blur(25px);
+            box-shadow: 
+                0 40px 100px rgba(255, 215, 0, 0.5),
+                inset 0 2px 0 rgba(255, 255, 255, 0.3);
             animation: founderGlow 8s ease-in-out infinite;
         }
 
         @keyframes founderGlow {
             0%, 100% { 
-                filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.8));
-                transform: translate(-50%, -50%) scale(1);
+                filter: drop-shadow(0 0 50px rgba(255, 215, 0, 0.8));
+                transform: scale(1);
             }
             50% { 
-                filter: drop-shadow(0 0 60px rgba(255, 215, 0, 1));
-                transform: translate(-50%, -50%) scale(1.05);
+                filter: drop-shadow(0 0 80px rgba(255, 215, 0, 1));
+                transform: scale(1.05);
             }
         }
 
-        /* MODERATORS - SURROUNDING FOUNDER */
-        .moderator-card {
-            position: absolute;
-            width: 240px;
-            height: 300px;
-            z-index: 80;
-            animation: moderatorOrbit 20s linear infinite;
-        }
-
-        .moderator-card:nth-child(2) { /* First moderator */
-            top: 30%;
-            left: 25%;
-            animation-delay: 0s;
-        }
-
-        .moderator-card:nth-child(3) { /* Second moderator */
-            top: 30%;
-            right: 25%;
-            animation-delay: -7s;
-        }
-
-        .moderator-card:nth-child(4) { /* Third moderator */
-            bottom: 30%;
-            left: 35%;
-            animation-delay: -14s;
-        }
-
-        @keyframes moderatorOrbit {
-            0%, 100% { 
-                transform: translateY(0) rotateZ(0deg);
-                filter: drop-shadow(0 0 30px rgba(147, 51, 234, 0.6));
-            }
-            25% { 
-                transform: translateY(-20px) rotateZ(1deg);
-                filter: drop-shadow(0 0 40px rgba(147, 51, 234, 0.8));
-            }
-            50% { 
-                transform: translateY(-10px) rotateZ(0deg);
-                filter: drop-shadow(0 0 35px rgba(147, 51, 234, 0.7));
-            }
-            75% { 
-                transform: translateY(-25px) rotateZ(-1deg);
-                filter: drop-shadow(0 0 40px rgba(147, 51, 234, 0.8));
-            }
-        }
-
-        /* REGULAR MEMBERS - ROTATING OUTER RING */
-        .member-ring {
+        /* REVOLVING MEMBERS SYSTEM */
+        .revolution-track {
             position: absolute;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
-            animation: ringRotation 60s linear infinite;
+            animation: revolutionRotate 120s linear infinite;
         }
 
-        @keyframes ringRotation {
+        @keyframes revolutionRotate {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        .regular-member {
+        .member-slot {
             position: absolute;
-            width: 200px;
-            height: 250px;
-            z-index: 60;
-            animation: counterRotation 60s linear infinite reverse;
+            width: 220px;
+            height: 280px;
+            animation: counterRotate 120s linear infinite reverse;
+            transition: all 0.5s ease;
         }
 
-        @keyframes counterRotation {
+        @keyframes counterRotate {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(-360deg); }
         }
 
-        /* PROFILE CARD STYLES */
+        /* ORBITAL POSITIONS - 8 SLOTS AROUND CENTER */
+        .member-slot:nth-child(1) { top: 10%; left: 50%; transform: translate(-50%, 0); }
+        .member-slot:nth-child(2) { top: 25%; right: 15%; }
+        .member-slot:nth-child(3) { top: 50%; right: 5%; transform: translateY(-50%); }
+        .member-slot:nth-child(4) { bottom: 25%; right: 15%; }
+        .member-slot:nth-child(5) { bottom: 10%; left: 50%; transform: translateX(-50%); }
+        .member-slot:nth-child(6) { bottom: 25%; left: 15%; }
+        .member-slot:nth-child(7) { top: 50%; left: 5%; transform: translateY(-50%); }
+        .member-slot:nth-child(8) { top: 25%; left: 15%; }
+
+        /* PROFILE CARDS */
         .profile-card {
-            background: rgba(52, 211, 153, 0.08);
-            border: 2px solid rgba(52, 211, 153, 0.3);
+            width: 100%;
+            height: 100%;
+            background: rgba(52, 211, 153, 0.1);
+            border: 2px solid rgba(52, 211, 153, 0.4);
             border-radius: 20px;
             padding: 1.5rem;
             backdrop-filter: blur(20px);
@@ -585,104 +497,54 @@
             cursor: pointer;
             opacity: 0;
             transform: scale(0.8);
-            animation: cardEntry 1.2s ease-out forwards;
+            animation: memberEntry 1s ease-out forwards, memberFloat 6s ease-in-out infinite;
             box-shadow: 
-                0 20px 60px rgba(52, 211, 153, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-
-        /* ROLE-SPECIFIC STYLING */
-        .profile-card.founder {
-            background: rgba(255, 215, 0, 0.15);
-            border: 3px solid rgba(255, 215, 0, 0.6);
-            box-shadow: 
-                0 30px 80px rgba(255, 215, 0, 0.4),
-                inset 0 2px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        .profile-card.moderator {
-            background: rgba(147, 51, 234, 0.15);
-            border: 2px solid rgba(147, 51, 234, 0.5);
-            box-shadow: 
-                0 25px 70px rgba(147, 51, 234, 0.3),
+                0 25px 70px rgba(52, 211, 153, 0.25),
                 inset 0 1px 0 rgba(255, 255, 255, 0.15);
         }
 
-        @keyframes cardEntry {
-            0% {
-                opacity: 0;
-                transform: scale(0.8) rotateX(45deg);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) rotateX(0deg);
-            }
+        @keyframes memberEntry {
+            0% { opacity: 0; transform: scale(0.8) rotateY(90deg); }
+            100% { opacity: 1; transform: scale(1) rotateY(0deg); }
+        }
+
+        @keyframes memberFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.02); }
         }
 
         .profile-card:hover {
-            transform: scale(1.15) translateY(-20px);
-            z-index: 200;
-            transition: all 0.3s ease;
-        }
-
-        .profile-card.founder:hover {
+            transform: scale(1.1) translateY(-10px);
             box-shadow: 
-                0 50px 100px rgba(255, 215, 0, 0.6),
-                0 0 120px rgba(255, 215, 0, 0.4);
-            border-color: #ffd700;
-        }
-
-        .profile-card.moderator:hover {
-            box-shadow: 
-                0 40px 80px rgba(147, 51, 234, 0.5),
-                0 0 100px rgba(147, 51, 234, 0.3);
-            border-color: #9333ea;
-        }
-
-        .profile-card:hover:not(.founder):not(.moderator) {
-            box-shadow: 
-                0 40px 80px rgba(52, 211, 153, 0.4),
-                0 0 100px rgba(34, 197, 94, 0.3);
+                0 40px 100px rgba(52, 211, 153, 0.4),
+                0 0 80px rgba(34, 197, 94, 0.3);
             border-color: #34d399;
-            background: rgba(52, 211, 153, 0.15);
+            background: rgba(52, 211, 153, 0.2);
+            z-index: 150;
         }
 
         .profile-avatar {
-            width: 100px;
-            height: 100px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             background: linear-gradient(45deg, #34d399, #10b981);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: #000;
             margin: 0 auto 1rem auto;
             overflow: hidden;
-            box-shadow: 
-                0 0 40px rgba(52, 211, 153, 0.6),
-                inset 0 0 20px rgba(255, 255, 255, 0.2);
-            animation: avatarFloat 8s ease-in-out infinite;
+            box-shadow: 0 0 40px rgba(52, 211, 153, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
-        /* ROLE-SPECIFIC AVATAR STYLING */
-        .profile-card.founder .profile-avatar {
+        .founder-card .profile-avatar {
             width: 120px;
             height: 120px;
             background: linear-gradient(45deg, #ffd700, #ffed4e);
-            box-shadow: 
-                0 0 50px rgba(255, 215, 0, 0.8),
-                inset 0 0 25px rgba(255, 255, 255, 0.3);
-        }
-
-        .profile-card.moderator .profile-avatar {
-            width: 110px;
-            height: 110px;
-            background: linear-gradient(45deg, #9333ea, #c084fc);
-            box-shadow: 
-                0 0 45px rgba(147, 51, 234, 0.7),
-                inset 0 0 22px rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.8), inset 0 0 30px rgba(255, 255, 255, 0.4);
+            font-size: 1.8rem;
         }
 
         .profile-avatar img {
@@ -690,15 +552,6 @@
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
-        }
-
-        @keyframes avatarFloat {
-            0%, 100% { 
-                transform: translateY(0) scale(1);
-            }
-            50% { 
-                transform: translateY(-10px) scale(1.05);
-            }
         }
 
         .profile-username {
@@ -711,51 +564,56 @@
             text-shadow: 0 0 20px rgba(52, 211, 153, 0.5);
         }
 
-        /* ROLE-SPECIFIC USERNAME STYLING */
-        .profile-card.founder .profile-username {
-            font-size: 1.3rem;
+        .founder-card .profile-username {
+            font-size: 1.4rem;
             color: #ffd700;
-            text-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
         }
 
-        .profile-card.founder .profile-username::after {
+        .founder-card .profile-username::after {
             content: ' 👑';
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            animation: crownShine 3s ease-in-out infinite;
         }
 
-        .profile-card.moderator .profile-username {
-            font-size: 1.1rem;
-            color: #c084fc;
-            text-shadow: 0 0 22px rgba(147, 51, 234, 0.6);
-        }
-
-        .profile-card.moderator .profile-username::after {
-            content: ' ⚡';
-            font-size: 1rem;
+        @keyframes crownShine {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.5) drop-shadow(0 0 10px #ffd700); }
         }
 
         .profile-stats {
             font-size: 0.8rem;
             text-align: center;
             opacity: 0.9;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .stat-line {
-            margin-bottom: 0.5rem;
-            padding: 0.25rem;
+            margin-bottom: 0.4rem;
+            padding: 0.3rem;
             background: rgba(52, 211, 153, 0.1);
-            border-radius: 10px;
+            border-radius: 8px;
             backdrop-filter: blur(5px);
         }
 
-        /* ROLE-SPECIFIC STAT STYLING */
-        .profile-card.founder .stat-line {
-            background: rgba(255, 215, 0, 0.15);
+        .founder-card .stat-line {
+            background: rgba(255, 215, 0, 0.2);
         }
 
-        .profile-card.moderator .stat-line {
-            background: rgba(147, 51, 234, 0.15);
+        /* MEMBER COUNTER */
+        .member-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #34d399;
+            border-radius: 25px;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(15px);
+            font-size: 1rem;
+            z-index: 1000;
+            color: #34d399;
         }
 
         /* EMPTY STATE */
@@ -772,28 +630,22 @@
         .empty-state h3 {
             font-size: 2rem;
             color: #34d399;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             font-weight: 300;
-            animation: emptyStatePulse 4s ease-in-out infinite;
         }
 
         .empty-state p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #ffffff;
             opacity: 0.8;
             font-weight: 300;
         }
 
-        @keyframes emptyStatePulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
-
         /* LOADING ANIMATION */
         .loading {
             display: inline-block;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border: 3px solid rgba(52, 211, 153, 0.3);
             border-radius: 50%;
             border-top-color: #34d399;
@@ -806,111 +658,54 @@
 
         /* RESPONSIVE DESIGN */
         @media (max-width: 1200px) {
-            .hierarchy-container {
-                height: 70vh;
-            }
-            
-            .founder-card {
-                width: 240px;
-                height: 300px;
-            }
-            
-            .moderator-card {
-                width: 200px;
-                height: 250px;
-            }
-            
-            .regular-member {
-                width: 180px;
-                height: 220px;
-            }
+            .orbital-system { height: 70vh; }
+            .founder-card { width: 260px; height: 320px; }
+            .member-slot { width: 190px; height: 240px; }
         }
 
         @media (max-width: 768px) {
-            .title {
-                font-size: 2.5rem;
-            }
-
-            .submit-form {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .space-wall {
-                padding: 1rem;
-            }
-            
-            .hierarchy-container {
-                height: 60vh;
-            }
-
-            .founder-card {
-                width: 200px;
-                height: 260px;
-            }
-            
-            .moderator-card {
-                width: 170px;
-                height: 220px;
-            }
-            
-            .regular-member {
-                width: 150px;
-                height: 190px;
-            }
-
-            .connection-status {
-                top: 10px;
-                left: 10px;
-                padding: 0.75rem 1rem;
-            }
-
-            .refresh-btn {
-                top: 10px;
-                right: 10px;
-                width: 50px;
-                height: 50px;
-            }
+            .title { font-size: 2.5rem; }
+            .submit-form { flex-direction: column; gap: 1rem; }
+            .space-wall { padding: 1rem; }
+            .orbital-system { height: 60vh; }
+            .founder-card { width: 220px; height: 280px; padding: 1.5rem; }
+            .member-slot { width: 160px; height: 200px; }
+            .connection-status, .refresh-btn { top: 10px; }
+            .connection-status { left: 10px; }
+            .refresh-btn { right: 10px; }
         }
 
-        /* PERFORMANCE OPTIMIZATIONS */
-        .profile-card {
-            will-change: transform;
-        }
-
-        .particle, .star {
-            will-change: transform, opacity;
+        @media (max-width: 480px) {
+            .founder-card { width: 180px; height: 240px; padding: 1rem; }
+            .member-slot { width: 140px; height: 180px; }
+            .profile-card { padding: 1rem; }
         }
     </style>
 </head>
 <body>
-    <!-- PURE INTERSTELLAR SPACE BACKGROUND -->
+    <!-- SPACE BACKGROUND -->
     <div class="space-container">
+        <div class="nebula"></div>
+        <div class="nebula"></div>
         <div class="nebula"></div>
     </div>
     
-    <!-- FLOATING STAR FIELD -->
     <div class="star-field" id="starField"></div>
-    
-    <!-- COSMIC PARTICLES -->
     <div class="cosmic-particles" id="cosmicParticles"></div>
 
-    <!-- AUDIO ELEMENT -->
+    <!-- AUDIO -->
     <audio id="backgroundMusic" loop>
         <source src="./seismic-music.mp3" type="audio/mpeg">
         <source src="./interstellar.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- CONNECTION STATUS -->
+    <!-- STATUS & CONTROLS -->
     <div class="connection-status">
         <span class="status-dot disconnected" id="statusDot"></span>
         <span id="statusText">💎 Demo Mode</span>
     </div>
 
-    <!-- REFRESH BUTTON -->
-    <button class="refresh-btn" onclick="refreshMembers()" title="Refresh">
-        🔄
-    </button>
+    <button class="refresh-btn" onclick="refreshMembers()" title="Refresh">🔄</button>
 
     <!-- HEADER -->
     <header class="header">
@@ -920,14 +715,21 @@
             </div>
             <div>
                 <h1 class="title">SEISMIC WALL</h1>
-                <p class="subtitle">Join the Encrypted Community</p>
+                <p class="subtitle">Seismic Blockchain Community</p>
             </div>
         </div>
     </header>
 
-    <!-- SUBMIT SECTION -->
+    <!-- SUBMIT SECTION WITH RATE LIMITING -->
     <section class="submit-section">
-        <h2 class="submit-title">Submit your X handle. Join Seismic Family Wall</h2>
+        <h2 class="submit-title">Join the Seismic Family Wall</h2>
+        
+        <div class="rate-limit-info" id="rateLimitInfo" style="display: none;">
+            <div>⚠️ API Rate Limit: 3 submissions per 45 minutes</div>
+            <div class="timer-display" id="timerDisplay">Time remaining: --:--</div>
+            <div class="submit-count" id="submitCount">Submissions used: 0/3</div>
+        </div>
+
         <form class="submit-form" onsubmit="addMember(event)">
             <input 
                 type="text" 
@@ -936,71 +738,65 @@
                 id="usernameInput"
                 required
             >
-            <button type="submit" class="submit-btn">
+            <button type="submit" class="submit-btn" id="submitBtn">
                 <span id="submitButtonText">Submit</span>
                 <span id="submitButtonLoading" class="loading" style="display: none;"></span>
             </button>
         </form>
     </section>
 
-    <!-- MUSIC CONTROLS -->
-    <section class="music-controls">
-        <button class="music-btn" onclick="toggleMusic()" id="musicBtn">
-            🎵 Pause Music
-        </button>
-    </section>
-
-    <!-- IMPROVED HIERARCHICAL SPACE WALL -->
-    <div class="space-wall" id="spaceWall">
-        <div class="hierarchy-container" id="hierarchyContainer">
-            <div class="member-ring" id="memberRing"></div>
+    <!-- REVOLUTIONARY ORBITAL SYSTEM -->
+    <div class="space-wall">
+        <div class="orbital-system" id="orbitalSystem">
+            <!-- FOUNDER CENTER -->
+            <div class="founder-center" id="founderCenter" style="display: none;"></div>
+            
+            <!-- REVOLVING TRACK -->
+            <div class="revolution-track" id="revolutionTrack">
+                <!-- 8 MEMBER SLOTS -->
+                <div class="member-slot"></div>
+                <div class="member-slot"></div>
+                <div class="member-slot"></div>
+                <div class="member-slot"></div>
+                <div class="member-slot"></div>
+                <div class="member-slot"></div>
+                <div class="member-slot"></div>
+                <div class="member-slot"></div>
+            </div>
             
             <div class="empty-state" id="emptyState">
-                <h3>Welcome to the Cosmic Void</h3>
-                <p>Submit your handle to float among the stars</p>
+                <h3>Welcome to Seismic Space</h3>
+                <p>Submit your X handle to orbit around Lyron, the founder of Seismic Blockchain</p>
             </div>
         </div>
     </div>
 
+    <!-- MEMBER COUNTER -->
+    <div class="member-counter" id="memberCounter">
+        👥 Total Members: 0 | 🔄 Revolving: 0
+    </div>
+
     <script>
-        // Global variables
+        // GLOBAL VARIABLES
         let members = [];
         let isConnected = false;
         let music = document.getElementById('backgroundMusic');
         let isPlaying = false;
-
-        // API Configuration
+        let currentDisplayIndex = 0;
+        let revolutionInterval;
+        
+        // API & RATE LIMITING
         const API_BASE = 'https://seismicwall.duckdns.org/api';
+        const MAX_SUBMISSIONS = 3;
+        const RATE_LIMIT_MINUTES = 45;
+        const DISPLAY_SLOTS = 8; // Number of visible member slots
+        
+        let submissionCount = 0;
+        let rateLimitTimer = null;
+        let rateLimitEndTime = null;
 
-        // Role definitions
-        const ROLES = {
-            FOUNDER: 'founder',
-            MODERATOR: 'moderator',
-            MEMBER: 'member'
-        };
-
-        // Special users configuration
-        const SPECIAL_USERS = {
-            'lyron': ROLES.FOUNDER,
-            'noxx': ROLES.MODERATOR,
-            'xealis': ROLES.MODERATOR,
-            'heathcliff_eth': ROLES.MODERATOR
-        };
-
-        // Positions for moderators around founder
-        const MODERATOR_POSITIONS = [
-            { top: '25%', left: '20%', delay: '0s' },
-            { top: '25%', right: '20%', delay: '-7s' },
-            { bottom: '25%', left: '30%', delay: '-14s' }
-        ];
-
-        // Ring positions for regular members
-        const MEMBER_RING_POSITIONS = [
-            { angle: 0 }, { angle: 45 }, { angle: 90 }, { angle: 135 },
-            { angle: 180 }, { angle: 225 }, { angle: 270 }, { angle: 315 },
-            { angle: 22.5 }, { angle: 67.5 }, { angle: 112.5 }, { angle: 157.5 },
-            { angle: 202.5 }, { angle: 247.5 }, { angle: 292.5 }, { angle: 337.5 }
-        ];
+        // FOUNDER CONFIGURATION
+        const FOUNDER_USERNAME = 'lyron';
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
@@ -1009,6 +805,7 @@
             checkConnection();
             fetchMembers();
             setupKeyboardShortcuts();
+            loadRateLimitState();
             
             // Auto-play music
             setTimeout(() => {
@@ -1017,10 +814,10 @@
             }, 2000);
         });
 
-        // Create massive star field
+        // Create star field
         function createStarField() {
             const container = document.getElementById('starField');
-            const starCount = 200;
+            const starCount = 150;
             
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
@@ -1033,10 +830,10 @@
             }
         }
 
-        // Create floating cosmic particles
+        // Create cosmic particles
         function createCosmicParticles() {
             const container = document.getElementById('cosmicParticles');
-            const particleCount = 30;
+            const particleCount = 25;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
@@ -1056,7 +853,6 @@
             } catch (error) {
                 isConnected = false;
             }
-            
             updateConnectionStatus();
         }
 
@@ -1066,24 +862,111 @@
             
             if (isConnected) {
                 statusDot.className = 'status-dot connected';
-                statusText.textContent = '🟢 Backend Connected';
+                statusText.textContent = '🟢 Connected';
             } else {
                 statusDot.className = 'status-dot disconnected';
                 statusText.textContent = '💎 Demo Mode';
             }
         }
 
-        // Determine user role
-        function getUserRole(username) {
-            const cleanUsername = username.toLowerCase().replace('@', '');
-            return SPECIAL_USERS[cleanUsername] || ROLES.MEMBER;
+        // RATE LIMITING SYSTEM
+        function loadRateLimitState() {
+            const stored = localStorage.getItem('seismicWallRateLimit');
+            if (stored) {
+                const data = JSON.parse(stored);
+                submissionCount = data.count || 0;
+                rateLimitEndTime = data.endTime ? new Date(data.endTime) : null;
+                
+                if (rateLimitEndTime && new Date() < rateLimitEndTime) {
+                    startRateLimitTimer();
+                } else {
+                    resetRateLimit();
+                }
+            }
+            updateRateLimitDisplay();
+        }
+
+        function saveRateLimitState() {
+            const data = {
+                count: submissionCount,
+                endTime: rateLimitEndTime ? rateLimitEndTime.toISOString() : null
+            };
+            localStorage.setItem('seismicWallRateLimit', JSON.stringify(data));
+        }
+
+        function startRateLimit() {
+            rateLimitEndTime = new Date(Date.now() + RATE_LIMIT_MINUTES * 60 * 1000);
+            startRateLimitTimer();
+            updateRateLimitDisplay();
+            saveRateLimitState();
+        }
+
+        function startRateLimitTimer() {
+            clearInterval(rateLimitTimer);
+            rateLimitTimer = setInterval(updateRateLimitTimer, 1000);
+            updateRateLimitTimer();
+        }
+
+        function updateRateLimitTimer() {
+            if (!rateLimitEndTime) return;
+            
+            const now = new Date();
+            const timeLeft = rateLimitEndTime - now;
+            
+            if (timeLeft <= 0) {
+                resetRateLimit();
+                return;
+            }
+            
+            const minutes = Math.floor(timeLeft / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            const timerDisplay = document.getElementById('timerDisplay');
+            if (timerDisplay) {
+                timerDisplay.textContent = `Time remaining: ${timeString}`;
+            }
+        }
+
+        function resetRateLimit() {
+            submissionCount = 0;
+            rateLimitEndTime = null;
+            clearInterval(rateLimitTimer);
+            updateRateLimitDisplay();
+            saveRateLimitState();
+        }
+
+        function updateRateLimitDisplay() {
+            const rateLimitInfo = document.getElementById('rateLimitInfo');
+            const submitBtn = document.getElementById('submitBtn');
+            const submitCount = document.getElementById('submitCount');
+            
+            if (submissionCount > 0 || (rateLimitEndTime && new Date() < rateLimitEndTime)) {
+                rateLimitInfo.style.display = 'block';
+                if (submitCount) {
+                    submitCount.textContent = `Submissions used: ${submissionCount}/${MAX_SUBMISSIONS}`;
+                }
+            } else {
+                rateLimitInfo.style.display = 'none';
+            }
+            
+            // Disable submit button if limit reached and still in cooldown
+            const isLimitReached = submissionCount >= MAX_SUBMISSIONS && rateLimitEndTime && new Date() < rateLimitEndTime;
+            if (submitBtn) {
+                submitBtn.disabled = isLimitReached;
+                if (isLimitReached) {
+                    document.getElementById('submitButtonText').textContent = 'Rate Limited';
+                } else {
+                    document.getElementById('submitButtonText').textContent = 'Submit';
+                }
+            }
         }
 
         // Fetch members from API
         async function fetchMembers() {
             try {
                 if (!isConnected) {
-                    members = []; // Empty array - no demo users
+                    members = [];
                     renderMembers();
                     return;
                 }
@@ -1095,185 +978,175 @@
                 renderMembers();
             } catch (error) {
                 console.error('Error fetching members:', error);
-                members = []; // Empty on error
+                members = [];
                 renderMembers();
             }
         }
 
-        // Render members in hierarchical layout
+        // REVOLUTIONARY DISPLAY SYSTEM
         function renderMembers() {
-            const container = document.getElementById('hierarchyContainer');
+            const founderCenter = document.getElementById('founderCenter');
             const emptyState = document.getElementById('emptyState');
-            const memberRing = document.getElementById('memberRing');
+            const memberSlots = document.querySelectorAll('.member-slot');
+            const memberCounter = document.getElementById('memberCounter');
             
-            // Clear existing cards
-            const existingCards = container.querySelectorAll('.profile-card');
-            existingCards.forEach(card => card.remove());
-            memberRing.innerHTML = '';
+            // Clear existing content
+            founderCenter.innerHTML = '';
+            memberSlots.forEach(slot => slot.innerHTML = '');
             
             if (members.length === 0) {
                 emptyState.style.display = 'block';
+                founderCenter.style.display = 'none';
+                memberCounter.textContent = '👥 Total Members: 0 | 🔄 Revolving: 0';
                 return;
             }
-
+            
             emptyState.style.display = 'none';
-
-            // Separate members by role
-            const founder = members.find(m => getUserRole(m.username) === ROLES.FOUNDER);
-            const moderators = members.filter(m => getUserRole(m.username) === ROLES.MODERATOR);
-            const regularMembers = members.filter(m => getUserRole(m.username) === ROLES.MEMBER);
-
-            // Render founder in center
+            
+            // Find founder
+            const founder = members.find(m => m.username.toLowerCase().replace('@', '') === FOUNDER_USERNAME);
+            const otherMembers = members.filter(m => m.username.toLowerCase().replace('@', '') !== FOUNDER_USERNAME);
+            
+            // Display founder in center
             if (founder) {
-                const founderCard = createProfileCard(founder, ROLES.FOUNDER, 0);
-                founderCard.classList.add('founder-card');
-                container.appendChild(founderCard);
+                founderCenter.style.display = 'block';
+                founderCenter.innerHTML = createFounderCard(founder);
             }
-
-            // Render moderators around founder
-            moderators.forEach((mod, index) => {
-                if (index < MODERATOR_POSITIONS.length) {
-                    const modCard = createProfileCard(mod, ROLES.MODERATOR, index * 0.5);
-                    modCard.classList.add('moderator-card');
-                    
-                    const pos = MODERATOR_POSITIONS[index];
-                    modCard.style.top = pos.top || 'auto';
-                    modCard.style.bottom = pos.bottom || 'auto';
-                    modCard.style.left = pos.left || 'auto';
-                    modCard.style.right = pos.right || 'auto';
-                    modCard.style.animationDelay = pos.delay;
-                    
-                    container.appendChild(modCard);
-                }
-            });
-
-            // Render regular members in rotating ring
-            regularMembers.forEach((member, index) => {
-                if (index < MEMBER_RING_POSITIONS.length) {
-                    const memberCard = createProfileCard(member, ROLES.MEMBER, index * 0.2);
-                    memberCard.classList.add('regular-member');
-                    
-                    const pos = MEMBER_RING_POSITIONS[index];
-                    const radius = 300; // Distance from center
-                    const centerX = 50; // Center X percentage
-                    const centerY = 50; // Center Y percentage
-                    
-                    const angleRad = (pos.angle * Math.PI) / 180;
-                    const x = centerX + (radius * Math.cos(angleRad)) / window.innerWidth * 100;
-                    const y = centerY + (radius * Math.sin(angleRad)) / window.innerHeight * 100;
-                    
-                    memberCard.style.left = `${Math.max(5, Math.min(85, x))}%`;
-                    memberCard.style.top = `${Math.max(5, Math.min(85, y))}%`;
-                    
-                    memberRing.appendChild(memberCard);
-                }
-            });
+            
+            // Update counter
+            memberCounter.textContent = `👥 Total Members: ${members.length} | 🔄 Revolving: ${otherMembers.length}`;
+            
+            // Start revolution system for other members
+            if (otherMembers.length > 0) {
+                startRevolution(otherMembers);
+            }
         }
 
-        // Create profile card
-        function createProfileCard(member, role, delay) {
-            const card = document.createElement('div');
-            card.className = `profile-card ${role}`;
-            card.style.animationDelay = delay + 's';
-            
-            card.innerHTML = `
-                <div class="profile-avatar">
-                    ${member.profileImage ? 
-                        `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
-                        getInitials(member.displayName)
-                    }
-                </div>
-                <div class="profile-username">${member.username}</div>
-                <div class="profile-stats">
-                    <div class="stat-line">👥 ${formatNumber(member.followers || 0)} Followers</div>
-                    <div class="stat-line">${member.verified ? '✅ Verified' : '⭕ Unverified'}</div>
-                    <div class="stat-line">⏰ ${timeAgo(member.createdAt)}</div>
+        function createFounderCard(member) {
+            return `
+                <div class="founder-card" onclick="showMemberDetails(${JSON.stringify(member).replace(/"/g, '&quot;')})">
+                    <div class="profile-avatar">
+                        ${member.profileImage ? 
+                            `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
+                            getInitials(member.displayName)
+                        }
+                    </div>
+                    <div class="profile-username">${member.username}</div>
+                    <div class="profile-stats">
+                        <div class="stat-line">🏗️ Seismic Blockchain Founder</div>
+                        <div class="stat-line">👥 ${formatNumber(member.followers || 0)} Followers</div>
+                        <div class="stat-line">${member.verified ? '✅ Verified' : '⭕ Unverified'}</div>
+                        <div class="stat-line">⏰ ${timeAgo(member.createdAt)}</div>
+                    </div>
                 </div>
             `;
-            
-            // Add click effect
-            card.addEventListener('click', function() {
-                showMemberDetails(member);
-            });
-            
-            return card;
         }
 
-        // Show member details
+        function createMemberCard(member) {
+            return `
+                <div class="profile-card" onclick="showMemberDetails(${JSON.stringify(member).replace(/"/g, '&quot;')})">
+                    <div class="profile-avatar">
+                        ${member.profileImage ? 
+                            `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
+                            getInitials(member.displayName)
+                        }
+                    </div>
+                    <div class="profile-username">${member.username}</div>
+                    <div class="profile-stats">
+                        <div class="stat-line">👥 ${formatNumber(member.followers || 0)} Followers</div>
+                        <div class="stat-line">${member.verified ? '✅ Verified' : '⭕ Unverified'}</div>
+                        <div class="stat-line">⏰ ${timeAgo(member.createdAt)}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // REVOLUTION SYSTEM - SHOW ALL MEMBERS BY ROTATING THEM
+        function startRevolution(otherMembers) {
+            clearInterval(revolutionInterval);
+            currentDisplayIndex = 0;
+            
+            const memberSlots = document.querySelectorAll('.member-slot');
+            
+            function updateDisplay() {
+                // Fill all 8 slots with members (cycling through if needed)
+                memberSlots.forEach((slot, slotIndex) => {
+                    const memberIndex = (currentDisplayIndex + slotIndex) % otherMembers.length;
+                    if (otherMembers[memberIndex]) {
+                        slot.innerHTML = createMemberCard(otherMembers[memberIndex]);
+                        slot.style.opacity = '1';
+                    } else {
+                        slot.innerHTML = '';
+                        slot.style.opacity = '0';
+                    }
+                });
+                
+                // Move to next set of members
+                currentDisplayIndex = (currentDisplayIndex + DISPLAY_SLOTS) % otherMembers.length;
+            }
+            
+            // Initial display
+            updateDisplay();
+            
+            // Update every 8 seconds to show different members
+            if (otherMembers.length > DISPLAY_SLOTS) {
+                revolutionInterval = setInterval(updateDisplay, 8000);
+            }
+        }
+
+        // Show member details modal
         function showMemberDetails(member) {
-            const role = getUserRole(member.username);
-            const roleText = role === ROLES.FOUNDER ? 'Founder 👑' : 
-                           role === ROLES.MODERATOR ? 'Moderator ⚡' : 'Member ⭐';
+            const isFounder = member.username.toLowerCase().replace('@', '') === FOUNDER_USERNAME;
+            const roleText = isFounder ? '👑 Founder of Seismic Blockchain' : '⭐ Community Member';
+            const roleColor = isFounder ? '#ffd700' : '#34d399';
             
             const modal = document.createElement('div');
             modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.9);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 10000;
-                backdrop-filter: blur(20px);
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0, 0, 0, 0.9); display: flex; align-items: center; justify-content: center;
+                z-index: 10000; backdrop-filter: blur(20px); animation: modalFadeIn 0.3s ease-out;
             `;
             
             modal.innerHTML = `
                 <div style="
-                    background: rgba(52, 211, 153, 0.1);
-                    border: 2px solid rgba(52, 211, 153, 0.5);
-                    border-radius: 20px;
-                    padding: 2rem;
-                    max-width: 400px;
-                    text-align: center;
-                    backdrop-filter: blur(30px);
+                    background: rgba(52, 211, 153, 0.1); border: 2px solid ${roleColor};
+                    border-radius: 25px; padding: 2.5rem; max-width: 450px; text-align: center;
+                    backdrop-filter: blur(30px); box-shadow: 0 40px 100px ${roleColor}40;
+                    animation: modalSlideIn 0.3s ease-out;
                 ">
                     <div style="
-                        width: 120px;
-                        height: 120px;
-                        border-radius: 50%;
-                        background: linear-gradient(45deg, #34d399, #10b981);
-                        margin: 0 auto 1rem;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-size: 2rem;
-                        font-weight: bold;
-                        color: #000;
-                        overflow: hidden;
-                        box-shadow: 0 0 40px rgba(52, 211, 153, 0.6);
+                        width: 140px; height: 140px; border-radius: 50%;
+                        background: linear-gradient(45deg, ${isFounder ? '#ffd700, #ffed4e' : '#34d399, #10b981'});
+                        margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center;
+                        font-size: 2.5rem; font-weight: bold; color: #000; overflow: hidden;
+                        box-shadow: 0 0 60px ${roleColor}80;
                     ">
                         ${member.profileImage ? 
                             `<img src="${member.profileImage}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" alt="${member.displayName}">` :
                             getInitials(member.displayName)
                         }
                     </div>
-                    <h2 style="color: #34d399; margin-bottom: 0.5rem;">${member.username}</h2>
-                    <p style="color: #c084fc; font-weight: bold; margin-bottom: 1rem;">${roleText}</p>
-                    <div style="margin-bottom: 1rem;">
+                    <h2 style="color: ${roleColor}; margin-bottom: 0.5rem; font-size: 1.5rem;">${member.username}</h2>
+                    <p style="color: ${roleColor}; font-weight: bold; margin-bottom: 1.5rem; font-size: 1.1rem;">${roleText}</p>
+                    <div style="margin-bottom: 2rem; line-height: 1.6;">
+                        ${isFounder ? '<p style="margin: 0.5rem 0; color: #ffd700; font-weight: bold;">🏗️ Creator of Seismic Blockchain</p>' : ''}
                         <p style="margin: 0.5rem 0;">👥 ${formatNumber(member.followers || 0)} Followers</p>
                         <p style="margin: 0.5rem 0;">${member.verified ? '✅ Verified Account' : '⭕ Unverified Account'}</p>
                         <p style="margin: 0.5rem 0;">⏰ Joined ${timeAgo(member.createdAt)} ago</p>
                     </div>
                     <button onclick="this.parentElement.parentElement.remove()" style="
-                        padding: 1rem 2rem;
-                        background: linear-gradient(45deg, #34d399, #10b981);
-                        border: none;
-                        border-radius: 50px;
-                        color: #000;
-                        font-weight: bold;
-                        cursor: pointer;
-                        font-size: 1.1rem;
-                    ">Close</button>
+                        padding: 1rem 2.5rem; background: linear-gradient(45deg, ${isFounder ? '#ffd700, #ffed4e' : '#34d399, #10b981'});
+                        border: none; border-radius: 25px; color: #000; font-weight: bold;
+                        cursor: pointer; font-size: 1.1rem; box-shadow: 0 10px 30px ${roleColor}40;
+                        transition: all 0.3s ease;
+                    " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        Close
+                    </button>
                 </div>
             `;
             
             modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    modal.remove();
-                }
+                if (e.target === modal) modal.remove();
             });
             
             document.body.appendChild(modal);
@@ -1288,7 +1161,13 @@
             
             if (!username) return;
             
-            // Show loading state
+            // Check rate limit
+            if (submissionCount >= MAX_SUBMISSIONS && rateLimitEndTime && new Date() < rateLimitEndTime) {
+                alert('Rate limit reached. Please wait for the timer to reset.');
+                return;
+            }
+            
+            // Show loading
             const buttonText = document.getElementById('submitButtonText');
             const buttonLoading = document.getElementById('submitButtonLoading');
             buttonText.style.display = 'none';
@@ -1296,14 +1175,12 @@
             
             try {
                 if (!isConnected) {
-                    throw new Error('Backend not connected - Please check connection');
+                    throw new Error('Backend not connected - Demo mode active');
                 }
                 
                 const response = await fetch(`${API_BASE}/members`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username })
                 });
                 
@@ -1312,48 +1189,42 @@
                     throw new Error(error.error || 'Failed to add member');
                 }
                 
+                // Update rate limit
+                submissionCount++;
+                if (submissionCount === 1) {
+                    startRateLimit();
+                } else {
+                    saveRateLimitState();
+                    updateRateLimitDisplay();
+                }
+                
                 // Clear input and refresh
                 input.value = '';
                 await fetchMembers();
-                
-                // Add cosmic success effect
                 showCosmicSuccess();
                 
             } catch (error) {
                 console.error('Error adding member:', error);
                 alert(error.message);
             } finally {
-                // Reset button state
                 buttonText.style.display = 'inline-block';
                 buttonLoading.style.display = 'none';
             }
         }
 
-        // Show cosmic success effect
+        // Success effect
         function showCosmicSuccess() {
-            const successEffect = document.createElement('div');
-            successEffect.innerHTML = '✨ Welcome to the Seismic Family! ✨';
-            successEffect.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: rgba(52, 211, 153, 0.9);
-                color: #000;
-                padding: 1rem 2rem;
-                border-radius: 50px;
-                font-weight: bold;
-                font-size: 1.2rem;
-                z-index: 10000;
+            const effect = document.createElement('div');
+            effect.innerHTML = '✨ Welcome to the Seismic Family! ✨';
+            effect.style.cssText = `
+                position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                background: linear-gradient(45deg, #34d399, #10b981); color: #000;
+                padding: 1.5rem 3rem; border-radius: 25px; font-weight: bold; font-size: 1.3rem;
+                z-index: 10000; box-shadow: 0 0 60px rgba(52, 211, 153, 0.8);
                 animation: successPulse 3s ease-out forwards;
-                box-shadow: 0 0 50px rgba(52, 211, 153, 0.8);
             `;
-            
-            document.body.appendChild(successEffect);
-            
-            setTimeout(() => {
-                successEffect.remove();
-            }, 3000);
+            document.body.appendChild(effect);
+            setTimeout(() => effect.remove(), 3000);
         }
 
         // Refresh members
@@ -1365,15 +1236,16 @@
         // Music controls
         function toggleMusic() {
             const btn = document.getElementById('musicBtn');
-            
-            if (isPlaying) {
-                music.pause();
-                btn.textContent = '🎵 Play Music';
-                isPlaying = false;
-            } else {
-                music.play().catch(e => console.log('Music play failed:', e));
-                btn.textContent = '🎵 Pause Music';
-                isPlaying = true;
+            if (btn) {
+                if (isPlaying) {
+                    music.pause();
+                    btn.textContent = '🎵 Play Music';
+                    isPlaying = false;
+                } else {
+                    music.play().catch(e => console.log('Music play failed:', e));
+                    btn.textContent = '🎵 Pause Music';
+                    isPlaying = true;
+                }
             }
         }
 
@@ -1389,8 +1261,7 @@
                 } else if (e.key === 'Escape') {
                     e.preventDefault();
                     document.getElementById('usernameInput').blur();
-                    // Close any open modals
-                    const modals = document.querySelectorAll('[style*="position: fixed"][style*="z-index: 10000"]');
+                    const modals = document.querySelectorAll('[style*="z-index: 10000"]');
                     modals.forEach(modal => modal.remove());
                 }
             });
@@ -1418,71 +1289,32 @@
             return Math.floor(diffInSeconds / 86400) + 'd';
         }
 
-        // Auto-refresh every 3 minutes when connected
+        // Auto-refresh
         setInterval(() => {
-            if (isConnected) {
-                refreshMembers();
-            }
+            if (isConnected) refreshMembers();
         }, 3 * 60 * 1000);
 
-        // Add cosmic cursor trail effect
-        document.addEventListener('mousemove', function(e) {
-            if (Math.random() > 0.95) { // Only occasionally
-                const trail = document.createElement('div');
-                trail.style.cssText = `
-                    position: fixed;
-                    left: ${e.clientX}px;
-                    top: ${e.clientY}px;
-                    width: 4px;
-                    height: 4px;
-                    background: rgba(52, 211, 153, 0.6);
-                    border-radius: 50%;
-                    pointer-events: none;
-                    z-index: 1000;
-                    animation: trailFade 2s ease-out forwards;
-                `;
-                document.body.appendChild(trail);
-                
-                setTimeout(() => trail.remove(), 2000);
-            }
-        });
-
-        // Add CSS for success and trail animations
+        // Add animations CSS
         const style = document.createElement('style');
         style.textContent = `
-            @keyframes successPulse {
-                0% { 
-                    opacity: 0; 
-                    transform: translate(-50%, -50%) scale(0.5); 
-                }
-                20% { 
-                    opacity: 1; 
-                    transform: translate(-50%, -50%) scale(1.2); 
-                }
-                80% { 
-                    opacity: 1; 
-                    transform: translate(-50%, -50%) scale(1); 
-                }
-                100% { 
-                    opacity: 0; 
-                    transform: translate(-50%, -50%) scale(0.8); 
-                }
+            @keyframes modalFadeIn {
+                0% { opacity: 0; }
+                100% { opacity: 1; }
             }
             
-            @keyframes trailFade {
-                0% { 
-                    opacity: 1; 
-                    transform: scale(1); 
-                }
-                100% { 
-                    opacity: 0; 
-                    transform: scale(0.1); 
-                }
+            @keyframes modalSlideIn {
+                0% { opacity: 0; transform: scale(0.8) translateY(-20px); }
+                100% { opacity: 1; transform: scale(1) translateY(0); }
+            }
+            
+            @keyframes successPulse {
+                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+                20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+                80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
             }
         `;
         document.head.appendChild(style);
     </script>
 </body>
-</html>ula"></div>
-        <div class="nebula"></div>
-        <div class="neb
+</html>
