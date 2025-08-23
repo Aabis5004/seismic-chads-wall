@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+// Render members floating in the centered frame (LYRON IN CENTER)
+        function renderMembers() {
+            const container =<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -288,6 +290,100 @@
             }
         }
 
+        /* LOGO + TITLE CONTAINER */
+        .logo-title-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .seismic-logo-orb {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #34d399, #10b981, #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 2.5rem;
+            color: #000;
+            animation: logoOrbitExtreme 25s linear infinite;
+            box-shadow: 
+                0 0 60px rgba(52, 211, 153, 1),
+                0 0 120px rgba(34, 197, 94, 0.6),
+                inset 0 0 30px rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .seismic-logo-orb::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border: 3px solid rgba(52, 211, 153, 0.4);
+            border-radius: 50%;
+            animation: logoRingExtreme 20s linear infinite reverse;
+        }
+
+        .seismic-logo-orb::after {
+            content: '';
+            position: absolute;
+            top: -25px;
+            left: -25px;
+            right: -25px;
+            bottom: -25px;
+            border: 2px solid rgba(34, 197, 94, 0.2);
+            border-radius: 50%;
+            animation: logoRingExtreme 30s linear infinite;
+        }
+
+        .seismic-logo-orb img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        .logo-fallback {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #000;
+        }
+
+        @keyframes logoOrbitExtreme {
+            0% { 
+                transform: rotate(0deg) scale(1);
+                box-shadow: 0 0 60px rgba(52, 211, 153, 1), 0 0 120px rgba(34, 197, 94, 0.6);
+            }
+            25% { 
+                transform: rotate(90deg) scale(1.15);
+                box-shadow: 0 0 80px rgba(34, 197, 94, 1), 0 0 140px rgba(16, 185, 129, 0.8);
+            }
+            50% { 
+                transform: rotate(180deg) scale(1.3);
+                box-shadow: 0 0 100px rgba(16, 185, 129, 1), 0 0 160px rgba(52, 211, 153, 1);
+            }
+            75% { 
+                transform: rotate(270deg) scale(1.15);
+                box-shadow: 0 0 80px rgba(34, 197, 94, 1), 0 0 140px rgba(16, 185, 129, 0.8);
+            }
+            100% { 
+                transform: rotate(360deg) scale(1);
+                box-shadow: 0 0 60px rgba(52, 211, 153, 1), 0 0 120px rgba(34, 197, 94, 0.6);
+            }
+        }
+
+        @keyframes logoRingExtreme {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
         @keyframes lightningStrike {
             0%, 90%, 100% { 
                 opacity: 0;
@@ -299,55 +395,68 @@
             }
         }
 
-        /* CENTERED SPACE FRAME */
+        /* MASSIVE SPACE FRAME FOR HUNDREDS OF MEMBERS */
         .space-frame {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 90vw;
-            height: 70vh;
-            max-width: 1400px;
-            border: 3px solid rgba(52, 211, 153, 0.6);
-            border-radius: 30px;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(20px);
+            width: 95vw;
+            height: 80vh;
+            max-width: 2000px;
+            max-height: 1200px;
+            border: 4px solid rgba(52, 211, 153, 0.7);
+            border-radius: 40px;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(25px);
             box-shadow: 
-                0 0 50px rgba(52, 211, 153, 0.3),
-                inset 0 0 100px rgba(52, 211, 153, 0.1);
+                0 0 80px rgba(52, 211, 153, 0.4),
+                0 0 160px rgba(34, 197, 94, 0.3),
+                inset 0 0 150px rgba(52, 211, 153, 0.1);
             z-index: 100;
             overflow: hidden;
-            animation: frameGlow 6s ease-in-out infinite;
+            animation: megaFrameGlow 8s ease-in-out infinite;
         }
 
-        @keyframes frameGlow {
+        @keyframes megaFrameGlow {
             0%, 100% { 
-                border-color: rgba(52, 211, 153, 0.6);
-                box-shadow: 0 0 50px rgba(52, 211, 153, 0.3);
+                border-color: rgba(52, 211, 153, 0.7);
+                box-shadow: 0 0 80px rgba(52, 211, 153, 0.4), 0 0 160px rgba(34, 197, 94, 0.3);
             }
-            50% { 
-                border-color: rgba(34, 197, 94, 0.8);
-                box-shadow: 0 0 80px rgba(34, 197, 94, 0.5);
+            33% { 
+                border-color: rgba(34, 197, 94, 0.9);
+                box-shadow: 0 0 120px rgba(34, 197, 94, 0.6), 0 0 200px rgba(16, 185, 129, 0.4);
+            }
+            66% { 
+                border-color: rgba(16, 185, 129, 0.8);
+                box-shadow: 0 0 100px rgba(16, 185, 129, 0.5), 0 0 180px rgba(52, 211, 153, 0.3);
             }
         }
 
         .space-frame::before {
             content: '';
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, rgba(52, 211, 153, 0.8), rgba(34, 197, 94, 0.6), rgba(16, 185, 129, 0.4), rgba(52, 211, 153, 0.8));
-            background-size: 300% 300%;
-            border-radius: 30px;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, 
+                rgba(52, 211, 153, 0.8), 
+                rgba(34, 197, 94, 0.6), 
+                rgba(16, 185, 129, 0.4), 
+                rgba(52, 211, 153, 0.8));
+            background-size: 400% 400%;
+            border-radius: 40px;
             z-index: -1;
-            animation: frameBorder 8s linear infinite;
+            animation: megaFrameBorder 12s linear infinite;
         }
 
-        @keyframes frameBorder {
+        @keyframes megaFrameBorder {
             0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
+            25% { background-position: 50% 0%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 100%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* FLOATING PROFILE CONTAINER */
@@ -358,33 +467,37 @@
             padding: 2rem;
         }
 
-        /* EPIC FLOATING PROFILE CARDS */
+        /* PERFECT ZERO GRAVITY FLOATING PROFILES */
         .cosmic-profile {
             position: absolute;
-            width: 180px;
-            height: 220px;
+            width: 160px;
+            height: 200px;
             background: rgba(52, 211, 153, 0.08);
             border: 2px solid rgba(52, 211, 153, 0.4);
-            border-radius: 25px;
-            padding: 1.5rem;
-            backdrop-filter: blur(25px);
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 20px;
+            padding: 1.2rem;
+            backdrop-filter: blur(30px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             animation: 
-                cosmicFloat 15s ease-in-out infinite,
-                profileEntry 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+                perfectZeroGravity 18s ease-in-out infinite,
+                profileMaterialize 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             opacity: 0;
-            transform: scale(0.5) rotateX(60deg) rotateY(30deg);
+            transform: scale(0.3) rotateX(90deg) rotateY(45deg) translateZ(-300px);
             box-shadow: 
-                0 25px 80px rgba(52, 211, 153, 0.2),
-                0 10px 30px rgba(34, 197, 94, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                0 30px 100px rgba(52, 211, 153, 0.25),
+                0 15px 50px rgba(34, 197, 94, 0.15),
+                inset 0 2px 0 rgba(255, 255, 255, 0.15);
         }
 
-        @keyframes profileEntry {
+        @keyframes profileMaterialize {
             0% {
                 opacity: 0;
-                transform: scale(0.5) rotateX(60deg) rotateY(30deg) translateZ(-200px);
+                transform: scale(0.3) rotateX(90deg) rotateY(45deg) translateZ(-300px);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.1) rotateX(10deg) rotateY(5deg) translateZ(-50px);
             }
             100% {
                 opacity: 1;
@@ -392,24 +505,30 @@
             }
         }
 
-        @keyframes cosmicFloat {
+        @keyframes perfectZeroGravity {
             0%, 100% { 
                 transform: translateY(0) translateX(0) rotateZ(0deg) scale(1);
             }
-            16% { 
-                transform: translateY(-40px) translateX(30px) rotateZ(3deg) scale(1.02);
+            12% { 
+                transform: translateY(-50px) translateX(35px) rotateZ(4deg) scale(1.03);
             }
-            33% { 
-                transform: translateY(-20px) translateX(-25px) rotateZ(-2deg) scale(0.98);
+            25% { 
+                transform: translateY(-30px) translateX(-40px) rotateZ(-3deg) scale(0.97);
+            }
+            37% { 
+                transform: translateY(-70px) translateX(20px) rotateZ(2deg) scale(1.06);
             }
             50% { 
-                transform: translateY(-60px) translateX(15px) rotateZ(1deg) scale(1.05);
+                transform: translateY(-20px) translateX(-50px) rotateZ(-5deg) scale(0.94);
             }
-            66% { 
-                transform: translateY(-10px) translateX(-40px) rotateZ(-4deg) scale(0.95);
+            62% { 
+                transform: translateY(-60px) translateX(30px) rotateZ(3deg) scale(1.04);
             }
-            83% { 
-                transform: translateY(-45px) translateX(25px) rotateZ(2deg) scale(1.03);
+            75% { 
+                transform: translateY(-40px) translateX(-25px) rotateZ(-2deg) scale(0.98);
+            }
+            87% { 
+                transform: translateY(-80px) translateX(45px) rotateZ(4deg) scale(1.07);
             }
         }
 
@@ -814,9 +933,14 @@
         <source src="./interstellar.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- LIGHTNING SEISMIC WALL TITLE -->
+    <!-- LIGHTNING SEISMIC WALL TITLE WITH LOGO -->
     <div class="lightning-title">
-        <h1 class="seismic-title">SEISMIC WALL</h1>
+        <div class="logo-title-container">
+            <div class="seismic-logo-orb">
+                <img src="./seismic-logo.png" alt="S" onerror="this.innerHTML='<div class=logo-fallback>S</div>'">
+            </div>
+            <h1 class="seismic-title">SEISMIC WALL</h1>
+        </div>
     </div>
 
     <!-- CONNECTION STATUS -->
@@ -872,28 +996,101 @@
         // API Configuration
         const API_BASE = 'https://seismicwall.duckdns.org/api';
 
-        // Advanced cosmic positions for ultimate floating effect
-        const cosmicPositions = [
-            { top: '15%', left: '20%', rotation: 15, floatIntensity: 1.2 },
-            { top: '35%', left: '75%', rotation: -20, floatIntensity: 0.8 },
-            { top: '60%', left: '15%', rotation: 10, floatIntensity: 1.5 },
-            { top: '25%', left: '60%', rotation: -15, floatIntensity: 1.0 },
-            { top: '70%', left: '65%', rotation: 25, floatIntensity: 1.3 },
-            { top: '45%', left: '30%', rotation: -10, floatIntensity: 0.9 },
-            { top: '80%', left: '40%', rotation: 20, floatIntensity: 1.4 },
-            { top: '20%', left: '85%', rotation: -25, floatIntensity: 1.1 },
-            { top: '55%', left: '80%', rotation: 15, floatIntensity: 0.7 },
-            { top: '85%', left: '20%', rotation: -20, floatIntensity: 1.6 },
-            { top: '40%', left: '10%', rotation: 30, floatIntensity: 1.2 },
-            { top: '10%', left: '50%', rotation: -30, floatIntensity: 0.9 },
-            { top: '65%', left: '45%', rotation: 10, floatIntensity: 1.3 },
-            { top: '30%', left: '90%', rotation: -15, floatIntensity: 1.0 },
-            { top: '75%', left: '75%', rotation: 25, floatIntensity: 1.4 },
-            { top: '50%', left: '5%', rotation: -20, floatIntensity: 0.8 },
-            { top: '90%', left: '60%', rotation: 15, floatIntensity: 1.5 },
-            { top: '5%', left: '25%', rotation: -10, floatIntensity: 1.1 },
-            { top: '95%', left: '85%', rotation: 20, floatIntensity: 0.9 },
-            { top: '25%', left: '40%', rotation: -25, floatIntensity: 1.2 }
+        // Advanced cosmic positions for hundreds of members
+        const massiveCosmicPositions = [
+            // CENTER POSITION FOR LYRON
+            { top: '50%', left: '50%', rotation: 0, floatIntensity: 2.0, isCenter: true },
+            
+            // INNER CIRCLE (around center)
+            { top: '35%', left: '35%', rotation: 15, floatIntensity: 1.2 },
+            { top: '35%', left: '65%', rotation: -15, floatIntensity: 1.4 },
+            { top: '65%', left: '35%', rotation: -20, floatIntensity: 1.3 },
+            { top: '65%', left: '65%', rotation: 20, floatIntensity: 1.1 },
+            
+            // MIDDLE RING
+            { top: '20%', left: '20%', rotation: 25, floatIntensity: 1.0 },
+            { top: '20%', left: '50%', rotation: -10, floatIntensity: 1.5 },
+            { top: '20%', left: '80%', rotation: 30, floatIntensity: 0.9 },
+            { top: '50%', left: '20%', rotation: -25, floatIntensity: 1.6 },
+            { top: '50%', left: '80%', rotation: 15, floatIntensity: 1.2 },
+            { top: '80%', left: '20%', rotation: -30, floatIntensity: 1.4 },
+            { top: '80%', left: '50%', rotation: 10, floatIntensity: 0.8 },
+            { top: '80%', left: '80%', rotation: -15, floatIntensity: 1.3 },
+            
+            // OUTER RING
+            { top: '10%', left: '15%', rotation: 35, floatIntensity: 1.1 },
+            { top: '10%', left: '30%', rotation: -20, floatIntensity: 1.5 },
+            { top: '10%', left: '45%', rotation: 25, floatIntensity: 0.9 },
+            { top: '10%', left: '55%', rotation: -30, floatIntensity: 1.6 },
+            { top: '10%', left: '70%', rotation: 20, floatIntensity: 1.2 },
+            { top: '10%', left: '85%', rotation: -25, floatIntensity: 1.4 },
+            
+            { top: '25%', left: '10%', rotation: -35, floatIntensity: 1.3 },
+            { top: '25%', left: '25%', rotation: 15, floatIntensity: 0.7 },
+            { top: '25%', left: '75%', rotation: -15, floatIntensity: 1.7 },
+            { top: '25%', left: '90%', rotation: 35, floatIntensity: 1.0 },
+            
+            { top: '40%', left: '5%', rotation: 40, floatIntensity: 1.5 },
+            { top: '40%', left: '15%', rotation: -20, floatIntensity: 1.1 },
+            { top: '40%', left: '85%', rotation: 20, floatIntensity: 1.4 },
+            { top: '40%', left: '95%', rotation: -40, floatIntensity: 0.8 },
+            
+            { top: '60%', left: '5%', rotation: -40, floatIntensity: 1.6 },
+            { top: '60%', left: '15%', rotation: 25, floatIntensity: 1.2 },
+            { top: '60%', left: '85%', rotation: -25, floatIntensity: 1.3 },
+            { top: '60%', left: '95%', rotation: 40, floatIntensity: 0.9 },
+            
+            { top: '75%', left: '10%', rotation: 30, floatIntensity: 1.4 },
+            { top: '75%', left: '25%', rotation: -35, floatIntensity: 1.0 },
+            { top: '75%', left: '75%', rotation: 35, floatIntensity: 1.5 },
+            { top: '75%', left: '90%', rotation: -30, floatIntensity: 1.1 },
+            
+            { top: '90%', left: '15%', rotation: -35, floatIntensity: 1.3 },
+            { top: '90%', left: '30%', rotation: 20, floatIntensity: 1.6 },
+            { top: '90%', left: '45%', rotation: -25, floatIntensity: 0.8 },
+            { top: '90%', left: '55%', rotation: 30, floatIntensity: 1.7 },
+            { top: '90%', left: '70%', rotation: -20, floatIntensity: 1.2 },
+            { top: '90%', left: '85%', rotation: 25, floatIntensity: 1.4 },
+            
+            // ADDITIONAL POSITIONS FOR GROWTH (40 more positions)
+            { top: '15%', left: '40%', rotation: 12, floatIntensity: 1.3 },
+            { top: '15%', left: '60%', rotation: -18, floatIntensity: 1.1 },
+            { top: '30%', left: '12%', rotation: 22, floatIntensity: 1.5 },
+            { top: '30%', left: '88%', rotation: -22, floatIntensity: 1.0 },
+            { top: '45%', left: '25%', rotation: -28, floatIntensity: 1.6 },
+            { top: '45%', left: '75%', rotation: 28, floatIntensity: 0.9 },
+            { top: '55%', left: '25%', rotation: 32, floatIntensity: 1.2 },
+            { top: '55%', left: '75%', rotation: -32, floatIntensity: 1.4 },
+            { top: '70%', left: '12%', rotation: -26, floatIntensity: 1.3 },
+            { top: '70%', left: '88%', rotation: 26, floatIntensity: 1.1 },
+            { top: '85%', left: '40%', rotation: 18, floatIntensity: 1.5 },
+            { top: '85%', left: '60%', rotation: -12, floatIntensity: 0.8 },
+            
+            // SCATTERED POSITIONS FOR ORGANIC FEEL
+            { top: '17%', left: '52%', rotation: 8, floatIntensity: 1.4 },
+            { top: '23%', left: '33%', rotation: -14, floatIntensity: 1.2 },
+            { top: '28%', left: '67%', rotation: 16, floatIntensity: 1.6 },
+            { top: '33%', left: '48%', rotation: -24, floatIntensity: 0.9 },
+            { top: '38%', left: '72%', rotation: 20, floatIntensity: 1.3 },
+            { top: '42%', left: '38%', rotation: -12, floatIntensity: 1.5 },
+            { top: '47%', left: '62%', rotation: 24, floatIntensity: 1.0 },
+            { top: '52%', left: '28%', rotation: -20, floatIntensity: 1.7 },
+            { top: '58%', left: '52%', rotation: 14, floatIntensity: 1.1 },
+            { top: '63%', left: '72%', rotation: -16, floatIntensity: 1.4 },
+            { top: '67%', left: '33%', rotation: 26, floatIntensity: 1.2 },
+            { top: '72%', left: '58%', rotation: -18, floatIntensity: 1.3 },
+            { top: '77%', left: '42%', rotation: 22, floatIntensity: 0.9 },
+            { top: '82%', left: '67%', rotation: -28, floatIntensity: 1.6 },
+            
+            // EDGE POSITIONS FOR FUTURE EXPANSION
+            { top: '5%', left: '35%', rotation: 45, floatIntensity: 1.2 },
+            { top: '5%', left: '65%', rotation: -45, floatIntensity: 1.4 },
+            { top: '35%', left: '2%', rotation: 38, floatIntensity: 1.3 },
+            { top: '35%', left: '98%', rotation: -38, floatIntensity: 1.1 },
+            { top: '65%', left: '2%', rotation: -42, floatIntensity: 1.5 },
+            { top: '65%', left: '98%', rotation: 42, floatIntensity: 0.8 },
+            { top: '95%', left: '35%', rotation: -36, floatIntensity: 1.6 },
+            { top: '95%', left: '65%', rotation: 36, floatIntensity: 1.0 }
         ];
 
         // Initialize
@@ -1028,7 +1225,7 @@
             }
         }
 
-        // Render members floating in the centered frame
+        // Render members floating in the centered frame (LYRON IN CENTER)
         function renderMembers() {
             const container = document.getElementById('profileCosmos');
             const voidState = document.getElementById('cosmicVoid');
@@ -1044,33 +1241,53 @@
 
             voidState.style.display = 'none';
 
-            members.forEach((member, index) => {
+            // Sort members to put @lyronctk first (center position)
+            const sortedMembers = [...members].sort((a, b) => {
+                if (a.username.toLowerCase().includes('lyronctk')) return -1;
+                if (b.username.toLowerCase().includes('lyronctk')) return 1;
+                return 0;
+            });
+
+            sortedMembers.forEach((member, index) => {
                 const profile = document.createElement('div');
                 profile.className = 'cosmic-profile';
                 
-                // Use advanced positioning with floating effects
-                const basePosition = cosmicPositions[index % cosmicPositions.length];
-                const randomOffsetX = (Math.random() - 0.5) * 30;
-                const randomOffsetY = (Math.random() - 0.5) * 30;
+                // Use massive position array with Lyron in center
+                const basePosition = massiveCosmicPositions[index % massiveCosmicPositions.length];
+                const randomOffsetX = (Math.random() - 0.5) * 25;
+                const randomOffsetY = (Math.random() - 0.5) * 25;
                 
-                profile.style.top = `calc(${basePosition.top} + ${randomOffsetY}px)`;
-                profile.style.left = `calc(${basePosition.left} + ${randomOffsetX}px)`;
-                profile.style.transform = `rotate(${basePosition.rotation + (Math.random() - 0.5) * 15}deg)`;
-                profile.style.animationDelay = (index * 0.4) + 's';
+                // Special handling for center position (Lyron)
+                if (index === 0 && member.username.toLowerCase().includes('lyronctk')) {
+                    profile.style.top = '50%';
+                    profile.style.left = '50%';
+                    profile.style.transform = 'translate(-50%, -50%) rotate(0deg)';
+                    profile.style.zIndex = '300'; // Higher z-index for center
+                    profile.classList.add('center-profile');
+                } else {
+                    profile.style.top = `calc(${basePosition.top} + ${randomOffsetY}px)`;
+                    profile.style.left = `calc(${basePosition.left} + ${randomOffsetX}px)`;
+                    profile.style.transform = `translate(-50%, -50%) rotate(${basePosition.rotation + (Math.random() - 0.5) * 10}deg)`;
+                }
                 
-                // Add unique floating properties
+                profile.style.animationDelay = (index * 0.5) + 's';
+                
+                // Add unique floating properties based on position
                 profile.style.setProperty('--float-intensity', basePosition.floatIntensity);
-                profile.style.setProperty('--float-duration', (Math.random() * 10 + 12) + 's');
-                profile.style.setProperty('--float-delay', (Math.random() * 6) + 's');
+                profile.style.setProperty('--float-duration', (Math.random() * 12 + 15) + 's');
+                profile.style.setProperty('--float-delay', (Math.random() * 8) + 's');
+                
+                // Add special effects for center profile
+                const centerClass = (index === 0 && member.username.toLowerCase().includes('lyronctk')) ? 'center-glow' : '';
                 
                 profile.innerHTML = `
-                    <div class="profile-avatar">
+                    <div class="profile-avatar ${centerClass}">
                         ${member.profileImage ? 
                             `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
                             getInitials(member.displayName)
                         }
                     </div>
-                    <div class="profile-handle">${member.username}</div>
+                    <div class="profile-handle ${centerClass}">${member.username}</div>
                     <div class="profile-stats">
                         <div class="stat-line">👥 ${formatNumber(member.followers || 0)}</div>
                         <div class="stat-line">${member.verified ? '✅ Verified' : '⭕ Standard'}</div>
@@ -1078,53 +1295,55 @@
                     </div>
                 `;
                 
-                // Add advanced hover effects
+                // Enhanced hover effects with more particles
                 profile.addEventListener('mouseenter', function() {
-                    this.style.filter = 'brightness(1.4) drop-shadow(0 0 60px rgba(52, 211, 153, 1))';
+                    this.style.filter = 'brightness(1.5) drop-shadow(0 0 80px rgba(52, 211, 153, 1))';
                     this.style.zIndex = '500';
                     
-                    // Create particle burst on hover
-                    createParticleBurst(this);
+                    // Create enhanced particle burst
+                    createEnhancedParticleBurst(this);
                 });
                 
                 profile.addEventListener('mouseleave', function() {
                     this.style.filter = 'none';
-                    this.style.zIndex = '100';
+                    this.style.zIndex = index === 0 && member.username.toLowerCase().includes('lyronctk') ? '300' : '100';
                 });
                 
                 container.appendChild(profile);
             });
         }
 
-        // Create particle burst effect
-        function createParticleBurst(element) {
+        // Enhanced particle burst with more particles
+        function createEnhancedParticleBurst(element) {
             const rect = element.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
             
-            for (let i = 0; i < 12; i++) {
+            // Create more particles for enhanced effect
+            for (let i = 0; i < 20; i++) {
                 const particle = document.createElement('div');
                 particle.style.cssText = `
                     position: fixed;
-                    width: 4px;
-                    height: 4px;
-                    background: #34d399;
+                    width: ${Math.random() * 4 + 3}px;
+                    height: ${Math.random() * 4 + 3}px;
+                    background: ${['#34d399', '#10b981', '#ffffff', '#059669'][Math.floor(Math.random() * 4)]};
                     border-radius: 50%;
                     left: ${centerX}px;
                     top: ${centerY}px;
                     z-index: 1000;
                     pointer-events: none;
-                    animation: particleBurst 1.5s ease-out forwards;
+                    animation: enhancedParticleBurst 2s ease-out forwards;
+                    box-shadow: 0 0 10px currentColor;
                 `;
                 
-                const angle = (i / 12) * Math.PI * 2;
-                const distance = Math.random() * 100 + 50;
+                const angle = (i / 20) * Math.PI * 2;
+                const distance = Math.random() * 150 + 80;
                 particle.style.setProperty('--burst-x', Math.cos(angle) * distance + 'px');
                 particle.style.setProperty('--burst-y', Math.sin(angle) * distance + 'px');
                 
                 document.body.appendChild(particle);
                 
-                setTimeout(() => particle.remove(), 1500);
+                setTimeout(() => particle.remove(), 2000);
             }
         }
 
@@ -1342,20 +1561,78 @@
             return Math.floor(diffInSeconds / 86400) + 'd';
         }
 
-        // Add dynamic CSS animations
-        const dynamicStyles = document.createElement('style');
-        dynamicStyles.textContent = `
-            @keyframes shootingStar {
+        // Add enhanced CSS animations and center profile effects
+        const enhancedStyles = document.createElement('style');
+        enhancedStyles.textContent = `
+            /* CENTER PROFILE SPECIAL EFFECTS */
+            .center-profile {
+                animation: centerProfileFloat 20s ease-in-out infinite, profileMaterialize 3s ease-out forwards;
+                border: 3px solid rgba(52, 211, 153, 0.8) !important;
+                box-shadow: 
+                    0 0 100px rgba(52, 211, 153, 0.6),
+                    0 0 200px rgba(34, 197, 94, 0.4),
+                    inset 0 0 50px rgba(52, 211, 153, 0.2) !important;
+            }
+
+            .center-glow {
+                animation: centerGlow 4s ease-in-out infinite;
+            }
+
+            @keyframes centerProfileFloat {
+                0%, 100% { 
+                    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                }
+                25% { 
+                    transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
+                }
+                50% { 
+                    transform: translate(-50%, -50%) scale(1.05) rotate(0deg);
+                }
+                75% { 
+                    transform: translate(-50%, -50%) scale(1.15) rotate(-5deg);
+                }
+            }
+
+            @keyframes centerGlow {
+                0%, 100% { 
+                    color: #34d399;
+                    text-shadow: 0 0 20px rgba(52, 211, 153, 0.8);
+                }
+                50% { 
+                    color: #ffffff;
+                    text-shadow: 0 0 40px rgba(255, 255, 255, 1);
+                }
+            }
+
+            @keyframes enhancedParticleBurst {
                 0% { 
-                    left: -100px; 
+                    transform: translate(0, 0) scale(1) rotate(0deg);
+                    opacity: 1;
+                }
+                100% { 
+                    transform: translate(var(--burst-x), var(--burst-y)) scale(0) rotate(360deg);
                     opacity: 0;
                 }
-                20% { 
+            }
+
+            @keyframes shootingStar {
+                0% { 
+                    left: -150px; 
+                    opacity: 0;
+                    transform: scale(1);
+                }
+                10% { 
                     opacity: 1;
+                    transform: scale(1.2);
+                }
+                90% { 
+                    opacity: 1;
+                    transform: scale(1);
                 }
                 100% { 
                     left: 100vw; 
                     opacity: 0;
+                    transform: scale(0.8);
                 }
             }
             
@@ -1371,7 +1648,7 @@
                     opacity: 1;
                 }
                 100% { 
-                    transform: translate(100px, -50px) rotate(360deg);
+                    transform: translate(150px, -80px) rotate(720deg);
                     opacity: 0;
                 }
             }
@@ -1389,11 +1666,11 @@
             
             @keyframes celebrationBurst {
                 0% { 
-                    transform: translate(0, 0) scale(1);
+                    transform: translate(0, 0) scale(1) rotate(0deg);
                     opacity: 1;
                 }
                 100% { 
-                    transform: translate(var(--burst-x), var(--burst-y)) scale(0);
+                    transform: translate(var(--burst-x), var(--burst-y)) scale(0) rotate(720deg);
                     opacity: 0;
                 }
             }
@@ -1401,7 +1678,26 @@
             @keyframes cosmicSuccess {
                 0% { 
                     opacity: 0; 
-                    transform: translate(-50%, -50%) scale(0.5);
+                    transform: translate(-50%, -50%) scale(0.3) rotate(-180deg);
+                }
+                20% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1.3) rotate(0deg);
+                }
+                80% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1) rotate(180deg);
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.5) rotate(360deg);
+                }
+            }
+            
+            @keyframes errorPulse {
+                0% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.8);
                 }
                 20% { 
                     opacity: 1; 
@@ -1413,45 +1709,79 @@
                 }
                 100% { 
                     opacity: 0; 
-                    transform: translate(-50%, -50%) scale(0.8);
-                }
-            }
-            
-            @keyframes errorPulse {
-                0% { 
-                    opacity: 0; 
-                    transform: translate(-50%, -50%) scale(0.8);
-                }
-                20% { 
-                    opacity: 1; 
-                    transform: translate(-50%, -50%) scale(1.1);
-                }
-                80% { 
-                    opacity: 1; 
-                    transform: translate(-50%, -50%) scale(1);
-                }
-                100% { 
-                    opacity: 0; 
-                    transform: translate(-50%, -50%) scale(0.9);
+                    transform: translate(-50%, -50%) scale(0.7);
                 }
             }
             
             @keyframes refreshPulse {
                 0% { 
                     opacity: 0; 
-                    transform: translateX(-50%) scale(0.8);
+                    transform: translateX(-50%) scale(0.5) rotate(-90deg);
                 }
-                50% { 
+                30% { 
                     opacity: 1; 
-                    transform: translateX(-50%) scale(1.1);
+                    transform: translateX(-50%) scale(1.2) rotate(0deg);
+                }
+                70% { 
+                    opacity: 1; 
+                    transform: translateX(-50%) scale(1) rotate(90deg);
                 }
                 100% { 
                     opacity: 0; 
-                    transform: translateX(-50%) scale(1);
+                    transform: translateX(-50%) scale(0.8) rotate(180deg);
+                }
+            }
+
+            /* RESPONSIVE UPDATES FOR LARGER FRAME */
+            @media (max-width: 768px) {
+                .space-frame {
+                    width: 98vw;
+                    height: 75vh;
+                    border-radius: 25px;
+                    border-width: 3px;
+                }
+                
+                .cosmic-profile {
+                    width: 130px;
+                    height: 170px;
+                    padding: 1rem;
+                }
+                
+                .profile-avatar {
+                    width: 60px;
+                    height: 60px;
+                }
+                
+                .seismic-logo-orb {
+                    width: 70px;
+                    height: 70px;
+                }
+                
+                .seismic-title {
+                    font-size: 2.8rem;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .space-frame {
+                    width: 99vw;
+                    height: 70vh;
+                    border-radius: 20px;
+                }
+                
+                .cosmic-profile {
+                    width: 110px;
+                    height: 150px;
+                    padding: 0.8rem;
+                }
+                
+                .profile-avatar {
+                    width: 50px;
+                    height: 50px;
                 }
             }
         `;
-        document.head.appendChild(dynamicStyles);
+        document.head.appendChild(enhancedStyles);
 
         // Auto-refresh every 4 minutes when connected
         setInterval(() => {
