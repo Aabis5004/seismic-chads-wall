@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seismic Wall</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@300;400;700;900&family=Exo+2:wght@300;400;700;900&display=swap');
         
         * {
             margin: 0;
@@ -14,295 +14,715 @@
         }
 
         body {
-            font-family: 'Orbitron', monospace;
-            background: linear-gradient(135deg, #0a0f14 0%, #1a2332 50%, #0f1419 100%);
+            font-family: 'Exo 2', 'Orbitron', monospace;
+            background: #000000;
             color: #ffffff;
             overflow-x: hidden;
+            overflow-y: auto;
             min-height: 100vh;
+            position: relative;
         }
 
-        /* Clean Space Background */
-        .space-bg {
+        /* ULTIMATE INTERSTELLAR SPACE BACKGROUND */
+        .interstellar-space {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: -20;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(52, 211, 153, 0.08) 0%, transparent 40%);
+                radial-gradient(ellipse at 25% 25%, rgba(16, 23, 42, 0.9) 0%, transparent 60%),
+                radial-gradient(ellipse at 75% 75%, rgba(30, 41, 59, 0.8) 0%, transparent 70%),
+                radial-gradient(ellipse at 50% 10%, rgba(34, 197, 94, 0.15) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 30%, rgba(52, 211, 153, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 70%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
+                radial-gradient(ellipse at 60% 90%, rgba(34, 197, 94, 0.1) 0%, transparent 35%),
+                linear-gradient(135deg, #000000 0%, #0a0f1a 15%, #1a1a2e 30%, #16213e 45%, #0f1419 60%, #1a2332 75%, #000000 100%);
         }
 
-        /* Simple Stars */
-        .stars {
+        /* MASSIVE NEBULA SYSTEM */
+        .nebula-system {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: -18;
+            pointer-events: none;
+        }
+
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.4;
+            animation: nebulaEvolution 25s ease-in-out infinite;
+        }
+
+        .nebula:nth-child(1) {
+            width: 1000px;
+            height: 600px;
+            background: radial-gradient(ellipse, rgba(34, 197, 94, 0.5) 0%, rgba(16, 185, 129, 0.3) 40%, transparent 100%);
+            top: -10%;
+            left: -20%;
+            animation-delay: 0s;
+        }
+
+        .nebula:nth-child(2) {
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(52, 211, 153, 0.4) 0%, rgba(34, 197, 94, 0.2) 50%, transparent 100%);
+            top: 30%;
+            right: -30%;
+            animation-delay: -8s;
+        }
+
+        .nebula:nth-child(3) {
+            width: 900px;
+            height: 500px;
+            background: radial-gradient(ellipse, rgba(16, 185, 129, 0.35) 0%, rgba(52, 211, 153, 0.15) 60%, transparent 100%);
+            bottom: -20%;
+            left: 10%;
+            animation-delay: -16s;
+        }
+
+        .nebula:nth-child(4) {
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.3) 0%, rgba(16, 185, 129, 0.1) 60%, transparent 100%);
+            top: 50%;
+            left: 30%;
+            animation-delay: -4s;
+        }
+
+        .nebula:nth-child(5) {
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(ellipse, rgba(52, 211, 153, 0.25) 0%, rgba(34, 197, 94, 0.08) 50%, transparent 100%);
+            top: 10%;
+            right: 10%;
+            animation-delay: -12s;
+        }
+
+        @keyframes nebulaEvolution {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg) translateX(0) translateY(0);
+                opacity: 0.3;
+            }
+            20% { 
+                transform: scale(1.4) rotate(72deg) translateX(100px) translateY(-50px);
+                opacity: 0.6;
+            }
+            40% { 
+                transform: scale(0.9) rotate(144deg) translateX(50px) translateY(100px);
+                opacity: 0.4;
+            }
+            60% { 
+                transform: scale(1.2) rotate(216deg) translateX(-80px) translateY(30px);
+                opacity: 0.7;
+            }
+            80% { 
+                transform: scale(1.1) rotate(288deg) translateX(-30px) translateY(-80px);
+                opacity: 0.5;
+            }
+        }
+
+        /* MASSIVE INTERSTELLAR STAR FIELD */
+        .star-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -15;
             pointer-events: none;
         }
 
         .star {
             position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: starPulse 4s ease-in-out infinite;
+        }
+
+        .star.micro {
+            width: 1px;
+            height: 1px;
+            opacity: 0.4;
+        }
+
+        .star.tiny {
             width: 2px;
             height: 2px;
             background: #34d399;
-            border-radius: 50%;
+            box-shadow: 0 0 4px #34d399;
             opacity: 0.6;
-            animation: twinkle 3s ease-in-out infinite;
         }
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
+        .star.small {
+            width: 3px;
+            height: 3px;
+            background: #10b981;
+            box-shadow: 0 0 8px #10b981;
+            opacity: 0.8;
         }
 
-        /* Header */
+        .star.medium {
+            width: 4px;
+            height: 4px;
+            background: #ffffff;
+            box-shadow: 0 0 12px #ffffff;
+            opacity: 1;
+        }
+
+        .star.large {
+            width: 5px;
+            height: 5px;
+            background: #34d399;
+            box-shadow: 0 0 16px #34d399, 0 0 32px rgba(52, 211, 153, 0.5);
+            opacity: 1;
+        }
+
+        @keyframes starPulse {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(2);
+            }
+        }
+
+        /* COSMIC ENERGY WAVES */
+        .energy-system {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -12;
+            pointer-events: none;
+        }
+
+        .energy-ring {
+            position: absolute;
+            border: 2px solid rgba(52, 211, 153, 0.3);
+            border-radius: 50%;
+            animation: energyExpand 12s ease-out infinite;
+        }
+
+        .energy-ring:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 15%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .energy-ring:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            top: 60%;
+            right: 15%;
+            animation-delay: -4s;
+        }
+
+        .energy-ring:nth-child(3) {
+            width: 350px;
+            height: 350px;
+            bottom: 25%;
+            left: 35%;
+            animation-delay: -8s;
+        }
+
+        .energy-ring:nth-child(4) {
+            width: 250px;
+            height: 250px;
+            top: 35%;
+            right: 35%;
+            animation-delay: -2s;
+        }
+
+        @keyframes energyExpand {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+                border-color: rgba(52, 211, 153, 0);
+            }
+            30% {
+                transform: scale(1.5);
+                opacity: 0.8;
+                border-color: rgba(52, 211, 153, 0.9);
+            }
+            70% {
+                transform: scale(3);
+                opacity: 0.4;
+                border-color: rgba(34, 197, 94, 0.6);
+            }
+            100% {
+                transform: scale(5);
+                opacity: 0;
+                border-color: rgba(52, 211, 153, 0);
+            }
+        }
+
+        /* HEADER */
         .header {
-            text-align: center;
-            padding: 2rem 0 1rem 0;
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(52, 211, 153, 0.3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(52, 211, 153, 0.4);
+            padding: 1.5rem 0;
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 2rem;
         }
 
         .logo-title {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 1.5rem;
+            gap: 2rem;
         }
 
-        .logo {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(45deg, #34d399, #10b981);
+        .seismic-logo {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(45deg, #34d399, #10b981, #059669);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            color: #000;
             font-weight: 900;
-            animation: logoSpin 15s linear infinite;
-            box-shadow: 0 0 30px rgba(52, 211, 153, 0.5);
+            font-size: 2.2rem;
+            color: #000;
+            animation: logoMegaOrbit 30s linear infinite;
+            box-shadow: 
+                0 0 80px rgba(52, 211, 153, 1.2),
+                0 0 160px rgba(34, 197, 94, 0.8),
+                inset 0 0 40px rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
-        .logo img {
+        .seismic-logo::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            border: 3px solid rgba(52, 211, 153, 0.5);
+            border-radius: 50%;
+            animation: logoRingMega 25s linear infinite reverse;
+        }
+
+        .seismic-logo::after {
+            content: '';
+            position: absolute;
+            top: -35px;
+            left: -35px;
+            right: -35px;
+            bottom: -35px;
+            border: 2px solid rgba(34, 197, 94, 0.3);
+            border-radius: 50%;
+            border-top-color: rgba(52, 211, 153, 0.8);
+            animation: logoRingMega 35s linear infinite;
+        }
+
+        .seismic-logo img {
             width: 100%;
             height: 100%;
             object-fit: contain;
             border-radius: 50%;
         }
 
-        @keyframes logoSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes logoMegaOrbit {
+            0% { 
+                transform: rotate(0deg) scale(1);
+                box-shadow: 0 0 80px rgba(52, 211, 153, 1.2), 0 0 160px rgba(34, 197, 94, 0.8);
+            }
+            25% { 
+                transform: rotate(90deg) scale(1.2);
+                box-shadow: 0 0 120px rgba(34, 197, 94, 1.5), 0 0 200px rgba(16, 185, 129, 1);
+            }
+            50% { 
+                transform: rotate(180deg) scale(1.4);
+                box-shadow: 0 0 160px rgba(16, 185, 129, 1.8), 0 0 240px rgba(52, 211, 153, 1.2);
+            }
+            75% { 
+                transform: rotate(270deg) scale(1.2);
+                box-shadow: 0 0 120px rgba(34, 197, 94, 1.5), 0 0 200px rgba(16, 185, 129, 1);
+            }
+            100% { 
+                transform: rotate(360deg) scale(1);
+                box-shadow: 0 0 80px rgba(52, 211, 153, 1.2), 0 0 160px rgba(34, 197, 94, 0.8);
+            }
+        }
+
+        @keyframes logoRingMega {
+            0% { transform: rotate(0deg) scale(1); }
+            33% { transform: rotate(120deg) scale(1.15); }
+            66% { transform: rotate(240deg) scale(0.9); }
+            100% { transform: rotate(360deg) scale(1); }
         }
 
         .title {
-            font-size: 3rem;
+            font-size: 4rem;
             font-weight: 900;
-            background: linear-gradient(45deg, #ffffff, #34d399, #10b981);
-            background-size: 200% 200%;
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(45deg, #ffffff, #34d399, #10b981, #ffffff, #34d399);
+            background-size: 400% 400%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: shimmer 3s ease-in-out infinite;
+            animation: titleMegaShimmer 4s ease-in-out infinite;
+            text-shadow: 
+                0 0 30px rgba(52, 211, 153, 0.8),
+                0 0 60px rgba(34, 197, 94, 0.6),
+                0 0 90px rgba(16, 185, 129, 0.4);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            position: relative;
         }
 
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        .title::before {
+            content: 'SEISMIC WALL';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: lightningStrike 5s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes titleMegaShimmer {
+            0%, 100% { 
+                background-position: 0% 50%;
+                filter: brightness(1);
+            }
+            50% { 
+                background-position: 100% 50%;
+                filter: brightness(1.8) drop-shadow(0 0 50px rgba(52, 211, 153, 1.5));
+            }
+        }
+
+        @keyframes lightningStrike {
+            0%, 85%, 100% { 
+                opacity: 0;
+                background-position: -300% 50%;
+            }
+            90%, 95% { 
+                opacity: 1;
+                background-position: 300% 50%;
+            }
         }
 
         .subtitle {
-            font-size: 1rem;
+            font-size: 1.4rem;
             color: #34d399;
-            margin-top: 0.5rem;
-            opacity: 0.8;
+            opacity: 0.9;
+            margin-top: 1rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            animation: subtitleGlow 6s ease-in-out infinite;
         }
 
-        /* Connection Status */
-        .status {
+        @keyframes subtitleGlow {
+            0%, 100% { 
+                text-shadow: 0 0 25px rgba(52, 211, 153, 0.6);
+                color: #34d399;
+            }
+            50% { 
+                text-shadow: 0 0 50px rgba(255, 255, 255, 1);
+                color: #ffffff;
+            }
+        }
+
+        /* CONTROLS */
+        .controls {
             position: fixed;
-            top: 20px;
-            left: 20px;
-            padding: 0.5rem 1rem;
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid #34d399;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            font-size: 0.8rem;
-            z-index: 1000;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            gap: 1rem;
+            z-index: 1001;
+        }
+
+        .control-orb {
+            width: 65px;
+            height: 65px;
+            background: rgba(52, 211, 153, 0.2);
+            border: 3px solid rgba(52, 211, 153, 0.6);
+            border-radius: 50%;
+            color: #34d399;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 40px rgba(52, 211, 153, 0.4);
+            animation: orbFloat 8s ease-in-out infinite;
+        }
+
+        .control-orb:hover {
+            background: rgba(52, 211, 153, 0.5);
+            transform: scale(1.2) translateY(-5px);
+            box-shadow: 0 25px 60px rgba(52, 211, 153, 0.7);
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(5deg); }
+            66% { transform: translateY(-8px) rotate(-3deg); }
+        }
+
+        /* CONNECTION STATUS */
+        .connection-status {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            padding: 1rem 2rem;
+            background: rgba(0, 0, 0, 0.8);
+            border: 3px solid #34d399;
+            border-radius: 35px;
+            backdrop-filter: blur(20px);
+            font-size: 1rem;
+            z-index: 1001;
+            box-shadow: 0 20px 50px rgba(52, 211, 153, 0.4);
+            animation: statusPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { 
+                box-shadow: 0 20px 50px rgba(52, 211, 153, 0.4);
+                border-color: rgba(52, 211, 153, 0.8);
+            }
+            50% { 
+                box-shadow: 0 30px 70px rgba(34, 197, 94, 0.6);
+                border-color: rgba(34, 197, 94, 1);
+            }
         }
 
         .status-dot {
             display: inline-block;
-            width: 8px;
-            height: 8px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            margin-right: 8px;
-            animation: pulse 2s infinite;
+            margin-right: 12px;
+            animation: statusBlink 3s infinite;
         }
 
         .connected { background: #34d399; }
         .disconnected { background: #ef4444; }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        @keyframes statusBlink {
+            0%, 100% { 
+                opacity: 1; 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.7; 
+                transform: scale(1.4);
+            }
         }
 
-        /* Controls */
-        .controls {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-            z-index: 1000;
-        }
-
-        .control-btn {
-            width: 45px;
-            height: 45px;
-            background: rgba(52, 211, 153, 0.2);
-            border: 1px solid #34d399;
-            border-radius: 50%;
-            color: #34d399;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .control-btn:hover {
-            background: rgba(52, 211, 153, 0.4);
-            transform: scale(1.1);
-        }
-
-        /* Main Container */
+        /* MAIN CONTAINER */
         .main-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
+            margin-top: 180px;
+            min-height: calc(100vh - 180px);
+            padding: 3rem;
+            max-width: 2000px;
+            margin-left: auto;
+            margin-right: auto;
             position: relative;
         }
 
-        /* Wall Frame */
-        .wall-frame {
+        /* INTERSTELLAR HIERARCHY POSITIONING */
+        .hierarchy-space {
             position: relative;
             width: 100%;
-            min-height: 70vh;
-            background: rgba(0, 0, 0, 0.1);
-            border: 2px solid rgba(52, 211, 153, 0.4);
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-            padding: 2rem;
-            overflow: visible;
+            min-height: 90vh;
+            padding: 4rem;
         }
 
-        /* Profile Grid */
-        .profile-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.5rem;
-            position: relative;
-        }
-
-        /* Center Profile (Lyron) */
-        .center-profile {
+        /* FOUNDER (LYRON) - CENTER */
+        .founder-profile {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 100;
-            width: 200px;
-            height: 240px;
-            background: rgba(52, 211, 153, 0.15);
-            border: 3px solid rgba(52, 211, 153, 0.8);
-            border-radius: 20px;
-            padding: 1.5rem;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 0 50px rgba(52, 211, 153, 0.4);
-            animation: centerFloat 8s ease-in-out infinite;
+            width: 280px;
+            height: 340px;
+            background: rgba(255, 215, 0, 0.15);
+            border: 4px solid rgba(255, 215, 0, 0.8);
+            border-radius: 25px;
+            padding: 2rem;
+            backdrop-filter: blur(30px);
+            box-shadow: 
+                0 0 100px rgba(255, 215, 0, 0.6),
+                0 0 200px rgba(255, 215, 0, 0.3);
+            z-index: 300;
+            animation: founderGlow 6s ease-in-out infinite;
         }
 
-        @keyframes centerFloat {
+        @keyframes founderGlow {
             0%, 100% { 
                 transform: translate(-50%, -50%) scale(1);
+                box-shadow: 0 0 100px rgba(255, 215, 0, 0.6), 0 0 200px rgba(255, 215, 0, 0.3);
             }
             50% { 
-                transform: translate(-50%, -50%) scale(1.05);
+                transform: translate(-50%, -50%) scale(1.08);
+                box-shadow: 0 0 150px rgba(255, 215, 0, 0.9), 0 0 300px rgba(255, 215, 0, 0.5);
             }
         }
 
-        /* Floating Profiles */
-        .floating-profile {
-            width: 180px;
-            height: 220px;
-            background: rgba(52, 211, 153, 0.08);
-            border: 2px solid rgba(52, 211, 153, 0.3);
-            border-radius: 15px;
-            padding: 1.2rem;
-            backdrop-filter: blur(15px);
-            transition: all 0.4s ease;
-            cursor: pointer;
-            animation: simpleFloat 6s ease-in-out infinite;
-            position: relative;
+        /* MODERATORS - NEAR CENTER */
+        .moderator-profile {
+            position: absolute;
+            width: 220px;
+            height: 280px;
+            background: rgba(138, 43, 226, 0.12);
+            border: 3px solid rgba(138, 43, 226, 0.7);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(25px);
+            box-shadow: 
+                0 0 60px rgba(138, 43, 226, 0.4),
+                0 0 120px rgba(138, 43, 226, 0.2);
+            z-index: 200;
+            animation: moderatorFloat 8s ease-in-out infinite;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .floating-profile:nth-child(odd) {
+        /* Position moderators around founder */
+        .moderator-profile:nth-of-type(1) {
+            top: 20%;
+            left: 25%;
             animation-delay: 0s;
         }
 
-        .floating-profile:nth-child(even) {
-            animation-delay: 3s;
+        .moderator-profile:nth-of-type(2) {
+            top: 20%;
+            right: 25%;
+            animation-delay: -4s;
         }
 
-        @keyframes simpleFloat {
+        .moderator-profile:nth-of-type(3) {
+            bottom: 20%;
+            left: 30%;
+            animation-delay: -2s;
+        }
+
+        @keyframes moderatorFloat {
             0%, 100% { 
-                transform: translateY(0);
+                transform: translateY(0) rotate(0deg) scale(1);
             }
-            50% { 
-                transform: translateY(-15px);
+            33% { 
+                transform: translateY(-25px) rotate(2deg) scale(1.04);
+            }
+            66% { 
+                transform: translateY(-10px) rotate(-1deg) scale(0.98);
             }
         }
 
-        .floating-profile:hover {
-            transform: translateY(-10px) scale(1.05);
-            border-color: #34d399;
-            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
+        /* COMMUNITY MEMBERS - CHAIN ANIMATION */
+        .community-profile {
+            position: absolute;
+            width: 180px;
+            height: 220px;
+            background: rgba(52, 211, 153, 0.08);
+            border: 2px solid rgba(52, 211, 153, 0.4);
+            border-radius: 18px;
+            padding: 1.2rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 
+                0 30px 100px rgba(52, 211, 153, 0.25),
+                0 15px 50px rgba(34, 197, 94, 0.15);
+            z-index: 100;
+            animation: chainAnimation 12s ease-in-out infinite;
+            opacity: 0;
+            transform: scale(0.3) translateY(100px);
         }
 
-        /* Profile Avatar */
+        /* Staggered chain animation for community members */
+        .community-profile:nth-of-type(1) { animation-delay: 0s; }
+        .community-profile:nth-of-type(2) { animation-delay: -2s; }
+        .community-profile:nth-of-type(3) { animation-delay: -4s; }
+        .community-profile:nth-of-type(4) { animation-delay: -6s; }
+        .community-profile:nth-of-type(5) { animation-delay: -8s; }
+        .community-profile:nth-of-type(6) { animation-delay: -10s; }
+
+        @keyframes chainAnimation {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) translateY(100px) rotate(45deg);
+            }
+            15% {
+                opacity: 1;
+                transform: scale(1) translateY(0) rotate(0deg);
+            }
+            85% {
+                opacity: 1;
+                transform: scale(1) translateY(-20px) rotate(2deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.3) translateY(-100px) rotate(-45deg);
+            }
+        }
+
+        /* PROFILE COMPONENTS */
         .profile-avatar {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             background: linear-gradient(45deg, #34d399, #10b981);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             color: #000;
-            margin: 0 auto 1rem auto;
+            margin: 0 auto 1.5rem auto;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(52, 211, 153, 0.4);
+            box-shadow: 0 0 30px rgba(52, 211, 153, 0.6);
+            animation: avatarOrbit 10s linear infinite;
         }
 
-        .center-profile .profile-avatar {
-            width: 100px;
-            height: 100px;
-            font-size: 1.5rem;
+        .founder-profile .profile-avatar {
+            width: 130px;
+            height: 130px;
+            font-size: 2rem;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.8);
+        }
+
+        .moderator-profile .profile-avatar {
+            width: 110px;
+            height: 110px;
+            font-size: 1.7rem;
+            background: linear-gradient(45deg, #8A2BE2, #9932CC);
+            box-shadow: 0 0 40px rgba(138, 43, 226, 0.6);
         }
 
         .profile-avatar img {
@@ -312,248 +732,381 @@
             border-radius: 50%;
         }
 
-        /* Profile Info */
+        @keyframes avatarOrbit {
+            0% { 
+                transform: rotateY(0deg);
+            }
+            100% { 
+                transform: rotateY(360deg);
+            }
+        }
+
         .profile-handle {
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: bold;
             color: #34d399;
             text-align: center;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
             word-break: break-word;
+            text-shadow: 0 0 20px rgba(52, 211, 153, 0.6);
         }
 
-        .center-profile .profile-handle {
-            font-size: 1.2rem;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(52, 211, 153, 0.8);
+        .founder-profile .profile-handle {
+            font-size: 1.6rem;
+            color: #FFD700;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+        }
+
+        .moderator-profile .profile-handle {
+            font-size: 1.4rem;
+            color: #8A2BE2;
+            text-shadow: 0 0 25px rgba(138, 43, 226, 0.7);
+        }
+
+        .profile-role {
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .founder-role {
+            background: rgba(255, 215, 0, 0.2);
+            color: #FFD700;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+        }
+
+        .moderator-role {
+            background: rgba(138, 43, 226, 0.2);
+            color: #8A2BE2;
+            border: 1px solid rgba(138, 43, 226, 0.5);
+        }
+
+        .community-role {
+            background: rgba(52, 211, 153, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(52, 211, 153, 0.4);
         }
 
         .profile-stats {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             text-align: center;
             opacity: 0.9;
-            line-height: 1.6;
+            line-height: 1.8;
         }
 
         .stat-line {
-            margin-bottom: 0.4rem;
-            padding: 0.25rem 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.4rem 0.8rem;
             background: rgba(52, 211, 153, 0.1);
-            border-radius: 8px;
-            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(52, 211, 153, 0.2);
         }
 
-        /* Blockchain Terms */
-        .blockchain-term {
-            color: #10b981;
-            font-weight: bold;
-        }
-
-        /* Submit Form */
-        .submit-section {
+        /* SUBMIT PORTAL */
+        .submit-portal {
             position: fixed;
-            bottom: 30px;
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
         }
 
-        .submit-form {
+        .portal-form {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
             background: rgba(0, 0, 0, 0.7);
+            padding: 1.5rem 3rem;
+            border-radius: 50px;
+            border: 3px solid rgba(52, 211, 153, 0.5);
+            backdrop-filter: blur(25px);
+            box-shadow: 0 25px 70px rgba(52, 211, 153, 0.4);
+            animation: portalPulse 5s ease-in-out infinite;
+        }
+
+        @keyframes portalPulse {
+            0%, 100% { 
+                box-shadow: 0 25px 70px rgba(52, 211, 153, 0.4);
+                border-color: rgba(52, 211, 153, 0.5);
+            }
+            50% { 
+                box-shadow: 0 35px 90px rgba(34, 197, 94, 0.6);
+                border-color: rgba(34, 197, 94, 0.8);
+            }
+        }
+
+        .portal-input {
             padding: 1rem 2rem;
-            border-radius: 25px;
-            border: 2px solid rgba(52, 211, 153, 0.4);
-            backdrop-filter: blur(15px);
-        }
-
-        .submit-input {
-            padding: 0.75rem 1.5rem;
             background: rgba(52, 211, 153, 0.1);
-            border: 2px solid rgba(52, 211, 153, 0.3);
-            border-radius: 20px;
+            border: 2px solid rgba(52, 211, 153, 0.4);
+            border-radius: 30px;
             color: #ffffff;
-            font-family: 'Orbitron', monospace;
-            font-size: 1rem;
-            min-width: 200px;
-            backdrop-filter: blur(10px);
+            font-family: 'Exo 2', monospace;
+            font-size: 1.2rem;
+            min-width: 250px;
+            backdrop-filter: blur(15px);
+            transition: all 0.5s ease;
         }
 
-        .submit-input::placeholder {
+        .portal-input::placeholder {
             color: rgba(52, 211, 153, 0.6);
         }
 
-        .submit-input:focus {
+        .portal-input:focus {
             outline: none;
             border-color: #34d399;
-            box-shadow: 0 0 20px rgba(52, 211, 153, 0.3);
+            box-shadow: 0 0 40px rgba(52, 211, 153, 0.6);
+            background: rgba(52, 211, 153, 0.2);
+            transform: scale(1.05);
         }
 
-        .submit-btn {
-            padding: 0.75rem 1.5rem;
+        .portal-btn {
+            padding: 1rem 2.5rem;
             background: linear-gradient(45deg, #34d399, #10b981);
             border: none;
-            border-radius: 20px;
+            border-radius: 30px;
             color: #000;
-            font-family: 'Orbitron', monospace;
+            font-family: 'Exo 2', monospace;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
             text-transform: uppercase;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
         }
 
-        .submit-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(52, 211, 153, 0.4);
+        .portal-btn:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 20px 50px rgba(52, 211, 153, 0.6);
+            background: linear-gradient(45deg, #10b981, #059669);
         }
 
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            opacity: 0.7;
-        }
-
-        .empty-state h3 {
-            font-size: 1.8rem;
-            color: #34d399;
-            margin-bottom: 1rem;
-        }
-
-        .empty-state p {
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-
-        /* Loading */
-        .loading {
+        /* LOADING */
+        .cosmic-loading {
             display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(52, 211, 153, 0.3);
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(52, 211, 153, 0.3);
             border-radius: 50%;
             border-top-color: #34d399;
-            animation: spin 1s ease-in-out infinite;
+            animation: cosmicSpin 1s ease-in-out infinite;
         }
 
-        @keyframes spin {
+        @keyframes cosmicSpin {
             to { transform: rotate(360deg); }
         }
 
-        /* Responsive Design */
+        /* EMPTY STATE */
+        .empty-void {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            opacity: 0.8;
+            z-index: 50;
+        }
+
+        .void-title {
+            font-size: 3rem;
+            color: #34d399;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            animation: voidPulse 6s ease-in-out infinite;
+            text-shadow: 0 0 40px rgba(52, 211, 153, 0.8);
+        }
+
+        .void-text {
+            font-size: 1.4rem;
+            color: #ffffff;
+            opacity: 0.9;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        @keyframes voidPulse {
+            0%, 100% { 
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.08);
+            }
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1200px) {
+            .founder-profile {
+                width: 240px;
+                height: 300px;
+            }
+            
+            .moderator-profile {
+                width: 190px;
+                height: 240px;
+            }
+            
+            .community-profile {
+                width: 160px;
+                height: 200px;
+            }
+        }
+
         @media (max-width: 768px) {
             .title {
-                font-size: 2rem;
+                font-size: 2.5rem;
+                letter-spacing: 4px;
             }
 
             .main-container {
-                padding: 1rem;
+                padding: 1.5rem;
+                margin-top: 160px;
             }
 
-            .wall-frame {
-                min-height: 60vh;
-                padding: 1rem;
+            .hierarchy-space {
+                padding: 2rem;
             }
 
-            .center-profile {
+            .founder-profile {
+                width: 200px;
+                height: 260px;
+                padding: 1.5rem;
+            }
+
+            .moderator-profile {
                 width: 160px;
                 height: 200px;
                 padding: 1rem;
             }
 
-            .floating-profile {
+            .community-profile {
                 width: 140px;
                 height: 180px;
                 padding: 1rem;
             }
 
-            .profile-grid {
-                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-                gap: 1rem;
-            }
-
-            .submit-form {
+            .portal-form {
                 flex-direction: column;
-                gap: 0.75rem;
-                padding: 1rem 1.5rem;
+                gap: 1rem;
+                padding: 1.5rem 2rem;
             }
 
-            .submit-input {
-                min-width: 180px;
+            .portal-input {
+                min-width: 200px;
+            }
+
+            .controls {
+                top: 15px;
+                right: 15px;
+                gap: 0.5rem;
+            }
+
+            .control-orb {
+                width: 50px;
+                height: 50px;
+                font-size: 1.4rem;
+            }
+
+            .connection-status {
+                top: 15px;
+                left: 15px;
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Clean Space Background -->
-    <div class="space-bg"></div>
+    <!-- ULTIMATE INTERSTELLAR SPACE BACKGROUND -->
+    <div class="interstellar-space"></div>
     
-    <!-- Simple Stars -->
-    <div class="stars" id="stars"></div>
+    <!-- MASSIVE NEBULA SYSTEM -->
+    <div class="nebula-system">
+        <div class="nebula"></div>
+        <div class="nebula"></div>
+        <div class="nebula"></div>
+        <div class="nebula"></div>
+        <div class="nebula"></div>
+    </div>
+    
+    <!-- MASSIVE INTERSTELLAR STAR FIELD -->
+    <div class="star-field" id="starField"></div>
+    
+    <!-- COSMIC ENERGY WAVES -->
+    <div class="energy-system">
+        <div class="energy-ring"></div>
+        <div class="energy-ring"></div>
+        <div class="energy-ring"></div>
+        <div class="energy-ring"></div>
+    </div>
 
-    <!-- Audio Element -->
+    <!-- AUDIO ELEMENT -->
     <audio id="backgroundMusic" loop>
         <source src="./seismic-music.mp3" type="audio/mpeg">
         <source src="./interstellar.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Connection Status -->
-    <div class="status">
-        <span class="status-dot disconnected" id="statusDot"></span>
-        <span id="statusText">💎 Demo Mode</span>
-    </div>
-
-    <!-- Controls -->
-    <div class="controls">
-        <button class="control-btn" onclick="refreshMembers()" title="Refresh">
-            🔄
-        </button>
-        <button class="control-btn" onclick="toggleMusic()" id="musicBtn" title="Music">
-            🎵
-        </button>
-    </div>
-
-    <!-- Header -->
+    <!-- HEADER -->
     <header class="header">
-        <div class="logo-title">
-            <div class="logo">
-                <img src="./seismic-logo.png" alt="S" onerror="this.innerHTML='S'">
-            </div>
-            <div>
-                <h1 class="title">SEISMIC WALL</h1>
-                <p class="subtitle">Encrypted Blockchain Community</p>
+        <div class="header-content">
+            <div class="logo-title">
+                <div class="seismic-logo">
+                    <img src="./seismic-logo.png" alt="S" onerror="this.innerHTML='S'">
+                </div>
+                <div>
+                    <h1 class="title">SEISMIC WALL</h1>
+                    <p class="subtitle">Encrypted Blockchain Universe</p>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Container -->
+    <!-- CONNECTION STATUS -->
+    <div class="connection-status">
+        <span class="status-dot disconnected" id="statusDot"></span>
+        <span id="statusText">💎 Demo Universe</span>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+        <button class="control-orb" onclick="refreshMembers()" title="Refresh Universe">
+            🔄
+        </button>
+        <button class="control-orb" onclick="toggleMusic()" id="musicOrb" title="Cosmic Audio">
+            🎵
+        </button>
+    </div>
+
+    <!-- MAIN CONTAINER -->
     <div class="main-container">
-        <!-- Wall Frame -->
-        <div class="wall-frame">
-            <div class="profile-grid" id="profileGrid">
-                <div class="empty-state" id="emptyState">
-                    <h3>Seismic Node Network</h3>
-                    <p>Add members to build the <span class="blockchain-term">decentralized community</span></p>
-                </div>
+        <!-- INTERSTELLAR HIERARCHY SPACE -->
+        <div class="hierarchy-space" id="hierarchySpace">
+            <div class="empty-void" id="emptyVoid">
+                <h3 class="void-title">Welcome to the Cosmic Hierarchy</h3>
+                <p class="void-text">Deploy nodes to build the <br><strong>decentralized blockchain community</strong></p>
             </div>
         </div>
     </div>
 
-    <!-- Submit Form -->
-    <div class="submit-section">
-        <form class="submit-form" onsubmit="addMember(event)">
+    <!-- SUBMIT PORTAL -->
+    <div class="submit-portal">
+        <form class="portal-form" onsubmit="addMember(event)">
             <input 
                 type="text" 
-                class="submit-input" 
+                class="portal-input" 
                 placeholder="@handle" 
                 id="usernameInput"
                 required
             >
-            <button type="submit" class="submit-btn">
-                <span id="submitButtonText">Deploy</span>
-                <span id="submitButtonLoading" class="loading" style="display: none;"></span>
+            <button type="submit" class="portal-btn">
+                <span id="submitButtonText">Deploy Node</span>
+                <span id="submitButtonLoading" class="cosmic-loading" style="display: none;"></span>
             </button>
         </form>
     </div>
@@ -568,38 +1121,56 @@
         // API Configuration
         const API_BASE = 'https://seismicwall.duckdns.org/api';
 
-        // Blockchain/Crypto terms for stats
-        const blockchainTerms = [
-            'Node Validator', 'Block Miner', 'DeFi Pioneer', 'NFT Creator', 
-            'Crypto Trader', 'Blockchain Dev', 'DAO Member', 'Hodler',
-            'Smart Contract', 'Yield Farmer', 'Liquidity Provider', 'Token Holder',
-            'Consensus Builder', 'Chain Explorer', 'Degen Trader', 'Alpha Hunter'
+        // Hierarchy definitions
+        const FOUNDER = ['lyronctk', 'lyron'];
+        const MODERATORS = ['noxx', 'xealist', 'heathcliff_eth'];
+
+        // Community member positions for chain animation
+        const communityPositions = [
+            { top: '10%', left: '15%' },
+            { top: '15%', right: '15%' },
+            { top: '30%', left: '8%' },
+            { top: '30%', right: '8%' },
+            { top: '70%', left: '8%' },
+            { top: '70%', right: '8%' },
+            { top: '85%', left: '15%' },
+            { top: '85%', right: '15%' },
+            { top: '50%', left: '5%' },
+            { top: '50%', right: '5%' },
+            { bottom: '15%', left: '35%' },
+            { bottom: '15%', right: '35%' }
         ];
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            createSimpleStars();
+            createMassiveStarField();
             checkConnection();
             fetchMembers();
             setupKeyboardShortcuts();
             
-            // Light music
+            // Auto-play cosmic music
             setTimeout(() => {
-                music.volume = 0.2;
-            }, 1000);
+                music.volume = 0.25;
+                toggleMusic();
+            }, 2000);
         });
 
-        // Create simple star field
-        function createSimpleStars() {
-            const container = document.getElementById('stars');
-            const starCount = 80; // Much less for performance
+        // Create massive interstellar star field
+        function createMassiveStarField() {
+            const container = document.getElementById('starField');
+            const starCount = 400;
+            const starTypes = ['micro', 'tiny', 'small', 'medium', 'large'];
             
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
-                star.className = 'star';
+                const starType = starTypes[Math.floor(Math.random() * starTypes.length)];
+                star.className = `star ${starType}`;
+                
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDelay = Math.random() * 4 + 's';
+                star.style.animationDuration = (Math.random() * 6 + 3) + 's';
+                
                 container.appendChild(star);
             }
         }
@@ -622,10 +1193,10 @@
             
             if (isConnected) {
                 statusDot.className = 'status-dot connected';
-                statusText.textContent = '🟢 Network Active';
+                statusText.textContent = '🟢 Cosmic Network Active';
             } else {
                 statusDot.className = 'status-dot disconnected';
-                statusText.textContent = '💎 Demo Mode';
+                statusText.textContent = '💎 Demo Universe';
             }
         }
 
@@ -634,83 +1205,115 @@
             try {
                 if (!isConnected) {
                     members = [];
-                    renderMembers();
+                    renderHierarchy();
                     return;
                 }
                 
                 const response = await fetch(`${API_BASE}/members`);
-                if (!response.ok) throw new Error('Failed to fetch');
+                if (!response.ok) throw new Error('Failed to fetch cosmic data');
                 
                 members = await response.json();
-                renderMembers();
+                renderHierarchy();
             } catch (error) {
-                console.error('Error fetching members:', error);
+                console.error('Error fetching cosmic members:', error);
                 members = [];
-                renderMembers();
+                renderHierarchy();
             }
         }
 
-        // Render members with Lyron in center
-        function renderMembers() {
-            const container = document.getElementById('profileGrid');
-            const emptyState = document.getElementById('emptyState');
+        // Render hierarchy with founder, moderators, and community
+        function renderHierarchy() {
+            const container = document.getElementById('hierarchySpace');
+            const emptyState = document.getElementById('emptyVoid');
             
             // Clear existing profiles
-            container.innerHTML = '';
+            const existingProfiles = container.querySelectorAll('.founder-profile, .moderator-profile, .community-profile');
+            existingProfiles.forEach(profile => profile.remove());
             
             if (members.length === 0) {
-                container.appendChild(emptyState);
+                emptyState.style.display = 'block';
                 return;
             }
 
-            // Sort members - Lyron first for center position
-            const sortedMembers = [...members].sort((a, b) => {
-                if (a.username.toLowerCase().includes('lyronctk') || a.username.toLowerCase().includes('lyron')) return -1;
-                if (b.username.toLowerCase().includes('lyronctk') || b.username.toLowerCase().includes('lyron')) return 1;
-                return 0;
+            emptyState.style.display = 'none';
+
+            // Categorize members
+            const founder = members.find(m => 
+                FOUNDER.some(f => m.username.toLowerCase().includes(f.toLowerCase()))
+            );
+            
+            const moderators = members.filter(m => 
+                MODERATORS.some(mod => m.username.toLowerCase().includes(mod.toLowerCase()))
+            );
+            
+            const community = members.filter(m => 
+                !FOUNDER.some(f => m.username.toLowerCase().includes(f.toLowerCase())) &&
+                !MODERATORS.some(mod => m.username.toLowerCase().includes(mod.toLowerCase()))
+            );
+
+            // Render founder (center)
+            if (founder) {
+                const founderProfile = createProfile(founder, 'founder');
+                container.appendChild(founderProfile);
+            }
+
+            // Render moderators (around founder)
+            moderators.forEach((moderator, index) => {
+                const moderatorProfile = createProfile(moderator, 'moderator');
+                container.appendChild(moderatorProfile);
             });
 
-            let centerProfileCreated = false;
-
-            sortedMembers.forEach((member, index) => {
-                const profile = document.createElement('div');
+            // Render community members with chain animation
+            community.forEach((member, index) => {
+                const communityProfile = createProfile(member, 'community', index);
+                const position = communityPositions[index % communityPositions.length];
                 
-                // Check if this should be the center profile (Lyron)
-                const isLyron = member.username.toLowerCase().includes('lyronctk') || member.username.toLowerCase().includes('lyron');
+                // Set position
+                Object.keys(position).forEach(key => {
+                    communityProfile.style[key] = position[key];
+                });
                 
-                if (isLyron && !centerProfileCreated) {
-                    // Create center profile for Lyron
-                    profile.className = 'center-profile';
-                    centerProfileCreated = true;
-                } else {
-                    // Create floating profile for others
-                    profile.className = 'floating-profile';
-                }
-                
-                // Get random blockchain term
-                const randomTerm = blockchainTerms[Math.floor(Math.random() * blockchainTerms.length)];
-                
-                profile.innerHTML = `
-                    <div class="profile-avatar">
-                        ${member.profileImage ? 
-                            `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
-                            getInitials(member.displayName)
-                        }
-                    </div>
-                    <div class="profile-handle">${member.username}</div>
-                    <div class="profile-stats">
-                        <div class="stat-line">🔗 ${formatNumber(member.followers || 0)} Nodes</div>
-                        <div class="stat-line">${member.verified ? '✅ Verified' : '⭕ Pending'}</div>
-                        <div class="stat-line">🎯 <span class="blockchain-term">${randomTerm}</span></div>
-                        <div class="stat-line">⏰ ${timeAgo(member.createdAt)} ago</div>
-                    </div>
-                `;
-                
-                container.appendChild(profile);
+                container.appendChild(communityProfile);
             });
         }
 
-        // Add new member
+        // Create profile element based on role
+        function createProfile(member, role, index = 0) {
+            const profile = document.createElement('div');
+            profile.className = `${role}-profile`;
+            
+            const roleText = {
+                founder: '👑 FOUNDER',
+                moderator: '⚡ MODERATOR',
+                community: '🔗 NODE'
+            };
+
+            const roleClass = {
+                founder: 'founder-role',
+                moderator: 'moderator-role',
+                community: 'community-role'
+            };
+
+            profile.innerHTML = `
+                <div class="profile-avatar">
+                    ${member.profileImage ? 
+                        `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
+                        getInitials(member.displayName)
+                    }
+                </div>
+                <div class="profile-handle">${member.username}</div>
+                <div class="profile-role ${roleClass[role]}">${roleText[role]}</div>
+                <div class="profile-stats">
+                    <div class="stat-line">🔗 ${formatNumber(member.followers || 0)} Connections</div>
+                    <div class="stat-line">${member.verified ? '✅ Verified Node' : '⭕ Pending Verification'}</div>
+                    <div class="stat-line">⏰ ${timeAgo(member.createdAt)} in network</div>
+                </div>
+            `;
+
+            return profile;
+        }
+
+        // Add new member with cosmic effects
         async function addMember(event) {
             event.preventDefault();
             
@@ -719,7 +1322,7 @@
             
             if (!username) return;
             
-            // Show loading state
+            // Show cosmic loading state
             const buttonText = document.getElementById('submitButtonText');
             const buttonLoading = document.getElementById('submitButtonLoading');
             buttonText.style.display = 'none';
@@ -727,7 +1330,7 @@
             
             try {
                 if (!isConnected) {
-                    throw new Error('Network disconnected - Check blockchain connection');
+                    throw new Error('Cosmic network offline - Check blockchain connection');
                 }
                 
                 const response = await fetch(`${API_BASE}/members`, {
@@ -740,19 +1343,19 @@
                 
                 if (!response.ok) {
                     const error = await response.json();
-                    throw new Error(error.error || 'Failed to deploy to network');
+                    throw new Error(error.error || 'Failed to deploy node to cosmic network');
                 }
                 
                 // Clear input and refresh
                 input.value = '';
                 await fetchMembers();
                 
-                // Show success
-                showSuccess('Node successfully deployed to network!');
+                // Show epic success effect
+                showCosmicSuccess();
                 
             } catch (error) {
-                console.error('Error adding member:', error);
-                showError(error.message);
+                console.error('Error deploying node:', error);
+                showCosmicError(error.message);
             } finally {
                 // Reset button state
                 buttonText.style.display = 'inline-block';
@@ -760,46 +1363,89 @@
             }
         }
 
-        // Show success message
-        function showSuccess(message) {
-            const successDiv = document.createElement('div');
-            successDiv.innerHTML = `✅ ${message}`;
-            successDiv.style.cssText = `
+        // Show cosmic success
+        function showCosmicSuccess() {
+            const successEffect = document.createElement('div');
+            successEffect.innerHTML = '🚀 Node Successfully Deployed to Cosmic Network! ✨';
+            successEffect.style.cssText = `
                 position: fixed;
-                top: 30%;
+                top: 25%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                background: rgba(52, 211, 153, 0.9);
+                background: linear-gradient(45deg, rgba(52, 211, 153, 0.95), rgba(34, 197, 94, 0.95));
                 color: #000;
-                padding: 1rem 2rem;
-                border-radius: 25px;
+                padding: 2rem 4rem;
+                border-radius: 50px;
                 font-weight: bold;
+                font-size: 1.6rem;
                 z-index: 10000;
-                animation: fadeInOut 3s ease-out forwards;
+                animation: cosmicSuccessAnimation 5s ease-out forwards;
+                box-shadow: 0 0 100px rgba(52, 211, 153, 1);
+                text-align: center;
+                border: 3px solid rgba(255, 255, 255, 0.6);
             `;
-            document.body.appendChild(successDiv);
-            setTimeout(() => successDiv.remove(), 3000);
+            
+            document.body.appendChild(successEffect);
+            
+            // Create celebration explosion
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => createCosmicCelebrationParticle(), i * 150);
+            }
+            
+            setTimeout(() => successEffect.remove(), 5000);
         }
 
-        // Show error message
-        function showError(message) {
-            const errorDiv = document.createElement('div');
-            errorDiv.innerHTML = `⚠️ ${message}`;
-            errorDiv.style.cssText = `
+        // Show cosmic error
+        function showCosmicError(message) {
+            const errorEffect = document.createElement('div');
+            errorEffect.innerHTML = `⚠️ ${message}`;
+            errorEffect.style.cssText = `
                 position: fixed;
-                top: 30%;
+                top: 25%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                background: rgba(239, 68, 68, 0.9);
+                background: rgba(239, 68, 68, 0.95);
                 color: #fff;
-                padding: 1rem 2rem;
-                border-radius: 25px;
+                padding: 1.5rem 3rem;
+                border-radius: 30px;
                 font-weight: bold;
+                font-size: 1.3rem;
                 z-index: 10000;
-                animation: fadeInOut 3s ease-out forwards;
+                animation: errorPulseAnimation 4s ease-out forwards;
+                box-shadow: 0 0 60px rgba(239, 68, 68, 1);
+                text-align: center;
+                border: 2px solid rgba(255, 255, 255, 0.4);
             `;
-            document.body.appendChild(errorDiv);
-            setTimeout(() => errorDiv.remove(), 3000);
+            
+            document.body.appendChild(errorEffect);
+            
+            setTimeout(() => errorEffect.remove(), 4000);
+        }
+
+        // Create cosmic celebration particles
+        function createCosmicCelebrationParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: ${Math.random() * 6 + 4}px;
+                height: ${Math.random() * 6 + 4}px;
+                background: ${['#34d399', '#10b981', '#ffffff', '#FFD700', '#8A2BE2'][Math.floor(Math.random() * 5)]};
+                border-radius: 50%;
+                top: 25%;
+                left: 50%;
+                z-index: 9999;
+                animation: cosmicCelebrationBurst 4s ease-out forwards;
+                box-shadow: 0 0 15px currentColor;
+            `;
+            
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 400 + 200;
+            particle.style.setProperty('--burst-x', Math.cos(angle) * distance + 'px');
+            particle.style.setProperty('--burst-y', Math.sin(angle) * distance + 'px');
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 4000);
         }
 
         // Refresh members
@@ -810,14 +1456,14 @@
 
         // Music controls
         function toggleMusic() {
-            const btn = document.getElementById('musicBtn');
+            const btn = document.getElementById('musicOrb');
             
             if (isPlaying) {
                 music.pause();
                 btn.textContent = '🎵';
                 isPlaying = false;
             } else {
-                music.play().catch(e => console.log('Music play failed:', e));
+                music.play().catch(e => console.log('Cosmic music failed:', e));
                 btn.textContent = '🔊';
                 isPlaying = true;
             }
@@ -852,23 +1498,72 @@
             const now = new Date();
             const diffInSeconds = Math.floor((now - date) / 1000);
             
-            if (diffInSeconds < 60) return 'now';
+            if (diffInSeconds < 60) return 'moments';
             if (diffInSeconds < 3600) return Math.floor(diffInSeconds / 60) + 'm';
             if (diffInSeconds < 86400) return Math.floor(diffInSeconds / 3600) + 'h';
             return Math.floor(diffInSeconds / 86400) + 'd';
         }
 
-        // Add CSS animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeInOut {
-                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-                20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-                80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+        // Add enhanced CSS animations
+        const enhancedStyles = document.createElement('style');
+        enhancedStyles.textContent = `
+            @keyframes cosmicSuccessAnimation {
+                0% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.3) rotate(-180deg);
+                }
+                25% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1.3) rotate(0deg);
+                }
+                75% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1) rotate(180deg);
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.5) rotate(360deg);
+                }
+            }
+            
+            @keyframes errorPulseAnimation {
+                0% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.5);
+                }
+                25% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1.2);
+                }
+                75% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1);
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.8);
+                }
+            }
+            
+            @keyframes cosmicCelebrationBurst {
+                0% { 
+                    transform: translate(0, 0) scale(1) rotate(0deg);
+                    opacity: 1;
+                }
+                100% { 
+                    transform: translate(var(--burst-x), var(--burst-y)) scale(0) rotate(1440deg);
+                    opacity: 0;
+                }
             }
         `;
-        document.head.appendChild(style);
+        document.head.appendChild(enhancedStyles);
+
+        // Auto-refresh every 5 minutes when connected
+        setInterval(() => {
+            if (isConnected) {
+                refreshMembers();
+            }
+        }, 5 * 60 * 1000);
     </script>
 </body>
 </html>
