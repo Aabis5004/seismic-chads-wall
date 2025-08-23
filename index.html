@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seismic Wall</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
         
         * {
             margin: 0;
@@ -14,146 +14,60 @@
         }
 
         body {
-            font-family: 'Exo 2', 'Orbitron', monospace;
-            background: #000000;
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(135deg, #0a0f14 0%, #1a2332 50%, #0f1419 100%);
             color: #ffffff;
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
         }
 
-        /* ULTIMATE INTERSTELLAR SPACE BACKGROUND */
-        .interstellar-universe {
+        /* Simple Space Background */
+        .space-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -20;
+            z-index: -2;
             background: 
-                radial-gradient(ellipse at 20% 30%, rgba(16, 23, 42, 0.9) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 70%, rgba(30, 41, 59, 0.8) 0%, transparent 70%),
-                radial-gradient(ellipse at 50% 10%, rgba(34, 197, 94, 0.15) 0%, transparent 40%),
-                radial-gradient(ellipse at 90% 40%, rgba(52, 211, 153, 0.2) 0%, transparent 50%),
-                radial-gradient(ellipse at 10% 80%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
-                radial-gradient(ellipse at 60% 90%, rgba(34, 197, 94, 0.1) 0%, transparent 35%),
-                linear-gradient(135deg, #000000 0%, #0a0f1a 15%, #1a1a2e 30%, #16213e 45%, #0f1419 60%, #1a2332 75%, #000000 100%);
+                radial-gradient(circle at 20% 30%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(52, 211, 153, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 30%);
         }
 
-        /* MASSIVE INTERSTELLAR NEBULAS */
-        .nebula-field {
+        /* Simple Stars */
+        .stars {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -18;
-            pointer-events: none;
-        }
-
-        .nebula {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.3;
-            animation: nebulaFlow 60s ease-in-out infinite;
-        }
-
-        .nebula:nth-child(1) {
-            width: 800px;
-            height: 500px;
-            background: radial-gradient(ellipse, rgba(34, 197, 94, 0.4) 0%, rgba(16, 185, 129, 0.2) 40%, transparent 100%);
-            top: -20%;
-            left: -30%;
-            animation-delay: 0s;
-        }
-
-        .nebula:nth-child(2) {
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(52, 211, 153, 0.3) 0%, rgba(34, 197, 94, 0.15) 50%, transparent 100%);
-            top: 20%;
-            right: -40%;
-            animation-delay: -20s;
-        }
-
-        .nebula:nth-child(3) {
-            width: 700px;
-            height: 400px;
-            background: radial-gradient(ellipse, rgba(16, 185, 129, 0.25) 0%, rgba(52, 211, 153, 0.1) 60%, transparent 100%);
-            bottom: -30%;
-            left: 5%;
-            animation-delay: -40s;
-        }
-
-        @keyframes nebulaFlow {
-            0%, 100% { 
-                transform: scale(1) rotate(0deg);
-                opacity: 0.2;
-            }
-            50% { 
-                transform: scale(1.1) rotate(180deg);
-                opacity: 0.4;
-            }
-        }
-
-        /* STAR FIELD */
-        .star-field {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -15;
+            z-index: -1;
             pointer-events: none;
         }
 
         .star {
             position: absolute;
-            background: #ffffff;
-            border-radius: 50%;
-            animation: starTwinkle 6s ease-in-out infinite;
-        }
-
-        .star.micro {
-            width: 1px;
-            height: 1px;
-            opacity: 0.4;
-        }
-
-        .star.tiny {
             width: 2px;
             height: 2px;
             background: #34d399;
-            box-shadow: 0 0 6px #34d399;
+            border-radius: 50%;
             opacity: 0.6;
+            animation: twinkle 3s ease-in-out infinite;
         }
 
-        .star.small {
-            width: 3px;
-            height: 3px;
-            background: #10b981;
-            box-shadow: 0 0 10px #10b981;
-            opacity: 0.8;
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
         }
 
-        @keyframes starTwinkle {
-            0%, 100% { 
-                opacity: 0.2; 
-                transform: scale(1);
-            }
-            50% { 
-                opacity: 1; 
-                transform: scale(1.5);
-            }
-        }
-
-        /* HEADER */
+        /* Header */
         .header {
             text-align: center;
             padding: 2rem 0 1.5rem 0;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
             border-bottom: 2px solid rgba(52, 211, 153, 0.4);
             position: relative;
             z-index: 100;
@@ -167,229 +81,333 @@
         }
 
         .seismic-logo {
-            width: 90px;
-            height: 90px;
-            background: linear-gradient(45deg, #34d399, #10b981, #059669);
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #34d399, #10b981);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 900;
-            font-size: 2.2rem;
+            font-size: 2rem;
             color: #000;
-            animation: logoRotate 20s linear infinite;
+            font-weight: 900;
+            animation: logoFloat 8s ease-in-out infinite;
             box-shadow: 
                 0 0 40px rgba(52, 211, 153, 0.8),
-                0 0 80px rgba(34, 197, 94, 0.5);
+                0 0 80px rgba(34, 197, 94, 0.4);
             position: relative;
+            overflow: hidden;
         }
 
-        @keyframes logoRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .seismic-logo::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border: 2px solid rgba(52, 211, 153, 0.4);
+            border-radius: 50%;
+            animation: logoRing 12s linear infinite;
+        }
+
+        .seismic-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { 
+                transform: rotate(0deg) scale(1);
+                box-shadow: 0 0 40px rgba(52, 211, 153, 0.8), 0 0 80px rgba(34, 197, 94, 0.4);
+            }
+            50% { 
+                transform: rotate(180deg) scale(1.1);
+                box-shadow: 0 0 60px rgba(34, 197, 94, 1), 0 0 120px rgba(52, 211, 153, 0.6);
+            }
+        }
+
+        @keyframes logoRing {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .title {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 900;
-            font-family: 'Orbitron', monospace;
             background: linear-gradient(45deg, #ffffff, #34d399, #10b981, #ffffff);
-            background-size: 400% 400%;
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: titleShimmer 4s ease-in-out infinite;
-            text-shadow: 
-                0 0 40px rgba(52, 211, 153, 0.5),
-                0 0 80px rgba(34, 197, 94, 0.3);
-            letter-spacing: 8px;
+            text-shadow: 0 0 40px rgba(52, 211, 153, 0.6);
+            letter-spacing: 4px;
             text-transform: uppercase;
         }
 
         @keyframes titleShimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            0%, 100% { 
+                background-position: 0% 50%;
+                filter: brightness(1);
+            }
+            50% { 
+                background-position: 100% 50%;
+                filter: brightness(1.5) drop-shadow(0 0 30px rgba(52, 211, 153, 0.8));
+            }
         }
 
         .subtitle {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: #34d399;
+            margin-top: 0.75rem;
             opacity: 0.9;
-            margin-top: 1rem;
             font-weight: 400;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
+            animation: subtitleGlow 5s ease-in-out infinite;
         }
 
-        /* CONNECTION STATUS */
+        @keyframes subtitleGlow {
+            0%, 100% { 
+                color: #34d399;
+                text-shadow: 0 0 20px rgba(52, 211, 153, 0.6);
+            }
+            50% { 
+                color: #ffffff;
+                text-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        /* Connection Status */
         .status {
             position: fixed;
-            top: 30px;
-            left: 30px;
-            padding: 1rem 2rem;
+            top: 25px;
+            left: 25px;
+            padding: 0.75rem 1.5rem;
             background: rgba(0, 0, 0, 0.8);
-            border: 3px solid #34d399;
-            border-radius: 30px;
-            backdrop-filter: blur(20px);
-            font-size: 1rem;
+            border: 2px solid #34d399;
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
+            font-size: 0.9rem;
             z-index: 1000;
-            box-shadow: 0 20px 60px rgba(52, 211, 153, 0.3);
+            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
         }
 
         .status-dot {
             display: inline-block;
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            margin-right: 12px;
-            animation: statusBlink 2s infinite;
+            margin-right: 10px;
+            animation: pulse 2s infinite;
         }
 
         .connected { background: #34d399; }
         .disconnected { background: #ef4444; }
 
-        @keyframes statusBlink {
+        @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
 
-        /* CONTROLS */
+        /* Controls */
         .controls {
             position: fixed;
-            top: 30px;
-            right: 30px;
+            top: 25px;
+            right: 25px;
             display: flex;
-            gap: 1rem;
+            gap: 12px;
             z-index: 1000;
         }
 
-        .control-orb {
-            width: 60px;
-            height: 60px;
+        .control-btn {
+            width: 55px;
+            height: 55px;
             background: rgba(52, 211, 153, 0.2);
-            border: 3px solid rgba(52, 211, 153, 0.7);
+            border: 2px solid rgba(52, 211, 153, 0.6);
             border-radius: 50%;
             color: #34d399;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(20px);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(15px);
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 8px 25px rgba(52, 211, 153, 0.3);
         }
 
-        .control-orb:hover {
+        .control-btn:hover {
             background: rgba(52, 211, 153, 0.4);
-            transform: scale(1.1);
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 15px 40px rgba(52, 211, 153, 0.5);
         }
 
-        /* MAIN CONTAINER */
+        /* Main Container */
         .main-container {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 3rem;
+            padding: 2rem;
             position: relative;
             z-index: 10;
         }
 
-        /* MEMBERS FRAME - FIXED GRID LAYOUT */
-        .members-frame {
-            position: relative;
-            width: 100%;
-            min-height: 600px;
-            border: 3px solid rgba(52, 211, 153, 0.6);
-            border-radius: 30px;
-            background: rgba(52, 211, 153, 0.05);
-            backdrop-filter: blur(20px);
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(52, 211, 153, 0.3);
-            padding: 2rem;
-        }
-
-        /* GRID LAYOUT FOR MEMBERS */
-        .members-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 2rem;
-            justify-items: center;
-        }
-
-        /* MEMBER PROFILES - STATIC POSITIONING */
-        .member-profile {
-            width: 180px;
-            height: 220px;
-            background: rgba(52, 211, 153, 0.1);
+        /* Wall Frame */
+        .wall-frame {
+            background: rgba(0, 0, 0, 0.2);
             border: 2px solid rgba(52, 211, 153, 0.4);
             border-radius: 20px;
-            padding: 1rem;
-            text-align: center;
             backdrop-filter: blur(15px);
-            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            animation: memberGlow 8s ease-in-out infinite;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(52, 211, 153, 0.2);
+            animation: frameGlow 6s ease-in-out infinite;
         }
 
-        .member-profile:hover {
-            transform: scale(1.05);
-            border-color: #34d399;
-            box-shadow: 0 20px 50px rgba(52, 211, 153, 0.6);
-        }
-
-        @keyframes memberGlow {
+        @keyframes frameGlow {
             0%, 100% { 
-                box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
                 border-color: rgba(52, 211, 153, 0.4);
+                box-shadow: 0 20px 60px rgba(52, 211, 153, 0.2);
             }
             50% { 
-                box-shadow: 0 15px 40px rgba(34, 197, 94, 0.4);
                 border-color: rgba(34, 197, 94, 0.6);
+                box-shadow: 0 25px 80px rgba(34, 197, 94, 0.3);
             }
         }
 
-        /* FOUNDER SPECIAL STYLING */
-        .founder-profile {
-            border-color: #FFD700 !important;
-            background: rgba(255, 215, 0, 0.1) !important;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4) !important;
+        /* Profile Grid */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            position: relative;
         }
 
-        /* MODERATOR SPECIAL STYLING */
-        .moderator-profile {
-            border-color: #8A2BE2 !important;
-            background: rgba(138, 43, 226, 0.1) !important;
-            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.3) !important;
+        /* Lyron Center Special */
+        .lyron-center {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
         }
 
-        /* AVATAR */
-        .member-avatar {
-            width: 70px;
-            height: 70px;
+        /* Profile Cards */
+        .profile-card {
+            background: rgba(52, 211, 153, 0.08);
+            border: 2px solid rgba(52, 211, 153, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+            transition: all 0.5s ease;
+            cursor: pointer;
+            animation: 
+                cardEntry 1s ease-out forwards,
+                gentleFloat 6s ease-in-out infinite;
+            opacity: 0;
+            transform: translateY(30px);
+            box-shadow: 0 15px 40px rgba(52, 211, 153, 0.2);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.15), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .profile-card:hover::before {
+            left: 100%;
+        }
+
+        .profile-card:nth-child(odd) {
+            animation-delay: 0s, 1s;
+        }
+
+        .profile-card:nth-child(even) {
+            animation-delay: 0.2s, 4s;
+        }
+
+        @keyframes cardEntry {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { 
+                transform: translateY(0);
+            }
+            50% { 
+                transform: translateY(-12px);
+            }
+        }
+
+        .profile-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            border-color: #34d399;
+            box-shadow: 0 25px 60px rgba(52, 211, 153, 0.4);
+            background: rgba(52, 211, 153, 0.12);
+        }
+
+        /* Lyron Special Card */
+        .lyron-card {
+            width: 280px;
+            height: 350px;
+            background: rgba(255, 215, 0, 0.12);
+            border: 3px solid rgba(255, 215, 0, 0.7);
+            box-shadow: 
+                0 0 60px rgba(255, 215, 0, 0.4),
+                0 0 120px rgba(255, 215, 0, 0.2);
+            animation: lyronGlow 5s ease-in-out infinite;
+        }
+
+        @keyframes lyronGlow {
+            0%, 100% { 
+                transform: translateY(0) scale(1);
+                box-shadow: 0 0 60px rgba(255, 215, 0, 0.4), 0 0 120px rgba(255, 215, 0, 0.2);
+            }
+            50% { 
+                transform: translateY(-15px) scale(1.02);
+                box-shadow: 0 0 80px rgba(255, 215, 0, 0.6), 0 0 160px rgba(255, 215, 0, 0.3);
+            }
+        }
+
+        /* Profile Components */
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             background: linear-gradient(45deg, #34d399, #10b981);
-            margin: 0 auto 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
             font-weight: bold;
+            font-size: 1.3rem;
             color: #000;
+            margin: 0 auto 1rem auto;
             overflow: hidden;
-            animation: avatarSpin 12s linear infinite;
-            box-shadow: 0 0 20px rgba(52, 211, 153, 0.5);
+            box-shadow: 0 0 25px rgba(52, 211, 153, 0.6);
+            animation: avatarSpin 10s linear infinite;
         }
 
-        .founder-profile .member-avatar {
+        .lyron-card .profile-avatar {
+            width: 100px;
+            height: 100px;
+            font-size: 1.8rem;
             background: linear-gradient(45deg, #FFD700, #FFA500);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
         }
 
-        .moderator-profile .member-avatar {
-            background: linear-gradient(45deg, #8A2BE2, #9932CC);
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
-        }
-
-        .member-avatar img {
+        .profile-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -397,249 +415,252 @@
         }
 
         @keyframes avatarSpin {
-            from { transform: rotateY(0deg); }
-            to { transform: rotateY(360deg); }
+            0% { 
+                transform: rotateY(0deg);
+                box-shadow: 0 0 25px rgba(52, 211, 153, 0.6);
+            }
+            50% { 
+                transform: rotateY(180deg);
+                box-shadow: 0 0 35px rgba(34, 197, 94, 0.8);
+            }
+            100% { 
+                transform: rotateY(360deg);
+                box-shadow: 0 0 25px rgba(52, 211, 153, 0.6);
+            }
         }
 
-        .member-name {
-            font-size: 0.9rem;
+        .profile-handle {
+            font-size: 1.1rem;
             font-weight: bold;
             color: #34d399;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            word-break: break-word;
+            animation: handleGlow 3s ease-in-out infinite;
         }
 
-        .founder-profile .member-name {
+        .lyron-card .profile-handle {
+            font-size: 1.4rem;
             color: #FFD700;
         }
 
-        .moderator-profile .member-name {
-            color: #8A2BE2;
+        @keyframes handleGlow {
+            0%, 100% { 
+                text-shadow: 0 0 15px rgba(52, 211, 153, 0.6);
+            }
+            50% { 
+                text-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+            }
         }
 
-        .member-role {
-            font-size: 0.7rem;
-            padding: 0.3rem 0.6rem;
-            border-radius: 10px;
-            margin-bottom: 0.5rem;
+        .profile-role {
+            font-size: 0.9rem;
             font-weight: bold;
+            margin-bottom: 0.75rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
         }
 
         .founder-role {
             background: rgba(255, 215, 0, 0.2);
             color: #FFD700;
-            border: 1px solid #FFD700;
+            border: 1px solid rgba(255, 215, 0, 0.6);
         }
 
-        .moderator-role {
-            background: rgba(138, 43, 226, 0.2);
-            color: #8A2BE2;
-            border: 1px solid #8A2BE2;
-        }
-
-        .community-role {
-            background: rgba(52, 211, 153, 0.2);
+        .member-role {
+            background: rgba(52, 211, 153, 0.15);
             color: #34d399;
-            border: 1px solid #34d399;
+            border: 1px solid rgba(52, 211, 153, 0.4);
         }
 
-        .member-stats {
-            font-size: 0.7rem;
-            opacity: 0.8;
+        .profile-stats {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            line-height: 1.6;
         }
 
-        /* SUBMIT PORTAL */
-        .submit-portal {
+        .stat-line {
+            margin-bottom: 0.4rem;
+            padding: 0.3rem 0.6rem;
+            background: rgba(52, 211, 153, 0.1);
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+        }
+
+        .lyron-card .stat-line {
+            background: rgba(255, 215, 0, 0.15);
+        }
+
+        /* Submit Form */
+        .submit-section {
             position: fixed;
-            bottom: 40px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
         }
 
-        .portal-form {
+        .submit-form {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1rem;
             background: rgba(0, 0, 0, 0.8);
-            padding: 1.5rem 3rem;
-            border-radius: 50px;
-            border: 3px solid rgba(52, 211, 153, 0.6);
-            backdrop-filter: blur(25px);
-            box-shadow: 0 25px 80px rgba(52, 211, 153, 0.5);
-        }
-
-        .portal-input {
             padding: 1rem 2rem;
-            background: rgba(52, 211, 153, 0.1);
-            border: 3px solid rgba(52, 211, 153, 0.4);
             border-radius: 30px;
-            color: #ffffff;
-            font-family: 'Exo 2', monospace;
-            font-size: 1.2rem;
-            min-width: 250px;
-            backdrop-filter: blur(15px);
-            transition: all 0.3s ease;
+            border: 2px solid rgba(52, 211, 153, 0.5);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 15px 50px rgba(52, 211, 153, 0.3);
         }
 
-        .portal-input::placeholder {
+        .submit-input {
+            padding: 0.75rem 1.5rem;
+            background: rgba(52, 211, 153, 0.1);
+            border: 2px solid rgba(52, 211, 153, 0.3);
+            border-radius: 20px;
+            color: #ffffff;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            min-width: 200px;
+            backdrop-filter: blur(10px);
+        }
+
+        .submit-input::placeholder {
             color: rgba(52, 211, 153, 0.6);
         }
 
-        .portal-input:focus {
+        .submit-input:focus {
             outline: none;
             border-color: #34d399;
-            box-shadow: 0 0 30px rgba(52, 211, 153, 0.5);
+            box-shadow: 0 0 20px rgba(52, 211, 153, 0.4);
         }
 
-        .portal-btn {
-            padding: 1rem 2.5rem;
+        .submit-btn {
+            padding: 0.75rem 1.5rem;
             background: linear-gradient(45deg, #34d399, #10b981);
             border: none;
-            border-radius: 30px;
+            border-radius: 20px;
             color: #000;
-            font-family: 'Exo 2', monospace;
+            font-family: 'Orbitron', monospace;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
         }
 
-        .portal-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(52, 211, 153, 0.5);
+        .submit-btn:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 20px rgba(52, 211, 153, 0.4);
         }
 
-        .portal-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        /* LOADING */
-        .cosmic-loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(52, 211, 153, 0.3);
-            border-radius: 50%;
-            border-top-color: #34d399;
-            animation: cosmicSpin 1s ease-in-out infinite;
-        }
-
-        @keyframes cosmicSpin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* EMPTY STATE */
+        /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 6rem 2rem;
-            opacity: 0.8;
+            padding: 4rem 2rem;
+            opacity: 0.7;
+            animation: emptyPulse 4s ease-in-out infinite;
         }
 
         .empty-state h3 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #34d399;
-            margin-bottom: 2rem;
-            text-shadow: 0 0 30px rgba(52, 211, 153, 0.5);
+            margin-bottom: 1rem;
         }
 
         .empty-state p {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            line-height: 1.8;
+            font-size: 1.1rem;
+            opacity: 0.8;
         }
 
-        /* RESPONSIVE DESIGN */
+        @keyframes emptyPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Loading */
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(52, 211, 153, 0.3);
+            border-radius: 50%;
+            border-top-color: #34d399;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             .title {
                 font-size: 2.5rem;
-                letter-spacing: 4px;
             }
 
             .main-container {
-                padding: 2rem 1rem;
+                padding: 1.5rem 1rem;
             }
 
-            .members-frame {
+            .profile-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 1rem;
+            }
+
+            .lyron-card {
+                width: 240px;
+                height: 320px;
+            }
+
+            .profile-card {
                 padding: 1rem;
             }
 
-            .members-grid {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-                gap: 1rem;
-            }
-
-            .member-profile {
-                width: 160px;
-                height: 200px;
-                padding: 0.8rem;
-            }
-
-            .portal-form {
+            .submit-form {
                 flex-direction: column;
-                gap: 1rem;
-                padding: 1.5rem 2rem;
+                gap: 0.75rem;
+                padding: 1rem 1.5rem;
             }
 
-            .portal-input {
-                min-width: 200px;
-            }
-
-            .controls {
-                top: 15px;
-                right: 15px;
-                gap: 0.5rem;
-            }
-
-            .control-orb {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-            }
-
-            .status {
-                top: 15px;
-                left: 15px;
-                padding: 0.75rem 1.5rem;
-                font-size: 0.9rem;
+            .submit-input {
+                min-width: 180px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- ULTIMATE INTERSTELLAR SPACE BACKGROUND -->
-    <div class="interstellar-universe"></div>
+    <!-- Simple Space Background -->
+    <div class="space-bg"></div>
     
-    <!-- MASSIVE INTERSTELLAR NEBULAS -->
-    <div class="nebula-field">
-        <div class="nebula"></div>
-        <div class="nebula"></div>
-        <div class="nebula"></div>
-    </div>
-    
-    <!-- STAR FIELD -->
-    <div class="star-field" id="starField"></div>
+    <!-- Simple Stars -->
+    <div class="stars" id="stars"></div>
 
-    <!-- CONNECTION STATUS -->
+    <!-- Audio Element -->
+    <audio id="backgroundMusic" loop>
+        <source src="./seismic-music.mp3" type="audio/mpeg">
+        <source src="./interstellar.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Connection Status -->
     <div class="status">
         <span class="status-dot disconnected" id="statusDot"></span>
-        <span id="statusText">Connecting...</span>
+        <span id="statusText">💎 Demo Mode</span>
     </div>
 
-    <!-- CONTROLS -->
+    <!-- Controls -->
     <div class="controls">
-        <button class="control-orb" onclick="refreshMembers()" title="Refresh Members">
+        <button class="control-btn" onclick="refreshMembers()" title="Refresh">
             🔄
+        </button>
+        <button class="control-btn" onclick="toggleMusic()" id="musicBtn" title="Music">
+            🎵
         </button>
     </div>
 
-    <!-- HEADER -->
+    <!-- Header -->
     <header class="header">
         <div class="logo-title">
             <div class="seismic-logo">
-                S
+                <img src="./seismic-logo.png" alt="S" onerror="this.innerHTML='S'">
             </div>
             <div>
                 <h1 class="title">SEISMIC WALL</h1>
@@ -648,32 +669,32 @@
         </div>
     </header>
 
-    <!-- MAIN CONTAINER -->
+    <!-- Main Container -->
     <div class="main-container">
-        <!-- MEMBERS FRAME WITH FIXED GRID -->
-        <div class="members-frame">
-            <div class="members-grid" id="membersGrid">
+        <!-- Wall Frame -->
+        <div class="wall-frame">
+            <div class="profile-grid" id="profileGrid">
                 <div class="empty-state" id="emptyState">
-                    <h3>Welcome to Seismic Community</h3>
-                    <p>Add members to expand your <strong>blockchain community</strong><br>Members will appear in a clean grid layout</p>
+                    <h3>Seismic Network</h3>
+                    <p>Add members to build the decentralized community</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SUBMIT PORTAL -->
-    <div class="submit-portal">
-        <form class="portal-form" onsubmit="addMember(event)">
+    <!-- Submit Form -->
+    <div class="submit-section">
+        <form class="submit-form" onsubmit="addMember(event)">
             <input 
                 type="text" 
-                class="portal-input" 
-                placeholder="@username" 
+                class="submit-input" 
+                placeholder="@handle" 
                 id="usernameInput"
                 required
             >
-            <button type="submit" class="portal-btn" id="submitBtn">
-                <span id="submitButtonText">Add Member</span>
-                <span id="submitButtonLoading" class="cosmic-loading" style="display: none;"></span>
+            <button type="submit" class="submit-btn">
+                <span id="submitButtonText">Deploy</span>
+                <span id="submitButtonLoading" class="loading" style="display: none;"></span>
             </button>
         </form>
     </div>
@@ -682,38 +703,42 @@
         // Global variables
         let members = [];
         let isConnected = false;
+        let music = document.getElementById('backgroundMusic');
+        let isPlaying = false;
 
         // API Configuration
         const API_BASE = 'https://seismicwall.duckdns.org/api';
 
-        // Hierarchy definitions
-        const FOUNDER = ['lyron', 'lyronctk'];
-        const MODERATORS = ['noxx', 'xealis', 'heathcliff', 'heathclif'];
+        // Blockchain terms
+        const roles = [
+            'Node Validator', 'Block Miner', 'DeFi Pioneer', 'Crypto Trader', 
+            'Blockchain Dev', 'DAO Member', 'Smart Contract', 'Token Holder',
+            'Chain Explorer', 'Web3 Builder', 'Alpha Hunter', 'Yield Farmer'
+        ];
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            createStarField();
+            createStars();
             checkConnection();
             fetchMembers();
             setupKeyboardShortcuts();
+            
+            setTimeout(() => {
+                music.volume = 0.2;
+            }, 1000);
         });
 
-        // Create star field (reduced count for performance)
-        function createStarField() {
-            const container = document.getElementById('starField');
-            const starCount = 200; // Reduced from 600
-            const starTypes = ['micro', 'tiny', 'small'];
+        // Create simple star field (only 100 stars for performance)
+        function createStars() {
+            const container = document.getElementById('stars');
+            const starCount = 100;
             
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
-                const starType = starTypes[Math.floor(Math.random() * starTypes.length)];
-                star.className = `star ${starType}`;
-                
+                star.className = 'star';
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 6 + 's';
-                star.style.animationDuration = (Math.random() * 4 + 4) + 's';
-                
+                star.style.animationDelay = Math.random() * 3 + 's';
                 container.appendChild(star);
             }
         }
@@ -721,157 +746,9 @@
         // Check backend connection
         async function checkConnection() {
             try {
-                const response = await fetch(`${API_BASE}/members`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                    },
-                    body: JSON.stringify({ username: username })
-                });
-                
-                if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({}));
-                    throw new Error(errorData.error || `HTTP ${response.status}: Failed to add member`);
-                }
-                
-                // Success - refresh the member list
-                await fetchMembers();
-                showSuccess('Member added successfully!');
-                input.value = '';
-                
-            } catch (error) {
-                console.error('Error adding member:', error);
-                showError(error.message || 'Failed to add member');
-            } finally {
-                buttonText.style.display = 'inline-block';
-                buttonLoading.style.display = 'none';
-                submitBtn.disabled = false;
-            }
-        }
-
-        // Show success message
-        function showSuccess(message) {
-            const messageEl = document.createElement('div');
-            messageEl.innerHTML = `✅ ${message}`;
-            messageEl.style.cssText = `
-                position: fixed;
-                top: 20%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: rgba(52, 211, 153, 0.95);
-                color: #000;
-                padding: 1.5rem 3rem;
-                border-radius: 30px;
-                font-weight: bold;
-                font-size: 1.2rem;
-                z-index: 10000;
-                box-shadow: 0 0 50px rgba(52, 211, 153, 0.8);
-                border: 2px solid rgba(255, 255, 255, 0.8);
-                animation: messageSlide 3s ease-out forwards;
-            `;
-            
-            document.body.appendChild(messageEl);
-            setTimeout(() => messageEl.remove(), 3000);
-        }
-
-        // Show error message
-        function showError(message) {
-            const messageEl = document.createElement('div');
-            messageEl.innerHTML = `❌ ${message}`;
-            messageEl.style.cssText = `
-                position: fixed;
-                top: 20%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: rgba(239, 68, 68, 0.95);
-                color: #fff;
-                padding: 1.5rem 3rem;
-                border-radius: 30px;
-                font-weight: bold;
-                font-size: 1.2rem;
-                z-index: 10000;
-                box-shadow: 0 0 50px rgba(239, 68, 68, 0.8);
-                border: 2px solid rgba(255, 255, 255, 0.6);
-                animation: messageSlide 3s ease-out forwards;
-            `;
-            
-            document.body.appendChild(messageEl);
-            setTimeout(() => messageEl.remove(), 3000);
-        }
-
-        // Refresh members
-        async function refreshMembers() {
-            console.log('Refreshing members...');
-            await checkConnection();
-            await fetchMembers();
-        }
-
-        // Keyboard shortcuts
-        function setupKeyboardShortcuts() {
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'r' && !e.ctrlKey && e.target.tagName !== 'INPUT') {
-                    e.preventDefault();
-                    refreshMembers();
-                }
-            });
-        }
-
-        // Utility functions
-        function getInitials(name) {
-            if (!name) return '?';
-            return name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2);
-        }
-
-        function formatNumber(num) {
-            if (!num || isNaN(num)) return '0';
-            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-            return num.toString();
-        }
-
-        // Add animation styles
-        const animationStyles = document.createElement('style');
-        animationStyles.textContent = `
-            @keyframes messageSlide {
-                0% { 
-                    opacity: 0; 
-                    transform: translate(-50%, -50%) scale(0.8) translateY(-20px); 
-                }
-                15% { 
-                    opacity: 1; 
-                    transform: translate(-50%, -50%) scale(1.05) translateY(0); 
-                }
-                85% { 
-                    opacity: 1; 
-                    transform: translate(-50%, -50%) scale(1) translateY(0); 
-                }
-                100% { 
-                    opacity: 0; 
-                    transform: translate(-50%, -50%) scale(0.9) translateY(-10px); 
-                }
-            }
-        `;
-        document.head.appendChild(animationStyles);
-
-        // Auto-refresh every 30 seconds when connected
-        setInterval(() => {
-            if (isConnected) {
-                refreshMembers();
-            }
-        }, 30000);
-    </script>
-</body>
-</html>(`${API_BASE}/members`, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                    }
-                });
+                const response = await fetch(`${API_BASE}/members`);
                 isConnected = response.ok;
-                console.log('Connection status:', isConnected);
             } catch (error) {
-                console.error('Connection error:', error);
                 isConnected = false;
             }
             
@@ -884,36 +761,26 @@
             
             if (isConnected) {
                 statusDot.className = 'status-dot connected';
-                statusText.textContent = 'Connected to Backend';
+                statusText.textContent = '🟢 Backend Connected';
             } else {
                 statusDot.className = 'status-dot disconnected';
-                statusText.textContent = 'Backend Offline';
+                statusText.textContent = '💎 Demo Mode';
             }
         }
 
-        // Fetch members from API only
+        // Fetch members from API
         async function fetchMembers() {
             try {
-                if (isConnected) {
-                    const response = await fetch(`${API_BASE}/members`, {
-                        method: 'GET',
-                        headers: {
-                            'Accept': 'application/json',
-                        }
-                    });
-                    
-                    if (response.ok) {
-                        const apiMembers = await response.json();
-                        console.log('Fetched members:', apiMembers);
-                        members = Array.isArray(apiMembers) ? apiMembers : [];
-                    } else {
-                        console.error('API response not ok:', response.status);
-                        members = [];
-                    }
-                } else {
+                if (!isConnected) {
                     members = [];
+                    renderMembers();
+                    return;
                 }
                 
+                const response = await fetch(`${API_BASE}/members`);
+                if (!response.ok) throw new Error('Failed to fetch');
+                
+                members = await response.json();
                 renderMembers();
             } catch (error) {
                 console.error('Error fetching members:', error);
@@ -922,25 +789,11 @@
             }
         }
 
-        // Determine member role
-        function getMemberRole(username) {
-            const cleanUsername = username.toLowerCase().replace('@', '');
-            
-            if (FOUNDER.some(f => cleanUsername.includes(f.toLowerCase()))) {
-                return 'founder';
-            }
-            if (MODERATORS.some(m => cleanUsername.includes(m.toLowerCase()))) {
-                return 'moderator';
-            }
-            return 'community';
-        }
-
-        // Render all members in grid layout
+        // Render members with Lyron special treatment
         function renderMembers() {
-            const container = document.getElementById('membersGrid');
+            const container = document.getElementById('profileGrid');
             const emptyState = document.getElementById('emptyState');
             
-            // Clear existing content
             container.innerHTML = '';
             
             if (members.length === 0) {
@@ -948,83 +801,68 @@
                 return;
             }
 
-            // Create profiles for each member
-            members.forEach((member, index) => {
-                const role = getMemberRole(member.username);
-                const profile = createMemberProfile(member, role);
-                container.appendChild(profile);
+            // Find Lyron
+            const lyron = members.find(m => 
+                m.username.toLowerCase().includes('lyronctk') || 
+                m.username.toLowerCase().includes('lyron')
+            );
+            
+            const others = members.filter(m => 
+                !m.username.toLowerCase().includes('lyronctk') && 
+                !m.username.toLowerCase().includes('lyron')
+            );
+
+            // Render Lyron first (center)
+            if (lyron) {
+                const centerDiv = document.createElement('div');
+                centerDiv.className = 'lyron-center';
+                centerDiv.innerHTML = `
+                    <div class="profile-card lyron-card">
+                        <div class="profile-avatar">
+                            ${lyron.profileImage ? 
+                                `<img src="${lyron.profileImage}" alt="${lyron.displayName}" onerror="this.parentElement.innerHTML='${getInitials(lyron.displayName)}'">` :
+                                getInitials(lyron.displayName)
+                            }
+                        </div>
+                        <div class="profile-handle">${lyron.username}</div>
+                        <div class="profile-role founder-role">👑 FOUNDER</div>
+                        <div class="profile-stats">
+                            <div class="stat-line">🔗 ${formatNumber(lyron.followers || 0)} Followers</div>
+                            <div class="stat-line">${lyron.verified ? '✅ Verified' : '⭕ Pending'}</div>
+                            <div class="stat-line">⏰ Network Genesis</div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(centerDiv);
+            }
+
+            // Render all other members
+            others.forEach((member, index) => {
+                const card = document.createElement('div');
+                card.className = 'profile-card';
+                card.style.animationDelay = `${index * 0.1}s`;
+                
+                const randomRole = roles[Math.floor(Math.random() * roles.length)];
+                
+                card.innerHTML = `
+                    <div class="profile-avatar">
+                        ${member.profileImage ? 
+                            `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
+                            getInitials(member.displayName)
+                        }
+                    </div>
+                    <div class="profile-handle">${member.username}</div>
+                    <div class="profile-role member-role">🔗 ${randomRole}</div>
+                    <div class="profile-stats">
+                        <div class="stat-line">🔗 ${formatNumber(member.followers || 0)} Followers</div>
+                        <div class="stat-line">${member.verified ? '✅ Verified' : '⭕ Pending'}</div>
+                        <div class="stat-line">⏰ ${timeAgo(member.createdAt)}</div>
+                    </div>
+                `;
+                
+                container.appendChild(card);
             });
         }
 
-        // Create member profile element
-        function createMemberProfile(member, role) {
-            const profile = document.createElement('div');
-            const roleClasses = {
-                founder: 'founder-profile',
-                moderator: 'moderator-profile',
-                community: ''
-            };
-            
-            profile.className = `member-profile ${roleClasses[role]}`;
-
-            const roleLabels = {
-                founder: '👑 FOUNDER',
-                moderator: '⚡ MODERATOR',
-                community: '🔗 MEMBER'
-            };
-
-            const roleClasses2 = {
-                founder: 'founder-role',
-                moderator: 'moderator-role',
-                community: 'community-role'
-            };
-
-            // Use username as display name if displayName not available
-            const displayName = member.displayName || member.username || 'Unknown';
-            const username = member.username ? (member.username.startsWith('@') ? member.username : '@' + member.username) : '@unknown';
-
-            profile.innerHTML = `
-                <div class="member-avatar">
-                    ${member.profileImage ? 
-                        `<img src="${member.profileImage}" alt="${displayName}" 
-                             onerror="this.style.display='none'; this.parentElement.innerHTML='${getInitials(displayName)}'">` :
-                        getInitials(displayName)
-                    }
-                </div>
-                <div class="member-name">${username}</div>
-                <div class="member-role ${roleClasses2[role]}">${roleLabels[role]}</div>
-                <div class="member-stats">
-                    👥 ${formatNumber(member.followers || 0)}<br>
-                    ${member.verified ? '✅ Verified' : '⏳ Pending'}
-                </div>
-            `;
-
-            return profile;
-        }
-
         // Add new member
-        async function addMember(event) {
-            event.preventDefault();
-            
-            const input = document.getElementById('usernameInput');
-            const submitBtn = document.getElementById('submitBtn');
-            let username = input.value.trim();
-            
-            if (!username) return;
-            
-            // Remove @ if present
-            username = username.replace('@', '');
-            
-            // Show loading
-            const buttonText = document.getElementById('submitButtonText');
-            const buttonLoading = document.getElementById('submitButtonLoading');
-            buttonText.style.display = 'none';
-            buttonLoading.style.display = 'inline-block';
-            submitBtn.disabled = true;
-            
-            try {
-                if (!isConnected) {
-                    throw new Error('Backend is not connected');
-                }
-                
-                const response = await fetch
+        async function addM
