@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seismic Wall</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@300;400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@300;400;700;900&family=Exo+2:wght@300;400;700;900&display=swap');
         
         * {
             margin: 0;
@@ -14,85 +14,331 @@
         }
 
         body {
-            font-family: 'Orbitron', monospace;
-            background: #0a0f14;
+            font-family: 'Exo 2', 'Orbitron', monospace;
+            background: #000000;
             color: #ffffff;
             overflow-x: hidden;
+            overflow-y: auto;
             min-height: 100vh;
             position: relative;
         }
 
-        /* Interstellar Background */
-        .cosmic-background {
+        /* ULTIMATE INTERSTELLAR SPACE BACKGROUND */
+        .interstellar-space {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -3;
+            z-index: -20;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(52, 211, 153, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
-                linear-gradient(180deg, #0a0f14 0%, #1e293b 50%, #0a0f14 100%);
+                radial-gradient(ellipse at 25% 25%, rgba(16, 23, 42, 0.9) 0%, transparent 60%),
+                radial-gradient(ellipse at 75% 75%, rgba(30, 41, 59, 0.8) 0%, transparent 70%),
+                radial-gradient(ellipse at 50% 10%, rgba(34, 197, 94, 0.15) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 30%, rgba(52, 211, 153, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 70%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
+                radial-gradient(ellipse at 60% 90%, rgba(34, 197, 94, 0.1) 0%, transparent 35%),
+                linear-gradient(135deg, #000000 0%, #0a0f1a 15%, #1a1a2e 30%, #16213e 45%, #0f1419 60%, #1a2332 75%, #000000 100%);
         }
 
-        /* Floating Stars */
-        .stars {
+        /* MASSIVE NEBULA SYSTEM */
+        .nebula-system {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2;
+            z-index: -18;
+            pointer-events: none;
+        }
+
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.4;
+            animation: nebulaEvolution 25s ease-in-out infinite;
+        }
+
+        .nebula:nth-child(1) {
+            width: 1000px;
+            height: 600px;
+            background: radial-gradient(ellipse, rgba(34, 197, 94, 0.5) 0%, rgba(16, 185, 129, 0.3) 40%, transparent 100%);
+            top: -10%;
+            left: -20%;
+            animation-delay: 0s;
+        }
+
+        .nebula:nth-child(2) {
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(52, 211, 153, 0.4) 0%, rgba(34, 197, 94, 0.2) 50%, transparent 100%);
+            top: 30%;
+            right: -30%;
+            animation-delay: -8s;
+        }
+
+        .nebula:nth-child(3) {
+            width: 900px;
+            height: 500px;
+            background: radial-gradient(ellipse, rgba(16, 185, 129, 0.35) 0%, rgba(52, 211, 153, 0.15) 60%, transparent 100%);
+            bottom: -20%;
+            left: 10%;
+            animation-delay: -16s;
+        }
+
+        .nebula:nth-child(4) {
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.3) 0%, rgba(16, 185, 129, 0.1) 60%, transparent 100%);
+            top: 50%;
+            left: 30%;
+            animation-delay: -4s;
+        }
+
+        .nebula:nth-child(5) {
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(ellipse, rgba(52, 211, 153, 0.25) 0%, rgba(34, 197, 94, 0.08) 50%, transparent 100%);
+            top: 10%;
+            right: 10%;
+            animation-delay: -12s;
+        }
+
+        @keyframes nebulaEvolution {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg) translateX(0) translateY(0);
+                opacity: 0.3;
+            }
+            20% { 
+                transform: scale(1.4) rotate(72deg) translateX(100px) translateY(-50px);
+                opacity: 0.6;
+            }
+            40% { 
+                transform: scale(0.9) rotate(144deg) translateX(50px) translateY(100px);
+                opacity: 0.4;
+            }
+            60% { 
+                transform: scale(1.2) rotate(216deg) translateX(-80px) translateY(30px);
+                opacity: 0.7;
+            }
+            80% { 
+                transform: scale(1.1) rotate(288deg) translateX(-30px) translateY(-80px);
+                opacity: 0.5;
+            }
+        }
+
+        /* MASSIVE INTERSTELLAR STAR FIELD */
+        .star-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -15;
             pointer-events: none;
         }
 
         .star {
             position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: starPulse 4s ease-in-out infinite;
+        }
+
+        .star.micro {
+            width: 1px;
+            height: 1px;
+            opacity: 0.4;
+        }
+
+        .star.tiny {
             width: 2px;
             height: 2px;
             background: #34d399;
+            box-shadow: 0 0 4px #34d399;
+            opacity: 0.6;
+        }
+
+        .star.small {
+            width: 3px;
+            height: 3px;
+            background: #10b981;
+            box-shadow: 0 0 8px #10b981;
+            opacity: 0.8;
+        }
+
+        .star.medium {
+            width: 4px;
+            height: 4px;
+            background: #ffffff;
+            box-shadow: 0 0 12px #ffffff;
+            opacity: 1;
+        }
+
+        .star.large {
+            width: 5px;
+            height: 5px;
+            background: #34d399;
+            box-shadow: 0 0 16px #34d399, 0 0 32px rgba(52, 211, 153, 0.5);
+            opacity: 1;
+        }
+
+        @keyframes starPulse {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(2);
+            }
+        }
+
+        /* COSMIC ENERGY WAVES */
+        .energy-system {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -12;
+            pointer-events: none;
+        }
+
+        .energy-ring {
+            position: absolute;
+            border: 2px solid rgba(52, 211, 153, 0.3);
             border-radius: 50%;
-            animation: twinkle 3s ease-in-out infinite;
+            animation: energyExpand 12s ease-out infinite;
         }
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
+        .energy-ring:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 15%;
+            left: 20%;
+            animation-delay: 0s;
         }
 
-        /* Header */
+        .energy-ring:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            top: 60%;
+            right: 15%;
+            animation-delay: -4s;
+        }
+
+        .energy-ring:nth-child(3) {
+            width: 350px;
+            height: 350px;
+            bottom: 25%;
+            left: 35%;
+            animation-delay: -8s;
+        }
+
+        .energy-ring:nth-child(4) {
+            width: 250px;
+            height: 250px;
+            top: 35%;
+            right: 35%;
+            animation-delay: -2s;
+        }
+
+        @keyframes energyExpand {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+                border-color: rgba(52, 211, 153, 0);
+            }
+            30% {
+                transform: scale(1.5);
+                opacity: 0.8;
+                border-color: rgba(52, 211, 153, 0.9);
+            }
+            70% {
+                transform: scale(3);
+                opacity: 0.4;
+                border-color: rgba(34, 197, 94, 0.6);
+            }
+            100% {
+                transform: scale(5);
+                opacity: 0;
+                border-color: rgba(52, 211, 153, 0);
+            }
+        }
+
+        /* HEADER */
         .header {
-            position: relative;
-            text-align: center;
-            padding: 2rem 0 1rem 0;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(52, 211, 153, 0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(52, 211, 153, 0.4);
+            padding: 1.5rem 0;
         }
 
-        .logo-container {
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            padding: 0 2rem;
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
         }
 
         .seismic-logo {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(45deg, #34d399, #10b981);
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(45deg, #34d399, #10b981, #059669);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 900;
-            font-size: 1.5rem;
+            font-size: 2.2rem;
             color: #000;
-            animation: logoFloat 6s ease-in-out infinite;
-            box-shadow: 0 0 30px rgba(52, 211, 153, 0.5);
+            animation: logoMegaOrbit 30s linear infinite;
+            box-shadow: 
+                0 0 80px rgba(52, 211, 153, 1.2),
+                0 0 160px rgba(34, 197, 94, 0.8),
+                inset 0 0 40px rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .seismic-logo::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            border: 3px solid rgba(52, 211, 153, 0.5);
+            border-radius: 50%;
+            animation: logoRingMega 25s linear infinite reverse;
+        }
+
+        .seismic-logo::after {
+            content: '';
+            position: absolute;
+            top: -35px;
+            left: -35px;
+            right: -35px;
+            bottom: -35px;
+            border: 2px solid rgba(34, 197, 94, 0.3);
+            border-radius: 50%;
+            border-top-color: rgba(52, 211, 153, 0.8);
+            animation: logoRingMega 35s linear infinite;
         }
 
         .seismic-logo img {
@@ -102,223 +348,395 @@
             border-radius: 50%;
         }
 
-        @keyframes logoFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(180deg); }
+        @keyframes logoMegaOrbit {
+            0% { 
+                transform: rotate(0deg) scale(1);
+                box-shadow: 0 0 80px rgba(52, 211, 153, 1.2), 0 0 160px rgba(34, 197, 94, 0.8);
+            }
+            25% { 
+                transform: rotate(90deg) scale(1.2);
+                box-shadow: 0 0 120px rgba(34, 197, 94, 1.5), 0 0 200px rgba(16, 185, 129, 1);
+            }
+            50% { 
+                transform: rotate(180deg) scale(1.4);
+                box-shadow: 0 0 160px rgba(16, 185, 129, 1.8), 0 0 240px rgba(52, 211, 153, 1.2);
+            }
+            75% { 
+                transform: rotate(270deg) scale(1.2);
+                box-shadow: 0 0 120px rgba(34, 197, 94, 1.5), 0 0 200px rgba(16, 185, 129, 1);
+            }
+            100% { 
+                transform: rotate(360deg) scale(1);
+                box-shadow: 0 0 80px rgba(52, 211, 153, 1.2), 0 0 160px rgba(34, 197, 94, 0.8);
+            }
+        }
+
+        @keyframes logoRingMega {
+            0% { transform: rotate(0deg) scale(1); }
+            33% { transform: rotate(120deg) scale(1.15); }
+            66% { transform: rotate(240deg) scale(0.9); }
+            100% { transform: rotate(360deg) scale(1); }
         }
 
         .title {
-            font-size: 2.5rem;
+            font-size: 4rem;
             font-weight: 900;
-            background: linear-gradient(45deg, #ffffff, #34d399, #10b981);
-            background-size: 200% 200%;
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(45deg, #ffffff, #34d399, #10b981, #ffffff, #34d399);
+            background-size: 400% 400%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: shimmer 4s ease-in-out infinite;
-            text-shadow: 0 0 30px rgba(52, 211, 153, 0.3);
+            animation: titleMegaShimmer 4s ease-in-out infinite;
+            text-shadow: 
+                0 0 30px rgba(52, 211, 153, 0.8),
+                0 0 60px rgba(34, 197, 94, 0.6),
+                0 0 90px rgba(16, 185, 129, 0.4);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            position: relative;
         }
 
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        .title::before {
+            content: 'SEISMIC WALL';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: lightningStrike 5s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes titleMegaShimmer {
+            0%, 100% { 
+                background-position: 0% 50%;
+                filter: brightness(1);
+            }
+            50% { 
+                background-position: 100% 50%;
+                filter: brightness(1.8) drop-shadow(0 0 50px rgba(52, 211, 153, 1.5));
+            }
+        }
+
+        @keyframes lightningStrike {
+            0%, 85%, 100% { 
+                opacity: 0;
+                background-position: -300% 50%;
+            }
+            90%, 95% { 
+                opacity: 1;
+                background-position: 300% 50%;
+            }
         }
 
         .subtitle {
-            font-size: 1rem;
+            font-size: 1.4rem;
             color: #34d399;
-            opacity: 0.8;
-            margin-top: 0.5rem;
+            opacity: 0.9;
+            margin-top: 1rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            animation: subtitleGlow 6s ease-in-out infinite;
         }
 
-        /* Submit Form */
-        .submit-section {
-            text-align: center;
-            padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.2);
-            margin-bottom: 2rem;
+        @keyframes subtitleGlow {
+            0%, 100% { 
+                text-shadow: 0 0 25px rgba(52, 211, 153, 0.6);
+                color: #34d399;
+            }
+            50% { 
+                text-shadow: 0 0 50px rgba(255, 255, 255, 1);
+                color: #ffffff;
+            }
         }
 
-        .submit-form {
+        /* CONTROLS */
+        .controls {
+            position: fixed;
+            top: 30px;
+            right: 30px;
             display: flex;
-            justify-content: center;
             gap: 1rem;
-            max-width: 600px;
-            margin: 0 auto;
+            z-index: 1001;
         }
 
-        .handle-input {
-            flex: 1;
-            padding: 1rem 1.5rem;
-            background: rgba(52, 211, 153, 0.1);
-            border: 2px solid rgba(52, 211, 153, 0.3);
-            border-radius: 25px;
-            color: #ffffff;
-            font-family: 'Orbitron', monospace;
-            font-size: 1rem;
-            text-align: center;
-        }
-
-        .handle-input::placeholder {
-            color: rgba(52, 211, 153, 0.6);
-        }
-
-        .handle-input:focus {
-            outline: none;
-            border-color: #34d399;
-            box-shadow: 0 0 20px rgba(52, 211, 153, 0.4);
-            background: rgba(52, 211, 153, 0.15);
-        }
-
-        .submit-btn {
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, #34d399, #10b981);
-            border: none;
-            border-radius: 25px;
-            color: #000;
-            font-family: 'Orbitron', monospace;
-            font-weight: bold;
+        .control-orb {
+            width: 65px;
+            height: 65px;
+            background: rgba(52, 211, 153, 0.2);
+            border: 3px solid rgba(52, 211, 153, 0.6);
+            border-radius: 50%;
+            color: #34d399;
+            font-size: 1.8rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 40px rgba(52, 211, 153, 0.4);
+            animation: orbFloat 8s ease-in-out infinite;
         }
 
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(52, 211, 153, 0.4);
-            background: linear-gradient(45deg, #10b981, #059669);
+        .control-orb:hover {
+            background: rgba(52, 211, 153, 0.5);
+            transform: scale(1.2) translateY(-5px);
+            box-shadow: 0 25px 60px rgba(52, 211, 153, 0.7);
         }
 
-        /* Music Controls */
-        .music-controls {
-            text-align: center;
-            margin-bottom: 2rem;
+        @keyframes orbFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(5deg); }
+            66% { transform: translateY(-8px) rotate(-3deg); }
         }
 
-        .music-btn {
-            padding: 0.75rem 2rem;
-            background: rgba(239, 68, 68, 0.8);
-            border: none;
-            border-radius: 25px;
-            color: #ffffff;
-            font-family: 'Orbitron', monospace;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-
-        .music-btn:hover {
-            background: rgba(239, 68, 68, 1);
-            transform: scale(1.05);
-        }
-
-        /* Connection Status */
+        /* CONNECTION STATUS */
         .connection-status {
             position: fixed;
-            top: 20px;
-            left: 20px;
-            padding: 0.5rem 1rem;
+            top: 30px;
+            left: 30px;
+            padding: 1rem 2rem;
             background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #34d399;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            font-size: 0.8rem;
-            z-index: 1000;
+            border: 3px solid #34d399;
+            border-radius: 35px;
+            backdrop-filter: blur(20px);
+            font-size: 1rem;
+            z-index: 1001;
+            box-shadow: 0 20px 50px rgba(52, 211, 153, 0.4);
+            animation: statusPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { 
+                box-shadow: 0 20px 50px rgba(52, 211, 153, 0.4);
+                border-color: rgba(52, 211, 153, 0.8);
+            }
+            50% { 
+                box-shadow: 0 30px 70px rgba(34, 197, 94, 0.6);
+                border-color: rgba(34, 197, 94, 1);
+            }
         }
 
         .status-dot {
             display: inline-block;
-            width: 8px;
-            height: 8px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            margin-right: 8px;
-            animation: pulse 2s infinite;
+            margin-right: 12px;
+            animation: statusBlink 3s infinite;
         }
 
         .connected { background: #34d399; }
         .disconnected { background: #ef4444; }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        /* Aztec Style Wall Container */
-        .wall-container {
-            position: relative;
-            width: 100%;
-            min-height: 600px;
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.1);
-            border: 2px solid rgba(52, 211, 153, 0.2);
-            border-radius: 20px;
-            margin: 0 auto;
-            max-width: 1400px;
-            overflow: hidden;
-        }
-
-        /* Scattered Profile Cards - Aztec Style */
-        .profile-card {
-            position: absolute;
-            width: 140px;
-            height: 180px;
-            background: rgba(52, 211, 153, 0.1);
-            border: 2px solid rgba(52, 211, 153, 0.3);
-            border-radius: 15px;
-            padding: 1rem;
-            backdrop-filter: blur(15px);
-            transition: all 0.4s ease;
-            cursor: pointer;
-            animation: floatCard 8s ease-in-out infinite, fadeInCard 0.8s ease-out forwards;
-            opacity: 0;
-            transform: scale(0.8);
-        }
-
-        @keyframes fadeInCard {
-            to {
-                opacity: 1;
+        @keyframes statusBlink {
+            0%, 100% { 
+                opacity: 1; 
                 transform: scale(1);
             }
+            50% { 
+                opacity: 0.7; 
+                transform: scale(1.4);
+            }
         }
 
-        @keyframes floatCard {
-            0%, 100% { 
-                transform: translateY(0) rotate(0deg);
+        /* MAIN CONTAINER */
+        .main-container {
+            margin-top: 180px;
+            min-height: calc(100vh - 180px);
+            padding: 3rem;
+            max-width: 2000px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+
+        /* INTERSTELLAR HIERARCHY POSITIONING */
+        .hierarchy-space {
+            position: relative;
+            width: 100%;
+            min-height: 90vh;
+            padding: 4rem;
+        }
+
+        /* FOUNDER (LYRON) - CENTER with MASSIVE SPINNING ORBIT */
+        .founder-profile {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 360px;
+            background: rgba(255, 215, 0, 0.15);
+            border: 4px solid rgba(255, 215, 0, 0.8);
+            border-radius: 25px;
+            padding: 2rem;
+            backdrop-filter: blur(30px);
+            box-shadow: 
+                0 0 120px rgba(255, 215, 0, 0.8),
+                0 0 240px rgba(255, 215, 0, 0.4);
+            z-index: 300;
+            animation: founderMegaSpin 15s linear infinite;
+        }
+
+        @keyframes founderMegaSpin {
+            0% { 
+                transform: translate(-50%, -50%) rotate(0deg) scale(1);
+                box-shadow: 0 0 120px rgba(255, 215, 0, 0.8), 0 0 240px rgba(255, 215, 0, 0.4);
             }
             25% { 
-                transform: translateY(-15px) rotate(1deg);
+                transform: translate(-50%, -50%) rotate(90deg) scale(1.1);
+                box-shadow: 0 0 180px rgba(255, 215, 0, 1.2), 0 0 360px rgba(255, 215, 0, 0.6);
             }
             50% { 
-                transform: translateY(-8px) rotate(0deg);
+                transform: translate(-50%, -50%) rotate(180deg) scale(1.15);
+                box-shadow: 0 0 200px rgba(255, 215, 0, 1.5), 0 0 400px rgba(255, 215, 0, 0.8);
             }
             75% { 
-                transform: translateY(-20px) rotate(-1deg);
+                transform: translate(-50%, -50%) rotate(270deg) scale(1.1);
+                box-shadow: 0 0 180px rgba(255, 215, 0, 1.2), 0 0 360px rgba(255, 215, 0, 0.6);
+            }
+            100% { 
+                transform: translate(-50%, -50%) rotate(360deg) scale(1);
+                box-shadow: 0 0 120px rgba(255, 215, 0, 0.8), 0 0 240px rgba(255, 215, 0, 0.4);
             }
         }
 
-        .profile-card:hover {
-            transform: scale(1.1) translateY(-10px);
-            box-shadow: 0 25px 50px rgba(52, 211, 153, 0.3);
-            border-color: #34d399;
-            background: rgba(52, 211, 153, 0.2);
-            z-index: 100;
+        /* MODERATORS - ORBITAL SPINNING AROUND FOUNDER */
+        .moderator-profile {
+            position: absolute;
+            width: 240px;
+            height: 300px;
+            background: rgba(138, 43, 226, 0.12);
+            border: 3px solid rgba(138, 43, 226, 0.7);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(25px);
+            box-shadow: 
+                0 0 80px rgba(138, 43, 226, 0.6),
+                0 0 160px rgba(138, 43, 226, 0.3);
+            z-index: 200;
+            animation: moderatorOrbit 20s linear infinite;
+            transform-origin: 50vw 50vh;
         }
 
+        /* Position moderators in orbit around founder */
+        .moderator-profile:nth-of-type(1) {
+            top: 15%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .moderator-profile:nth-of-type(2) {
+            top: 15%;
+            right: 20%;
+            animation-delay: -7s;
+        }
+
+        .moderator-profile:nth-of-type(3) {
+            bottom: 15%;
+            left: 35%;
+            animation-delay: -14s;
+        }
+
+        @keyframes moderatorOrbit {
+            0% { 
+                transform: rotate(0deg) translateX(250px) rotate(0deg) scale(1);
+            }
+            25% { 
+                transform: rotate(90deg) translateX(250px) rotate(-90deg) scale(1.05);
+            }
+            50% { 
+                transform: rotate(180deg) translateX(250px) rotate(-180deg) scale(1.1);
+            }
+            75% { 
+                transform: rotate(270deg) translateX(250px) rotate(-270deg) scale(1.05);
+            }
+            100% { 
+                transform: rotate(360deg) translateX(250px) rotate(-360deg) scale(1);
+            }
+        }
+
+        /* COMMUNITY MEMBERS - MASSIVE SPINNING CONSTELLATION */
+        .community-profile {
+            position: absolute;
+            width: 190px;
+            height: 240px;
+            background: rgba(52, 211, 153, 0.08);
+            border: 2px solid rgba(52, 211, 153, 0.4);
+            border-radius: 18px;
+            padding: 1.2rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 
+                0 0 60px rgba(52, 211, 153, 0.4),
+                0 0 120px rgba(34, 197, 94, 0.2);
+            z-index: 100;
+            animation: communityMegaSpin 25s linear infinite;
+            transform-origin: 50vw 50vh;
+        }
+
+        /* Create orbital patterns for community members */
+        @keyframes communityMegaSpin {
+            0% { 
+                transform: rotate(0deg) translateX(400px) rotate(0deg) scale(0.9);
+                opacity: 0.8;
+            }
+            25% { 
+                transform: rotate(90deg) translateX(400px) rotate(-90deg) scale(1);
+                opacity: 1;
+            }
+            50% { 
+                transform: rotate(180deg) translateX(400px) rotate(-180deg) scale(1.05);
+                opacity: 0.9;
+            }
+            75% { 
+                transform: rotate(270deg) translateX(400px) rotate(-270deg) scale(1);
+                opacity: 1;
+            }
+            100% { 
+                transform: rotate(360deg) translateX(400px) rotate(-360deg) scale(0.9);
+                opacity: 0.8;
+            }
+        }
+
+        /* PROFILE COMPONENTS */
         .profile-avatar {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             background: linear-gradient(45deg, #34d399, #10b981);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             color: #000;
-            margin: 0 auto 0.75rem auto;
+            margin: 0 auto 1.5rem auto;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(52, 211, 153, 0.4);
+            box-shadow: 0 0 40px rgba(52, 211, 153, 0.8);
+            animation: avatarSpin 8s linear infinite;
+        }
+
+        .founder-profile .profile-avatar {
+            width: 140px;
+            height: 140px;
+            font-size: 2.2rem;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            box-shadow: 0 0 60px rgba(255, 215, 0, 1);
+        }
+
+        .moderator-profile .profile-avatar {
+            width: 120px;
+            height: 120px;
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, #8A2BE2, #9932CC);
+            box-shadow: 0 0 50px rgba(138, 43, 226, 0.8);
         }
 
         .profile-avatar img {
@@ -328,183 +746,418 @@
             border-radius: 50%;
         }
 
-        .profile-username {
-            font-size: 0.8rem;
+        @keyframes avatarSpin {
+            0% { 
+                transform: rotateY(0deg) rotateX(0deg);
+                box-shadow: 0 0 40px rgba(52, 211, 153, 0.8);
+            }
+            25% { 
+                transform: rotateY(90deg) rotateX(15deg);
+                box-shadow: 0 0 60px rgba(34, 197, 94, 1);
+            }
+            50% { 
+                transform: rotateY(180deg) rotateX(0deg);
+                box-shadow: 0 0 80px rgba(16, 185, 129, 1.2);
+            }
+            75% { 
+                transform: rotateY(270deg) rotateX(-15deg);
+                box-shadow: 0 0 60px rgba(34, 197, 94, 1);
+            }
+            100% { 
+                transform: rotateY(360deg) rotateX(0deg);
+                box-shadow: 0 0 40px rgba(52, 211, 153, 0.8);
+            }
+        }
+
+        .profile-handle {
+            font-size: 1.3rem;
             font-weight: bold;
             color: #34d399;
             text-align: center;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
             word-break: break-word;
+            text-shadow: 0 0 25px rgba(52, 211, 153, 0.8);
+        }
+
+        .founder-profile .profile-handle {
+            font-size: 1.8rem;
+            color: #FFD700;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 1);
+        }
+
+        .moderator-profile .profile-handle {
+            font-size: 1.5rem;
+            color: #8A2BE2;
+            text-shadow: 0 0 30px rgba(138, 43, 226, 0.9);
+        }
+
+        .profile-role {
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .founder-role {
+            background: rgba(255, 215, 0, 0.2);
+            color: #FFD700;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+        }
+
+        .moderator-role {
+            background: rgba(138, 43, 226, 0.2);
+            color: #8A2BE2;
+            border: 1px solid rgba(138, 43, 226, 0.5);
+        }
+
+        .community-role {
+            background: rgba(52, 211, 153, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(52, 211, 153, 0.4);
         }
 
         .profile-stats {
-            font-size: 0.65rem;
+            font-size: 0.9rem;
             text-align: center;
-            opacity: 0.8;
+            opacity: 0.9;
+            line-height: 1.8;
         }
 
         .stat-line {
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            background: rgba(52, 211, 153, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(52, 211, 153, 0.2);
         }
 
-        /* Empty State */
-        .empty-state {
+        /* SUBMIT PORTAL */
+        .submit-portal {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+
+        .portal-form {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1.5rem 3rem;
+            border-radius: 50px;
+            border: 3px solid rgba(52, 211, 153, 0.5);
+            backdrop-filter: blur(25px);
+            box-shadow: 0 25px 70px rgba(52, 211, 153, 0.4);
+            animation: portalPulse 5s ease-in-out infinite;
+        }
+
+        @keyframes portalPulse {
+            0%, 100% { 
+                box-shadow: 0 25px 70px rgba(52, 211, 153, 0.4);
+                border-color: rgba(52, 211, 153, 0.5);
+            }
+            50% { 
+                box-shadow: 0 35px 90px rgba(34, 197, 94, 0.6);
+                border-color: rgba(34, 197, 94, 0.8);
+            }
+        }
+
+        .portal-input {
+            padding: 1rem 2rem;
+            background: rgba(52, 211, 153, 0.1);
+            border: 2px solid rgba(52, 211, 153, 0.4);
+            border-radius: 30px;
+            color: #ffffff;
+            font-family: 'Exo 2', monospace;
+            font-size: 1.2rem;
+            min-width: 250px;
+            backdrop-filter: blur(15px);
+            transition: all 0.5s ease;
+        }
+
+        .portal-input::placeholder {
+            color: rgba(52, 211, 153, 0.6);
+        }
+
+        .portal-input:focus {
+            outline: none;
+            border-color: #34d399;
+            box-shadow: 0 0 40px rgba(52, 211, 153, 0.6);
+            background: rgba(52, 211, 153, 0.2);
+            transform: scale(1.05);
+        }
+
+        .portal-btn {
+            padding: 1rem 2.5rem;
+            background: linear-gradient(45deg, #34d399, #10b981);
+            border: none;
+            border-radius: 30px;
+            color: #000;
+            font-family: 'Exo 2', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .portal-btn:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 20px 50px rgba(52, 211, 153, 0.6);
+            background: linear-gradient(45deg, #10b981, #059669);
+        }
+
+        /* LOADING */
+        .cosmic-loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(52, 211, 153, 0.3);
+            border-radius: 50%;
+            border-top-color: #34d399;
+            animation: cosmicSpin 1s ease-in-out infinite;
+        }
+
+        @keyframes cosmicSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* EMPTY STATE */
+        .empty-void {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            opacity: 0.6;
+            opacity: 0.8;
+            z-index: 50;
         }
 
-        .empty-state h3 {
-            font-size: 1.5rem;
+        .void-title {
+            font-size: 3rem;
             color: #34d399;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            animation: voidPulse 6s ease-in-out infinite;
+            text-shadow: 0 0 40px rgba(52, 211, 153, 0.8);
         }
 
-        .empty-state p {
-            font-size: 1rem;
+        .void-text {
+            font-size: 1.4rem;
             color: #ffffff;
-            opacity: 0.7;
+            opacity: 0.9;
+            font-weight: 300;
+            line-height: 1.8;
         }
 
-        /* Refresh Button */
-        .refresh-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: rgba(52, 211, 153, 0.2);
-            border: 2px solid #34d399;
-            border-radius: 50%;
-            color: #34d399;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            z-index: 1000;
+        @keyframes voidPulse {
+            0%, 100% { 
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.08);
+            }
         }
 
-        .refresh-btn:hover {
-            background: rgba(52, 211, 153, 0.4);
-            transform: scale(1.1) rotate(180deg);
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1200px) {
+            .founder-profile {
+                width: 260px;
+                height: 320px;
+            }
+            
+            .moderator-profile {
+                width: 200px;
+                height: 260px;
+            }
+            
+            .community-profile {
+                width: 170px;
+                height: 220px;
+            }
         }
 
-        /* Loading Animation */
-        .loading {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(52, 211, 153, 0.3);
-            border-radius: 50%;
-            border-top-color: #34d399;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
             .title {
-                font-size: 2rem;
+                font-size: 2.5rem;
+                letter-spacing: 4px;
             }
 
-            .submit-form {
+            .main-container {
+                padding: 1.5rem;
+                margin-top: 160px;
+            }
+
+            .hierarchy-space {
+                padding: 2rem;
+            }
+
+            .founder-profile {
+                width: 220px;
+                height: 280px;
+                padding: 1.5rem;
+            }
+
+            .moderator-profile {
+                width: 180px;
+                height: 220px;
+                padding: 1rem;
+            }
+
+            .community-profile {
+                width: 150px;
+                height: 190px;
+                padding: 1rem;
+            }
+
+            .portal-form {
                 flex-direction: column;
                 gap: 1rem;
+                padding: 1.5rem 2rem;
             }
 
-            .wall-container {
-                margin: 0 1rem;
-                padding: 1rem;
-                min-height: 400px;
+            .portal-input {
+                min-width: 200px;
             }
 
-            .profile-card {
-                width: 120px;
-                height: 160px;
-                padding: 0.75rem;
+            .controls {
+                top: 15px;
+                right: 15px;
+                gap: 0.5rem;
             }
 
-            .profile-avatar {
-                width: 60px;
-                height: 60px;
+            .control-orb {
+                width: 50px;
+                height: 50px;
+                font-size: 1.4rem;
+            }
+
+            .connection-status {
+                top: 15px;
+                left: 15px;
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            @keyframes moderatorOrbit {
+                0% { 
+                    transform: rotate(0deg) translateX(180px) rotate(0deg) scale(1);
+                }
+                100% { 
+                    transform: rotate(360deg) translateX(180px) rotate(-360deg) scale(1);
+                }
+            }
+
+            @keyframes communityMegaSpin {
+                0% { 
+                    transform: rotate(0deg) translateX(280px) rotate(0deg) scale(0.9);
+                }
+                100% { 
+                    transform: rotate(360deg) translateX(280px) rotate(-360deg) scale(0.9);
+                }
             }
         }
     </style>
 </head>
 <body>
-    <!-- Cosmic Background -->
-    <div class="cosmic-background"></div>
+    <!-- ULTIMATE INTERSTELLAR SPACE BACKGROUND -->
+    <div class="interstellar-space"></div>
     
-    <!-- Floating Stars -->
-    <div class="stars" id="stars"></div>
+    <!-- MASSIVE NEBULA SYSTEM -->
+    <div class="nebula-system">
+        <div class="nebula"></div>
+        <div class="nebula"></div>
+        <div class="nebula"></div>
+        <div class="nebula"></div>
+        <div class="nebula"></div>
+    </div>
+    
+    <!-- MASSIVE INTERSTELLAR STAR FIELD -->
+    <div class="star-field" id="starField"></div>
+    
+    <!-- COSMIC ENERGY WAVES -->
+    <div class="energy-system">
+        <div class="energy-ring"></div>
+        <div class="energy-ring"></div>
+        <div class="energy-ring"></div>
+        <div class="energy-ring"></div>
+    </div>
 
-    <!-- Audio Element -->
+    <!-- AUDIO ELEMENT -->
     <audio id="backgroundMusic" loop>
         <source src="./seismic-music.mp3" type="audio/mpeg">
         <source src="./interstellar.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Connection Status -->
-    <div class="connection-status">
-        <span class="status-dot disconnected" id="statusDot"></span>
-        <span id="statusText">💎 Demo Mode</span>
-    </div>
-
-    <!-- Refresh Button -->
-    <button class="refresh-btn" onclick="refreshMembers()" title="Refresh">
-        🔄
-    </button>
-
-    <!-- Header -->
+    <!-- HEADER -->
     <header class="header">
-        <div class="logo-container">
-            <div class="seismic-logo">
-                <img src="./seismic-logo.png" alt="S" onerror="this.parentElement.innerHTML='S'">
-            </div>
-            <div>
-                <h1 class="title">SEISMIC WALL</h1>
-                <p class="subtitle">Join the Encrypted Community</p>
+        <div class="header-content">
+            <div class="logo-title">
+                <div class="seismic-logo">
+                    <img src="./seismic-logo.png" alt="S" onerror="this.innerHTML='S'">
+                </div>
+                <div>
+                    <h1 class="title">SEISMIC WALL</h1>
+                    <p class="subtitle">Encrypted Blockchain Universe</p>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Submit Section -->
-    <section class="submit-section">
-        <h2 style="color: #34d399; margin-bottom: 1rem;">Submit your X handle. Join Seismic Family Wall</h2>
-        <form class="submit-form" onsubmit="addMember(event)">
+    <!-- CONNECTION STATUS -->
+    <div class="connection-status">
+        <span class="status-dot disconnected" id="statusDot"></span>
+        <span id="statusText">💎 Demo Universe</span>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+        <button class="control-orb" onclick="refreshMembers()" title="Refresh Universe">
+            🔄
+        </button>
+        <button class="control-orb" onclick="toggleMusic()" id="musicOrb" title="Cosmic Audio">
+            🎵
+        </button>
+        <button class="control-orb" onclick="toggleDemoMode()" id="demoOrb" title="Toggle Demo">
+            🎭
+        </button>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="main-container">
+        <!-- INTERSTELLAR HIERARCHY SPACE -->
+        <div class="hierarchy-space" id="hierarchySpace">
+            <div class="empty-void" id="emptyVoid">
+                <h3 class="void-title">Welcome to the Cosmic Hierarchy</h3>
+                <p class="void-text">Deploy nodes to build the <br><strong>decentralized blockchain community</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUBMIT PORTAL -->
+    <div class="submit-portal">
+        <form class="portal-form" onsubmit="addMember(event)">
             <input 
                 type="text" 
-                class="handle-input" 
+                class="portal-input" 
                 placeholder="@handle" 
                 id="usernameInput"
                 required
             >
-            <button type="submit" class="submit-btn">
-                <span id="submitButtonText">Submit</span>
-                <span id="submitButtonLoading" class="loading" style="display: none;"></span>
+            <button type="submit" class="portal-btn">
+                <span id="submitButtonText">Deploy Node</span>
+                <span id="submitButtonLoading" class="cosmic-loading" style="display: none;"></span>
             </button>
         </form>
-    </section>
-
-    <!-- Music Controls -->
-    <section class="music-controls">
-        <button class="music-btn" onclick="toggleMusic()" id="musicBtn">
-            🎵 Pause Music
-        </button>
-    </section>
-
-    <!-- Aztec Style Wall -->
-    <div class="wall-container" id="wallContainer">
-        <div class="empty-state" id="emptyState">
-            <h3>Welcome to Seismic Wall</h3>
-            <p>Submit your handle to join the community</p>
-        </div>
     </div>
 
     <script>
@@ -513,69 +1166,139 @@
         let isConnected = false;
         let music = document.getElementById('backgroundMusic');
         let isPlaying = false;
+        let isDemoMode = true;
 
         // API Configuration
         const API_BASE = 'https://seismicwall.duckdns.org/api';
 
-        // Predefined positions for scattered layout (Aztec style)
-        const positions = [
-            { top: '10%', left: '15%' },
-            { top: '25%', left: '65%' },
-            { top: '40%', left: '25%' },
-            { top: '15%', left: '75%' },
-            { top: '55%', left: '10%' },
-            { top: '30%', left: '45%' },
-            { top: '65%', left: '70%' },
-            { top: '45%', left: '80%' },
-            { top: '75%', left: '20%' },
-            { top: '20%', left: '35%' },
-            { top: '70%', left: '50%' },
-            { top: '85%', left: '75%' },
-            { top: '50%', left: '60%' },
-            { top: '35%', left: '5%' },
-            { top: '80%', left: '35%' },
-            { top: '60%', left: '85%' },
-            { top: '90%', left: '10%' },
-            { top: '5%', left: '50%' },
-            { top: '75%', left: '65%' },
-            { top: '40%', left: '90%' },
-            { top: '15%', left: '90%' },
-            { top: '85%', left: '55%' },
-            { top: '25%', left: '80%' },
-            { top: '65%', left: '30%' },
-            { top: '45%', left: '15%' },
-            { top: '30%', left: '70%' },
-            { top: '55%', left: '40%' },
-            { top: '75%', left: '85%' },
-            { top: '90%', left: '45%' },
-            { top: '10%', left: '25%' }
+        // Hierarchy definitions - Fixed moderator names
+        const FOUNDER = ['lyron', 'lyronctk'];
+        const MODERATORS = ['noxx', 'xealis', 'heathcliff', 'heathclif'];
+
+        // Demo data for when API is not available
+        const DEMO_MEMBERS = [
+            {
+                id: 1,
+                username: '@lyronctk',
+                displayName: 'Lyron CTK',
+                followers: 15420,
+                verified: true,
+                createdAt: '2024-01-15T10:00:00Z',
+                profileImage: null
+            },
+            {
+                id: 2,
+                username: '@xealis',
+                displayName: 'Xealis',
+                followers: 8930,
+                verified: true,
+                createdAt: '2024-02-01T14:30:00Z',
+                profileImage: null
+            },
+            {
+                id: 3,
+                username: '@noxx',
+                displayName: 'Noxx',
+                followers: 7245,
+                verified: true,
+                createdAt: '2024-01-28T09:15:00Z',
+                profileImage: null
+            },
+            {
+                id: 4,
+                username: '@heathcliff',
+                displayName: 'Heathcliff',
+                followers: 6180,
+                verified: true,
+                createdAt: '2024-02-10T16:45:00Z',
+                profileImage: null
+            },
+            {
+                id: 5,
+                username: '@cryptonode1',
+                displayName: 'Crypto Node Alpha',
+                followers: 2340,
+                verified: false,
+                createdAt: '2024-03-01T12:00:00Z',
+                profileImage: null
+            },
+            {
+                id: 6,
+                username: '@blockchainbeta',
+                displayName: 'Blockchain Beta',
+                followers: 1890,
+                verified: false,
+                createdAt: '2024-03-05T08:30:00Z',
+                profileImage: null
+            },
+            {
+                id: 7,
+                username: '@quantumnode',
+                displayName: 'Quantum Node',
+                followers: 3420,
+                verified: true,
+                createdAt: '2024-02-20T11:20:00Z',
+                profileImage: null
+            },
+            {
+                id: 8,
+                username: '@cosmicminer',
+                displayName: 'Cosmic Miner',
+                followers: 1560,
+                verified: false,
+                createdAt: '2024-03-12T15:10:00Z',
+                profileImage: null
+            },
+            {
+                id: 9,
+                username: '@stellarvalidator',
+                displayName: 'Stellar Validator',
+                followers: 2890,
+                verified: true,
+                createdAt: '2024-02-28T13:45:00Z',
+                profileImage: null
+            },
+            {
+                id: 10,
+                username: '@galacticnode',
+                displayName: 'Galactic Node',
+                followers: 4120,
+                verified: false,
+                createdAt: '2024-03-08T10:30:00Z',
+                profileImage: null
+            }
         ];
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            createStars();
+            createMassiveStarField();
             checkConnection();
             fetchMembers();
             setupKeyboardShortcuts();
             
-            // Auto-play music
+            // Auto-play cosmic music after 2 seconds
             setTimeout(() => {
-                music.volume = 0.3;
+                music.volume = 0.25;
                 toggleMusic();
-            }, 1000);
+            }, 2000);
         });
 
-        // Create floating stars
-        function createStars() {
-            const container = document.getElementById('stars');
-            const starCount = 100;
+        // Create massive interstellar star field
+        function createMassiveStarField() {
+            const container = document.getElementById('starField');
+            const starCount = 400;
+            const starTypes = ['micro', 'tiny', 'small', 'medium', 'large'];
             
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
-                star.className = 'star';
+                const starType = starTypes[Math.floor(Math.random() * starTypes.length)];
+                star.className = `star ${starType}`;
+                
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDelay = Math.random() * 4 + 's';
+                star.style.animationDuration = (Math.random() * 6 + 3) + 's';
+                
                 container.appendChild(star);
             }
         }
@@ -583,7 +1306,9 @@
         // Check backend connection
         async function checkConnection() {
             try {
-                const response = await fetch(`${API_BASE}/members`);
+                const response = await fetch(`${API_BASE}/members`, {
+                    timeout: 5000
+                });
                 isConnected = response.ok;
             } catch (error) {
                 isConnected = false;
@@ -596,44 +1321,77 @@
             const statusDot = document.getElementById('statusDot');
             const statusText = document.getElementById('statusText');
             
-            if (isConnected) {
+            if (isConnected && !isDemoMode) {
                 statusDot.className = 'status-dot connected';
-                statusText.textContent = '🟢 Backend Connected';
+                statusText.textContent = '🟢 Cosmic Network Active';
             } else {
                 statusDot.className = 'status-dot disconnected';
-                statusText.textContent = '💎 Demo Mode';
+                statusText.textContent = '💎 Demo Universe';
             }
         }
 
-        // Fetch members from API (NO DEMO DATA)
+        // Toggle demo mode
+        function toggleDemoMode() {
+            isDemoMode = !isDemoMode;
+            const demoOrb = document.getElementById('demoOrb');
+            
+            if (isDemoMode) {
+                demoOrb.textContent = '🎭';
+                demoOrb.title = 'Demo Mode ON';
+            } else {
+                demoOrb.textContent = '🌐';
+                demoOrb.title = 'Live Mode';
+            }
+            
+            updateConnectionStatus();
+            fetchMembers();
+        }
+
+        // Fetch members from API or use demo data
         async function fetchMembers() {
             try {
-                if (!isConnected) {
-                    members = []; // Empty array - no demo users
-                    renderMembers();
+                if (isDemoMode || !isConnected) {
+                    // Use demo data
+                    members = [...DEMO_MEMBERS];
+                    renderHierarchy();
                     return;
                 }
                 
                 const response = await fetch(`${API_BASE}/members`);
-                if (!response.ok) throw new Error('Failed to fetch');
+                if (!response.ok) throw new Error('Failed to fetch cosmic data');
                 
                 members = await response.json();
-                renderMembers();
+                renderHierarchy();
             } catch (error) {
-                console.error('Error fetching members:', error);
-                members = []; // Empty on error
-                renderMembers();
+                console.error('Error fetching cosmic members:', error);
+                // Fallback to demo data
+                members = [...DEMO_MEMBERS];
+                renderHierarchy();
             }
         }
 
-        // Render members in Aztec scattered style
-        function renderMembers() {
-            const container = document.getElementById('wallContainer');
-            const emptyState = document.getElementById('emptyState');
+        // Check if user is founder
+        function isFounder(username) {
+            return FOUNDER.some(f => 
+                username.toLowerCase().replace('@', '').includes(f.toLowerCase())
+            );
+        }
+
+        // Check if user is moderator
+        function isModerator(username) {
+            return MODERATORS.some(mod => 
+                username.toLowerCase().replace('@', '').includes(mod.toLowerCase())
+            );
+        }
+
+        // Render hierarchy with enhanced spinning animations
+        function renderHierarchy() {
+            const container = document.getElementById('hierarchySpace');
+            const emptyState = document.getElementById('emptyVoid');
             
-            // Clear existing cards
-            const existingCards = container.querySelectorAll('.profile-card');
-            existingCards.forEach(card => card.remove());
+            // Clear existing profiles
+            const existingProfiles = container.querySelectorAll('.founder-profile, .moderator-profile, .community-profile');
+            existingProfiles.forEach(profile => profile.remove());
             
             if (members.length === 0) {
                 emptyState.style.display = 'block';
@@ -642,78 +1400,176 @@
 
             emptyState.style.display = 'none';
 
-            members.forEach((member, index) => {
-                const card = document.createElement('div');
-                card.className = 'profile-card';
-                
-                // Use predefined positions, cycle through if more members
-                const position = positions[index % positions.length];
-                card.style.top = position.top;
-                card.style.left = position.left;
-                card.style.animationDelay = (index * 0.2) + 's';
-                
-                // Add random float animation delay
-                card.style.setProperty('--float-delay', (Math.random() * 8) + 's');
-                
-                card.innerHTML = `
-                    <div class="profile-avatar">
-                        ${member.profileImage ? 
-                            `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
-                            getInitials(member.displayName)
-                        }
-                    </div>
-                    <div class="profile-username">${member.username}</div>
-                    <div class="profile-stats">
-                        <div class="stat-line">👥 ${formatNumber(member.followers || 0)}</div>
-                        <div class="stat-line">${member.verified ? '✅ Verified' : '⭕ Unverified'}</div>
-                        <div class="stat-line">⏰ ${timeAgo(member.createdAt)}</div>
-                    </div>
-                `;
-                
-                container.appendChild(card);
+            // Categorize members
+            const founder = members.find(m => isFounder(m.username));
+            const moderators = members.filter(m => isModerator(m.username));
+            const community = members.filter(m => !isFounder(m.username) && !isModerator(m.username));
+
+            console.log('Founder:', founder);
+            console.log('Moderators:', moderators);
+            console.log('Community:', community);
+
+            // Render founder (center with mega spinning)
+            if (founder) {
+                const founderProfile = createProfile(founder, 'founder');
+                container.appendChild(founderProfile);
+            }
+
+            // Render moderators (orbital spinning around founder)
+            moderators.forEach((moderator, index) => {
+                const moderatorProfile = createProfile(moderator, 'moderator');
+                // Add staggered delays for orbital animation
+                moderatorProfile.style.animationDelay = `${-index * 7}s`;
+                container.appendChild(moderatorProfile);
             });
+
+            // Render community members (constellation spinning)
+            community.forEach((member, index) => {
+                const communityProfile = createProfile(member, 'community', index);
+                // Add staggered delays and randomized orbit distances
+                communityProfile.style.animationDelay = `${-index * 3}s`;
+                communityProfile.style.animationDuration = `${25 + (index % 3) * 5}s`;
+                
+                // Vary the orbit distance for visual variety
+                const orbitDistance = 400 + (index % 4) * 50;
+                communityProfile.style.setProperty('--orbit-distance', orbitDistance + 'px');
+                
+                container.appendChild(communityProfile);
+            });
+
+            // Add custom CSS for varied community orbit distances
+            const style = document.createElement('style');
+            style.textContent = `
+                .community-profile {
+                    --orbit-distance: 400px;
+                }
+                @keyframes communityMegaSpin {
+                    0% { 
+                        transform: rotate(0deg) translateX(var(--orbit-distance)) rotate(0deg) scale(0.9);
+                        opacity: 0.8;
+                    }
+                    25% { 
+                        transform: rotate(90deg) translateX(var(--orbit-distance)) rotate(-90deg) scale(1);
+                        opacity: 1;
+                    }
+                    50% { 
+                        transform: rotate(180deg) translateX(var(--orbit-distance)) rotate(-180deg) scale(1.05);
+                        opacity: 0.9;
+                    }
+                    75% { 
+                        transform: rotate(270deg) translateX(var(--orbit-distance)) rotate(-270deg) scale(1);
+                        opacity: 1;
+                    }
+                    100% { 
+                        transform: rotate(360deg) translateX(var(--orbit-distance)) rotate(-360deg) scale(0.9);
+                        opacity: 0.8;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
         }
 
-        // Add new member
+        // Create profile element based on role with enhanced visuals
+        function createProfile(member, role, index = 0) {
+            const profile = document.createElement('div');
+            profile.className = `${role}-profile`;
+            
+            const roleText = {
+                founder: '👑 FOUNDER',
+                moderator: '⚡ MODERATOR',
+                community: '🔗 NODE'
+            };
+
+            const roleClass = {
+                founder: 'founder-role',
+                moderator: 'moderator-role',
+                community: 'community-role'
+            };
+
+            // Clean username for display
+            const displayUsername = member.username.startsWith('@') ? member.username : `@${member.username}`;
+
+            profile.innerHTML = `
+                <div class="profile-avatar">
+                    ${member.profileImage ? 
+                        `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
+                        getInitials(member.displayName)
+                    }
+                </div>
+                <div class="profile-handle">${displayUsername}</div>
+                <div class="profile-role ${roleClass[role]}">${roleText[role]}</div>
+                <div class="profile-stats">
+                    <div class="stat-line">🔗 ${formatNumber(member.followers || 0)} Connections</div>
+                    <div class="stat-line">${member.verified ? '✅ Verified Node' : '⭕ Pending Verification'}</div>
+                    <div class="stat-line">⏰ ${timeAgo(member.createdAt)} in network</div>
+                </div>
+            `;
+
+            return profile;
+        }
+
+        // Add new member with cosmic effects
         async function addMember(event) {
             event.preventDefault();
             
             const input = document.getElementById('usernameInput');
-            const username = input.value.trim();
+            let username = input.value.trim();
             
             if (!username) return;
             
-            // Show loading state
+            // Ensure username starts with @
+            if (!username.startsWith('@')) {
+                username = '@' + username;
+            }
+            
+            // Show cosmic loading state
             const buttonText = document.getElementById('submitButtonText');
             const buttonLoading = document.getElementById('submitButtonLoading');
             buttonText.style.display = 'none';
             buttonLoading.style.display = 'inline-block';
             
             try {
-                if (!isConnected) {
-                    throw new Error('Backend not connected - Please check connection');
+                if (isDemoMode) {
+                    // Add to demo data
+                    const newMember = {
+                        id: members.length + 1,
+                        username: username,
+                        displayName: username.replace('@', '').toUpperCase(),
+                        followers: Math.floor(Math.random() * 5000) + 100,
+                        verified: Math.random() > 0.5,
+                        createdAt: new Date().toISOString(),
+                        profileImage: null
+                    };
+                    
+                    members.push(newMember);
+                    renderHierarchy();
+                    showCosmicSuccess();
+                } else if (isConnected) {
+                    const response = await fetch(`${API_BASE}/members`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ username: username.replace('@', '') })
+                    });
+                    
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.error || 'Failed to deploy node to cosmic network');
+                    }
+                    
+                    await fetchMembers();
+                    showCosmicSuccess();
+                } else {
+                    throw new Error('Cosmic network offline - Using demo mode');
                 }
                 
-                const response = await fetch(`${API_BASE}/members`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ username })
-                });
-                
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.error || 'Failed to add member');
-                }
-                
-                // Clear input and refresh
+                // Clear input
                 input.value = '';
-                await fetchMembers();
                 
             } catch (error) {
-                console.error('Error adding member:', error);
-                alert(error.message);
+                console.error('Error deploying node:', error);
+                showCosmicError(error.message);
             } finally {
                 // Reset button state
                 buttonText.style.display = 'inline-block';
@@ -721,28 +1577,130 @@
             }
         }
 
-        // Refresh members
-        async function refreshMembers() {
-            await checkConnection();
-            await fetchMembers();
+        // Show cosmic success with enhanced effects
+        function showCosmicSuccess() {
+            const successEffect = document.createElement('div');
+            successEffect.innerHTML = '🚀 Node Successfully Deployed to Cosmic Network! ✨';
+            successEffect.style.cssText = `
+                position: fixed;
+                top: 25%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(45deg, rgba(52, 211, 153, 0.95), rgba(34, 197, 94, 0.95));
+                color: #000;
+                padding: 2rem 4rem;
+                border-radius: 50px;
+                font-weight: bold;
+                font-size: 1.6rem;
+                z-index: 10000;
+                animation: cosmicSuccessAnimation 5s ease-out forwards;
+                box-shadow: 0 0 100px rgba(52, 211, 153, 1);
+                text-align: center;
+                border: 3px solid rgba(255, 255, 255, 0.6);
+            `;
+            
+            document.body.appendChild(successEffect);
+            
+            // Create enhanced celebration explosion
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => createCosmicCelebrationParticle(), i * 100);
+            }
+            
+            setTimeout(() => successEffect.remove(), 5000);
         }
 
-        // Music controls
+        // Show cosmic error with enhanced effects
+        function showCosmicError(message) {
+            const errorEffect = document.createElement('div');
+            errorEffect.innerHTML = `⚠️ ${message}`;
+            errorEffect.style.cssText = `
+                position: fixed;
+                top: 25%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(239, 68, 68, 0.95);
+                color: #fff;
+                padding: 1.5rem 3rem;
+                border-radius: 30px;
+                font-weight: bold;
+                font-size: 1.3rem;
+                z-index: 10000;
+                animation: errorPulseAnimation 4s ease-out forwards;
+                box-shadow: 0 0 60px rgba(239, 68, 68, 1);
+                text-align: center;
+                border: 2px solid rgba(255, 255, 255, 0.4);
+            `;
+            
+            document.body.appendChild(errorEffect);
+            
+            setTimeout(() => errorEffect.remove(), 4000);
+        }
+
+        // Create enhanced cosmic celebration particles
+        function createCosmicCelebrationParticle() {
+            const particle = document.createElement('div');
+            const colors = ['#34d399', '#10b981', '#ffffff', '#FFD700', '#8A2BE2'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            particle.style.cssText = `
+                position: fixed;
+                width: ${Math.random() * 8 + 4}px;
+                height: ${Math.random() * 8 + 4}px;
+                background: ${randomColor};
+                border-radius: 50%;
+                top: 25%;
+                left: 50%;
+                z-index: 9999;
+                animation: cosmicCelebrationBurst 4s ease-out forwards;
+                box-shadow: 0 0 20px ${randomColor};
+            `;
+            
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 500 + 250;
+            particle.style.setProperty('--burst-x', Math.cos(angle) * distance + 'px');
+            particle.style.setProperty('--burst-y', Math.sin(angle) * distance + 'px');
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 4000);
+        }
+
+        // Refresh members with enhanced effects
+        async function refreshMembers() {
+            const refreshBtn = document.querySelector('.controls button[onclick="refreshMembers()"]');
+            refreshBtn.style.transform = 'scale(1.2) rotate(360deg)';
+            
+            await checkConnection();
+            await fetchMembers();
+            
+            setTimeout(() => {
+                refreshBtn.style.transform = '';
+            }, 1000);
+        }
+
+        // Enhanced music controls
         function toggleMusic() {
-            const btn = document.getElementById('musicBtn');
+            const btn = document.getElementById('musicOrb');
             
             if (isPlaying) {
                 music.pause();
-                btn.textContent = '🎵 Play Music';
+                btn.textContent = '🎵';
+                btn.title = 'Play Cosmic Audio';
                 isPlaying = false;
             } else {
-                music.play().catch(e => console.log('Music play failed:', e));
-                btn.textContent = '🎵 Pause Music';
+                music.play().catch(e => {
+                    console.log('Cosmic music failed:', e);
+                    // Fallback: show visual music indicator
+                    btn.textContent = '🔇';
+                    btn.title = 'Audio Unavailable';
+                });
+                btn.textContent = '🔊';
+                btn.title = 'Pause Cosmic Audio';
                 isPlaying = true;
             }
         }
 
-        // Keyboard shortcuts
+        // Enhanced keyboard shortcuts
         function setupKeyboardShortcuts() {
             document.addEventListener('keydown', function(e) {
                 if (e.key === ' ' && e.target.tagName !== 'INPUT') {
@@ -751,31 +1709,296 @@
                 } else if (e.key === 'r' && !e.ctrlKey && e.target.tagName !== 'INPUT') {
                     e.preventDefault();
                     refreshMembers();
+                } else if (e.key === 'd' && !e.ctrlKey && e.target.tagName !== 'INPUT') {
+                    e.preventDefault();
+                    toggleDemoMode();
+                } else if (e.key === 'Enter' && e.ctrlKey) {
+                    e.preventDefault();
+                    document.getElementById('usernameInput').focus();
                 }
             });
         }
 
         // Utility functions
         function getInitials(name) {
-            return name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2);
+            if (!name) return '??';
+            return name.split(' ')
+                      .map(word => word[0])
+                      .join('')
+                      .toUpperCase()
+                      .slice(0, 2);
         }
 
         function formatNumber(num) {
+            if (!num) return '0';
             if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
             if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
             return num.toString();
         }
 
         function timeAgo(dateString) {
+            if (!dateString) return 'unknown';
+            
             const date = new Date(dateString);
             const now = new Date();
             const diffInSeconds = Math.floor((now - date) / 1000);
             
-            if (diffInSeconds < 60) return 'Now';
+            if (diffInSeconds < 60) return 'moments';
             if (diffInSeconds < 3600) return Math.floor(diffInSeconds / 60) + 'm';
             if (diffInSeconds < 86400) return Math.floor(diffInSeconds / 3600) + 'h';
-            return Math.floor(diffInSeconds / 86400) + 'd';
+            if (diffInSeconds < 604800) return Math.floor(diffInSeconds / 86400) + 'd';
+            if (diffInSeconds < 2592000) return Math.floor(diffInSeconds / 604800) + 'w';
+            return Math.floor(diffInSeconds / 2592000) + 'mo';
         }
+
+        // Enhanced CSS animations
+        const enhancedStyles = document.createElement('style');
+        enhancedStyles.textContent = `
+            @keyframes cosmicSuccessAnimation {
+                0% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.3) rotate(-180deg);
+                }
+                25% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1.3) rotate(0deg);
+                }
+                75% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1) rotate(180deg);
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.5) rotate(360deg);
+                }
+            }
+            
+            @keyframes errorPulseAnimation {
+                0% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.5);
+                }
+                25% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1.2);
+                }
+                75% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1);
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.8);
+                }
+            }
+            
+            @keyframes cosmicCelebrationBurst {
+                0% { 
+                    transform: translate(0, 0) scale(1) rotate(0deg);
+                    opacity: 1;
+                }
+                100% { 
+                    transform: translate(var(--burst-x), var(--burst-y)) scale(0) rotate(1440deg);
+                    opacity: 0;
+                }
+            }
+            
+            /* Enhanced profile hover effects */
+            .founder-profile:hover {
+                transform: translate(-50%, -50%) scale(1.05);
+                box-shadow: 0 0 200px rgba(255, 215, 0, 1), 0 0 400px rgba(255, 215, 0, 0.6);
+            }
+            
+            .moderator-profile:hover {
+                transform: rotate(0deg) translateX(250px) rotate(0deg) scale(1.1);
+                box-shadow: 0 0 120px rgba(138, 43, 226, 0.8), 0 0 240px rgba(138, 43, 226, 0.4);
+            }
+            
+            .community-profile:hover {
+                transform: rotate(0deg) translateX(var(--orbit-distance)) rotate(0deg) scale(1.1);
+                box-shadow: 0 0 100px rgba(52, 211, 153, 0.6), 0 0 200px rgba(34, 197, 94, 0.3);
+            }
+            
+            /* Smooth transitions */
+            .founder-profile, .moderator-profile, .community-profile {
+                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+        `;
+        document.head.appendChild(enhancedStyles);
+
+        // Auto-refresh functionality
+        let autoRefreshInterval;
+        
+        function startAutoRefresh() {
+            // Refresh every 30 seconds when connected and not in demo mode
+            autoRefreshInterval = setInterval(() => {
+                if (isConnected && !isDemoMode) {
+                    refreshMembers();
+                }
+            }, 30000);
+        }
+
+        function stopAutoRefresh() {
+            if (autoRefreshInterval) {
+                clearInterval(autoRefreshInterval);
+                autoRefreshInterval = null;
+            }
+        }
+
+        // Start auto-refresh
+        startAutoRefresh();
+
+        // Performance optimization: Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '50px'
+        };
+
+        const profileObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                } else {
+                    entry.target.style.animationPlayState = 'paused';
+                }
+            });
+        }, observerOptions);
+
+        // Enhanced visibility detection
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                // Pause animations when tab is not visible
+                document.querySelectorAll('.founder-profile, .moderator-profile, .community-profile').forEach(profile => {
+                    profile.style.animationPlayState = 'paused';
+                });
+                if (isPlaying) {
+                    music.pause();
+                }
+            } else {
+                // Resume animations when tab becomes visible
+                document.querySelectorAll('.founder-profile, .moderator-profile, .community-profile').forEach(profile => {
+                    profile.style.animationPlayState = 'running';
+                });
+                if (isPlaying) {
+                    music.play().catch(e => console.log('Resume music failed:', e));
+                }
+            }
+        });
+
+        // Add some easter eggs
+        let konami = [];
+        const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // ↑↑↓↓←→←→BA
+
+        document.addEventListener('keydown', function(e) {
+            konami.push(e.keyCode);
+            if (konami.length > konamiCode.length) {
+                konami.shift();
+            }
+            
+            if (konami.join(',') === konamiCode.join(',')) {
+                // Activate super cosmic mode
+                activateSuperCosmicMode();
+                konami = [];
+            }
+        });
+
+        function activateSuperCosmicMode() {
+            document.body.style.animation = 'superCosmicMode 10s ease-in-out';
+            
+            // Create massive particle explosion
+            for (let i = 0; i < 200; i++) {
+                setTimeout(() => createCosmicCelebrationParticle(), i * 50);
+            }
+            
+            // Show special message
+            const cosmicMessage = document.createElement('div');
+            cosmicMessage.innerHTML = '🌌 SUPER COSMIC MODE ACTIVATED! 🌌<br>✨ THE UNIVERSE EXPANDS! ✨';
+            cosmicMessage.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(45deg, rgba(255, 215, 0, 0.95), rgba(138, 43, 226, 0.95));
+                color: #fff;
+                padding: 3rem 5rem;
+                border-radius: 50px;
+                font-weight: bold;
+                font-size: 2rem;
+                z-index: 10001;
+                animation: superCosmicMessage 10s ease-out forwards;
+                box-shadow: 0 0 200px rgba(255, 215, 0, 1);
+                text-align: center;
+                border: 5px solid rgba(255, 255, 255, 0.8);
+                text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            `;
+            
+            document.body.appendChild(cosmicMessage);
+            
+            setTimeout(() => {
+                cosmicMessage.remove();
+                document.body.style.animation = '';
+            }, 10000);
+        }
+
+        // Add super cosmic mode animations
+        const superCosmicStyles = document.createElement('style');
+        superCosmicStyles.textContent = `
+            @keyframes superCosmicMode {
+                0%, 100% { 
+                    filter: brightness(1) contrast(1) saturate(1);
+                }
+                20% { 
+                    filter: brightness(1.5) contrast(1.3) saturate(2);
+                }
+                40% { 
+                    filter: brightness(2) contrast(1.5) saturate(3);
+                }
+                60% { 
+                    filter: brightness(1.8) contrast(1.4) saturate(2.5);
+                }
+                80% { 
+                    filter: brightness(1.3) contrast(1.2) saturate(1.5);
+                }
+            }
+            
+            @keyframes superCosmicMessage {
+                0% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.1) rotate(720deg);
+                }
+                20% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1.2) rotate(0deg);
+                }
+                80% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.1) rotate(-720deg);
+                }
+            }
+        `;
+        document.head.appendChild(superCosmicStyles);
+
+        // Console welcome message
+        console.log(`
+🌌 Welcome to SEISMIC WALL! 🌌
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚀 Keyboard Shortcuts:
+   SPACE - Toggle music
+   R - Refresh members  
+   D - Toggle demo mode
+   Ctrl+Enter - Focus input
+   
+🎮 Easter Egg:
+   Try the Konami Code: ↑↑↓↓←→←→BA
+   
+✨ Current Status: ${isDemoMode ? 'Demo Mode' : 'Live Mode'}
+🔗 Members Loaded: ${members.length}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        `);
     </script>
 </body>
 </html>
