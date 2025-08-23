@@ -54,85 +54,50 @@
         .nebula {
             position: absolute;
             border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.4;
-            animation: nebulaFlow 30s ease-in-out infinite;
+            filter: blur(60px);
+            opacity: 0.3;
+            animation: nebulaFlow 60s ease-in-out infinite;
         }
 
         .nebula:nth-child(1) {
-            width: 1200px;
-            height: 700px;
-            background: radial-gradient(ellipse, rgba(34, 197, 94, 0.6) 0%, rgba(16, 185, 129, 0.4) 40%, transparent 100%);
+            width: 800px;
+            height: 500px;
+            background: radial-gradient(ellipse, rgba(34, 197, 94, 0.4) 0%, rgba(16, 185, 129, 0.2) 40%, transparent 100%);
             top: -20%;
             left: -30%;
             animation-delay: 0s;
         }
 
         .nebula:nth-child(2) {
-            width: 1000px;
-            height: 1000px;
-            background: radial-gradient(circle, rgba(52, 211, 153, 0.5) 0%, rgba(34, 197, 94, 0.3) 50%, transparent 100%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(52, 211, 153, 0.3) 0%, rgba(34, 197, 94, 0.15) 50%, transparent 100%);
             top: 20%;
             right: -40%;
-            animation-delay: -10s;
-        }
-
-        .nebula:nth-child(3) {
-            width: 1100px;
-            height: 600px;
-            background: radial-gradient(ellipse, rgba(16, 185, 129, 0.45) 0%, rgba(52, 211, 153, 0.25) 60%, transparent 100%);
-            bottom: -30%;
-            left: 5%;
             animation-delay: -20s;
         }
 
-        .nebula:nth-child(4) {
-            width: 900px;
-            height: 900px;
-            background: radial-gradient(circle, rgba(34, 197, 94, 0.4) 0%, rgba(16, 185, 129, 0.2) 60%, transparent 100%);
-            top: 40%;
-            left: 20%;
-            animation-delay: -5s;
-        }
-
-        .nebula:nth-child(5) {
-            width: 800px;
-            height: 500px;
-            background: radial-gradient(ellipse, rgba(52, 211, 153, 0.35) 0%, rgba(34, 197, 94, 0.15) 50%, transparent 100%);
-            top: 5%;
-            right: 5%;
-            animation-delay: -15s;
-        }
-
-        .nebula:nth-child(6) {
+        .nebula:nth-child(3) {
             width: 700px;
-            height: 700px;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, rgba(52, 211, 153, 0.1) 50%, transparent 100%);
-            bottom: 10%;
-            right: 20%;
-            animation-delay: -25s;
+            height: 400px;
+            background: radial-gradient(ellipse, rgba(16, 185, 129, 0.25) 0%, rgba(52, 211, 153, 0.1) 60%, transparent 100%);
+            bottom: -30%;
+            left: 5%;
+            animation-delay: -40s;
         }
 
         @keyframes nebulaFlow {
             0%, 100% { 
-                transform: scale(1) rotate(0deg) translateX(0) translateY(0);
-                opacity: 0.3;
-            }
-            25% { 
-                transform: scale(1.3) rotate(90deg) translateX(80px) translateY(-60px);
-                opacity: 0.6;
+                transform: scale(1) rotate(0deg);
+                opacity: 0.2;
             }
             50% { 
-                transform: scale(0.8) rotate(180deg) translateX(40px) translateY(120px);
+                transform: scale(1.1) rotate(180deg);
                 opacity: 0.4;
-            }
-            75% { 
-                transform: scale(1.1) rotate(270deg) translateX(-100px) translateY(50px);
-                opacity: 0.7;
             }
         }
 
-        /* MASSIVE STAR FIELD */
+        /* STAR FIELD */
         .star-field {
             position: fixed;
             top: 0;
@@ -147,7 +112,7 @@
             position: absolute;
             background: #ffffff;
             border-radius: 50%;
-            animation: starTwinkle 4s ease-in-out infinite;
+            animation: starTwinkle 6s ease-in-out infinite;
         }
 
         .star.micro {
@@ -172,30 +137,6 @@
             opacity: 0.8;
         }
 
-        .star.medium {
-            width: 4px;
-            height: 4px;
-            background: #ffffff;
-            box-shadow: 0 0 15px #ffffff;
-            opacity: 1;
-        }
-
-        .star.large {
-            width: 5px;
-            height: 5px;
-            background: #34d399;
-            box-shadow: 0 0 20px #34d399, 0 0 40px rgba(52, 211, 153, 0.6);
-            opacity: 1;
-        }
-
-        .star.massive {
-            width: 6px;
-            height: 6px;
-            background: #ffffff;
-            box-shadow: 0 0 30px #ffffff, 0 0 60px rgba(255, 255, 255, 0.8);
-            opacity: 1;
-        }
-
         @keyframes starTwinkle {
             0%, 100% { 
                 opacity: 0.2; 
@@ -203,123 +144,7 @@
             }
             50% { 
                 opacity: 1; 
-                transform: scale(2.5);
-            }
-        }
-
-        /* COSMIC ENERGY SYSTEM */
-        .energy-field {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -12;
-            pointer-events: none;
-        }
-
-        .energy-wave {
-            position: absolute;
-            border: 3px solid rgba(52, 211, 153, 0.4);
-            border-radius: 50%;
-            animation: energyPulse 15s ease-out infinite;
-        }
-
-        .energy-wave:nth-child(1) {
-            width: 400px;
-            height: 400px;
-            top: 10%;
-            left: 15%;
-            animation-delay: 0s;
-        }
-
-        .energy-wave:nth-child(2) {
-            width: 500px;
-            height: 500px;
-            top: 50%;
-            right: 10%;
-            animation-delay: -5s;
-        }
-
-        .energy-wave:nth-child(3) {
-            width: 450px;
-            height: 450px;
-            bottom: 20%;
-            left: 30%;
-            animation-delay: -10s;
-        }
-
-        .energy-wave:nth-child(4) {
-            width: 350px;
-            height: 350px;
-            top: 25%;
-            right: 30%;
-            animation-delay: -3s;
-        }
-
-        .energy-wave:nth-child(5) {
-            width: 300px;
-            height: 300px;
-            bottom: 40%;
-            right: 40%;
-            animation-delay: -8s;
-        }
-
-        @keyframes energyPulse {
-            0% {
-                transform: scale(0.2);
-                opacity: 0;
-                border-color: rgba(52, 211, 153, 0);
-            }
-            20% {
-                transform: scale(1);
-                opacity: 0.8;
-                border-color: rgba(52, 211, 153, 1);
-            }
-            60% {
-                transform: scale(2.5);
-                opacity: 0.4;
-                border-color: rgba(34, 197, 94, 0.8);
-            }
-            100% {
-                transform: scale(4);
-                opacity: 0;
-                border-color: rgba(52, 211, 153, 0);
-            }
-        }
-
-        /* SHOOTING STARS */
-        .shooting-star {
-            position: fixed;
-            width: 200px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #34d399, #ffffff, transparent);
-            border-radius: 50px;
-            top: 20%;
-            left: -200px;
-            z-index: -10;
-            animation: shootingStar 4s linear infinite;
-        }
-
-        .shooting-star:nth-child(2) {
-            top: 60%;
-            animation-delay: -2s;
-        }
-
-        @keyframes shootingStar {
-            0% { 
-                left: -200px; 
-                opacity: 0;
-            }
-            10% { 
-                opacity: 1;
-            }
-            90% { 
-                opacity: 1;
-            }
-            100% { 
-                left: 100vw; 
-                opacity: 0;
+                transform: scale(1.5);
             }
         }
 
@@ -352,132 +177,38 @@
             font-weight: 900;
             font-size: 2.2rem;
             color: #000;
-            animation: logoMegaOrbit 25s linear infinite;
+            animation: logoRotate 20s linear infinite;
             box-shadow: 
-                0 0 80px rgba(52, 211, 153, 1.5),
-                0 0 160px rgba(34, 197, 94, 1),
-                inset 0 0 40px rgba(255, 255, 255, 0.4);
+                0 0 40px rgba(52, 211, 153, 0.8),
+                0 0 80px rgba(34, 197, 94, 0.5);
             position: relative;
-            overflow: hidden;
         }
 
-        .seismic-logo::before {
-            content: '';
-            position: absolute;
-            top: -25px;
-            left: -25px;
-            right: -25px;
-            bottom: -25px;
-            border: 4px solid rgba(52, 211, 153, 0.6);
-            border-radius: 50%;
-            animation: logoRingMega 20s linear infinite reverse;
-        }
-
-        .seismic-logo::after {
-            content: '';
-            position: absolute;
-            top: -40px;
-            left: -40px;
-            right: -40px;
-            bottom: -40px;
-            border: 3px solid rgba(34, 197, 94, 0.4);
-            border-radius: 50%;
-            border-top-color: rgba(52, 211, 153, 1);
-            animation: logoRingMega 30s linear infinite;
-        }
-
-        .seismic-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 50%;
-        }
-
-        @keyframes logoMegaOrbit {
-            0% { 
-                transform: rotate(0deg) scale(1);
-                box-shadow: 0 0 80px rgba(52, 211, 153, 1.5), 0 0 160px rgba(34, 197, 94, 1);
-            }
-            25% { 
-                transform: rotate(90deg) scale(1.2);
-                box-shadow: 0 0 120px rgba(34, 197, 94, 2), 0 0 200px rgba(16, 185, 129, 1.5);
-            }
-            50% { 
-                transform: rotate(180deg) scale(1.4);
-                box-shadow: 0 0 160px rgba(16, 185, 129, 2.5), 0 0 240px rgba(52, 211, 153, 2);
-            }
-            75% { 
-                transform: rotate(270deg) scale(1.2);
-                box-shadow: 0 0 120px rgba(34, 197, 94, 2), 0 0 200px rgba(16, 185, 129, 1.5);
-            }
-            100% { 
-                transform: rotate(360deg) scale(1);
-                box-shadow: 0 0 80px rgba(52, 211, 153, 1.5), 0 0 160px rgba(34, 197, 94, 1);
-            }
-        }
-
-        @keyframes logoRingMega {
-            0% { transform: rotate(0deg) scale(1); }
-            33% { transform: rotate(120deg) scale(1.2); }
-            66% { transform: rotate(240deg) scale(0.9); }
-            100% { transform: rotate(360deg) scale(1); }
+        @keyframes logoRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .title {
             font-size: 4rem;
             font-weight: 900;
             font-family: 'Orbitron', monospace;
-            background: linear-gradient(45deg, #ffffff, #34d399, #10b981, #ffffff, #34d399);
+            background: linear-gradient(45deg, #ffffff, #34d399, #10b981, #ffffff);
             background-size: 400% 400%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: titleMegaShimmer 3s ease-in-out infinite;
+            animation: titleShimmer 4s ease-in-out infinite;
             text-shadow: 
-                0 0 40px rgba(52, 211, 153, 1),
-                0 0 80px rgba(34, 197, 94, 0.8),
-                0 0 120px rgba(16, 185, 129, 0.6);
+                0 0 40px rgba(52, 211, 153, 0.5),
+                0 0 80px rgba(34, 197, 94, 0.3);
             letter-spacing: 8px;
             text-transform: uppercase;
-            position: relative;
         }
 
-        .title::before {
-            content: 'SEISMIC WALL';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 1), transparent);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: lightningStrike 4s ease-in-out infinite;
-            z-index: 1;
-        }
-
-        @keyframes titleMegaShimmer {
-            0%, 100% { 
-                background-position: 0% 50%;
-                filter: brightness(1);
-            }
-            50% { 
-                background-position: 100% 50%;
-                filter: brightness(2) drop-shadow(0 0 60px rgba(52, 211, 153, 2));
-            }
-        }
-
-        @keyframes lightningStrike {
-            0%, 80%, 100% { 
-                opacity: 0;
-                background-position: -300% 50%;
-            }
-            85%, 90% { 
-                opacity: 1;
-                background-position: 300% 50%;
-            }
+        @keyframes titleShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .subtitle {
@@ -487,18 +218,6 @@
             margin-top: 1rem;
             font-weight: 400;
             letter-spacing: 3px;
-            animation: subtitleGlow 5s ease-in-out infinite;
-        }
-
-        @keyframes subtitleGlow {
-            0%, 100% { 
-                text-shadow: 0 0 30px rgba(52, 211, 153, 0.8);
-                color: #34d399;
-            }
-            50% { 
-                text-shadow: 0 0 60px rgba(255, 255, 255, 1.5);
-                color: #ffffff;
-            }
         }
 
         /* CONNECTION STATUS */
@@ -513,19 +232,7 @@
             backdrop-filter: blur(20px);
             font-size: 1rem;
             z-index: 1000;
-            box-shadow: 0 20px 60px rgba(52, 211, 153, 0.5);
-            animation: statusPulse 4s ease-in-out infinite;
-        }
-
-        @keyframes statusPulse {
-            0%, 100% { 
-                box-shadow: 0 20px 60px rgba(52, 211, 153, 0.5);
-                border-color: rgba(52, 211, 153, 0.8);
-            }
-            50% { 
-                box-shadow: 0 30px 80px rgba(34, 197, 94, 0.8);
-                border-color: rgba(34, 197, 94, 1);
-            }
+            box-shadow: 0 20px 60px rgba(52, 211, 153, 0.3);
         }
 
         .status-dot {
@@ -541,14 +248,8 @@
         .disconnected { background: #ef4444; }
 
         @keyframes statusBlink {
-            0%, 100% { 
-                opacity: 1; 
-                transform: scale(1);
-            }
-            50% { 
-                opacity: 0.6; 
-                transform: scale(1.5);
-            }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         /* CONTROLS */
@@ -562,33 +263,24 @@
         }
 
         .control-orb {
-            width: 65px;
-            height: 65px;
+            width: 60px;
+            height: 60px;
             background: rgba(52, 211, 153, 0.2);
             border: 3px solid rgba(52, 211, 153, 0.7);
             border-radius: 50%;
             color: #34d399;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            transition: all 0.5s ease;
+            transition: all 0.3s ease;
             backdrop-filter: blur(20px);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 15px 50px rgba(52, 211, 153, 0.4);
-            animation: orbFloat 6s ease-in-out infinite;
         }
 
         .control-orb:hover {
-            background: rgba(52, 211, 153, 0.5);
-            transform: scale(1.3) translateY(-8px);
-            box-shadow: 0 25px 70px rgba(52, 211, 153, 0.8);
-        }
-
-        @keyframes orbFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            33% { transform: translateY(-18px) rotate(8deg); }
-            66% { transform: translateY(-10px) rotate(-5deg); }
+            background: rgba(52, 211, 153, 0.4);
+            transform: scale(1.1);
         }
 
         /* MAIN CONTAINER */
@@ -600,36 +292,32 @@
             z-index: 10;
         }
 
-        /* MOVING MEMBERS FRAME */
+        /* MEMBERS FRAME - FIXED GRID LAYOUT */
         .members-frame {
             position: relative;
             width: 100%;
-            height: 600px;
+            min-height: 600px;
             border: 3px solid rgba(52, 211, 153, 0.6);
             border-radius: 30px;
             background: rgba(52, 211, 153, 0.05);
             backdrop-filter: blur(20px);
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(52, 211, 153, 0.3);
-            animation: frameGlow 4s ease-in-out infinite;
+            padding: 2rem;
         }
 
-        @keyframes frameGlow {
-            0%, 100% {
-                border-color: rgba(52, 211, 153, 0.6);
-                box-shadow: 0 20px 60px rgba(52, 211, 153, 0.3);
-            }
-            50% {
-                border-color: rgba(34, 197, 94, 1);
-                box-shadow: 0 30px 80px rgba(34, 197, 94, 0.5);
-            }
+        /* GRID LAYOUT FOR MEMBERS */
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+            justify-items: center;
         }
 
-        /* MEMBER PROFILES */
+        /* MEMBER PROFILES - STATIC POSITIONING */
         .member-profile {
-            position: absolute;
             width: 180px;
-            height: 200px;
+            height: 220px;
             background: rgba(52, 211, 153, 0.1);
             border: 2px solid rgba(52, 211, 153, 0.4);
             border-radius: 20px;
@@ -637,16 +325,26 @@
             text-align: center;
             backdrop-filter: blur(15px);
             box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
-            animation: memberMove 20s linear infinite;
             cursor: pointer;
             transition: all 0.3s ease;
+            animation: memberGlow 8s ease-in-out infinite;
         }
 
         .member-profile:hover {
-            transform: scale(1.1) !important;
+            transform: scale(1.05);
             border-color: #34d399;
             box-shadow: 0 20px 50px rgba(52, 211, 153, 0.6);
-            z-index: 100;
+        }
+
+        @keyframes memberGlow {
+            0%, 100% { 
+                box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
+                border-color: rgba(52, 211, 153, 0.4);
+            }
+            50% { 
+                box-shadow: 0 15px 40px rgba(34, 197, 94, 0.4);
+                border-color: rgba(34, 197, 94, 0.6);
+            }
         }
 
         /* FOUNDER SPECIAL STYLING */
@@ -654,11 +352,6 @@
             border-color: #FFD700 !important;
             background: rgba(255, 215, 0, 0.1) !important;
             box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4) !important;
-            animation: founderMove 15s linear infinite;
-        }
-
-        .founder-profile:hover {
-            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.7) !important;
         }
 
         /* MODERATOR SPECIAL STYLING */
@@ -666,62 +359,6 @@
             border-color: #8A2BE2 !important;
             background: rgba(138, 43, 226, 0.1) !important;
             box-shadow: 0 10px 30px rgba(138, 43, 226, 0.3) !important;
-            animation: moderatorMove 25s linear infinite;
-        }
-
-        .moderator-profile:hover {
-            box-shadow: 0 20px 50px rgba(138, 43, 226, 0.6) !important;
-        }
-
-        /* MOVING ANIMATIONS */
-        @keyframes memberMove {
-            0% {
-                left: -200px;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-            25% {
-                left: 50%;
-                top: -220px;
-                transform: translateX(-50%);
-            }
-            50% {
-                left: calc(100% + 200px);
-                top: 50%;
-                transform: translateY(-50%);
-            }
-            75% {
-                left: 50%;
-                top: calc(100% + 220px);
-                transform: translateX(-50%);
-            }
-            100% {
-                left: -200px;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-        }
-
-        @keyframes founderMove {
-            0% {
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
-            100% {
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%) rotate(360deg);
-            }
-        }
-
-        @keyframes moderatorMove {
-            0% {
-                transform: translateY(-50%) rotate(0deg);
-            }
-            100% {
-                transform: translateY(-50%) rotate(-360deg);
-            }
         }
 
         /* AVATAR */
@@ -738,7 +375,7 @@
             font-weight: bold;
             color: #000;
             overflow: hidden;
-            animation: avatarSpin 8s linear infinite;
+            animation: avatarSpin 12s linear infinite;
             box-shadow: 0 0 20px rgba(52, 211, 153, 0.5);
         }
 
@@ -829,18 +466,6 @@
             border: 3px solid rgba(52, 211, 153, 0.6);
             backdrop-filter: blur(25px);
             box-shadow: 0 25px 80px rgba(52, 211, 153, 0.5);
-            animation: portalPulse 5s ease-in-out infinite;
-        }
-
-        @keyframes portalPulse {
-            0%, 100% { 
-                box-shadow: 0 25px 80px rgba(52, 211, 153, 0.5);
-                border-color: rgba(52, 211, 153, 0.6);
-            }
-            50% { 
-                box-shadow: 0 35px 100px rgba(34, 197, 94, 0.8);
-                border-color: rgba(34, 197, 94, 1);
-            }
         }
 
         .portal-input {
@@ -853,7 +478,7 @@
             font-size: 1.2rem;
             min-width: 250px;
             backdrop-filter: blur(15px);
-            transition: all 0.5s ease;
+            transition: all 0.3s ease;
         }
 
         .portal-input::placeholder {
@@ -863,9 +488,7 @@
         .portal-input:focus {
             outline: none;
             border-color: #34d399;
-            box-shadow: 0 0 50px rgba(52, 211, 153, 0.8);
-            background: rgba(52, 211, 153, 0.2);
-            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(52, 211, 153, 0.5);
         }
 
         .portal-btn {
@@ -877,16 +500,20 @@
             font-family: 'Exo 2', monospace;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.5s ease;
+            transition: all 0.3s ease;
             text-transform: uppercase;
             font-size: 1.2rem;
             letter-spacing: 2px;
         }
 
         .portal-btn:hover {
-            transform: scale(1.15) translateY(-8px);
-            box-shadow: 0 25px 60px rgba(52, 211, 153, 0.8);
-            background: linear-gradient(45deg, #10b981, #059669);
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(52, 211, 153, 0.5);
+        }
+
+        .portal-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
         /* LOADING */
@@ -909,31 +536,19 @@
             text-align: center;
             padding: 6rem 2rem;
             opacity: 0.8;
-            animation: emptyPulse 6s ease-in-out infinite;
         }
 
         .empty-state h3 {
             font-size: 2.5rem;
             color: #34d399;
             margin-bottom: 2rem;
-            text-shadow: 0 0 50px rgba(52, 211, 153, 0.8);
+            text-shadow: 0 0 30px rgba(52, 211, 153, 0.5);
         }
 
         .empty-state p {
             font-size: 1.3rem;
             opacity: 0.9;
             line-height: 1.8;
-        }
-
-        @keyframes emptyPulse {
-            0%, 100% { 
-                opacity: 0.8; 
-                transform: scale(1);
-            }
-            50% { 
-                opacity: 1; 
-                transform: scale(1.05);
-            }
         }
 
         /* RESPONSIVE DESIGN */
@@ -948,19 +563,18 @@
             }
 
             .members-frame {
-                height: 400px;
+                padding: 1rem;
+            }
+
+            .members-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 1rem;
             }
 
             .member-profile {
-                width: 140px;
-                height: 160px;
+                width: 160px;
+                height: 200px;
                 padding: 0.8rem;
-            }
-
-            .member-avatar {
-                width: 50px;
-                height: 50px;
-                font-size: 1rem;
             }
 
             .portal-form {
@@ -982,7 +596,7 @@
             .control-orb {
                 width: 50px;
                 height: 50px;
-                font-size: 1.4rem;
+                font-size: 1.2rem;
             }
 
             .status {
@@ -1003,46 +617,21 @@
         <div class="nebula"></div>
         <div class="nebula"></div>
         <div class="nebula"></div>
-        <div class="nebula"></div>
-        <div class="nebula"></div>
-        <div class="nebula"></div>
     </div>
     
-    <!-- MASSIVE STAR FIELD -->
+    <!-- STAR FIELD -->
     <div class="star-field" id="starField"></div>
-    
-    <!-- COSMIC ENERGY SYSTEM -->
-    <div class="energy-field">
-        <div class="energy-wave"></div>
-        <div class="energy-wave"></div>
-        <div class="energy-wave"></div>
-        <div class="energy-wave"></div>
-        <div class="energy-wave"></div>
-    </div>
-
-    <!-- SHOOTING STARS -->
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-
-    <!-- AUDIO ELEMENT -->
-    <audio id="backgroundMusic" loop>
-        <source src="./seismic-music.mp3" type="audio/mpeg">
-        <source src="./interstellar.mp3" type="audio/mpeg">
-    </audio>
 
     <!-- CONNECTION STATUS -->
     <div class="status">
         <span class="status-dot disconnected" id="statusDot"></span>
-        <span id="statusText">💎 Demo Universe</span>
+        <span id="statusText">Connecting...</span>
     </div>
 
     <!-- CONTROLS -->
     <div class="controls">
-        <button class="control-orb" onclick="refreshMembers()" title="Refresh Universe">
+        <button class="control-orb" onclick="refreshMembers()" title="Refresh Members">
             🔄
-        </button>
-        <button class="control-orb" onclick="toggleMusic()" id="musicOrb" title="Cosmic Audio">
-            🎵
         </button>
     </div>
 
@@ -1050,22 +639,24 @@
     <header class="header">
         <div class="logo-title">
             <div class="seismic-logo">
-                <img src="./seismic-logo.png" alt="S" onerror="this.innerHTML='S'">
+                S
             </div>
             <div>
                 <h1 class="title">SEISMIC WALL</h1>
-                <p class="subtitle">Encrypted Blockchain Universe</p>
+                <p class="subtitle">Encrypted Blockchain Community</p>
             </div>
         </div>
     </header>
 
     <!-- MAIN CONTAINER -->
     <div class="main-container">
-        <!-- MOVING MEMBERS FRAME -->
-        <div class="members-frame" id="membersFrame">
-            <div class="empty-state" id="emptyState">
-                <h3>Welcome to the Interstellar Network</h3>
-                <p>Deploy nodes to expand the <strong>cosmic blockchain community</strong><br>Watch as your network grows across the universe</p>
+        <!-- MEMBERS FRAME WITH FIXED GRID -->
+        <div class="members-frame">
+            <div class="members-grid" id="membersGrid">
+                <div class="empty-state" id="emptyState">
+                    <h3>Welcome to Seismic Community</h3>
+                    <p>Add members to expand your <strong>blockchain community</strong><br>Members will appear in a clean grid layout</p>
+                </div>
             </div>
         </div>
     </div>
@@ -1076,12 +667,12 @@
             <input 
                 type="text" 
                 class="portal-input" 
-                placeholder="@handle" 
+                placeholder="@username" 
                 id="usernameInput"
                 required
             >
-            <button type="submit" class="portal-btn">
-                <span id="submitButtonText">Deploy</span>
+            <button type="submit" class="portal-btn" id="submitBtn">
+                <span id="submitButtonText">Add Member</span>
                 <span id="submitButtonLoading" class="cosmic-loading" style="display: none;"></span>
             </button>
         </form>
@@ -1091,8 +682,6 @@
         // Global variables
         let members = [];
         let isConnected = false;
-        let music = document.getElementById('backgroundMusic');
-        let isPlaying = false;
 
         // API Configuration
         const API_BASE = 'https://seismicwall.duckdns.org/api';
@@ -1101,87 +690,19 @@
         const FOUNDER = ['lyron', 'lyronctk'];
         const MODERATORS = ['noxx', 'xealis', 'heathcliff', 'heathclif'];
 
-        // Demo data with real profile images
-        const DEMO_MEMBERS = [
-            {
-                id: 1,
-                username: '@lyronctk',
-                displayName: 'Lyron CTK',
-                followers: 6400,
-                verified: true,
-                createdAt: '2024-01-15T10:00:00Z',
-                profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face'
-            },
-            {
-                id: 2,
-                username: '@noxx',
-                displayName: 'NoxxW3',
-                followers: 2600,
-                verified: false,
-                createdAt: '2024-01-28T09:15:00Z',
-                profileImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face'
-            },
-            {
-                id: 3,
-                username: '@xealis',
-                displayName: 'Xealistt',
-                followers: 2300,
-                verified: false,
-                createdAt: '2024-02-01T14:30:00Z',
-                profileImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face'
-            },
-            {
-                id: 4,
-                username: '@heathcliff',
-                displayName: 'Heathcliff_eth',
-                followers: 1300,
-                verified: false,
-                createdAt: '2024-02-10T16:45:00Z',
-                profileImage: 'https://images.unsplash.com/photo-1494790108755-2616b612b808?w=200&h=200&fit=crop&crop=face'
-            },
-            {
-                id: 5,
-                username: '@snow_blis',
-                displayName: 'Snow Blis',
-                followers: 618,
-                verified: false,
-                createdAt: '2024-03-01T12:00:00Z',
-                profileImage: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face'
-            },
-            {
-                id: 6,
-                username: '@karlo_io',
-                displayName: 'Karlo IO',
-                followers: 801,
-                verified: false,
-                createdAt: '2024-03-05T08:30:00Z',
-                profileImage: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&crop=face'
-            }
-        ];
-
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            createMassiveStarField();
+            createStarField();
             checkConnection();
             fetchMembers();
             setupKeyboardShortcuts();
-            
-            // Start with demo data
-            members = [...DEMO_MEMBERS];
-            renderMembers();
-            
-            // Epic cosmic music
-            setTimeout(() => {
-                music.volume = 0.3;
-                toggleMusic();
-            }, 2000);
         });
 
-        // Create massive interstellar star field (600+ stars)
-        function createMassiveStarField() {
+        // Create star field (reduced count for performance)
+        function createStarField() {
             const container = document.getElementById('starField');
-            const starCount = 600;
-            const starTypes = ['micro', 'tiny', 'small', 'medium', 'large', 'massive'];
+            const starCount = 200; // Reduced from 600
+            const starTypes = ['micro', 'tiny', 'small'];
             
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
@@ -1190,8 +711,8 @@
                 
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 4 + 's';
-                star.style.animationDuration = (Math.random() * 8 + 3) + 's';
+                star.style.animationDelay = Math.random() * 6 + 's';
+                star.style.animationDuration = (Math.random() * 4 + 4) + 's';
                 
                 container.appendChild(star);
             }
@@ -1200,9 +721,157 @@
         // Check backend connection
         async function checkConnection() {
             try {
-                const response = await fetch(`${API_BASE}/members`);
-                isConnected = response.ok;
+                const response = await fetch(`${API_BASE}/members`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({ username: username })
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.error || `HTTP ${response.status}: Failed to add member`);
+                }
+                
+                // Success - refresh the member list
+                await fetchMembers();
+                showSuccess('Member added successfully!');
+                input.value = '';
+                
             } catch (error) {
+                console.error('Error adding member:', error);
+                showError(error.message || 'Failed to add member');
+            } finally {
+                buttonText.style.display = 'inline-block';
+                buttonLoading.style.display = 'none';
+                submitBtn.disabled = false;
+            }
+        }
+
+        // Show success message
+        function showSuccess(message) {
+            const messageEl = document.createElement('div');
+            messageEl.innerHTML = `✅ ${message}`;
+            messageEl.style.cssText = `
+                position: fixed;
+                top: 20%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(52, 211, 153, 0.95);
+                color: #000;
+                padding: 1.5rem 3rem;
+                border-radius: 30px;
+                font-weight: bold;
+                font-size: 1.2rem;
+                z-index: 10000;
+                box-shadow: 0 0 50px rgba(52, 211, 153, 0.8);
+                border: 2px solid rgba(255, 255, 255, 0.8);
+                animation: messageSlide 3s ease-out forwards;
+            `;
+            
+            document.body.appendChild(messageEl);
+            setTimeout(() => messageEl.remove(), 3000);
+        }
+
+        // Show error message
+        function showError(message) {
+            const messageEl = document.createElement('div');
+            messageEl.innerHTML = `❌ ${message}`;
+            messageEl.style.cssText = `
+                position: fixed;
+                top: 20%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(239, 68, 68, 0.95);
+                color: #fff;
+                padding: 1.5rem 3rem;
+                border-radius: 30px;
+                font-weight: bold;
+                font-size: 1.2rem;
+                z-index: 10000;
+                box-shadow: 0 0 50px rgba(239, 68, 68, 0.8);
+                border: 2px solid rgba(255, 255, 255, 0.6);
+                animation: messageSlide 3s ease-out forwards;
+            `;
+            
+            document.body.appendChild(messageEl);
+            setTimeout(() => messageEl.remove(), 3000);
+        }
+
+        // Refresh members
+        async function refreshMembers() {
+            console.log('Refreshing members...');
+            await checkConnection();
+            await fetchMembers();
+        }
+
+        // Keyboard shortcuts
+        function setupKeyboardShortcuts() {
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'r' && !e.ctrlKey && e.target.tagName !== 'INPUT') {
+                    e.preventDefault();
+                    refreshMembers();
+                }
+            });
+        }
+
+        // Utility functions
+        function getInitials(name) {
+            if (!name) return '?';
+            return name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2);
+        }
+
+        function formatNumber(num) {
+            if (!num || isNaN(num)) return '0';
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num.toString();
+        }
+
+        // Add animation styles
+        const animationStyles = document.createElement('style');
+        animationStyles.textContent = `
+            @keyframes messageSlide {
+                0% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.8) translateY(-20px); 
+                }
+                15% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1.05) translateY(0); 
+                }
+                85% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1) translateY(0); 
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.9) translateY(-10px); 
+                }
+            }
+        `;
+        document.head.appendChild(animationStyles);
+
+        // Auto-refresh every 30 seconds when connected
+        setInterval(() => {
+            if (isConnected) {
+                refreshMembers();
+            }
+        }, 30000);
+    </script>
+</body>
+</html>(`${API_BASE}/members`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                    }
+                });
+                isConnected = response.ok;
+                console.log('Connection status:', isConnected);
+            } catch (error) {
+                console.error('Connection error:', error);
                 isConnected = false;
             }
             
@@ -1215,39 +884,41 @@
             
             if (isConnected) {
                 statusDot.className = 'status-dot connected';
-                statusText.textContent = '🟢 Cosmic Network Online';
+                statusText.textContent = 'Connected to Backend';
             } else {
                 statusDot.className = 'status-dot disconnected';
-                statusText.textContent = '💎 Demo Universe';
+                statusText.textContent = 'Backend Offline';
             }
         }
 
-        // Fetch members from API or use demo
+        // Fetch members from API only
         async function fetchMembers() {
             try {
                 if (isConnected) {
-                    const response = await fetch(`${API_BASE}/members`);
+                    const response = await fetch(`${API_BASE}/members`, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                        }
+                    });
+                    
                     if (response.ok) {
                         const apiMembers = await response.json();
-                        if (apiMembers.length > 0) {
-                            members = apiMembers;
-                        }
+                        console.log('Fetched members:', apiMembers);
+                        members = Array.isArray(apiMembers) ? apiMembers : [];
+                    } else {
+                        console.error('API response not ok:', response.status);
+                        members = [];
                     }
-                }
-                
-                // Always ensure we have some demo data if no API data
-                if (members.length === 0) {
-                    members = [...DEMO_MEMBERS];
+                } else {
+                    members = [];
                 }
                 
                 renderMembers();
             } catch (error) {
                 console.error('Error fetching members:', error);
-                // Keep existing members or use demo
-                if (members.length === 0) {
-                    members = [...DEMO_MEMBERS];
-                    renderMembers();
-                }
+                members = [];
+                renderMembers();
             }
         }
 
@@ -1264,32 +935,29 @@
             return 'community';
         }
 
-        // Render all members in moving frame
+        // Render all members in grid layout
         function renderMembers() {
-            const container = document.getElementById('membersFrame');
+            const container = document.getElementById('membersGrid');
             const emptyState = document.getElementById('emptyState');
             
-            // Clear existing profiles but keep empty state
-            const existingProfiles = container.querySelectorAll('.member-profile');
-            existingProfiles.forEach(profile => profile.remove());
+            // Clear existing content
+            container.innerHTML = '';
             
             if (members.length === 0) {
-                emptyState.style.display = 'block';
+                container.appendChild(emptyState);
                 return;
             }
-
-            emptyState.style.display = 'none';
 
             // Create profiles for each member
             members.forEach((member, index) => {
                 const role = getMemberRole(member.username);
-                const profile = createMemberProfile(member, role, index);
+                const profile = createMemberProfile(member, role);
                 container.appendChild(profile);
             });
         }
 
         // Create member profile element
-        function createMemberProfile(member, role, index) {
+        function createMemberProfile(member, role) {
             const profile = document.createElement('div');
             const roleClasses = {
                 founder: 'founder-profile',
@@ -1298,26 +966,11 @@
             };
             
             profile.className = `member-profile ${roleClasses[role]}`;
-            
-            // Stagger the animation timing
-            profile.style.animationDelay = `${index * -3}s`;
-            
-            // Position moderators around the frame edges
-            if (role === 'moderator') {
-                const positions = [
-                    { left: '20%', top: '50%' },
-                    { left: '80%', top: '50%' },
-                    { left: '50%', top: '20%' }
-                ];
-                const pos = positions[index % positions.length];
-                profile.style.left = pos.left;
-                profile.style.top = pos.top;
-            }
 
             const roleLabels = {
                 founder: '👑 FOUNDER',
                 moderator: '⚡ MODERATOR',
-                community: '🔗 NODE'
+                community: '🔗 MEMBER'
             };
 
             const roleClasses2 = {
@@ -1326,15 +979,19 @@
                 community: 'community-role'
             };
 
+            // Use username as display name if displayName not available
+            const displayName = member.displayName || member.username || 'Unknown';
+            const username = member.username ? (member.username.startsWith('@') ? member.username : '@' + member.username) : '@unknown';
+
             profile.innerHTML = `
                 <div class="member-avatar">
                     ${member.profileImage ? 
-                        `<img src="${member.profileImage}" alt="${member.displayName}" 
-                             onerror="this.style.display='none'; this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
-                        getInitials(member.displayName)
+                        `<img src="${member.profileImage}" alt="${displayName}" 
+                             onerror="this.style.display='none'; this.parentElement.innerHTML='${getInitials(displayName)}'">` :
+                        getInitials(displayName)
                     }
                 </div>
-                <div class="member-name">${member.username}</div>
+                <div class="member-name">${username}</div>
                 <div class="member-role ${roleClasses2[role]}">${roleLabels[role]}</div>
                 <div class="member-stats">
                     👥 ${formatNumber(member.followers || 0)}<br>
@@ -1350,204 +1007,24 @@
             event.preventDefault();
             
             const input = document.getElementById('usernameInput');
+            const submitBtn = document.getElementById('submitBtn');
             let username = input.value.trim();
             
             if (!username) return;
             
-            if (!username.startsWith('@')) {
-                username = '@' + username;
-            }
+            // Remove @ if present
+            username = username.replace('@', '');
             
             // Show loading
             const buttonText = document.getElementById('submitButtonText');
             const buttonLoading = document.getElementById('submitButtonLoading');
             buttonText.style.display = 'none';
             buttonLoading.style.display = 'inline-block';
+            submitBtn.disabled = true;
             
             try {
-                if (isConnected) {
-                    const response = await fetch(`${API_BASE}/members`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ username: username.replace('@', '') })
-                    });
-                    
-                    if (!response.ok) {
-                        const error = await response.json();
-                        throw new Error(error.error || 'Failed to deploy node');
-                    }
-                    
-                    await fetchMembers();
-                } else {
-                    // Add to demo data
-                    const newMember = {
-                        id: members.length + 1,
-                        username: username,
-                        displayName: username.replace('@', '').toUpperCase(),
-                        followers: Math.floor(Math.random() * 5000) + 100,
-                        verified: Math.random() > 0.7,
-                        createdAt: new Date().toISOString(),
-                        profileImage: generateRandomImage()
-                    };
-                    
-                    members.push(newMember);
-                    renderMembers();
+                if (!isConnected) {
+                    throw new Error('Backend is not connected');
                 }
                 
-                showSuccess();
-                input.value = '';
-                
-            } catch (error) {
-                console.error('Error adding member:', error);
-                showError(error.message);
-            } finally {
-                buttonText.style.display = 'inline-block';
-                buttonLoading.style.display = 'none';
-            }
-        }
-
-        // Generate random profile image
-        function generateRandomImage() {
-            const imageIds = [
-                'photo-1507003211169-0a1dd7228f2d',
-                'photo-1494790108755-2616b612b808', 
-                'photo-1472099645785-5658abf4ff4e',
-                'photo-1500648767791-00dcc994a43e',
-                'photo-1438761681033-6461ffad8d80',
-                'photo-1560250097-0b93528c311a',
-                'photo-1521572267360-ee0c2909d518',
-                'photo-1534528741775-53994a69daeb'
-            ];
-            const randomId = imageIds[Math.floor(Math.random() * imageIds.length)];
-            return `https://images.unsplash.com/${randomId}?w=200&h=200&fit=crop&crop=face`;
-        }
-
-        // Show success message
-        function showSuccess() {
-            const message = document.createElement('div');
-            message.innerHTML = '🚀 Node Successfully Deployed!';
-            message.style.cssText = `
-                position: fixed;
-                top: 30%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: linear-gradient(45deg, rgba(52, 211, 153, 0.95), rgba(34, 197, 94, 0.95));
-                color: #000;
-                padding: 2rem 4rem;
-                border-radius: 50px;
-                font-weight: bold;
-                font-size: 1.5rem;
-                z-index: 10000;
-                animation: successPop 4s ease-out forwards;
-                box-shadow: 0 0 100px rgba(52, 211, 153, 1);
-                border: 3px solid rgba(255, 255, 255, 0.8);
-            `;
-            
-            document.body.appendChild(message);
-            setTimeout(() => message.remove(), 4000);
-        }
-
-        // Show error message
-        function showError(msg) {
-            const message = document.createElement('div');
-            message.innerHTML = `⚠️ ${msg}`;
-            message.style.cssText = `
-                position: fixed;
-                top: 30%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: rgba(239, 68, 68, 0.95);
-                color: #fff;
-                padding: 1.5rem 3rem;
-                border-radius: 30px;
-                font-weight: bold;
-                font-size: 1.2rem;
-                z-index: 10000;
-                animation: errorShake 3s ease-out forwards;
-                box-shadow: 0 0 60px rgba(239, 68, 68, 1);
-                border: 2px solid rgba(255, 255, 255, 0.6);
-            `;
-            
-            document.body.appendChild(message);
-            setTimeout(() => message.remove(), 3000);
-        }
-
-        // Refresh members
-        async function refreshMembers() {
-            await checkConnection();
-            await fetchMembers();
-        }
-
-        // Music controls
-        function toggleMusic() {
-            const btn = document.getElementById('musicOrb');
-            
-            if (isPlaying) {
-                music.pause();
-                btn.textContent = '🎵';
-                isPlaying = false;
-            } else {
-                music.play().catch(e => console.log('Music failed:', e));
-                btn.textContent = '🔊';
-                isPlaying = true;
-            }
-        }
-
-        // Keyboard shortcuts
-        function setupKeyboardShortcuts() {
-            document.addEventListener('keydown', function(e) {
-                if (e.key === ' ' && e.target.tagName !== 'INPUT') {
-                    e.preventDefault();
-                    toggleMusic();
-                } else if (e.key === 'r' && !e.ctrlKey && e.target.tagName !== 'INPUT') {
-                    e.preventDefault();
-                    refreshMembers();
-                }
-            });
-        }
-
-        // Utility functions
-        function getInitials(name) {
-            return name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2);
-        }
-
-        function formatNumber(num) {
-            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-            return num.toString();
-        }
-
-        // Add animation styles
-        const animationStyles = document.createElement('style');
-        animationStyles.textContent = `
-            @keyframes successPop {
-                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
-                20% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
-                80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-            }
-            
-            @keyframes errorShake {
-                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-                10% { opacity: 1; transform: translate(-50%, -50%) scale(1.1) translateX(-10px); }
-                20% { transform: translate(-50%, -50%) scale(1) translateX(10px); }
-                30% { transform: translate(-50%, -50%) scale(1) translateX(-5px); }
-                40% { transform: translate(-50%, -50%) scale(1) translateX(5px); }
-                50% { transform: translate(-50%, -50%) scale(1); }
-                80% { opacity: 1; }
-                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
-            }
-        `;
-        document.head.appendChild(animationStyles);
-
-        // Auto-refresh every 2 minutes when connected
-        setInterval(() => {
-            if (isConnected) {
-                refreshMembers();
-            }
-        }, 2 * 60 * 1000);
-    </script>
-</body>
-</html>
+                const response = await fetch
