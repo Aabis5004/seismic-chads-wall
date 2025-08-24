@@ -788,11 +788,6 @@
     <!-- COSMIC PARTICLES -->
     <div class="cosmic-particles" id="cosmicParticles"></div>
 
-    <!-- FLOATING ROCKETS -->
-    <div class="rocket" style="animation-delay: 0s;">🚀</div>
-    <div class="rocket" style="animation-delay: 7s;">🚀</div>
-    <div class="rocket" style="animation-delay: 14s;">🚀</div>
-
     <!-- AUDIO ELEMENT -->
     <audio id="backgroundMusic" loop>
         <source src="./seismic-music.mp3" type="audio/mpeg">
@@ -859,46 +854,13 @@
     <!-- MAIN WALL -->
     <div class="main-wall">
         <!-- FOUNDER SECTION -->
-        <div class="founder-section">
-            <div class="founder-card">
-                <div class="founder-badge">👑 FOUNDER</div>
-                <div class="profile-avatar">
-                    <img src="https://pbs.twimg.com/profile_images/1234567890/lyron.jpg" alt="Lyron" onerror="this.parentElement.innerHTML='LY'">
-                </div>
-                <div class="profile-username">@lyron</div>
-                <div class="profile-stats">
-                    <div class="stat-line">🔥 Seismic Blockchain Creator</div>
-                    <div class="stat-line">✅ Verified</div>
-                    <div class="stat-line">⭐ Visionary Leader</div>
-                </div>
-            </div>
+        <div class="founder-section" id="founderSection">
+            <!-- Will be populated from backend -->
         </div>
 
         <!-- MODERATORS SECTION -->
-        <div class="moderators-section">
-            <div class="moderator-card">
-                <div class="moderator-badge">⚡ MODERATOR</div>
-                <div class="profile-avatar">
-                    <img src="https://pbs.twimg.com/profile_images/1234567890/noxx.jpg" alt="Noxx" onerror="this.parentElement.innerHTML='NX'">
-                </div>
-                <div class="profile-username">@noxx_xealist</div>
-                <div class="profile-stats">
-                    <div class="stat-line">🛡️ Community Guardian</div>
-                    <div class="stat-line">✅ Verified</div>
-                </div>
-            </div>
-
-            <div class="moderator-card">
-                <div class="moderator-badge">⚡ MODERATOR</div>
-                <div class="profile-avatar">
-                    <img src="https://pbs.twimg.com/profile_images/1234567890/heathcliff.jpg" alt="Heathcliff" onerror="this.parentElement.innerHTML='HC'">
-                </div>
-                <div class="profile-username">@heathcliff_eth</div>
-                <div class="profile-stats">
-                    <div class="stat-line">🛡️ Community Guardian</div>
-                    <div class="stat-line">✅ Verified</div>
-                </div>
-            </div>
+        <div class="moderators-section" id="moderatorsSection">
+            <!-- Will be populated from backend -->
         </div>
     </div>
 
@@ -925,6 +887,7 @@
     <script>
         // Global variables
         let members = [];
+        let leadershipData = {};
         let isConnected = false;
         let music = document.getElementById('backgroundMusic');
         let isPlaying = false;
@@ -1075,6 +1038,7 @@
             try {
                 if (!isConnected) {
                     members = []; // No demo data
+                    renderLeadership(); // Still render empty leadership
                     renderMembers();
                     return;
                 }
@@ -1084,17 +1048,136 @@
                 
                 const allMembers = await response.json();
                 
+                // Separate leadership from regular members
+                allMembers.forEach(member => {
+                    const username = member.username.replace('@', '').toLowerCase();
+                    if (leadership.includes(username)) {
+                        leadershipData[username] = member;
+                    }
+                });
+                
                 // Filter out leadership from regular members
                 members = allMembers.filter(m => 
                     !leadership.includes(m.username.replace('@', '').toLowerCase())
                 );
                 
+                renderLeadership();
                 renderMembers();
             } catch (error) {
                 console.error('Error fetching members:', error);
                 members = [];
+                renderLeadership();
                 renderMembers();
             }
+        }
+
+        // Render leadership section
+        function renderLeadership() {
+            const founderSection = document.getElementById('founderSection');
+            const moderatorsSection = document.getElementById('moderatorsSection');
+            
+            // Render Founder (Lyron)
+            const lyronData = leadershipData['lyron'];
+            if (lyronData) {
+                founderSection.innerHTML = `
+                    <div class="founder-card">
+                        <div class="founder-badge">👑 FOUNDER</div>
+                        <div class="profile-avatar">
+                            ${lyronData.profileImage ? 
+                                `<img src="${lyronData.profileImage}" alt="${lyronData.displayName}" onerror="this.parentElement.innerHTML='LY'">` :
+                                'LY'
+                            }
+                        </div>
+                        <div class="profile-username">${lyronData.username}</div>
+                        <div class="profile-stats">
+                            <div class="stat-line">🔥 Seismic Blockchain Creator</div>
+                            <div class="stat-line">${lyronData.followers ? `👥 ${formatNumber(lyronData.followers)} Followers` : '✅ Verified'}</div>
+                            <div class="stat-line">⭐ Visionary Leader</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Fallback if no data
+                founderSection.innerHTML = `
+                    <div class="founder-card">
+                        <div class="founder-badge">👑 FOUNDER</div>
+                        <div class="profile-avatar">LY</div>
+                        <div class="profile-username">@lyron</div>
+                        <div class="profile-stats">
+                            <div class="stat-line">🔥 Seismic Blockchain Creator</div>
+                            <div class="stat-line">✅ Verified</div>
+                            <div class="stat-line">⭐ Visionary Leader</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Render Moderators
+            moderatorsSection.innerHTML = '';
+            
+            // Noxx
+            const noxxData = leadershipData['noxx_xealist'];
+            const noxxCard = document.createElement('div');
+            noxxCard.className = 'moderator-card';
+            if (noxxData) {
+                noxxCard.innerHTML = `
+                    <div class="moderator-badge">⚡ MODERATOR</div>
+                    <div class="profile-avatar">
+                        ${noxxData.profileImage ? 
+                            `<img src="${noxxData.profileImage}" alt="${noxxData.displayName}" onerror="this.parentElement.innerHTML='NX'">` :
+                            'NX'
+                        }
+                    </div>
+                    <div class="profile-username">${noxxData.username}</div>
+                    <div class="profile-stats">
+                        <div class="stat-line">🛡️ Community Guardian</div>
+                        <div class="stat-line">${noxxData.followers ? `👥 ${formatNumber(noxxData.followers)} Followers` : '✅ Verified'}</div>
+                    </div>
+                `;
+            } else {
+                noxxCard.innerHTML = `
+                    <div class="moderator-badge">⚡ MODERATOR</div>
+                    <div class="profile-avatar">NX</div>
+                    <div class="profile-username">@noxx_xealist</div>
+                    <div class="profile-stats">
+                        <div class="stat-line">🛡️ Community Guardian</div>
+                        <div class="stat-line">✅ Verified</div>
+                    </div>
+                `;
+            }
+            moderatorsSection.appendChild(noxxCard);
+            
+            // Heathcliff
+            const heathcliffData = leadershipData['heathcliff_eth'];
+            const heathcliffCard = document.createElement('div');
+            heathcliffCard.className = 'moderator-card';
+            if (heathcliffData) {
+                heathcliffCard.innerHTML = `
+                    <div class="moderator-badge">⚡ MODERATOR</div>
+                    <div class="profile-avatar">
+                        ${heathcliffData.profileImage ? 
+                            `<img src="${heathcliffData.profileImage}" alt="${heathcliffData.displayName}" onerror="this.parentElement.innerHTML='HC'">` :
+                            'HC'
+                        }
+                    </div>
+                    <div class="profile-username">${heathcliffData.username}</div>
+                    <div class="profile-stats">
+                        <div class="stat-line">🛡️ Community Guardian</div>
+                        <div class="stat-line">${heathcliffData.followers ? `👥 ${formatNumber(heathcliffData.followers)} Followers` : '✅ Verified'}</div>
+                    </div>
+                `;
+            } else {
+                heathcliffCard.innerHTML = `
+                    <div class="moderator-badge">⚡ MODERATOR</div>
+                    <div class="profile-avatar">HC</div>
+                    <div class="profile-username">@heathcliff_eth</div>
+                    <div class="profile-stats">
+                        <div class="stat-line">🛡️ Community Guardian</div>
+                        <div class="stat-line">✅ Verified</div>
+                    </div>
+                `;
+            }
+            moderatorsSection.appendChild(heathcliffCard);
         }
 
         // Render members in vertical carousel
