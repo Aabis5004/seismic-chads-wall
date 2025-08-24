@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seismic Wall - Elite Community</title>
+    <title>Seismic Wall</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@300;400;700;900&family=Exo+2:wght@300;400;700;900&display=swap');
         
@@ -22,7 +22,7 @@
             position: relative;
         }
 
-        /* INTERSTELLAR SPACE BACKGROUND */
+        /* PURE INTERSTELLAR SPACE BACKGROUND */
         .space-container {
             position: fixed;
             top: 0;
@@ -34,10 +34,11 @@
                 radial-gradient(ellipse at center, rgba(16, 23, 42, 0.8) 0%, rgba(0, 0, 0, 1) 70%),
                 radial-gradient(ellipse at 20% 30%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
                 radial-gradient(ellipse at 80% 70%, rgba(52, 211, 153, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 60% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
                 linear-gradient(135deg, #000000 0%, #0f172a 30%, #1e293b 60%, #000000 100%);
         }
 
-        /* NEBULA EFFECTS */
+        /* COSMIC NEBULA EFFECTS */
         .nebula {
             position: absolute;
             border-radius: 50%;
@@ -52,6 +53,7 @@
             background: radial-gradient(circle, rgba(34, 197, 94, 0.3) 0%, transparent 70%);
             top: 10%;
             left: 20%;
+            animation-delay: 0s;
         }
 
         .nebula:nth-child(2) {
@@ -61,6 +63,15 @@
             top: 60%;
             right: 10%;
             animation-delay: -4s;
+        }
+
+        .nebula:nth-child(3) {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
+            bottom: 20%;
+            left: 10%;
+            animation-delay: -8s;
         }
 
         @keyframes nebulaPulse {
@@ -74,7 +85,7 @@
             }
         }
 
-        /* STAR FIELD */
+        /* FLOATING STAR FIELD */
         .star-field {
             position: fixed;
             top: 0;
@@ -103,19 +114,67 @@
             background: #34d399;
         }
 
+        .star.large {
+            width: 3px;
+            height: 3px;
+            background: #10b981;
+            box-shadow: 0 0 6px #10b981;
+        }
+
         @keyframes starTwinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.5);
+            }
+        }
+
+        /* FLOATING COSMIC PARTICLES */
+        .cosmic-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -6;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(52, 211, 153, 0.6);
+            border-radius: 50%;
+            animation: floatParticle 25s linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(200px) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         /* FLOATING ROCKETS */
         .rocket {
             position: fixed;
-            width: 30px;
-            height: 60px;
-            z-index: 5;
-            animation: rocketFly 20s linear infinite;
             font-size: 2rem;
+            z-index: -5;
+            animation: rocketFly 20s linear infinite;
         }
 
         @keyframes rocketFly {
@@ -127,7 +186,7 @@
             }
         }
 
-        /* HEADER */
+        /* HEADER WITH INTERSTELLAR STYLE */
         .header {
             position: relative;
             text-align: center;
@@ -158,10 +217,47 @@
             font-size: 2rem;
             color: #000;
             animation: logoOrbit 20s linear infinite;
-            box-shadow: 0 0 40px rgba(52, 211, 153, 0.8);
+            box-shadow: 
+                0 0 40px rgba(52, 211, 153, 0.8),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .seismic-logo::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid rgba(52, 211, 153, 0.3);
+            border-radius: 50%;
+            animation: logoRing 15s linear infinite reverse;
+        }
+
+        .seismic-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
         }
 
         @keyframes logoOrbit {
+            0% { 
+                transform: rotate(0deg) scale(1);
+                box-shadow: 0 0 40px rgba(52, 211, 153, 0.8);
+            }
+            50% { 
+                transform: rotate(180deg) scale(1.1);
+                box-shadow: 0 0 60px rgba(34, 197, 94, 1);
+            }
+            100% { 
+                transform: rotate(360deg) scale(1);
+                box-shadow: 0 0 40px rgba(52, 211, 153, 0.8);
+            }
+        }
+
+        @keyframes logoRing {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
@@ -176,6 +272,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: titleShimmer 6s ease-in-out infinite;
+            text-shadow: 0 0 50px rgba(52, 211, 153, 0.5);
             letter-spacing: 4px;
             text-transform: uppercase;
         }
@@ -185,7 +282,22 @@
             50% { background-position: 100% 50%; }
         }
 
-        /* SUBMIT SECTION WITH COOLDOWN */
+        .subtitle {
+            font-size: 1.3rem;
+            color: #34d399;
+            opacity: 0.9;
+            margin-top: 1rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            animation: subtitleGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes subtitleGlow {
+            0%, 100% { text-shadow: 0 0 20px rgba(52, 211, 153, 0.5); }
+            50% { text-shadow: 0 0 40px rgba(34, 197, 94, 0.8); }
+        }
+
+        /* SUBMIT SECTION WITH SPACE VIBES */
         .submit-section {
             text-align: center;
             padding: 2rem;
@@ -199,21 +311,32 @@
         .submit-title {
             font-size: 1.8rem;
             color: #34d399;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             font-weight: 300;
+            letter-spacing: 1px;
+            animation: submitTitlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes submitTitlePulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        .submission-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
         }
 
         .submission-counter {
-            font-size: 1rem;
-            color: #ef4444;
-            margin-bottom: 1rem;
+            color: #fbbf24;
         }
 
         .cooldown-timer {
-            font-size: 1.5rem;
-            color: #fbbf24;
+            color: #ef4444;
             font-weight: bold;
-            margin-bottom: 1rem;
             display: none;
         }
 
@@ -239,6 +362,21 @@
             transition: all 0.4s ease;
         }
 
+        .handle-input::placeholder {
+            color: rgba(52, 211, 153, 0.6);
+            font-weight: 300;
+        }
+
+        .handle-input:focus {
+            outline: none;
+            border-color: #34d399;
+            box-shadow: 
+                0 0 30px rgba(52, 211, 153, 0.4),
+                inset 0 0 20px rgba(52, 211, 153, 0.1);
+            background: rgba(52, 211, 153, 0.1);
+            transform: scale(1.02);
+        }
+
         .handle-input:disabled {
             opacity: 0.5;
             cursor: not-allowed;
@@ -256,6 +394,14 @@
             transition: all 0.4s ease;
             font-size: 1.2rem;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(52, 211, 153, 0.5);
+            background: linear-gradient(45deg, #10b981, #059669);
         }
 
         .submit-btn:disabled {
@@ -264,230 +410,33 @@
             opacity: 0.7;
         }
 
-        .submit-btn:not(:disabled):hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 50px rgba(52, 211, 153, 0.5);
-        }
-
-        /* LEADERSHIP SECTION */
-        .leadership-section {
-            position: relative;
-            width: 100%;
-            padding: 4rem 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 4rem;
+        /* MUSIC CONTROLS */
+        .music-controls {
+            text-align: center;
             margin-bottom: 3rem;
-        }
-
-        /* FOUNDER CARD - CENTER PIECE */
-        .founder-card {
+            z-index: 50;
             position: relative;
-            width: 250px;
-            height: 320px;
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(52, 211, 153, 0.1));
-            border: 3px solid #ef4444;
-            border-radius: 25px;
-            padding: 2rem;
-            backdrop-filter: blur(20px);
-            box-shadow: 
-                0 0 100px rgba(239, 68, 68, 0.5),
-                inset 0 0 50px rgba(239, 68, 68, 0.1);
-            animation: founderGlow 4s ease-in-out infinite;
-            z-index: 10;
         }
 
-        @keyframes founderGlow {
-            0%, 100% { 
-                box-shadow: 0 0 100px rgba(239, 68, 68, 0.5);
-                transform: scale(1);
-            }
-            50% { 
-                box-shadow: 0 0 150px rgba(239, 68, 68, 0.8);
-                transform: scale(1.05);
-            }
-        }
-
-        .founder-badge {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(45deg, #ef4444, #dc2626);
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
+        .music-btn {
+            padding: 1rem 3rem;
+            background: rgba(239, 68, 68, 0.8);
+            border: 2px solid rgba(239, 68, 68, 0.6);
+            border-radius: 50px;
+            color: #ffffff;
+            font-family: 'Exo 2', monospace;
             font-weight: bold;
-            font-size: 0.9rem;
-            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.5);
-            animation: badgePulse 2s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-size: 1.1rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
         }
 
-        @keyframes badgePulse {
-            0%, 100% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.1); }
-        }
-
-        /* MODERATOR CARDS */
-        .moderator-card {
-            width: 220px;
-            height: 280px;
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(52, 211, 153, 0.1));
-            border: 2px solid #fbbf24;
-            border-radius: 20px;
-            padding: 1.5rem;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 0 60px rgba(251, 191, 36, 0.4);
-            animation: moderatorFloat 8s ease-in-out infinite;
-        }
-
-        .moderator-card:nth-child(odd) {
-            animation-delay: -2s;
-        }
-
-        @keyframes moderatorFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .moderator-badge {
-            background: linear-gradient(45deg, #fbbf24, #f59e0b);
-            padding: 0.4rem 1rem;
-            border-radius: 15px;
-            font-weight: bold;
-            font-size: 0.8rem;
-            text-align: center;
-            margin-bottom: 1rem;
-            box-shadow: 0 5px 20px rgba(251, 191, 36, 0.4);
-        }
-
-        /* PROFILE STYLING FOR LEADERSHIP */
-        .leader-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #34d399, #10b981);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 2rem;
-            color: #000;
-            margin: 1rem auto;
-            box-shadow: 0 0 40px rgba(52, 211, 153, 0.6);
-        }
-
-        .leader-username {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #34d399;
-            text-align: center;
-            margin: 1rem 0;
-            text-shadow: 0 0 20px rgba(52, 211, 153, 0.5);
-        }
-
-        .leader-stats {
-            font-size: 0.9rem;
-            text-align: center;
-            opacity: 0.9;
-        }
-
-        /* MEMBERS CAROUSEL SECTION */
-        .members-section {
-            position: relative;
-            width: 100%;
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(15px);
-            overflow: hidden;
-            height: 500px;
-        }
-
-        .members-title {
-            text-align: center;
-            font-size: 2rem;
-            color: #34d399;
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-
-        /* VERTICAL CAROUSEL */
-        .carousel-container {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .carousel-track {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            animation: scrollVertical 30s linear infinite;
-            width: 30%;
-        }
-
-        .carousel-track:nth-child(2) {
-            animation-delay: -10s;
-        }
-
-        .carousel-track:nth-child(3) {
-            animation-delay: -20s;
-        }
-
-        @keyframes scrollVertical {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-100%); }
-        }
-
-        .member-card {
-            width: 100%;
-            height: 200px;
-            background: rgba(52, 211, 153, 0.08);
-            border: 2px solid rgba(52, 211, 153, 0.3);
-            border-radius: 20px;
-            padding: 1.5rem;
-            backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .member-card:hover {
-            transform: scale(1.05);
-            border-color: #34d399;
-            box-shadow: 0 20px 50px rgba(52, 211, 153, 0.4);
-        }
-
-        .member-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #34d399, #10b981);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.5rem;
-            color: #000;
-            margin: 0 auto 1rem auto;
-        }
-
-        .member-username {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #34d399;
-            text-align: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .member-stats {
-            font-size: 0.8rem;
-            text-align: center;
-            opacity: 0.8;
+        .music-btn:hover {
+            background: rgba(239, 68, 68, 1);
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(239, 68, 68, 0.5);
         }
 
         /* CONNECTION STATUS */
@@ -502,6 +451,7 @@
             backdrop-filter: blur(15px);
             font-size: 0.9rem;
             z-index: 1000;
+            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
         }
 
         .status-dot {
@@ -517,19 +467,299 @@
         .disconnected { background: #ef4444; }
 
         @keyframes statusPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            0%, 100% { 
+                opacity: 1; 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.7; 
+                transform: scale(1.2);
+            }
         }
 
-        /* RESPONSIVE */
+        /* REFRESH BUTTON */
+        .refresh-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: rgba(52, 211, 153, 0.2);
+            border: 2px solid #34d399;
+            border-radius: 50%;
+            color: #34d399;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.3);
+        }
+
+        .refresh-btn:hover {
+            background: rgba(52, 211, 153, 0.4);
+            transform: scale(1.1) rotate(360deg);
+            box-shadow: 0 15px 40px rgba(52, 211, 153, 0.5);
+        }
+
+        /* MAIN WALL CONTAINER */
+        .main-wall {
+            position: relative;
+            width: 100%;
+            padding: 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* FOUNDER SECTION - CENTER */
+        .founder-section {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .founder-card {
+            width: 250px;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(52, 211, 153, 0.1));
+            border: 3px solid #ef4444;
+            border-radius: 25px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 
+                0 0 100px rgba(239, 68, 68, 0.5),
+                inset 0 0 50px rgba(239, 68, 68, 0.1);
+            animation: founderGlow 4s ease-in-out infinite;
+            position: relative;
+        }
+
+        .founder-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.5);
+        }
+
+        @keyframes founderGlow {
+            0%, 100% { 
+                box-shadow: 0 0 100px rgba(239, 68, 68, 0.5);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 150px rgba(239, 68, 68, 0.8);
+                transform: scale(1.05);
+            }
+        }
+
+        /* MODERATORS SECTION */
+        .moderators-section {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .moderator-card {
+            width: 220px;
+            height: 280px;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(52, 211, 153, 0.1));
+            border: 2px solid #fbbf24;
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 60px rgba(251, 191, 36, 0.4);
+            position: relative;
+        }
+
+        .moderator-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            padding: 0.4rem 1rem;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            box-shadow: 0 5px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* MEMBERS VERTICAL CAROUSEL */
+        .members-section {
+            position: relative;
+            width: 100%;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+            overflow: hidden;
+            height: 600px;
+        }
+
+        .members-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #34d399;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            display: flex;
+            justify-content: space-around;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            width: 30%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            animation: scrollVertical 30s linear infinite;
+        }
+
+        @keyframes scrollVertical {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+
+        /* PROFILE CARDS */
+        .profile-card {
+            width: 100%;
+            height: 250px;
+            background: rgba(52, 211, 153, 0.08);
+            border: 2px solid rgba(52, 211, 153, 0.3);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+            transition: all 0.5s ease;
+            cursor: pointer;
+            box-shadow: 
+                0 20px 60px rgba(52, 211, 153, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+        }
+
+        .profile-card:hover {
+            transform: scale(1.05);
+            box-shadow: 
+                0 40px 80px rgba(52, 211, 153, 0.4),
+                0 0 100px rgba(34, 197, 94, 0.3);
+            border-color: #34d399;
+            background: rgba(52, 211, 153, 0.15);
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #34d399, #10b981);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #000;
+            margin: 0 auto 1rem auto;
+            overflow: hidden;
+            box-shadow: 
+                0 0 40px rgba(52, 211, 153, 0.6),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .profile-username {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #34d399;
+            text-align: center;
+            margin-bottom: 0.75rem;
+            word-break: break-word;
+            text-shadow: 0 0 20px rgba(52, 211, 153, 0.5);
+        }
+
+        .profile-stats {
+            font-size: 0.8rem;
+            text-align: center;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .stat-line {
+            margin-bottom: 0.5rem;
+            padding: 0.25rem;
+            background: rgba(52, 211, 153, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            opacity: 0.7;
+            z-index: 20;
+        }
+
+        .empty-state h3 {
+            font-size: 2rem;
+            color: #34d399;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        /* LOADING ANIMATION */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(52, 211, 153, 0.3);
+            border-radius: 50%;
+            border-top-color: #34d399;
+            animation: loadingSpin 1s ease-in-out infinite;
+        }
+
+        @keyframes loadingSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* RESPONSIVE DESIGN */
         @media (max-width: 768px) {
             .title {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
-            .leadership-section {
+            .submit-form {
                 flex-direction: column;
-                gap: 2rem;
+                gap: 1rem;
+            }
+
+            .moderators-section {
+                flex-direction: column;
+                align-items: center;
             }
 
             .carousel-container {
@@ -538,26 +768,36 @@
             }
 
             .carousel-track {
-                width: 90%;
-                max-width: 300px;
+                width: 100%;
+                height: 400px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- SPACE BACKGROUND -->
+    <!-- PURE INTERSTELLAR SPACE BACKGROUND -->
     <div class="space-container">
+        <div class="nebula"></div>
         <div class="nebula"></div>
         <div class="nebula"></div>
     </div>
     
-    <!-- STAR FIELD -->
+    <!-- FLOATING STAR FIELD -->
     <div class="star-field" id="starField"></div>
     
+    <!-- COSMIC PARTICLES -->
+    <div class="cosmic-particles" id="cosmicParticles"></div>
+
     <!-- FLOATING ROCKETS -->
     <div class="rocket" style="animation-delay: 0s;">🚀</div>
     <div class="rocket" style="animation-delay: 7s;">🚀</div>
     <div class="rocket" style="animation-delay: 14s;">🚀</div>
+
+    <!-- AUDIO ELEMENT -->
+    <audio id="backgroundMusic" loop>
+        <source src="./seismic-music.mp3" type="audio/mpeg">
+        <source src="./interstellar.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- CONNECTION STATUS -->
     <div class="connection-status">
@@ -565,10 +805,17 @@
         <span id="statusText">💎 Demo Mode</span>
     </div>
 
+    <!-- REFRESH BUTTON -->
+    <button class="refresh-btn" onclick="refreshMembers()" title="Refresh">
+        🔄
+    </button>
+
     <!-- HEADER -->
     <header class="header">
         <div class="logo-container">
-            <div class="seismic-logo">S</div>
+            <div class="seismic-logo">
+                <img src="./seismic-logo.png" alt="S" onerror="this.parentElement.innerHTML='S'">
+            </div>
             <div>
                 <h1 class="title">SEISMIC WALL</h1>
                 <p class="subtitle">Join the Encrypted Community</p>
@@ -576,14 +823,16 @@
         </div>
     </header>
 
-    <!-- SUBMIT SECTION WITH RATE LIMITING -->
+    <!-- SUBMIT SECTION -->
     <section class="submit-section">
         <h2 class="submit-title">Submit your X handle. Join Seismic Family Wall</h2>
-        <div class="submission-counter" id="submissionCounter">
-            Submissions: <span id="submitCount">0</span>/3
-        </div>
-        <div class="cooldown-timer" id="cooldownTimer">
-            Cooldown: <span id="timerDisplay">45:00</span>
+        <div class="submission-info">
+            <div class="submission-counter">
+                Submissions: <span id="submitCount">0</span>/3
+            </div>
+            <div class="cooldown-timer" id="cooldownTimer">
+                Cooldown: <span id="timerDisplay">45:00</span>
+            </div>
         </div>
         <form class="submit-form" onsubmit="addMember(event)">
             <input 
@@ -594,86 +843,140 @@
                 required
             >
             <button type="submit" class="submit-btn" id="submitBtn">
-                Submit
+                <span id="submitButtonText">Submit</span>
+                <span id="submitButtonLoading" class="loading" style="display: none;"></span>
             </button>
         </form>
     </section>
 
-    <!-- LEADERSHIP SECTION -->
-    <section class="leadership-section">
-        <!-- MODERATOR 1 -->
-        <div class="moderator-card">
-            <div class="moderator-badge">⚡ MODERATOR</div>
-            <div class="leader-avatar">NX</div>
-            <div class="leader-username">@noxx_xealist</div>
-            <div class="leader-stats">
-                <div>✅ Verified</div>
-                <div>🛡️ Community Guardian</div>
-            </div>
-        </div>
-
-        <!-- FOUNDER - CENTER -->
-        <div class="founder-card">
-            <div class="founder-badge">👑 FOUNDER</div>
-            <div class="leader-avatar" style="width: 140px; height: 140px; font-size: 2.5rem;">LY</div>
-            <div class="leader-username" style="font-size: 1.4rem;">@lyron</div>
-            <div class="leader-stats">
-                <div>🔥 Seismic Blockchain Creator</div>
-                <div>✅ Verified</div>
-                <div>⭐ Visionary Leader</div>
-            </div>
-        </div>
-
-        <!-- MODERATOR 2 -->
-        <div class="moderator-card">
-            <div class="moderator-badge">⚡ MODERATOR</div>
-            <div class="leader-avatar">HC</div>
-            <div class="leader-username">@heathcliff_eth</div>
-            <div class="leader-stats">
-                <div>✅ Verified</div>
-                <div>🛡️ Community Guardian</div>
-            </div>
-        </div>
+    <!-- MUSIC CONTROLS -->
+    <section class="music-controls">
+        <button class="music-btn" onclick="toggleMusic()" id="musicBtn">
+            🎵 Play Music
+        </button>
     </section>
 
-    <!-- MEMBERS CAROUSEL -->
-    <section class="members-section">
+    <!-- MAIN WALL -->
+    <div class="main-wall">
+        <!-- FOUNDER SECTION -->
+        <div class="founder-section">
+            <div class="founder-card">
+                <div class="founder-badge">👑 FOUNDER</div>
+                <div class="profile-avatar">
+                    <img src="https://pbs.twimg.com/profile_images/1234567890/lyron.jpg" alt="Lyron" onerror="this.parentElement.innerHTML='LY'">
+                </div>
+                <div class="profile-username">@lyron</div>
+                <div class="profile-stats">
+                    <div class="stat-line">🔥 Seismic Blockchain Creator</div>
+                    <div class="stat-line">✅ Verified</div>
+                    <div class="stat-line">⭐ Visionary Leader</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODERATORS SECTION -->
+        <div class="moderators-section">
+            <div class="moderator-card">
+                <div class="moderator-badge">⚡ MODERATOR</div>
+                <div class="profile-avatar">
+                    <img src="https://pbs.twimg.com/profile_images/1234567890/noxx.jpg" alt="Noxx" onerror="this.parentElement.innerHTML='NX'">
+                </div>
+                <div class="profile-username">@noxx_xealist</div>
+                <div class="profile-stats">
+                    <div class="stat-line">🛡️ Community Guardian</div>
+                    <div class="stat-line">✅ Verified</div>
+                </div>
+            </div>
+
+            <div class="moderator-card">
+                <div class="moderator-badge">⚡ MODERATOR</div>
+                <div class="profile-avatar">
+                    <img src="https://pbs.twimg.com/profile_images/1234567890/heathcliff.jpg" alt="Heathcliff" onerror="this.parentElement.innerHTML='HC'">
+                </div>
+                <div class="profile-username">@heathcliff_eth</div>
+                <div class="profile-stats">
+                    <div class="stat-line">🛡️ Community Guardian</div>
+                    <div class="stat-line">✅ Verified</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MEMBERS VERTICAL CAROUSEL -->
+    <div class="members-section">
         <h2 class="members-title">🌟 Community Members 🌟</h2>
         <div class="carousel-container" id="carouselContainer">
-            <!-- Carousel tracks will be dynamically generated -->
+            <div class="carousel-track">
+                <div class="carousel-content" id="track1"></div>
+            </div>
+            <div class="carousel-track">
+                <div class="carousel-content" id="track2"></div>
+            </div>
+            <div class="carousel-track">
+                <div class="carousel-content" id="track3"></div>
+            </div>
         </div>
-    </section>
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <h3>Welcome to the Cosmic Void</h3>
+            <p>Submit your handle to float among the stars</p>
+        </div>
+    </div>
 
     <script>
         // Global variables
         let members = [];
+        let isConnected = false;
+        let music = document.getElementById('backgroundMusic');
+        let isPlaying = false;
         let submissionCount = 0;
         let cooldownActive = false;
         let cooldownEndTime = null;
 
-        // Leadership (these won't appear in regular members list)
-        const leadership = ['@lyron', '@noxx_xealist', '@heathcliff_eth'];
+        // API Configuration
+        const API_BASE = 'https://seismicwall.duckdns.org/api';
+
+        // Leadership handles (won't appear in members)
+        const leadership = ['lyron', 'noxx_xealist', 'heathcliff_eth'];
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             createStarField();
+            createCosmicParticles();
+            checkConnection();
             loadSubmissionState();
             fetchMembers();
+            setupKeyboardShortcuts();
             setInterval(updateCooldownDisplay, 1000);
         });
 
-        // Create star field
+        // Create massive star field
         function createStarField() {
             const container = document.getElementById('starField');
-            const starCount = 150;
+            const starCount = 200;
             
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
-                star.className = `star ${['small', 'medium'][Math.floor(Math.random() * 2)]}`;
+                star.className = `star ${['small', 'medium', 'large'][Math.floor(Math.random() * 3)]}`;
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
                 star.style.animationDelay = Math.random() * 4 + 's';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
                 container.appendChild(star);
+            }
+        }
+
+        // Create floating cosmic particles
+        function createCosmicParticles() {
+            const container = document.getElementById('cosmicParticles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 25 + 's';
+                particle.style.animationDuration = (Math.random() * 15 + 20) + 's';
+                container.appendChild(particle);
             }
         }
 
@@ -742,59 +1045,116 @@
             }
         }
 
-        // Fetch members (demo data)
-        async function fetchMembers() {
-            // Demo members (excluding leadership)
-            members = [
-                { username: '@crypto_trader', displayName: 'Crypto Trader', followers: 5420 },
-                { username: '@blockchain_dev', displayName: 'Blockchain Dev', followers: 3200 },
-                { username: '@defi_expert', displayName: 'DeFi Expert', followers: 8900 },
-                { username: '@nft_collector', displayName: 'NFT Collector', followers: 12300 },
-                { username: '@web3_builder', displayName: 'Web3 Builder', followers: 6700 },
-                { username: '@seismic_holder', displayName: 'Seismic Holder', followers: 2100 },
-                { username: '@moon_walker', displayName: 'Moon Walker', followers: 4500 },
-                { username: '@diamond_hands', displayName: 'Diamond Hands', followers: 9800 },
-                { username: '@eth_maximalist', displayName: 'ETH Maximalist', followers: 7600 }
-            ];
+        // Check backend connection
+        async function checkConnection() {
+            try {
+                const response = await fetch(`${API_BASE}/members`);
+                isConnected = response.ok;
+            } catch (error) {
+                isConnected = false;
+            }
             
-            renderMembersCarousel();
+            updateConnectionStatus();
+        }
+
+        function updateConnectionStatus() {
+            const statusDot = document.getElementById('statusDot');
+            const statusText = document.getElementById('statusText');
+            
+            if (isConnected) {
+                statusDot.className = 'status-dot connected';
+                statusText.textContent = '🟢 Backend Connected';
+            } else {
+                statusDot.className = 'status-dot disconnected';
+                statusText.textContent = '💎 Demo Mode';
+            }
+        }
+
+        // Fetch members from API
+        async function fetchMembers() {
+            try {
+                if (!isConnected) {
+                    members = []; // No demo data
+                    renderMembers();
+                    return;
+                }
+                
+                const response = await fetch(`${API_BASE}/members`);
+                if (!response.ok) throw new Error('Failed to fetch');
+                
+                const allMembers = await response.json();
+                
+                // Filter out leadership from regular members
+                members = allMembers.filter(m => 
+                    !leadership.includes(m.username.replace('@', '').toLowerCase())
+                );
+                
+                renderMembers();
+            } catch (error) {
+                console.error('Error fetching members:', error);
+                members = [];
+                renderMembers();
+            }
         }
 
         // Render members in vertical carousel
-        function renderMembersCarousel() {
-            const container = document.getElementById('carouselContainer');
-            container.innerHTML = '';
+        function renderMembers() {
+            const track1 = document.getElementById('track1');
+            const track2 = document.getElementById('track2');
+            const track3 = document.getElementById('track3');
+            const emptyState = document.getElementById('emptyState');
             
-            // Create 3 carousel tracks
-            for (let track = 0; track < 3; track++) {
-                const trackDiv = document.createElement('div');
-                trackDiv.className = 'carousel-track';
-                
-                // Duplicate members for infinite scroll
-                const membersToShow = [...members, ...members];
-                
-                membersToShow.forEach((member, index) => {
-                    const card = createMemberCard(member);
-                    trackDiv.appendChild(card);
-                });
-                
-                container.appendChild(trackDiv);
+            // Clear existing
+            track1.innerHTML = '';
+            track2.innerHTML = '';
+            track3.innerHTML = '';
+            
+            if (members.length === 0) {
+                emptyState.style.display = 'block';
+                return;
             }
+            
+            emptyState.style.display = 'none';
+            
+            // Duplicate members for infinite scroll
+            const duplicatedMembers = [...members, ...members];
+            
+            // Distribute members across 3 tracks
+            duplicatedMembers.forEach((member, index) => {
+                const card = createMemberCard(member);
+                
+                if (index % 3 === 0) {
+                    track1.appendChild(card);
+                } else if (index % 3 === 1) {
+                    track2.appendChild(card);
+                } else {
+                    track3.appendChild(card);
+                }
+            });
+            
+            // Set different animation delays for each track
+            track1.style.animationDelay = '0s';
+            track2.style.animationDelay = '-10s';
+            track3.style.animationDelay = '-20s';
         }
 
         // Create member card
         function createMemberCard(member) {
             const card = document.createElement('div');
-            card.className = 'member-card';
-            
-            const initials = member.displayName.split(' ').map(w => w[0]).join('').slice(0, 2);
+            card.className = 'profile-card';
             
             card.innerHTML = `
-                <div class="member-avatar">${initials}</div>
-                <div class="member-username">${member.username}</div>
-                <div class="member-stats">
-                    <div>👥 ${formatNumber(member.followers)} Followers</div>
-                    <div>✨ Active Member</div>
+                <div class="profile-avatar">
+                    ${member.profileImage ? 
+                        `<img src="${member.profileImage}" alt="${member.displayName}" onerror="this.parentElement.innerHTML='${getInitials(member.displayName)}'">` :
+                        getInitials(member.displayName)
+                    }
+                </div>
+                <div class="profile-username">${member.username}</div>
+                <div class="profile-stats">
+                    <div class="stat-line">👥 ${formatNumber(member.followers || 0)} Followers</div>
+                    <div class="stat-line">${member.verified ? '✅ Verified' : '⭕ Unverified'}</div>
+                    <div class="stat-line">⏰ ${timeAgo(member.createdAt)}</div>
                 </div>
             `;
             
@@ -816,45 +1176,69 @@
             if (!username) return;
             
             // Check if it's a leadership handle
-            if (leadership.includes(username.toLowerCase())) {
+            if (leadership.includes(username.replace('@', '').toLowerCase())) {
                 alert('This user is already part of the leadership team!');
                 input.value = '';
                 return;
             }
             
-            // Increment submission count
-            submissionCount++;
-            localStorage.setItem('submissionCount', submissionCount);
-            document.getElementById('submitCount').textContent = submissionCount;
+            // Show loading state
+            const buttonText = document.getElementById('submitButtonText');
+            const buttonLoading = document.getElementById('submitButtonLoading');
+            buttonText.style.display = 'none';
+            buttonLoading.style.display = 'inline-block';
             
-            // Add to members list (demo)
-            members.push({
-                username: username,
-                displayName: username.replace('@', ''),
-                followers: Math.floor(Math.random() * 10000)
-            });
-            
-            // Clear input
-            input.value = '';
-            
-            // Refresh carousel
-            renderMembersCarousel();
-            
-            // Show success effect
-            showSuccessEffect();
-            
-            // Check if we've reached the limit
-            if (submissionCount >= 3) {
-                startCooldown();
-                alert('Maximum submissions reached! Please wait 45 minutes for the next batch.');
+            try {
+                if (!isConnected) {
+                    throw new Error('Backend not connected - Please check connection');
+                }
+                
+                const response = await fetch(`${API_BASE}/members`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username })
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to add member');
+                }
+                
+                // Increment submission count
+                submissionCount++;
+                localStorage.setItem('submissionCount', submissionCount);
+                document.getElementById('submitCount').textContent = submissionCount;
+                
+                // Clear input and refresh
+                input.value = '';
+                await fetchMembers();
+                
+                // Add cosmic success effect
+                showCosmicSuccess();
+                
+                // Check if we've reached the limit
+                if (submissionCount >= 3) {
+                    startCooldown();
+                    alert('Maximum 3 submissions reached! Please wait 45 minutes for the next batch.');
+                }
+                
+            } catch (error) {
+                console.error('Error adding member:', error);
+                alert(error.message);
+            } finally {
+                // Reset button state
+                buttonText.style.display = 'inline-block';
+                buttonLoading.style.display = 'none';
             }
         }
 
-        // Show success effect
-        function showSuccessEffect() {
-            const effect = document.createElement('div');
-            effect.innerHTML = '✨ Member Added! ✨';
-            effect.style.cssText = `
+        // Show cosmic success effect
+        function showCosmicSuccess() {
+            const successEffect = document.createElement('div');
+            successEffect.innerHTML = '✨ Member Added to the Cosmos! ✨';
+            successEffect.style.cssText = `
                 position: fixed;
                 top: 50%;
                 left: 50%;
@@ -866,22 +1250,81 @@
                 font-weight: bold;
                 font-size: 1.2rem;
                 z-index: 10000;
-                animation: successPulse 2s ease-out forwards;
+                animation: successPulse 3s ease-out forwards;
+                box-shadow: 0 0 50px rgba(52, 211, 153, 0.8);
             `;
             
-            document.body.appendChild(effect);
+            document.body.appendChild(successEffect);
             
-            setTimeout(() => effect.remove(), 2000);
+            setTimeout(() => {
+                successEffect.remove();
+            }, 3000);
         }
 
-        // Format number
+        // Refresh members
+        async function refreshMembers() {
+            await checkConnection();
+            await fetchMembers();
+        }
+
+        // Music controls
+        function toggleMusic() {
+            const btn = document.getElementById('musicBtn');
+            
+            if (isPlaying) {
+                music.pause();
+                btn.textContent = '🎵 Play Music';
+                isPlaying = false;
+            } else {
+                music.play().catch(e => console.log('Music play failed:', e));
+                btn.textContent = '🎵 Pause Music';
+                isPlaying = true;
+            }
+        }
+
+        // Keyboard shortcuts
+        function setupKeyboardShortcuts() {
+            document.addEventListener('keydown', function(e) {
+                if (e.key === ' ' && e.target.tagName !== 'INPUT') {
+                    e.preventDefault();
+                    toggleMusic();
+                } else if (e.key === 'r' && !e.ctrlKey && e.target.tagName !== 'INPUT') {
+                    e.preventDefault();
+                    refreshMembers();
+                }
+            });
+        }
+
+        // Utility functions
+        function getInitials(name) {
+            return name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2);
+        }
+
         function formatNumber(num) {
             if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
             if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
             return num.toString();
         }
 
-        // Add success animation
+        function timeAgo(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - date) / 1000);
+            
+            if (diffInSeconds < 60) return 'Now';
+            if (diffInSeconds < 3600) return Math.floor(diffInSeconds / 60) + 'm';
+            if (diffInSeconds < 86400) return Math.floor(diffInSeconds / 3600) + 'h';
+            return Math.floor(diffInSeconds / 86400) + 'd';
+        }
+
+        // Auto-refresh every 3 minutes when connected
+        setInterval(() => {
+            if (isConnected) {
+                refreshMembers();
+            }
+        }, 3 * 60 * 1000);
+
+        // Add CSS for success animation
         const style = document.createElement('style');
         style.textContent = `
             @keyframes successPulse {
@@ -889,9 +1332,13 @@
                     opacity: 0; 
                     transform: translate(-50%, -50%) scale(0.5); 
                 }
-                50% { 
+                20% { 
                     opacity: 1; 
                     transform: translate(-50%, -50%) scale(1.2); 
+                }
+                80% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1); 
                 }
                 100% { 
                     opacity: 0; 
