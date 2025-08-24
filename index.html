@@ -898,8 +898,8 @@
         // API Configuration
         const API_BASE = 'https://seismicwall.duckdns.org/api';
 
-        // Leadership handles (won't appear in members)
-        const leadership = ['lyron', 'noxx_xealist', 'heathcliff_eth'];
+        // Leadership handles (won't appear in members) - CORRECT USERNAMES
+        const leadership = ['lyronctk', 'noxxw3', 'xealistt', 'heathcliff_eth'];
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
@@ -1056,8 +1056,8 @@
                 allMembers.forEach(member => {
                     const username = member.username.replace('@', '').toLowerCase();
                     
-                    // Check for all variations of leadership usernames
-                    if (username === 'lyron' || username === 'noxx_xealist' || username === 'heathcliff_eth') {
+                    // Check for CORRECT leadership usernames
+                    if (username === 'lyronctk' || username === 'noxxw3' || username === 'xealistt' || username === 'heathcliff_eth') {
                         leadershipData[username] = member;
                     } else {
                         // Only add to members if NOT leadership
@@ -1085,7 +1085,7 @@
             moderatorsSection.innerHTML = '';
             
             // Render Founder (Lyron)
-            const lyronData = leadershipData['lyron'];
+            const lyronData = leadershipData['lyronctk'];
             const founderCard = document.createElement('div');
             founderCard.className = 'founder-card';
             
@@ -1107,7 +1107,7 @@
                 founderCard.innerHTML = `
                     <div class="founder-badge">👑 FOUNDER</div>
                     <div class="profile-avatar">LY</div>
-                    <div class="profile-username">@lyron</div>
+                    <div class="profile-username">@lyronctk</div>
                     <div class="profile-stats">
                         <div class="stat-line">🔥 Seismic Blockchain Creator</div>
                         <div class="stat-line">✅ Verified</div>
@@ -1117,8 +1117,8 @@
             }
             founderSection.appendChild(founderCard);
             
-            // Render Noxx Moderator
-            const noxxData = leadershipData['noxx_xealist'];
+            // Render NoxxW3 Moderator
+            const noxxData = leadershipData['noxxw3'];
             const noxxCard = document.createElement('div');
             noxxCard.className = 'moderator-card';
             
@@ -1138,7 +1138,7 @@
                 noxxCard.innerHTML = `
                     <div class="moderator-badge">⚡ MODERATOR</div>
                     <div class="profile-avatar">NX</div>
-                    <div class="profile-username">@noxx_xealist</div>
+                    <div class="profile-username">@NoxxW3</div>
                     <div class="profile-stats">
                         <div class="stat-line">🛡️ Community Guardian</div>
                         <div class="stat-line">✅ Verified</div>
@@ -1146,6 +1146,36 @@
                 `;
             }
             moderatorsSection.appendChild(noxxCard);
+            
+            // Render Xealistt Moderator
+            const xealisttData = leadershipData['xealistt'];
+            const xealisttCard = document.createElement('div');
+            xealisttCard.className = 'moderator-card';
+            
+            if (xealisttData && xealisttData.profileImage) {
+                xealisttCard.innerHTML = `
+                    <div class="moderator-badge">⚡ MODERATOR</div>
+                    <div class="profile-avatar">
+                        <img src="${xealisttData.profileImage}" alt="${xealisttData.displayName || 'Xealist'}" onerror="this.parentElement.innerHTML='XE'">
+                    </div>
+                    <div class="profile-username">${xealisttData.username}</div>
+                    <div class="profile-stats">
+                        <div class="stat-line">🛡️ Community Guardian</div>
+                        <div class="stat-line">${xealisttData.followers ? `👥 ${formatNumber(xealisttData.followers)} Followers` : '✅ Verified'}</div>
+                    </div>
+                `;
+            } else {
+                xealisttCard.innerHTML = `
+                    <div class="moderator-badge">⚡ MODERATOR</div>
+                    <div class="profile-avatar">XE</div>
+                    <div class="profile-username">@xealistt</div>
+                    <div class="profile-stats">
+                        <div class="stat-line">🛡️ Community Guardian</div>
+                        <div class="stat-line">✅ Verified</div>
+                    </div>
+                `;
+            }
+            moderatorsSection.appendChild(xealisttCard);
             
             // Render Heathcliff Moderator
             const heathcliffData = leadershipData['heathcliff_eth'];
