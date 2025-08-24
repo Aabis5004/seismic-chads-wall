@@ -169,23 +169,6 @@
             }
         }
 
-        /* FLOATING ROCKETS */
-        .rocket {
-            position: fixed;
-            font-size: 2rem;
-            z-index: -5;
-            animation: rocketFly 20s linear infinite;
-        }
-
-        @keyframes rocketFly {
-            0% {
-                transform: translateX(-100px) translateY(100vh) rotate(-45deg);
-            }
-            100% {
-                transform: translateX(calc(100vw + 100px)) translateY(-100px) rotate(-45deg);
-            }
-        }
-
         /* HEADER WITH INTERSTELLAR STYLE */
         .header {
             position: relative;
@@ -336,6 +319,14 @@
 
         .cooldown-timer {
             color: #ef4444;
+            font-weight: bold;
+            display: none;
+        }
+
+        .cooldown-message {
+            color: #ef4444;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
             font-weight: bold;
             display: none;
         }
@@ -823,11 +814,14 @@
         <h2 class="submit-title">Submit your X handle. Join Seismic Encrypted Wall</h2>
         <div class="submission-info">
             <div class="submission-counter">
-                Submissions: <span id="submitCount">0</span>/3
+                Global Submissions: <span id="submitCount">0</span>/3
             </div>
             <div class="cooldown-timer" id="cooldownTimer">
-                Cooldown: <span id="timerDisplay">45:00</span>
+                Next batch opens: <span id="timerDisplay">--:--</span>
             </div>
+        </div>
+        <div class="cooldown-message" id="cooldownMessage">
+            🚫 Global submission limit reached! Please wait for the next batch.
         </div>
         <form class="submit-form" onsubmit="addMember(event)">
             <input 
@@ -891,9 +885,14 @@
         let isConnected = false;
         let music = document.getElementById('backgroundMusic');
         let isPlaying = false;
-        let submissionCount = 0;
-        let cooldownActive = false;
-        let cooldownEndTime = null;
+
+        // FRONTEND-ONLY GLOBAL LIMIT SYSTEM
+        const GLOBAL_LIMIT_KEY = 'seismic_global_limit';
+        const GLOBAL_COOLDOWN_KEY = 'seismic_global_cooldown';
+        
+        let globalSubmissionCount = 0;
+        let globalCooldownActive = false;
+        let globalCooldownEndTime = null;
 
         // API Configuration
         const API_BASE = 'https://seismicwall.duckdns.org/api';
@@ -906,11 +905,160 @@
             createStarField();
             createCosmicParticles();
             checkConnection();
-            loadSubmissionState();
+            loadGlobalLimitState();
             fetchMembers();
             setupKeyboardShortcuts();
             setInterval(updateCooldownDisplay, 1000);
+            setInterval(syncGlobalState, 5000); // Sync every 5 seconds
         });
+
+        // Load global limit state from localStorage (shared across all users)
+        function loadGlobalLimitState() {
+            // Load global submission data
+            const savedGlobalData = localStorage.getItem(GLOBAL_LIMIT_KEY);
+            const savedCooldownData = localStorage.getItem(GLOBAL_COOLDOWN_KEY);
+            
+            if (savedGlobalData) {
+                const data = JSON.parse(savedGlobalData);
+                globalSubmissionCount = data.count || 0;
+            }
+            
+            if (savedCooldownData) {
+                const cooldownData = JSON.parse(savedCooldownData);
+                const endTime = cooldownData.endTime;
+                
+                if (endTime && endTime > Date.now()) {
+                    globalCooldownActive = true;
+                    globalCooldownEndTime = endTime;
+                } else {
+                    // Cooldown expired, reset everything
+                    resetGlobalLimit();
+                }
+            }
+            
+            updateSubmissionUI();
+        }
+
+        // Save global limit state to localStorage
+        function saveGlobalLimitState() {
+            localStorage.setItem(GLOBAL_LIMIT_KEY, JSON.stringify({
+                count: globalSubmissionCount,
+                lastUpdate: Date.now()
+            }));
+            
+            if (globalCooldownActive && globalCooldownEndTime) {
+                localStorage.setItem(GLOBAL_COOLDOWN_KEY, JSON.stringify({
+                    active: true,
+                    endTime: globalCooldownEndTime,
+                    lastUpdate: Date.now()
+                }));
+            } else {
+                localStorage.removeItem(GLOBAL_COOLDOWN_KEY);
+            }
+        }
+
+        // Reset global limit (after cooldown expires)
+        function resetGlobalLimit() {
+            globalSubmissionCount = 0;
+            globalCooldownActive = false;
+            globalCooldownEndTime = null;
+            
+            localStorage.removeItem(GLOBAL_LIMIT_KEY);
+            localStorage.removeItem(GLOBAL_COOLDOWN_KEY);
+            
+            updateSubmissionUI();
+        }
+
+        // Sync global state across all browser tabs/windows
+        function syncGlobalState() {
+            // Check if another tab/window updated the global state
+            const savedGlobalData = localStorage.getItem(GLOBAL_LIMIT_KEY);
+            const savedCooldownData = localStorage.getItem(GLOBAL_COOLDOWN_KEY);
+            
+            let stateChanged = false;
+            
+            if (savedGlobalData) {
+                const data = JSON.parse(savedGlobalData);
+                if (data.count !== globalSubmissionCount) {
+                    globalSubmissionCount = data.count;
+                    stateChanged = true;
+                }
+            }
+            
+            if (savedCooldownData) {
+                const cooldownData = JSON.parse(savedCooldownData);
+                const endTime = cooldownData.endTime;
+                
+                if (!globalCooldownActive && cooldownData.active && endTime > Date.now()) {
+                    globalCooldownActive = true;
+                    globalCooldownEndTime = endTime;
+                    stateChanged = true;
+                }
+            } else if (globalCooldownActive) {
+                globalCooldownActive = false;
+                globalCooldownEndTime = null;
+                stateChanged = true;
+            }
+            
+            if (stateChanged) {
+                updateSubmissionUI();
+            }
+        }
+
+        // Start global cooldown (45 minutes)
+        function startGlobalCooldown() {
+            globalCooldownActive = true;
+            globalCooldownEndTime = Date.now() + (45 * 60 * 1000); // 45 minutes
+            saveGlobalLimitState();
+            updateSubmissionUI();
+        }
+
+        // Update submission UI based on global state
+        function updateSubmissionUI() {
+            const submitCount = document.getElementById('submitCount');
+            const cooldownTimer = document.getElementById('cooldownTimer');
+            const cooldownMessage = document.getElementById('cooldownMessage');
+            const usernameInput = document.getElementById('usernameInput');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Update counter
+            submitCount.textContent = globalSubmissionCount;
+            
+            if (globalCooldownActive && globalCooldownEndTime) {
+                // Show cooldown state
+                cooldownTimer.style.display = 'block';
+                cooldownMessage.style.display = 'block';
+                usernameInput.disabled = true;
+                submitBtn.disabled = true;
+                updateCooldownDisplay();
+            } else if (globalSubmissionCount >= 3) {
+                // Limit reached but no active cooldown (edge case)
+                startGlobalCooldown();
+            } else {
+                // Normal state - submissions allowed
+                cooldownTimer.style.display = 'none';
+                cooldownMessage.style.display = 'none';
+                usernameInput.disabled = false;
+                submitBtn.disabled = false;
+            }
+        }
+
+        // Update cooldown display
+        function updateCooldownDisplay() {
+            if (!globalCooldownActive || !globalCooldownEndTime) return;
+            
+            const remaining = globalCooldownEndTime - Date.now();
+            
+            if (remaining <= 0) {
+                // Cooldown finished - reset everything
+                resetGlobalLimit();
+            } else {
+                const minutes = Math.floor(remaining / 60000);
+                const seconds = Math.floor((remaining % 60000) / 1000);
+                document.getElementById('timerDisplay').textContent = 
+                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }
 
         // Create massive star field
         function createStarField() {
@@ -940,71 +1088,6 @@
                 particle.style.animationDelay = Math.random() * 25 + 's';
                 particle.style.animationDuration = (Math.random() * 15 + 20) + 's';
                 container.appendChild(particle);
-            }
-        }
-
-        // Load submission state from localStorage
-        function loadSubmissionState() {
-            const savedCount = localStorage.getItem('submissionCount');
-            const savedEndTime = localStorage.getItem('cooldownEndTime');
-            
-            if (savedCount) {
-                submissionCount = parseInt(savedCount);
-                document.getElementById('submitCount').textContent = submissionCount;
-            }
-            
-            if (savedEndTime) {
-                const endTime = parseInt(savedEndTime);
-                if (endTime > Date.now()) {
-                    startCooldown(endTime);
-                } else {
-                    // Cooldown expired, reset
-                    localStorage.removeItem('submissionCount');
-                    localStorage.removeItem('cooldownEndTime');
-                    submissionCount = 0;
-                    document.getElementById('submitCount').textContent = 0;
-                }
-            }
-        }
-
-        // Start cooldown
-        function startCooldown(endTime = null) {
-            cooldownActive = true;
-            cooldownEndTime = endTime || Date.now() + (45 * 60 * 1000); // 45 minutes
-            
-            localStorage.setItem('cooldownEndTime', cooldownEndTime);
-            
-            document.getElementById('cooldownTimer').style.display = 'block';
-            document.getElementById('usernameInput').disabled = true;
-            document.getElementById('submitBtn').disabled = true;
-            
-            updateCooldownDisplay();
-        }
-
-        // Update cooldown display
-        function updateCooldownDisplay() {
-            if (!cooldownActive || !cooldownEndTime) return;
-            
-            const remaining = cooldownEndTime - Date.now();
-            
-            if (remaining <= 0) {
-                // Cooldown finished
-                cooldownActive = false;
-                cooldownEndTime = null;
-                submissionCount = 0;
-                
-                localStorage.removeItem('submissionCount');
-                localStorage.removeItem('cooldownEndTime');
-                
-                document.getElementById('cooldownTimer').style.display = 'none';
-                document.getElementById('usernameInput').disabled = false;
-                document.getElementById('submitBtn').disabled = false;
-                document.getElementById('submitCount').textContent = 0;
-            } else {
-                const minutes = Math.floor(remaining / 60000);
-                const seconds = Math.floor((remaining % 60000) / 1000);
-                document.getElementById('timerDisplay').textContent = 
-                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
             }
         }
 
@@ -1276,8 +1359,13 @@
         async function addMember(event) {
             event.preventDefault();
             
-            if (cooldownActive) {
-                alert('Please wait for the cooldown to finish!');
+            if (globalCooldownActive) {
+                alert('Global submission limit reached! Please wait for the next batch.');
+                return;
+            }
+            
+            if (globalSubmissionCount >= 3) {
+                alert('Global submission limit reached! Please wait for the next batch.');
                 return;
             }
             
@@ -1317,10 +1405,9 @@
                     throw new Error(error.error || 'Failed to add member');
                 }
                 
-                // Increment submission count
-                submissionCount++;
-                localStorage.setItem('submissionCount', submissionCount);
-                document.getElementById('submitCount').textContent = submissionCount;
+                // SUCCESS: Increment global counter
+                globalSubmissionCount++;
+                saveGlobalLimitState();
                 
                 // Clear input and refresh
                 input.value = '';
@@ -1329,10 +1416,13 @@
                 // Add cosmic success effect
                 showCosmicSuccess();
                 
-                // Check if we've reached the limit
-                if (submissionCount >= 3) {
-                    startCooldown();
-                    alert('Maximum 3 submissions reached! Please wait 45 minutes for the next batch.');
+                // Check if we've reached the global limit
+                if (globalSubmissionCount >= 3) {
+                    startGlobalCooldown();
+                    showGlobalLimitReached();
+                } else {
+                    // Update UI to show new count
+                    updateSubmissionUI();
                 }
                 
             } catch (error) {
@@ -1370,6 +1460,35 @@
             setTimeout(() => {
                 successEffect.remove();
             }, 3000);
+        }
+
+        // Show global limit reached notification
+        function showGlobalLimitReached() {
+            const limitEffect = document.createElement('div');
+            limitEffect.innerHTML = '🚫 Global Limit Reached! 45-min cooldown started for everyone!';
+            limitEffect.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(239, 68, 68, 0.9);
+                color: #fff;
+                padding: 1.5rem 2.5rem;
+                border-radius: 50px;
+                font-weight: bold;
+                font-size: 1.1rem;
+                z-index: 10001;
+                animation: limitPulse 4s ease-out forwards;
+                box-shadow: 0 0 50px rgba(239, 68, 68, 0.8);
+                text-align: center;
+                max-width: 90vw;
+            `;
+            
+            document.body.appendChild(limitEffect);
+            
+            setTimeout(() => {
+                limitEffect.remove();
+            }, 4000);
         }
 
         // Refresh members
@@ -1428,14 +1547,14 @@
             return Math.floor(diffInSeconds / 86400) + 'd';
         }
 
-        // Auto-refresh every 3 minutes when connected
+        // Auto-refresh every 2 minutes when connected
         setInterval(() => {
             if (isConnected) {
                 refreshMembers();
             }
-        }, 3 * 60 * 1000);
+        }, 2 * 60 * 1000);
 
-        // Add CSS for success animation
+        // Add CSS for success and limit animations
         const style = document.createElement('style');
         style.textContent = `
             @keyframes successPulse {
@@ -1454,6 +1573,34 @@
                 100% { 
                     opacity: 0; 
                     transform: translate(-50%, -50%) scale(0.8); 
+                }
+            }
+            
+            @keyframes limitPulse {
+                0% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.3) rotate(-5deg); 
+                }
+                15% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1.1) rotate(2deg); 
+                }
+                25% { 
+                    transform: translate(-50%, -50%) scale(0.95) rotate(-1deg); 
+                }
+                35% { 
+                    transform: translate(-50%, -50%) scale(1.05) rotate(1deg); 
+                }
+                45% { 
+                    transform: translate(-50%, -50%) scale(1) rotate(0deg); 
+                }
+                85% { 
+                    opacity: 1; 
+                    transform: translate(-50%, -50%) scale(1) rotate(0deg); 
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: translate(-50%, -50%) scale(0.7) rotate(0deg); 
                 }
             }
         `;
