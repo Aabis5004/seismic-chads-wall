@@ -1048,18 +1048,22 @@
                 
                 const allMembers = await response.json();
                 
+                // Clear previous leadership data
+                leadershipData = {};
+                members = [];
+                
                 // Separate leadership from regular members
                 allMembers.forEach(member => {
                     const username = member.username.replace('@', '').toLowerCase();
-                    if (leadership.includes(username)) {
+                    
+                    // Check for all variations of leadership usernames
+                    if (username === 'lyron' || username === 'noxx_xealist' || username === 'heathcliff_eth') {
                         leadershipData[username] = member;
+                    } else {
+                        // Only add to members if NOT leadership
+                        members.push(member);
                     }
                 });
-                
-                // Filter out leadership from regular members
-                members = allMembers.filter(m => 
-                    !leadership.includes(m.username.replace('@', '').toLowerCase())
-                );
                 
                 renderLeadership();
                 renderMembers();
@@ -1076,57 +1080,53 @@
             const founderSection = document.getElementById('founderSection');
             const moderatorsSection = document.getElementById('moderatorsSection');
             
+            // Clear sections first
+            founderSection.innerHTML = '';
+            moderatorsSection.innerHTML = '';
+            
             // Render Founder (Lyron)
             const lyronData = leadershipData['lyron'];
-            if (lyronData) {
-                founderSection.innerHTML = `
-                    <div class="founder-card">
-                        <div class="founder-badge">👑 FOUNDER</div>
-                        <div class="profile-avatar">
-                            ${lyronData.profileImage ? 
-                                `<img src="${lyronData.profileImage}" alt="${lyronData.displayName}" onerror="this.parentElement.innerHTML='LY'">` :
-                                'LY'
-                            }
-                        </div>
-                        <div class="profile-username">${lyronData.username}</div>
-                        <div class="profile-stats">
-                            <div class="stat-line">🔥 Seismic Blockchain Creator</div>
-                            <div class="stat-line">${lyronData.followers ? `👥 ${formatNumber(lyronData.followers)} Followers` : '✅ Verified'}</div>
-                            <div class="stat-line">⭐ Visionary Leader</div>
-                        </div>
+            const founderCard = document.createElement('div');
+            founderCard.className = 'founder-card';
+            
+            if (lyronData && lyronData.profileImage) {
+                founderCard.innerHTML = `
+                    <div class="founder-badge">👑 FOUNDER</div>
+                    <div class="profile-avatar">
+                        <img src="${lyronData.profileImage}" alt="${lyronData.displayName || 'Lyron'}" onerror="this.parentElement.innerHTML='LY'">
+                    </div>
+                    <div class="profile-username">${lyronData.username}</div>
+                    <div class="profile-stats">
+                        <div class="stat-line">🔥 Seismic Blockchain Creator</div>
+                        <div class="stat-line">${lyronData.followers ? `👥 ${formatNumber(lyronData.followers)} Followers` : '✅ Verified'}</div>
+                        <div class="stat-line">⭐ Visionary Leader</div>
                     </div>
                 `;
             } else {
                 // Fallback if no data
-                founderSection.innerHTML = `
-                    <div class="founder-card">
-                        <div class="founder-badge">👑 FOUNDER</div>
-                        <div class="profile-avatar">LY</div>
-                        <div class="profile-username">@lyron</div>
-                        <div class="profile-stats">
-                            <div class="stat-line">🔥 Seismic Blockchain Creator</div>
-                            <div class="stat-line">✅ Verified</div>
-                            <div class="stat-line">⭐ Visionary Leader</div>
-                        </div>
+                founderCard.innerHTML = `
+                    <div class="founder-badge">👑 FOUNDER</div>
+                    <div class="profile-avatar">LY</div>
+                    <div class="profile-username">@lyron</div>
+                    <div class="profile-stats">
+                        <div class="stat-line">🔥 Seismic Blockchain Creator</div>
+                        <div class="stat-line">✅ Verified</div>
+                        <div class="stat-line">⭐ Visionary Leader</div>
                     </div>
                 `;
             }
+            founderSection.appendChild(founderCard);
             
-            // Render Moderators
-            moderatorsSection.innerHTML = '';
-            
-            // Noxx
+            // Render Noxx Moderator
             const noxxData = leadershipData['noxx_xealist'];
             const noxxCard = document.createElement('div');
             noxxCard.className = 'moderator-card';
-            if (noxxData) {
+            
+            if (noxxData && noxxData.profileImage) {
                 noxxCard.innerHTML = `
                     <div class="moderator-badge">⚡ MODERATOR</div>
                     <div class="profile-avatar">
-                        ${noxxData.profileImage ? 
-                            `<img src="${noxxData.profileImage}" alt="${noxxData.displayName}" onerror="this.parentElement.innerHTML='NX'">` :
-                            'NX'
-                        }
+                        <img src="${noxxData.profileImage}" alt="${noxxData.displayName || 'Noxx'}" onerror="this.parentElement.innerHTML='NX'">
                     </div>
                     <div class="profile-username">${noxxData.username}</div>
                     <div class="profile-stats">
@@ -1147,18 +1147,16 @@
             }
             moderatorsSection.appendChild(noxxCard);
             
-            // Heathcliff
+            // Render Heathcliff Moderator
             const heathcliffData = leadershipData['heathcliff_eth'];
             const heathcliffCard = document.createElement('div');
             heathcliffCard.className = 'moderator-card';
-            if (heathcliffData) {
+            
+            if (heathcliffData && heathcliffData.profileImage) {
                 heathcliffCard.innerHTML = `
                     <div class="moderator-badge">⚡ MODERATOR</div>
                     <div class="profile-avatar">
-                        ${heathcliffData.profileImage ? 
-                            `<img src="${heathcliffData.profileImage}" alt="${heathcliffData.displayName}" onerror="this.parentElement.innerHTML='HC'">` :
-                            'HC'
-                        }
+                        <img src="${heathcliffData.profileImage}" alt="${heathcliffData.displayName || 'Heathcliff'}" onerror="this.parentElement.innerHTML='HC'">
                     </div>
                     <div class="profile-username">${heathcliffData.username}</div>
                     <div class="profile-stats">
